@@ -10,26 +10,26 @@
                <li>
                    <button mat-icon-button>
                        <mat-icon>settings </mat-icon>
-                   </button> 
+                   </button>
                </li>
                <li>
                 <button mat-icon-button>
                     <mat-icon>help_outline </mat-icon>
-                </button> 
+                </button>
             </li>
             <li>
                 <button mat-button [matMenuTriggerFor]="menu">
                     <mat-icon>person_outline</mat-icon>
-                </button>
+               </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="logOut()" >
                       <mat-icon>exit_to_app</mat-icon>
-                      <span>Sign out</span>
+                        <span>Sign out</span>
                     </button>
                   </mat-menu>
-            </li> 
+            </li>
            </ul>
        </div>
-       
+
     </mat-toolbar-row>
-</mat-toolbar> 
+</mat-toolbar>

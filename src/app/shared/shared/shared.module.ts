@@ -16,7 +16,11 @@ import { AreaComponent } from '../widgets/area/area.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { CardComponent } from '../widgets/card/card.component';
 import { PieComponent } from '../widgets/pie/pie.component';
-
+import { AuthComponent } from '../auth/auth.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgModel, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +30,8 @@ import { PieComponent } from '../widgets/pie/pie.component';
     SidebarComponent,
     AreaComponent,
     CardComponent,
-    PieComponent
+    PieComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +43,11 @@ import { PieComponent } from '../widgets/pie/pie.component';
     FlexLayoutModule,
     MatMenuModule,
     MatListModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    MatCardModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   exports:[
     HeaderComponent,
@@ -46,7 +55,8 @@ import { PieComponent } from '../widgets/pie/pie.component';
     SidebarComponent,
     AreaComponent,
     CardComponent,
-    PieComponent
+    PieComponent,
+    AuthComponent
   ]
 })
 export class SharedModule { }

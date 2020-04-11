@@ -12,10 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-
-
-
+import { AuthComponent } from 'src/app/shared/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +22,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   ],
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule.forChild([
+      { path: 'default', component:DefaultComponent,
+    children:[
+      {path:'',component:DashboardComponent},
+      {
+      path:'posts', component:PostsComponent
+    }] }
+    ]),
     SharedModule,
     MatSidenavModule,
     MatDividerModule,
