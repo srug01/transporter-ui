@@ -1,0 +1,129 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>CFS Management</mat-card-title>
+        <mat-card-subtitle>Create Order</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="example-form">
+            <div fxLayout='row'>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Port To CFS</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlexOffset="10px">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Date</mat-label>
+                        <input matInput placeholder="Ex. Pizza" value="Static date">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout='row'>
+                <div fxFlex="3%">
+                    <i class="material-icons md-24 p5">location_on</i>
+                </div>
+                <div fxFlex="47%">
+                    <mat-form-field>
+                        <mat-label>Source</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="3%">
+                    <i class="material-icons md-24 p5">location_on</i>
+                </div>
+                <div fxFlex="47%" fxFlexOffset="10px">
+                    <mat-form-field>
+                        <mat-label>Destination</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <h3>Container Details</h3>
+            <div fxLayout="row">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Type">
+                        <th mat-header-cell *matHeaderCellDef> Type </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-form-field>
+                                <mat-select #fontSize value="20 FT" (selectionChange)="triggerResize()">
+                                    <mat-option value="10 FT">10 FT</mat-option>
+                                    <mat-option value="20 FT">20 FT</mat-option>
+                                    <mat-option value="30 FT">30 FT</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Weight">
+                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-form-field>
+                                <mat-select #fontSize value="1 TON" (selectionChange)="triggerResize()">
+                                    <mat-option value="1 TON">1 TON</mat-option>
+                                    <mat-option value="2 TON">2 TON</mat-option>
+                                    <mat-option value="3 TON">3 TON</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="NoOfTrucks">
+                        <th mat-header-cell *matHeaderCellDef> NoOfTrucks </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-form-field>
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ContainerNo">
+                        <th mat-header-cell *matHeaderCellDef> ContainerNo </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-form-field>
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput placeholder="Remarks">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <button mat-raised-button color="primary">Save</button>
+                <button mat-raised-button color="accent">Submit</button>
+                <button mat-raised-button color="warn">Cancel</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

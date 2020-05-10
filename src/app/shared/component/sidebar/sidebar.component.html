@@ -2,22 +2,25 @@
 
     <div class="profile-card">
         <div class="header">
-            <h2>Roshan Aher</h2>
-            <h4>roshanaher01@gmail.com</h4>
+            <h1><strong></strong>Username</h1>
+            <h3>username@gmail.com</h3>
         </div>
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="roshan aher">
     </div>
 
     <mat-divider></mat-divider>
-
-    <h2 matSubheader>Pages</h2>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/default'>Dashboard</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/default/posts'>Posts</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/Articles'>Articles</a>
-
+    <a mat-list-item routerLinkActive="list-item-active" routerLink='/default'><i class="material-icons md-24 p5">dashboard</i>Dashboard</a>
+    <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1"><i class="material-icons md-24 p5">games</i>CFS</a>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
+        <button mat-menu-item routerLink='/default/cfs/placed-bids'>Placed Bids</button>
+    </mat-menu>
+    <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2"><i class="material-icons md-24 p5">games</i>Transporter</a>
+    <mat-menu #menu2="matMenu">
+        <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
+    </mat-menu>
     <mat-divider></mat-divider>
 
-    <h2 matSubheader>Tools</h2>
+    <!-- <h2 matSubheader>Tools</h2>
 
     <a mat-list-item routerLinkActive="list-item-active" routerLink='/contacts'>
         <mat-icon>import_contacts</mat-icon>
@@ -26,6 +29,5 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink='/contacts'>
         <mat-icon>contact_phone</mat-icon>
         Leads
-    </a>
+    </a> -->
 </mat-nav-list>
-

@@ -1,0 +1,127 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>Transporter Management</mat-card-title>
+        <mat-card-subtitle>Vehicle Registration</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="example-form">
+            <div fxLayout='row'>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Vehicle No.</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlexOffset="10px">
+                    <mat-form-field>
+                        <mat-label>Select Vehicle Type</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout='row'>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Select Capacity</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlexOffset="10px">
+                    <mat-form-field>
+                        <mat-label>Select Weight</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout='row'>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Select Year of Manufacture</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlexOffset="10px">
+                    <mat-form-field>
+                        <mat-label>Select State of vehicle registration</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <mat-slide-toggle>Owned</mat-slide-toggle>
+            </div>
+            <div fxLayout='row'>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Select Year of Manufacture</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlexOffset="10px">
+                    <mat-form-field>
+                        <mat-label>Upload RTO Card</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout='row'>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Upload PUC Card</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlexOffset="10px">
+                    <mat-form-field>
+                        <mat-label>Select State of vehicle registration</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <button mat-raised-button color="primary">Save</button>
+                <button mat-raised-button color="warn">Cancel</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

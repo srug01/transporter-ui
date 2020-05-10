@@ -5,7 +5,7 @@ import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.componen
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
-import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
@@ -23,12 +23,14 @@ import { AuthComponent } from 'src/app/shared/auth/auth.component';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: 'default', component:DefaultComponent,
-    children:[
-      {path:'',component:DashboardComponent},
       {
-      path:'posts', component:PostsComponent
-    }] }
+        path: 'default', component: DefaultComponent,
+        children: [
+          { path: '', component: DashboardComponent },
+          { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule) },
+          { path: 'transporter', loadChildren: () => import('./../transporter/transporter.module').then(m => m.TransporterModule) }
+        ]
+      }
     ]),
     SharedModule,
     MatSidenavModule,
@@ -38,7 +40,7 @@ import { AuthComponent } from 'src/app/shared/auth/auth.component';
     MatTableModule,
     MatPaginatorModule
   ],
-  providers:[
+  providers: [
     DashboardService
   ]
 })

@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   }
 
   login() : void {
-    if(this.username == 'a' && this.password == '123'){
+    if(this.username == 'admin' && this.password == 'admin'){
       this.router.navigate(['default']);
       console.log(this.username);
     }else {
