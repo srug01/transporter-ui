@@ -13,16 +13,18 @@ import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+
     MatCardModule,
     DefaultModule,
     RouterModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [
     {provide: ErrorHandler, useClass: GlobalErrorHandler}

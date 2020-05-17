@@ -28,7 +28,8 @@ import { AuthComponent } from 'src/app/shared/auth/auth.component';
         children: [
           { path: '', component: DashboardComponent },
           { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule) },
-          { path: 'transporter', loadChildren: () => import('./../transporter/transporter.module').then(m => m.TransporterModule) }
+          { path: 'transporter', loadChildren: () => import('./../transporter/transporter.module').then(m => m.TransporterModule) },
+          { path: 'masters', loadChildren: () => import('./../masters/master.module').then(m => m.MasterModule) },
         ]
       }
     ]),
