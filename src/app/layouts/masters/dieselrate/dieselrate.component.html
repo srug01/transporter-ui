@@ -1,0 +1,62 @@
+<div fxLayout="row wrap" class="matero-row">
+  <div fxFlex="66.67" class="matero-col">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Diesel Rate Master</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form
+          fxLayout="row"
+          fxLayoutGap="10px"
+          #f="ngForm"
+          (ngSubmit)="onSubmit(f)"
+        >
+          <div fxLayout="row wrap" fxLayoutGap="8px grid">
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <mat-label>Diesel Rate</mat-label>
+                <input
+                  matInput
+                  placeholder="Simple placeholder"
+                  ngModel
+                  name="mileage"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="picker2"
+                  placeholder="Choose a date"
+                  ngModel name="date"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-checkbox>Is Active</mat-checkbox>
+            </div>
+            <div fxFlex="100" fxFlex.lt-sm="100">
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                class="m-t-8"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

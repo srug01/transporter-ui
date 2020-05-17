@@ -2,7 +2,7 @@
   <div fxFlex="66.67" class="matero-col">
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Port Master</mat-card-title>
+        <mat-card-title>Mileage Master</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form
@@ -12,21 +12,10 @@
           (ngSubmit)="onSubmit(f)"
         >
           <div fxLayout="row wrap" fxLayoutGap="8px grid">
+
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Port Name"
-                  ngModel
-                  name="name"
-                  port
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Ports</mat-label>
+                <mat-label>Container</mat-label>
                 <mat-select>
                   <mat-option *ngFor="let food of foods" [value]="food.value">
                     {{ food.viewValue }}
@@ -36,7 +25,7 @@
             </div>
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
-                <mat-label>State</mat-label>
+                <mat-label>Weight</mat-label>
                 <mat-select>
                   <mat-option *ngFor="let food of foods" [value]="food.value">
                     {{ food.viewValue }}
@@ -46,15 +35,13 @@
             </div>
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
-                <mat-label>Location</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
-                  </mat-option>
-                </mat-select>
+                <mat-label>Weight</mat-label>
+                <input matInput placeholder="Simple placeholder" ngModel name="mileage"
+                 type="number"
+                required>
               </mat-form-field>
             </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
+            <div fxFlex="100" fxFlex.lt-sm="100">
               <mat-checkbox>Is Active</mat-checkbox>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
@@ -63,6 +50,8 @@
           </div>
         </form>
       </mat-card-content>
+
     </mat-card>
   </div>
 </div>
+

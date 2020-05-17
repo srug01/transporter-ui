@@ -2,7 +2,7 @@
   <div fxFlex="66.67" class="matero-col">
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Port Master</mat-card-title>
+        <mat-card-title>Zone Day Master</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form
@@ -16,10 +16,10 @@
               <mat-form-field>
                 <input
                   matInput
-                  placeholder="Port Name"
+                  placeholder="Zone Name"
                   ngModel
                   name="name"
-                  port
+
                   required
                 />
               </mat-form-field>
@@ -36,25 +36,37 @@
             </div>
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
-                <mat-label>State</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
-                  </mat-option>
-                </mat-select>
+
+                <input
+                  matInput
+                  [matDatepicker]="picker2"
+                  placeholder="Import date"
+                  ngModel
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
               </mat-form-field>
             </div>
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
-                <mat-label>Location</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
-                  </mat-option>
-                </mat-select>
+
+                <input
+                  matInput
+                  [matDatepicker]="picker3"
+                  placeholder="Export date"
+                  ngModel
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker3"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
               </mat-form-field>
             </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
+            <div fxFlex="100" fxFlex.lt-sm="100">
               <mat-checkbox>Is Active</mat-checkbox>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
@@ -63,6 +75,7 @@
           </div>
         </form>
       </mat-card-content>
+
     </mat-card>
   </div>
 </div>

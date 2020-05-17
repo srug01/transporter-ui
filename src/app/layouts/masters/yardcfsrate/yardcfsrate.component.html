@@ -2,7 +2,7 @@
   <div fxFlex="66.67" class="matero-col">
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Port Master</mat-card-title>
+        <mat-card-title>Yard CFS Rate Master </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form
@@ -14,47 +14,57 @@
           <div fxLayout="row wrap" fxLayoutGap="8px grid">
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
+                <mat-label>CFS</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{ food.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <mat-label>Yard</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{ food.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <mat-label>Container</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{ food.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <mat-label>Weight</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{ food.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
                 <input
                   matInput
-                  placeholder="Port Name"
+                  placeholder="Rate"
                   ngModel
                   name="name"
-                  port
+                  rate
                   required
                 />
               </mat-form-field>
             </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Ports</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>State</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Location</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
+            <div fxFlex="100" fxFlex.lt-sm="100">
               <mat-checkbox>Is Active</mat-checkbox>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
@@ -63,6 +73,9 @@
           </div>
         </form>
       </mat-card-content>
+
     </mat-card>
   </div>
 </div>
+
+
