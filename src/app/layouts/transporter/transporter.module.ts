@@ -8,27 +8,40 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
+import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
+import { VehicleService } from './services/vehicle.service';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
-  { path: 'register-vehicle', component: VehicleRegistrationComponent }
+  { path: 'register-vehicle', component: VehicleRegistrationComponent },
+  { path: 'vehicle-list', component: VehicleListComponent }
 ];
+
+const toasterConfig : MatSnackBarConfig = {
+  horizontalPosition: 'right',
+  verticalPosition: 'top',
+  duration : 2500
+};
 
 @NgModule({
   declarations: [
     TransporterComponent,
-    VehicleRegistrationComponent
+    VehicleRegistrationComponent,
+    VehicleListComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatTableModule,
     MatFormFieldModule,
@@ -39,7 +52,13 @@ const routes: Routes = [
     FlexLayoutModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
+    HttpClientModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    VehicleService,
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
 export class TransporterModule { }

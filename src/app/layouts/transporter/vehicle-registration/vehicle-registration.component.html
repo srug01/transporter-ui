@@ -4,77 +4,65 @@
         <mat-card-subtitle>Vehicle Registration</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <form class="example-form">
+        <form [formGroup]="vehicleForm" (ngSubmit)="submitVehicleForm($event)">
             <div fxLayout='row'>
                 <div fxFlex="50%">
-                    <mat-form-field>
+                    <mat-form-field class="example-full-width">
                         <mat-label>Vehicle No.</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
-                            </mat-option>
-                        </mat-select>
+                        <input matInput formControlName="vehicle_no" placeholder="vehicle number">
                     </mat-form-field>
                 </div>
                 <div fxFlex="50%" fxFlexOffset="10px">
-                    <mat-form-field>
+                    <mat-form-field class="demo-full-width">
                         <mat-label>Select Vehicle Type</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
+                        <mat-select matNativeControl formControlName="vehicle_type" [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let vehicle of vehicleTypes" [value]="vehicle.value">
+                                {{vehicle.viewValue}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="vehicleForm.controls['vehicle_type'].hasError('required')">You must make a
+                            selection</mat-error>
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout='row'>
                 <div fxFlex="50%">
-                    <mat-form-field>
+                    <mat-form-field class="demo-full-width">
                         <mat-label>Select Capacity</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
+                        <mat-select matNativeControl formControlName="vehicle_capacity" [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let capacity of vehicleCapacity" [value]="capacity.value">
+                                {{capacity.viewValue}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="vehicleForm.controls['vehicle_capacity'].hasError('required')">You must make a
+                            selection</mat-error>
                     </mat-form-field>
                 </div>
                 <div fxFlex="50%" fxFlexOffset="10px">
-                    <mat-form-field>
-                        <mat-label>Select Weight</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
-                            </mat-option>
-                        </mat-select>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Weight</mat-label>
+                        <input matInput formControlName="weight" placeholder="vehicle weight">
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout='row'>
                 <div fxFlex="50%">
-                    <mat-form-field>
-                        <mat-label>Select Year of Manufacture</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
-                            </mat-option>
-                        </mat-select>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Year of Manufacture</mat-label>
+                        <input matInput formControlName="manufacture_year" placeholder="vehicle manufactureYear">
                     </mat-form-field>
                 </div>
                 <div fxFlex="50%" fxFlexOffset="10px">
-                    <mat-form-field>
-                        <mat-label>Select State of vehicle registration</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
-                            </mat-option>
-                        </mat-select>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>State of Vehicle Registration</mat-label>
+                        <input matInput formControlName="vehicle_state" placeholder="vehicle state">
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout="row">
-                <mat-slide-toggle>Owned</mat-slide-toggle>
+                <mat-slide-toggle formControlName="owned">Owned</mat-slide-toggle>
             </div>
-            <div fxLayout='row'>
+            <!-- <div fxLayout='row'>
                 <div fxFlex="50%">
                     <mat-form-field>
                         <mat-label>Select Year of Manufacture</mat-label>
@@ -95,7 +83,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>
+            </div> 
             <div fxLayout='row'>
                 <div fxFlex="50%">
                     <mat-form-field>
@@ -117,9 +105,9 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>
+            </div> -->
             <div fxLayout="row" fxLayoutGap="10px">
-                <button mat-raised-button color="primary">Save</button>
+                <button type="submit" mat-raised-button color="primary">Save</button>
                 <button mat-raised-button color="warn">Cancel</button>
             </div>
         </form>
