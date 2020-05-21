@@ -14,9 +14,11 @@ export class VehicleService {
     private http: HttpClient
   ) { }
 
-  saveVehicle(vehicle: Vehicle): Observable<any> {
-    const headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
-    return this.http.post<Vehicle>(this.baseUrl + 'vehicles', JSON.stringify(vehicle), { headers: headers });
+  saveVehicleMaster(vehicle: Vehicle): Observable<any> {
+    return this.http.post<Vehicle>(this.baseUrl + 'vehicle-masters', JSON.stringify(vehicle));
+  }
+
+  getAllVehicleMasters(): Observable<any> {
+    return this.http.get(this.baseUrl + 'vehicle-masters');
   }
 }

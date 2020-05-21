@@ -6,6 +6,7 @@ import { NgZone, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-registration',
@@ -39,7 +40,8 @@ export class VehicleRegistrationComponent implements OnInit {
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
-    private _vehicleService: VehicleService
+    private _vehicleService: VehicleService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -49,8 +51,9 @@ export class VehicleRegistrationComponent implements OnInit {
       vehicle_capacity: ['', Validators.required],
       weight: ['', Validators.required],
       manufacture_year: ['', Validators.required],
-      vehicle_state: ['', Validators.required],
-      owned: ['']
+      state_syscode: ['', Validators.required],
+      owned: [''],
+      is_active: ['', Validators.required]
     });
   }
 
@@ -65,7 +68,7 @@ export class VehicleRegistrationComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.vehicleForm.valid) {
-      this.saveVehicle(this.vehicleForm);
+      this.saveVehicleMaster(this.vehicleForm);
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
       console.log(this.vehicleForm);
@@ -73,10 +76,11 @@ export class VehicleRegistrationComponent implements OnInit {
     }
   }
 
-  saveVehicle(vehicleForm: any) {
-    this._vehicleService.saveVehicle(vehicleForm.value).subscribe(
+  saveVehicleMaster(vehicleForm: any) {
+    this._vehicleService.saveVehicleMaster(vehicleForm.value).subscribe(
       (res) => {
-        console.log(res);
+        this.openSnackBar('Success !', 'Vehicle Master Created Successfully');
+        this._router.navigate(['/default/transporter/vehicle-list']);
       },
       (err) => {
         console.log('err');

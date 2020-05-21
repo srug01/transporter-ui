@@ -1,3 +1,4 @@
+import { TokenInterceptor } from './interceptors/token.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 
@@ -7,15 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DefaultModule } from './layouts/default/default.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { GlobalErrorHandler } from './global-error.handler';
 import { MatCardModule } from '@angular/material/card';
 import { AuthenticationService } from './services/authentication.service';
 import { LocalStorageService } from './services/storage.service';
-import { HttpClientModule } from '@angular/common/http';
-
-export function tokenGetter() {
-  return localStorage.getItem('token');
-}
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,11 +25,15 @@ export function tokenGetter() {
     DefaultModule,
     RouterModule,
     FormsModule,
-    AppRoutingModule,
-
+    AppRoutingModule
   ],
   providers: [
     LocalStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     // {provide: ErrorHandler, useClass: GlobalErrorHandler},
     AuthenticationService
   ],

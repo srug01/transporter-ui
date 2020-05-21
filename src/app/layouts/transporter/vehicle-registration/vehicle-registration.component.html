@@ -41,7 +41,7 @@
                 <div fxFlex="50%" fxFlexOffset="10px">
                     <mat-form-field class="example-full-width">
                         <mat-label>Weight</mat-label>
-                        <input matInput formControlName="weight" placeholder="vehicle weight">
+                        <input matInput type="number" formControlName="weight" placeholder="vehicle weight">
                     </mat-form-field>
                 </div>
             </div>
@@ -55,12 +55,17 @@
                 <div fxFlex="50%" fxFlexOffset="10px">
                     <mat-form-field class="example-full-width">
                         <mat-label>State of Vehicle Registration</mat-label>
-                        <input matInput formControlName="vehicle_state" placeholder="vehicle state">
+                        <input matInput type="number" formControlName="state_syscode" placeholder="vehicle state">
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout="row">
-                <mat-slide-toggle formControlName="owned">Owned</mat-slide-toggle>
+                <div fxFlex="20%">
+                    <mat-slide-toggle formControlName="owned">Owned</mat-slide-toggle>
+                </div>
+                <div fxFlex="20%">
+                    <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+                </div>
             </div>
             <!-- <div fxLayout='row'>
                 <div fxFlex="50%">

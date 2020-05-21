@@ -14,7 +14,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
@@ -53,7 +52,6 @@ const toasterConfig : MatSnackBarConfig = {
     MatButtonModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    HttpClientModule,
     RouterModule.forChild(routes)
   ],
   providers: [
