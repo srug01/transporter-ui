@@ -9,7 +9,13 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { GlobalErrorHandler } from './global-error.handler';
 import { MatCardModule } from '@angular/material/card';
+import { AuthenticationService } from './services/authentication.service';
+import { LocalStorageService } from './services/storage.service';
+import { HttpClientModule } from '@angular/common/http';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -18,7 +24,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
+    HttpClientModule,
     MatCardModule,
     DefaultModule,
     RouterModule,
@@ -27,7 +33,9 @@ import { MatCardModule } from '@angular/material/card';
 
   ],
   providers: [
-    {provide: ErrorHandler, useClass: GlobalErrorHandler}
+    LocalStorageService,
+    // {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

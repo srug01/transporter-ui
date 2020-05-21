@@ -13,6 +13,7 @@ import { DashboardService } from 'src/app/modules/dashboard.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthComponent } from 'src/app/shared/auth/auth.component';
+import { AuthGuardService } from 'src/app/services/auth.guard.service';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,11 @@ import { AuthComponent } from 'src/app/shared/auth/auth.component';
         path: 'default', component: DefaultComponent,
         children: [
           { path: '', component: DashboardComponent },
-          { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule) },
-          { path: 'transporter', loadChildren: () => import('./../transporter/transporter.module').then(m => m.TransporterModule) },
-          { path: 'masters', loadChildren: () => import('./../masters/master.module').then(m => m.MasterModule) },
+          { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule), canActivate: [AuthGuardService] },
+          { path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')
+            .then(m => m.TransporterModule), canActivate: [AuthGuardService] },
+          { path: 'masters', loadChildren: () => import('./../masters/master.module')
+            .then(m => m.MasterModule), canActivate: [AuthGuardService] },
         ]
       }
     ]),
@@ -42,7 +45,8 @@ import { AuthComponent } from 'src/app/shared/auth/auth.component';
     MatPaginatorModule
   ],
   providers: [
-    DashboardService
+    DashboardService,
+    AuthGuardService
   ]
 })
 export class DefaultModule { }
