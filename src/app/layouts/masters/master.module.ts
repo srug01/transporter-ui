@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortComponent } from './port/port.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -26,8 +26,33 @@ import { DieselrateComponent } from './dieselrate/dieselrate.component';
 import { ZoneComponent } from './zone/zone.component';
 import { ZonedayComponent } from './zoneday/zoneday.component';
 import { StateComponent } from './state/state.component';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
+
+/**
+ * Services
+ */
+import { StateMasterService } from './services/state-master.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PortMasterListComponent } from './port/port-master-list.component';
+import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.component';
+import { YardMasterListComponent } from './yard/yard-master-list.component';
+import { YardportmapMasterListComponent } from './yardportmap/yardportmap-master-list.component';
+import { ContainerMasterListComponent } from './container/container-master-list.component';
+import { WeightMasterListComponent } from './weight/weight-master-list.component';
+import { YardcfsrateMasterListComponent } from './yardcfsrate/yardcfsrate-master-list.component';
+import { MileageMasterListComponent } from './mileage/mileage-master-list.component';
+import { DieselrateMasterListComponent } from './dieselrate/dieselrate-master-list.component';
+import { ZoneMasterListComponent } from './zone/zone-master-list.component';
+import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
+import { StateMasterListComponent } from './state/state-master-list.component';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+
+const toasterConfig : MatSnackBarConfig = {
+  horizontalPosition: 'right',
+  verticalPosition: 'top',
+  duration : 2500
+};
 
 const routes: Routes = [
   { path: 'port', component: PortComponent },
@@ -42,33 +67,70 @@ const routes: Routes = [
   { path: 'zone', component: ZoneComponent },
   { path: 'zone-day', component: ZonedayComponent },
   { path: 'state', component: StateComponent },
+  /**
+   * Lists
+   */
+  { path: 'port-master-list', component: PortMasterListComponent },
+  { path: 'yard-master-list', component: YardMasterListComponent },
+  { path: 'yard-port-map-master-list', component: YardportmapMasterListComponent },
+  { path: 'container-master-list', component: ContainerMasterListComponent },
+  { path: 'weight-master-list', component: WeightMasterListComponent },
+  { path: 'cfs-rate-master-list', component: CfsrateMasterListComponent },
+  { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
+  { path: 'mileage-master-list', component: MileageMasterListComponent },
+  { path: 'diesel-rate-master-list', component: DieselrateMasterListComponent},
+  { path: 'zone-master-list', component: ZoneMasterListComponent },
+  { path: 'zone-day-master-list', component: ZonedayMasterListComponent },
+  { path: 'state-master-list', component: StateMasterListComponent },
 ];
 
 @NgModule({
-  declarations: [PortComponent,
-    YardComponent, YardportmapComponent,
-    ContainerComponent, WeightComponent,
-    CfsrateComponent, YardcfsrateComponent,
+  declarations: [
+    PortComponent,
+    YardComponent, 
+    YardportmapComponent,
+    ContainerComponent, 
+    WeightComponent,
+    CfsrateComponent, 
+    YardcfsrateComponent,
     MileageComponent,
     DieselrateComponent,
     ZoneComponent,
     ZonedayComponent,
-    StateComponent
+    StateComponent,
+    PortMasterListComponent,
+    CfsrateMasterListComponent,
+    YardMasterListComponent,
+    YardportmapMasterListComponent,
+    ContainerMasterListComponent,
+    WeightMasterListComponent,
+    YardcfsrateMasterListComponent,
+    MileageMasterListComponent,
+    DieselrateMasterListComponent,
+    ZoneMasterListComponent,
+    ZonedayMasterListComponent,
+    StateMasterListComponent
   ],
   imports: [
     CommonModule,
-    MatFormFieldModule,
+    ReactiveFormsModule,
     FormsModule,
     MatCardModule,
     MatTableModule,
+    MatFormFieldModule,
     MatSelectModule,
     MatGridListModule,
-    MatInputModule,
     MatDatepickerModule,
+    MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
     RouterModule.forChild(routes)
+  ],
+  providers:[
+    StateMasterService,
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
 export class MasterModule { }

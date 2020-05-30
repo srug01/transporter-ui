@@ -8,8 +8,7 @@
         <form
           fxLayout="row"
           fxLayoutGap="10px"
-          #f="ngForm"
-          (ngSubmit)="onSubmit(f)"
+          [formGroup]="zoneForm" (ngSubmit)="submitZoneForm($event)"
         >
           <div fxLayout="row wrap" fxLayoutGap="8px grid">
             <div fxFlex="50" fxFlex.lt-sm="100">
@@ -17,9 +16,7 @@
                 <input
                   matInput
                   placeholder="Zone Name"
-                  ngModel
-                  name="name"
-
+                  formControlName="zone_name"
                   required
                 />
               </mat-form-field>
@@ -29,9 +26,7 @@
                 <input
                   matInput
                   placeholder="Zone Description"
-                  ngModel
-                  name="description"
-
+                  formControlName="zone_description"
                   required
                 />
               </mat-form-field>
@@ -41,14 +36,13 @@
                 <input
                   matInput
                   placeholder="pincode"
-                  ngModel
-                  name="pincode"
+                  formControlName="pincode"
                   required
                 />
               </mat-form-field>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
-              <mat-checkbox>Is Active</mat-checkbox>
+              <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
               <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>

@@ -8,8 +8,7 @@
         <form
           fxLayout="row"
           fxLayoutGap="10px"
-          #f="ngForm"
-          (ngSubmit)="onSubmit(f)"
+          [formGroup]="portForm" (ngSubmit)="submitPortForm($event)"
         >
           <div fxLayout="row wrap" fxLayoutGap="8px grid">
             <div fxFlex="50" fxFlex.lt-sm="100">
@@ -17,9 +16,8 @@
                 <input
                   matInput
                   placeholder="Port Name"
-                  ngModel
+                  formControlName="port_name"
                   name="name"
-                  port
                   required
                 />
               </mat-form-field>
@@ -27,9 +25,9 @@
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
                 <mat-label>Ports</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
+                <mat-select formControlName="port" [errorStateMatcher]="matcher">
+                  <mat-option *ngFor="let port of ports" [value]="port.port_syscode">
+                    {{ port.port }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -37,9 +35,9 @@
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
                 <mat-label>State</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
+                <mat-select formControlName="state_syscode" [errorStateMatcher]="matcher">
+                  <mat-option *ngFor="let state of stateMasters" [value]="state.state_syscode">
+                    {{ state.state }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -47,15 +45,15 @@
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
                 <mat-label>Location</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{ food.viewValue }}
+                <mat-select formControlName="location_syscode">
+                  <mat-option *ngFor="let location of locations" [value]="location.location_syscode">
+                    {{ location.location }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-checkbox>Is Active</mat-checkbox>
+              <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
               <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>

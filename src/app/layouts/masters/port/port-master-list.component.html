@@ -1,0 +1,37 @@
+<mat-card-content>
+    <table mat-table [dataSource]="portMasters" class="mat-elevation-z8">  
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="port_syscode">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.port_syscode}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="port_name">
+        <th mat-header-cell *matHeaderCellDef> Port </th>
+        <td mat-cell *matCellDef="let element"> {{element.port_name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="state_syscode">
+        <th mat-header-cell *matHeaderCellDef> State Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.state_syscode}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="location_syscode">
+        <th mat-header-cell *matHeaderCellDef> Location Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.location_syscode}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="is_active">
+        <th mat-header-cell *matHeaderCellDef> Active </th>
+        <td mat-cell *matCellDef="let element"> {{element.is_active}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
