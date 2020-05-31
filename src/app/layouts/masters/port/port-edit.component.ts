@@ -1,4 +1,6 @@
+import { Port } from './../../../shared/models/port';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-port-edit',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./port-edit.component.scss']
 })
 export class PortEditComponent implements OnInit {
-
-  constructor() { }
+  public port: Port;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.port = this.route.snapshot.data['portsResolver'];   
   }
 
 }

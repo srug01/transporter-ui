@@ -3,6 +3,8 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { PortService } from '../services/port.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-port-master-list',
@@ -17,7 +19,9 @@ export class PortMasterListComponent implements OnInit {
   public portMasters: Array<any> = [];
 
   constructor(
-    private _portService: PortService
+    private _portService: PortService,
+    private _snackBar: MatSnackBar,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +38,24 @@ export class PortMasterListComponent implements OnInit {
         console.log('could not fetch port masters');
       }
     );
+  }
+
+  deletePortById(ev, portId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    this._portService.deletePortMastersById(portId).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Port Master Deleted Successfully');
+        this.getAllPortMasters();
+      }
+    );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

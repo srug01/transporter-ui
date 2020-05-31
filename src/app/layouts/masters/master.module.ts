@@ -1,3 +1,4 @@
+import { PortsResolver } from './resolvers/port.resolver';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortComponent } from './port/port.component';
@@ -65,7 +66,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: PortMasterListComponent },
       { path: 'new', component: PortNewComponent },
-      { path: 'edit/:id', component: PortEditComponent },
+      { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
       { path: 'details/:id', component: PortDetailsComponent }
     ]
   },
@@ -146,6 +147,7 @@ const routes: Routes = [
   ],
   providers: [
     StateMasterService,
+    PortsResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

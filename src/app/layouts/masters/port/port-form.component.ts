@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Port } from './../../../shared/models/port';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
 import { NgZone, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
@@ -14,7 +15,7 @@ import { PortService } from '../services/port.service';
   styleUrls: ['./port-form.component.scss']
 })
 export class PortFormComponent implements OnInit {
-
+  @Input('portData') portData: Port;
   matcher = new FormErrorStateMatcher();
   public portForm: FormGroup;
   public stateMasters: Array<any> = [];
@@ -40,19 +41,29 @@ export class PortFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.portForm = this.fb.group({
-      port_name: ['', Validators.required],
-      state_syscode: ['', Validators.required],
-      location_syscode: ['', Validators.required],
-      is_active: ['', Validators.required]
-    });
+    if (this.portData) {
+      this.portForm = this.fb.group({
+        port_syscode: [this.portData.port_syscode ? this.portData.port_syscode : ''],
+        port_name: [this.portData.port_name ? this.portData.port_name : '', Validators.required],
+        state_syscode: [this.portData.state_syscode ? this.portData.state_syscode : '', Validators.required],
+        location_syscode: [this.portData.location_syscode ? this.portData.location_syscode : '', Validators.required],
+        is_active: [this.portData.is_active ? this.portData.is_active : '', Validators.required]
+      });
+    } else {
+      this.portForm = this.fb.group({
+        port_syscode: [''],
+        port_name: ['', Validators.required],
+        state_syscode: ['', Validators.required],
+        location_syscode: ['', Validators.required],
+        is_active: ['', Validators.required]
+      });
+    }
     this.getAllStateMasters();
   }
 
   getAllStateMasters() {
     this._stateService.getAllStateMasters().subscribe(
       (stateMasters) => {
-        console.log(stateMasters);
         this.stateMasters = stateMasters;
       },
       (err) => {
@@ -66,10 +77,13 @@ export class PortFormComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.portForm.valid) {
-      this.savePortMaster(this.portForm);
+      if (!this.portData) {
+        this.savePortMaster(this.portForm);
+      } else {
+        this.updatePortMaster(this.portForm);
+      }
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
-      console.log(this.portForm);
     }
   }
 
@@ -77,11 +91,24 @@ export class PortFormComponent implements OnInit {
     this._portService.savePortMaster(portForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Master Created Successfully');
-        this._router.navigate(['/default/masters/port-master-list']);
+        this._router.navigate(['/default/masters/port/list']);
       },
       (err) => {
         console.log('err');
         this.openSnackBar('Failure !', 'Could not create Port!');
+      }
+    );
+  }
+
+  updatePortMaster(portForm: any) {
+    this._portService.updatePortMaster(portForm.value).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Port Master Updated Successfully');
+        this._router.navigate(['/default/masters/port/list']);
+      },
+      (err) => {
+        console.log('err');
+        this.openSnackBar('Failure !', 'Could not update Port!');
       }
     );
   }
