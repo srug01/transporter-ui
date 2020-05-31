@@ -36,7 +36,7 @@ import { StateMasterService } from './services/state-master.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PortMasterListComponent } from './port/port-master-list.component';
 import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.component';
-import { YardMasterListComponent } from './yard/yard-master-list.component';
+
 import { YardportmapMasterListComponent } from './yardportmap/yardportmap-master-list.component';
 import { ContainerMasterListComponent } from './container/container-master-list.component';
 import { WeightMasterListComponent } from './weight/weight-master-list.component';
@@ -50,6 +50,13 @@ import { PortEditComponent } from './port/port-edit.component';
 import { PortNewComponent } from './port/port-new.component';
 import { PortDetailsComponent } from './port/port-details.component';
 import { PortFormComponent } from './port/port-form.component';
+
+import { YardDetailsComponent } from './yard/yard-details.component';
+import { YardEditComponent } from './yard/yard-edit.component';
+import { YardFormComponent } from './yard/yard-form.component';
+import { YardNewComponent } from './yard/yard-new.component';
+import { YardMasterListComponent } from './yard/yard-master-list.component';
+import { YardsResolver } from './resolvers/yard.resolver';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -70,7 +77,16 @@ const routes: Routes = [
       { path: 'details/:id', component: PortDetailsComponent }
     ]
   },
-  { path: 'yard', component: YardComponent },
+  { path: 'yard', component: YardComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: YardMasterListComponent },
+      { path: 'new', component: YardNewComponent },
+      { path: 'edit/:id', component: YardEditComponent, resolve: { yardsResolver: YardsResolver } },
+      { path: 'details/:id', component: YardDetailsComponent }
+
+    ]
+  },
   { path: 'yard-port-map', component: YardportmapComponent },
   { path: 'container', component: ContainerComponent },
   { path: 'weight', component: WeightComponent },
@@ -126,7 +142,11 @@ const routes: Routes = [
     PortEditComponent,
     PortNewComponent,
     PortDetailsComponent,
-    PortFormComponent
+    PortFormComponent,
+    YardDetailsComponent,
+    YardEditComponent,
+    YardFormComponent,
+    YardNewComponent
   ],
   imports: [
     CommonModule,
@@ -148,6 +168,7 @@ const routes: Routes = [
   providers: [
     StateMasterService,
     PortsResolver,
+    YardsResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
