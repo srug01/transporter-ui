@@ -11,7 +11,7 @@ import { PortService } from '../services/port.service';
 })
 export class PortMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'port_syscode', 'port_name', 'state_syscode', 'location_syscode', 'is_active'
+    'port_syscode', 'port_name', 'state_syscode', 'location_syscode', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public portMasters: Array<any> = [];

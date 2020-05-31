@@ -9,11 +9,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { YardComponent } from './yard/yard.component';
 import { YardportmapComponent } from './yardportmap/yardportmap.component';
@@ -45,17 +45,30 @@ import { DieselrateMasterListComponent } from './dieselrate/dieselrate-master-li
 import { ZoneMasterListComponent } from './zone/zone-master-list.component';
 import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
 import { StateMasterListComponent } from './state/state-master-list.component';
+import { PortEditComponent } from './port/port-edit.component';
+import { PortNewComponent } from './port/port-new.component';
+import { PortDetailsComponent } from './port/port-details.component';
+import { PortFormComponent } from './port/port-form.component';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
-const toasterConfig : MatSnackBarConfig = {
+const toasterConfig: MatSnackBarConfig = {
   horizontalPosition: 'right',
   verticalPosition: 'top',
-  duration : 2500
+  duration: 2500
 };
 
 const routes: Routes = [
-  { path: 'port', component: PortComponent },
+  {
+    path: 'port', component: PortComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: PortMasterListComponent },
+      { path: 'new', component: PortNewComponent },
+      { path: 'edit/:id', component: PortEditComponent },
+      { path: 'details/:id', component: PortDetailsComponent }
+    ]
+  },
   { path: 'yard', component: YardComponent },
   { path: 'yard-port-map', component: YardportmapComponent },
   { path: 'container', component: ContainerComponent },
@@ -70,7 +83,6 @@ const routes: Routes = [
   /**
    * Lists
    */
-  { path: 'port-master-list', component: PortMasterListComponent },
   { path: 'yard-master-list', component: YardMasterListComponent },
   { path: 'yard-port-map-master-list', component: YardportmapMasterListComponent },
   { path: 'container-master-list', component: ContainerMasterListComponent },
@@ -78,7 +90,7 @@ const routes: Routes = [
   { path: 'cfs-rate-master-list', component: CfsrateMasterListComponent },
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
   { path: 'mileage-master-list', component: MileageMasterListComponent },
-  { path: 'diesel-rate-master-list', component: DieselrateMasterListComponent},
+  { path: 'diesel-rate-master-list', component: DieselrateMasterListComponent },
   { path: 'zone-master-list', component: ZoneMasterListComponent },
   { path: 'zone-day-master-list', component: ZonedayMasterListComponent },
   { path: 'state-master-list', component: StateMasterListComponent },
@@ -87,11 +99,11 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PortComponent,
-    YardComponent, 
+    YardComponent,
     YardportmapComponent,
-    ContainerComponent, 
+    ContainerComponent,
     WeightComponent,
-    CfsrateComponent, 
+    CfsrateComponent,
     YardcfsrateComponent,
     MileageComponent,
     DieselrateComponent,
@@ -109,7 +121,11 @@ const routes: Routes = [
     DieselrateMasterListComponent,
     ZoneMasterListComponent,
     ZonedayMasterListComponent,
-    StateMasterListComponent
+    StateMasterListComponent,
+    PortEditComponent,
+    PortNewComponent,
+    PortDetailsComponent,
+    PortFormComponent
   ],
   imports: [
     CommonModule,
@@ -128,7 +144,7 @@ const routes: Routes = [
     MatSnackBarModule,
     RouterModule.forChild(routes)
   ],
-  providers:[
+  providers: [
     StateMasterService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
