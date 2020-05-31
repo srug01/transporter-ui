@@ -1,1 +1,20 @@
-﻿<p>welcome works!</p>
+﻿
+<mat-card class="example-card">
+
+  <section>
+    <div style="text-align: center;">
+    <h2>Connect With Us</h2>
+    <p>Login As</p>
+  </div>
+    <nav mat-tab-nav-bar aria-label="weather navigation links">
+      <a mat-tab-link
+         *ngFor="let tabLink of tabLinks; let i = index"
+         [routerLink]="tabLink.link"
+         routerLinkActive #rla="routerLinkActive"
+         [active]="rla.isActive">
+        {{tabLink.label}}
+      </a>
+    </nav>
+    <router-outlet></router-outlet>
+  </section>
+</mat-card>
