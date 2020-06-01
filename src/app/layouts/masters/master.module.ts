@@ -38,7 +38,7 @@ import { PortMasterListComponent } from './port/port-master-list.component';
 import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.component';
 
 import { YardportmapMasterListComponent } from './yardportmap/yardportmap-master-list.component';
-import { ContainerMasterListComponent } from './container/container-master-list.component';
+
 import { WeightMasterListComponent } from './weight/weight-master-list.component';
 import { YardcfsrateMasterListComponent } from './yardcfsrate/yardcfsrate-master-list.component';
 import { MileageMasterListComponent } from './mileage/mileage-master-list.component';
@@ -46,6 +46,7 @@ import { DieselrateMasterListComponent } from './dieselrate/dieselrate-master-li
 import { ZoneMasterListComponent } from './zone/zone-master-list.component';
 import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
 import { StateMasterListComponent } from './state/state-master-list.component';
+
 import { PortEditComponent } from './port/port-edit.component';
 import { PortNewComponent } from './port/port-new.component';
 import { PortDetailsComponent } from './port/port-details.component';
@@ -57,6 +58,13 @@ import { YardFormComponent } from './yard/yard-form.component';
 import { YardNewComponent } from './yard/yard-new.component';
 import { YardMasterListComponent } from './yard/yard-master-list.component';
 import { YardsResolver } from './resolvers/yard.resolver';
+
+import { ContainerDetailsComponent } from './container/container-details.component';
+import { ContainerEditComponent } from './container/container-edit.component';
+import { ContainerFormComponent } from './container/container-form.component';
+import { ContainerNewComponent } from './container/container-new.component';
+import { ContainerMasterListComponent } from './container/container-master-list.component';
+import { ContainerResolver } from './resolvers/container.resolver';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -88,7 +96,16 @@ const routes: Routes = [
     ]
   },
   { path: 'yard-port-map', component: YardportmapComponent },
-  { path: 'container', component: ContainerComponent },
+  { path: 'container', component: ContainerComponent,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: ContainerMasterListComponent },
+    { path: 'new', component: ContainerNewComponent },
+    { path: 'edit/:id', component: ContainerEditComponent, resolve: { containerResolver: ContainerResolver } },
+    { path: 'details/:id', component: ContainerDetailsComponent }
+
+  ]
+  },
   { path: 'weight', component: WeightComponent },
   { path: 'cfs-rate', component: CfsrateComponent },
   { path: 'yard-cfs-rate', component: YardcfsrateComponent },
@@ -100,9 +117,8 @@ const routes: Routes = [
   /**
    * Lists
    */
-  { path: 'yard-master-list', component: YardMasterListComponent },
+
   { path: 'yard-port-map-master-list', component: YardportmapMasterListComponent },
-  { path: 'container-master-list', component: ContainerMasterListComponent },
   { path: 'weight-master-list', component: WeightMasterListComponent },
   { path: 'cfs-rate-master-list', component: CfsrateMasterListComponent },
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
@@ -146,7 +162,11 @@ const routes: Routes = [
     YardDetailsComponent,
     YardEditComponent,
     YardFormComponent,
-    YardNewComponent
+    YardNewComponent,
+    ContainerDetailsComponent,
+    ContainerEditComponent,
+    ContainerFormComponent,
+    ContainerNewComponent
   ],
   imports: [
     CommonModule,
@@ -169,6 +189,7 @@ const routes: Routes = [
     StateMasterService,
     PortsResolver,
     YardsResolver,
+    ContainerResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
