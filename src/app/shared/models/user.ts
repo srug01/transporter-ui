@@ -5,4 +5,5 @@ export class User {
     lastName: string;
     mobileNumber: string;
     permissions: any;
+    typeSyscode: number;
 }
