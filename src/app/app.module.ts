@@ -12,10 +12,14 @@ import { MatCardModule } from '@angular/material/card';
 import { AuthenticationService } from './services/authentication.service';
 import { LocalStorageService } from './services/storage.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     MatCardModule,
     DefaultModule,
     RouterModule,
+    MatDialogModule,
     FormsModule,
+    MatButtonModule,
     AppRoutingModule
   ],
   providers: [
