@@ -1,0 +1,60 @@
+
+  <form [formGroup]="signupForm" (ngSubmit)="submitSignupForm($event)">
+        <div fxLayout="column" fxLayoutGap="5px">
+          <div fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="50%">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Email"
+                  formControlName="email"
+                />
+              </mat-form-field>
+            </div>          
+            <div fxFlex="50%">
+              <mat-form-field>
+                <input
+                  matInput
+                  type="password"
+                  placeholder="Password"
+                  formControlName="password"
+                />
+              </mat-form-field>              
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="50%">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="First Name"
+                  formControlName="firstName"
+                />
+              </mat-form-field>
+            </div>          
+            <div fxFlex="50%">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="100%">
+            <mat-form-field >
+              <input
+                matInput
+                placeholder="Mobile Number"
+                formControlName="mobileNumber"
+              />
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-hint>Include area code</mat-hint>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px" >
+            <button type="submit" mat-raised-button color="primary">Register</button>
+          </div>
+        </div>
+      </form>

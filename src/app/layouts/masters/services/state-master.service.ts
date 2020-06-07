@@ -22,4 +22,8 @@ export class StateMasterService {
   getAllStateMasters(): Observable<any> {
     return this.http.get(this.baseUrl + 'state-masters');
   }
+
+  deleteStateMastersById(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'state-masters/' + id);
+  }
 }

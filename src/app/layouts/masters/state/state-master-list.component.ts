@@ -3,6 +3,9 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { StateMasterService } from '../services/state-master.service';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-state-master-list',
@@ -12,17 +15,32 @@ import { StateMasterService } from '../services/state-master.service';
 export class StateMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'state_syscode', 'state', 'is_active'
+    'state_syscode', 'state', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public stateMasters: Array<any> = [];
 
   constructor(
-    private _stateService: StateMasterService
+    private _stateService: StateMasterService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.getAllStateMasters();
+  }
+
+  openDialog(ev, stateId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteStateById(stateId);
+      }
+    });
   }
 
   getAllStateMasters() {
@@ -35,5 +53,20 @@ export class StateMasterListComponent implements OnInit {
         console.log('could not fetch state masters');
       }
     );
+  }
+
+  deleteStateById(stateId: number) {
+    this._stateService.deleteStateMastersById(stateId).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'State Master Deleted Successfully');
+        this.getAllStateMasters();
+      }
+    );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

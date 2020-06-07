@@ -5,6 +5,8 @@ import { take } from 'rxjs/operators';
 import { PortService } from '../services/port.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 
 @Component({
   selector: 'app-port-master-list',
@@ -21,11 +23,25 @@ export class PortMasterListComponent implements OnInit {
   constructor(
     private _portService: PortService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.getAllPortMasters();
+  }
+
+  openDialog(ev, portId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deletePortById(portId);
+      }
+    });
   }
 
   getAllPortMasters() {
@@ -40,10 +56,7 @@ export class PortMasterListComponent implements OnInit {
     );
   }
 
-  deletePortById(ev, portId: number) {
-    if (ev) {
-      ev.preventDefault();
-    }
+  deletePortById(portId: number) {
     this._portService.deletePortMastersById(portId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Master Deleted Successfully');

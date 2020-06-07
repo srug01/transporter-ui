@@ -1,0 +1,14 @@
+<app-signup-header (toggleSidebarForMe)="sideBarToggler()"></app-signup-header>
+
+<mat-drawer-container>
+    <mat-drawer mode='side'[opened]="sideBarOpened">
+        <app-signup-sidebar></app-signup-sidebar>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+<mat-divider></mat-divider>
+<footer>
+    &copy; All rights resevered. 2020
+</footer>

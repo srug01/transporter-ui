@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  pageTitle: String='welcome to admin dashboar';
+  pageTitle: string = 'welcome to admin dashboar';
 
   tabLinks = [
     { label: 'Customer', link: 'customer-tab' },
