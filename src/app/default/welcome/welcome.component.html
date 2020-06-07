@@ -7,13 +7,11 @@
     <p>Login As</p>
   </div>
     <nav mat-tab-nav-bar aria-label="weather navigation links">
-      <a mat-tab-link
+      <li mat-tab-link
          *ngFor="let tabLink of tabLinks; let i = index"
-         [routerLink]="tabLink.link"
-         routerLinkActive #rla="routerLinkActive"
-         [active]="rla.isActive">
+         [routerLink]="tabLink.link">
         {{tabLink.label}}
-      </a>
+    </li>
     </nav>
     <router-outlet></router-outlet>
   </section>
