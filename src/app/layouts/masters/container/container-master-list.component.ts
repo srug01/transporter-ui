@@ -5,6 +5,8 @@ import { take } from 'rxjs/operators';
 import { ContianerService } from '../services/contianer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 
 @Component({
   selector: 'app-container-master-list',
@@ -20,11 +22,25 @@ export class ContainerMasterListComponent implements OnInit {
   constructor(
     private _containerService: ContianerService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.getAllContainerMasters();
+  }
+
+  openDialog(ev, containerId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteContainerById(containerId);
+      }
+    });
   }
   getAllContainerMasters() {
     this._containerService.getAllContainerMasters().subscribe(
@@ -38,10 +54,7 @@ export class ContainerMasterListComponent implements OnInit {
     );
   }
 
-  deleteContainerById(ev, containerId: number) {
-    if (ev) {
-      ev.preventDefault();
-    }
+  deleteContainerById(containerId: number) {
     this._containerService.deleteContainerMastersById(containerId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Container Master Deleted Successfully');

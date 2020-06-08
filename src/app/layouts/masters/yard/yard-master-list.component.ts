@@ -6,6 +6,8 @@ import { YardService } from '../services/yard.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Yard } from 'src/app/shared/models/yard';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 
 
 @Component({
@@ -23,12 +25,26 @@ export class YardMasterListComponent implements OnInit {
   constructor(
     private _yardService: YardService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
 
   ) { }
 
   ngOnInit(): void {
     this.getAllYardMasters();
+  }
+
+  openDialog(ev, yardId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteYardById(yardId);
+      }
+    });
   }
 
   getAllYardMasters() {
@@ -43,10 +59,8 @@ export class YardMasterListComponent implements OnInit {
     );
   }
 
-  deleteYardById(ev, yardId: number) {
-    if (ev) {
-      ev.preventDefault();
-    }
+  deleteYardById( yardId: number) {
+
     this._yardService.deleteYardMasterById(yardId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard Master Deleted Successfully');

@@ -5,6 +5,8 @@ import { take } from 'rxjs/operators';
 import { WeightService } from '../services/weight.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 
 
 @Component({
@@ -22,12 +24,26 @@ export class WeightMasterListComponent implements OnInit {
   constructor(
     private _weightService: WeightService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.getAllWeightMasters();
   }
+  openDialog(ev, weightId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteWeightById(weightId);
+      }
+    });
+  }
+
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
       (weightMasters) => {
@@ -40,10 +56,7 @@ export class WeightMasterListComponent implements OnInit {
     );
   }
 
-  deleteWeightById(ev, weightId: number) {
-    if (ev) {
-      ev.preventDefault();
-    }
+  deleteWeightById(weightId: number) {
     this._weightService.deleteWeightMasterById(weightId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Weight Master Deleted Successfully');

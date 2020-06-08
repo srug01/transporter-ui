@@ -5,6 +5,9 @@ import { take } from 'rxjs/operators';
 import { YardportmapService } from '../services/yardportmap.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+
 
 @Component({
   selector: 'app-yardportmap-master-list',
@@ -21,12 +24,27 @@ export class YardportmapMasterListComponent implements OnInit {
   constructor(
     private _yardportmapService: YardportmapService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.getAllYardPortMappingMasters();
   }
+
+  openDialog(ev, yarportmapId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteyardportmappingById(yarportmapId);
+      }
+    });
+  }
+
   getAllYardPortMappingMasters() {
     this._yardportmapService.getAllYardPortMapMasters().subscribe(
       (yardportmapMasters) => {
@@ -39,10 +57,7 @@ export class YardportmapMasterListComponent implements OnInit {
     );
   }
 
-  deleteyardportmappingById(ev, yarportmapId: number) {
-    if (ev) {
-      ev.preventDefault();
-    }
+  deleteyardportmappingById( yarportmapId: number) {
     this._yardportmapService.deleteYardPortMapMastersById(yarportmapId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard Port Mapping Deleted Successfully');
