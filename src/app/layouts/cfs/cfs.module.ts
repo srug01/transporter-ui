@@ -16,17 +16,21 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { PlacedBidsComponent } from './placed-bids/placed-bids.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 const routes: Routes = [
   { path: '', component: CfsComponent },
   { path: 'create-order', component: CreateOrderComponent },
-  { path: 'placed-bids', component: PlacedBidsComponent }
+  { path: 'placed-bids', component: PlacedBidsComponent },
+  { path: 'register-user', component: UserRegistrationComponent }
 ];
 
 
 @NgModule({
-  declarations: [CfsComponent, CreateOrderComponent, PlacedBidsComponent],
+  declarations: [CfsComponent, CreateOrderComponent, PlacedBidsComponent, UserRegistrationComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -38,6 +42,9 @@ const routes: Routes = [
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
+    MatSlideToggleModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild(routes)
   ]
 })
