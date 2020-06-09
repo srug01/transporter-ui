@@ -19,11 +19,15 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } f
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
 import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
 import { VehicleService } from './services/vehicle.service';
+import { TransporterRegistrationComponent } from './transporter-registration/transporter-registration.component';
+import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
   { path: 'register-vehicle', component: VehicleRegistrationComponent },
-  { path: 'vehicle-list', component: VehicleListComponent }
+  { path: 'vehicle-list', component: VehicleListComponent },
+  { path: 'register-transporter', component: TransporterRegistrationComponent },
+  { path: 'register-driver', component: DriverRegistrationComponent }
 ];
 
 const toasterConfig : MatSnackBarConfig = {
@@ -36,7 +40,9 @@ const toasterConfig : MatSnackBarConfig = {
   declarations: [
     TransporterComponent,
     VehicleRegistrationComponent,
-    VehicleListComponent
+    VehicleListComponent,
+    TransporterRegistrationComponent,
+    DriverRegistrationComponent
   ],
   imports: [
     CommonModule,
