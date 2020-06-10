@@ -1,4 +1,7 @@
 import { PortsResolver } from './resolvers/port.resolver';
+import { DriversResolver } from "./resolvers/driver.resolver";
+
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortComponent } from './port/port.component';
@@ -43,7 +46,6 @@ import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.compon
 import { YardcfsrateMasterListComponent } from './yardcfsrate/yardcfsrate-master-list.component';
 import { MileageMasterListComponent } from './mileage/mileage-master-list.component';
 import { DieselrateMasterListComponent } from './dieselrate/dieselrate-master-list.component';
-import { ZoneMasterListComponent } from './zone/zone-master-list.component';
 import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
 import { StateMasterListComponent } from './state/state-master-list.component';
 
@@ -82,6 +84,12 @@ import { WeightNewComponent } from './weight/weight-new.component';
 import { WeightMasterListComponent } from './weight/weight-master-list.component';
 import { WeightsResolver } from './resolvers/weight.resolver';
 
+import { ZoneDetailsComponent } from './zone/zone-details.component';
+import { ZoneEditComponent } from './zone/zone-edit.component';
+import { ZoneFormComponent } from './zone/zone-form.component';
+import { ZoneNewComponent } from './zone/zone-new.component';
+import { ZoneMasterListComponent } from './zone/zone-master-list.component';
+import { ZonesResolver } from "./resolvers/zone.resolver";
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -147,7 +155,15 @@ const routes: Routes = [
   { path: 'yard-cfs-rate', component: YardcfsrateComponent },
   { path: 'mileage', component: MileageComponent },
   { path: 'diesel-rate', component: DieselrateComponent },
-  { path: 'zone', component: ZoneComponent },
+  { path: 'zone', component: ZoneComponent,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: ZoneMasterListComponent },
+    { path: 'new', component: ZoneNewComponent },
+    { path: 'edit/:id', component: ZoneEditComponent, resolve: { zonesResolver: ZonesResolver } },
+    { path: 'details/:id', component: ZoneDetailsComponent }
+  ]
+  },
   { path: 'zone-day', component: ZonedayComponent },
   { path: 'state', component: StateComponent },
   /**
@@ -188,7 +204,6 @@ const routes: Routes = [
     YardcfsrateMasterListComponent,
     MileageMasterListComponent,
     DieselrateMasterListComponent,
-    ZoneMasterListComponent,
     ZonedayMasterListComponent,
     StateMasterListComponent,
     PortEditComponent,
@@ -210,7 +225,14 @@ const routes: Routes = [
     WeightDetailsComponent,
     WeightEditComponent,
     WeightFormComponent,
-    WeightNewComponent
+    WeightNewComponent,
+    ZoneMasterListComponent,
+    ZoneComponent,
+    ZoneDetailsComponent,
+    ZoneEditComponent,
+    ZoneNewComponent,
+    ZoneFormComponent,
+
   ],
   imports: [
     CommonModule,
@@ -236,6 +258,7 @@ const routes: Routes = [
     ContainerResolver,
     YardPortMapResolver,
     WeightsResolver,
+    ZonesResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

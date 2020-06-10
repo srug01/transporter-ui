@@ -1,6 +1,4 @@
-<router-outlet></router-outlet>
-
-<!-- <div fxLayout="row wrap" class="matero-row">
+<div fxLayout="row wrap" class="matero-row">
   <div fxFlex="66.67" class="matero-col">
     <mat-card class="example-card">
       <mat-card-header>
@@ -19,6 +17,7 @@
                   matInput
                   placeholder="Zone Name"
                   formControlName="zone_name"
+                  name="name"
                   required
                 />
               </mat-form-field>
@@ -27,23 +26,28 @@
               <mat-form-field>
                 <input
                   matInput
-                  placeholder="Zone Description"
+                  placeholder="Zone Desc"
                   formControlName="zone_description"
+                  name="name"
                   required
                 />
               </mat-form-field>
             </div>
+
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
                 <input
                   matInput
-                  placeholder="pincode"
+                  placeholder="Pin Code"
                   formControlName="pincode"
-                  required
+                  name="name"
+                  
                 />
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.lt-sm="100">
+
+            
+            <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
             </div>
             <div fxFlex="100" fxFlex.lt-sm="100">
@@ -52,7 +56,6 @@
           </div>
         </form>
       </mat-card-content>
-
     </mat-card>
   </div>
-</div> -->
+</div>
