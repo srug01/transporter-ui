@@ -77,6 +77,8 @@ import { YardportmapComponent } from './yardportmap/yardportmap.component';
 import { YardportmapMasterListComponent } from './yardportmap/yardportmap-master-list.component';
 import { YardPortMapResolver } from './resolvers/yardportmap.resolver';
 
+import { MileagesResolver } from './resolvers/mileage.resolver';
+
 import { WeightDetailsComponent } from './weight/weight-details.component';
 import { WeightEditComponent } from './weight/weight-edit.component';
 import { WeightFormComponent } from './weight/weight-form.component';
@@ -90,6 +92,10 @@ import { ZoneFormComponent } from './zone/zone-form.component';
 import { ZoneNewComponent } from './zone/zone-new.component';
 import { ZoneMasterListComponent } from './zone/zone-master-list.component';
 import { ZonesResolver } from "./resolvers/zone.resolver";
+import { MileageNewComponent } from './mileage/mileage-new.component';
+import { MileageDetailsComponent } from './mileage/mileage-details.component';
+import { MileageEditComponent } from './mileage/mileage-edit.component';
+import { MileageFormComponent } from './mileage/mileage-form.component';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -110,6 +116,21 @@ const routes: Routes = [
       { path: 'details/:id', component: PortDetailsComponent }
     ]
   },
+
+  { path: 'mileage', component: MileageComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: MileageMasterListComponent },
+      { path: 'new', component: MileageNewComponent },
+      { path: 'edit/:id', component: MileageEditComponent, 
+      resolve: { mileagesResolver: MileagesResolver } },
+      { path: 'details/:id', component: MileageDetailsComponent }
+
+    ]
+  },
+
+
+
   { path: 'yard', component: YardComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -232,6 +253,10 @@ const routes: Routes = [
     ZoneEditComponent,
     ZoneNewComponent,
     ZoneFormComponent,
+    MileageNewComponent,
+    MileageDetailsComponent,
+    MileageEditComponent,
+    MileageFormComponent,
 
   ],
   imports: [
@@ -259,6 +284,7 @@ const routes: Routes = [
     YardPortMapResolver,
     WeightsResolver,
     ZonesResolver,
+    MileagesResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

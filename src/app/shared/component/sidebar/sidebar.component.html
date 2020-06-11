@@ -28,13 +28,14 @@
         <button mat-menu-item routerLink='/default/masters/weight/new'>Weight Master</button>
         <button mat-menu-item routerLink='/default/masters/cfs-rate'>CFS Rate Master</button>
         <button mat-menu-item routerLink='/default/masters/yard-cfs-rate'>Yard CFS Rate Master</button>
-        <button mat-menu-item routerLink='/default/masters/mileage'>Mileage Master</button>
+        <button mat-menu-item routerLink='/default/masters/mileage/new'>Mileage Master</button>
         <button mat-menu-item routerLink='/default/masters/diesel-rate'>Diesel Rate Master</button>
         <button mat-menu-item routerLink='/default/masters/zone/new'>Zone Master</button>
         <button mat-menu-item routerLink='/default/masters/zone-day'>Zone Day Master</button>
         <button mat-menu-item routerLink='/default/masters/state'>State Master</button>
     </mat-menu>
-    <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4"><i class="material-icons md-24 p5">games</i>Masters List</a>
+    <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
+        <i class="material-icons md-24 p5">games</i>Masters List</a>
     <mat-menu #menu4="matMenu">
         <button mat-menu-item routerLink='/default/masters/port/list'>Port Master</button>
         <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>
