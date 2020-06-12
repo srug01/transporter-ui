@@ -1,6 +1,9 @@
+import { TransporterRegistrationService } from './../services/transporter-registration.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transporter-registration',
@@ -10,52 +13,83 @@ import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher'
 export class TransporterRegistrationComponent implements OnInit {
 
   public transporterForm: FormGroup;
-  cfsTypeErrormatcher = new FormErrorStateMatcher();
-  userTypeErrormatcher = new FormErrorStateMatcher();
+  accTypeErrormatcher = new FormErrorStateMatcher();
+  confirmAccErrormatcher = new FormErrorStateMatcher();
 
-  public cfsTypes: Array<any> = [
-    { value: 'cfs-1', viewValue: 'cfs-1' },
-    { value: 'cfs-2', viewValue: 'cfs-2' },
-    { value: 'cfs-3', viewValue: 'cfs-3' },
-    { value: 'cfs-4', viewValue: 'cfs-4' }
-  ];
-  public userTypes: Array<any> = [
-    { value: 'transporter', viewValue: 'transporter' },
-    { value: 'driver', viewValue: 'driver' },
-    { value: 'user', viewValue: 'user' }
+  public accountTypes: Array<any> = [
+    { value: 'saving', viewValue: 'Saving' },
+    { value: 'current', viewValue: 'Current' },
+    { value: 'budget', viewValue: 'Budget' }
   ];
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private _transporterService: TransporterRegistrationService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
     this.transporterForm = this.fb.group({
-      name: ['', Validators.required],
-      mobile_number: ['', Validators.required],
-      email: ['', Validators.required],
-      address: ['', Validators.required],
-      pincode: ['', Validators.required],
-      gstin: ['', Validators.required],
-      pan_number: ['', Validators.required],
-      pan_of_director: ['', Validators.required],
-      director_name: ['', Validators.required],
-      director_address: ['', Validators.required],
-      account_number: ['', Validators.required],
-      confirm_account_number: ['', Validators.required],
-      account_type: ['', Validators.required],
-      bank_name: ['', Validators.required],
-      branch: ['', Validators.required],
-      ifsc_code: ['', Validators.required],
-      is_active: ['', Validators.required],
-      is_verified: ['', Validators.required]
+      transporter_name: ['', Validators.required],
+      transporter_mobile_no: ['', Validators.required],
+      transporter_email: ['', Validators.required],
+      transporter_address: ['', Validators.required],
+      transporter_pincode: ['', Validators.required],
+      transporter_GSTIN: ['', Validators.required],
+      transporter_PAN: ['', Validators.required],
+      transporter_partner: ['', Validators.required],
+      transporter_partner_PAN: ['', Validators.required],
+      transporter_partner_address: ['', Validators.required],
+      transporter_bank_acno: ['', Validators.required],
+      confirm_transporter_bank_acno: ['', Validators.required],
+      transporter_ac_type: ['', Validators.required],
+      transporter_bank_name: ['', Validators.required],
+      transporter_bank_branch: ['', Validators.required],
+      transporter_bank_ifsc: ['', Validators.required],
+      transporter_is_active: [false],
+      transporter_is_verify: [false]
+    },
+    {
+        validator: this.checkAccountNumbers
     });
   }
 
   submitTransporterForm(ev) {
-    if(ev){
+    if (ev) {
       ev.preventDefault();
     }
+    if (this.transporterForm.valid) {
+      this.saveTransporter(this.transporterForm);
+    } else {console.log(this.transporterForm);
+      this.openSnackBar('Invalid Form !', 'Please Review All Fields');
+    }
+  }
+
+  checkAccountNumbers(group: FormGroup) {
+    const transporterBankAcno = group.get('transporter_bank_acno').value;
+    const confirmTransporterBankAcno = group.get('confirm_transporter_bank_acno').value;
+    console.log(transporterBankAcno === confirmTransporterBankAcno);
+    return transporterBankAcno === confirmTransporterBankAcno ? null : { notSame: true };
+  }
+
+  saveTransporter(transporterForm: any) {
+    this._transporterService.saveTransporter(transporterForm.value).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Transporter Created Successfully');
+        this._router.navigate(['/default/transporter/transporter-list']);
+      },
+      (err) => {
+        console.log('err');
+        this.openSnackBar('Failure !', 'Could not create Transporter');
+      }
+    );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

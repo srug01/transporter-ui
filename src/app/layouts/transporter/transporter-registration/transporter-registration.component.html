@@ -10,7 +10,7 @@
                     <div fxFlex="100%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Name (Company/Firm)</mat-label>
-                            <input matInput type="text" formControlName="name" placeholder="Name (Company/Firm)">
+                            <input matInput type="text" formControlName="transporter_name" placeholder="Name (Company/Firm)">
                         </mat-form-field>
                     </div>
                 </div>
@@ -18,13 +18,13 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Mobile Number</mat-label>
-                            <input matInput formControlName="mobile_number" placeholder="Mobile Number">
+                            <input matInput formControlName="transporter_mobile_no" placeholder="Mobile Number">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email" placeholder="Email">
+                            <input matInput formControlName="transporter_email" placeholder="Email">
                         </mat-form-field>
                     </div>
                 </div>
@@ -32,13 +32,13 @@
                     <div fxFlex="70%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Address (Company/Firm)</mat-label>
-                            <input matInput formControlName="address" placeholder="Address (Company/Firm)">
+                            <input matInput formControlName="transporter_address" placeholder="Address (Company/Firm)">
                         </mat-form-field>
                     </div>
                     <div fxFlex="30%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Pincode</mat-label>
-                            <input matInput formControlName="pincode" placeholder="Pincode">
+                            <input matInput formControlName="transporter_pincode" placeholder="Pincode">
                         </mat-form-field>
                     </div>
                 </div>
@@ -46,13 +46,13 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>GSTIN (Company/Firm)</mat-label>
-                            <input matInput formControlName="gstin" placeholder="GSTIN (Company/Firm)">
+                            <input matInput formControlName="transporter_GSTIN" placeholder="GSTIN (Company/Firm)">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>PAN (Company/Firm)</mat-label>
-                            <input matInput formControlName="pan_number" placeholder="PAN (Company/Firm)">
+                            <input matInput formControlName="transporter_PAN" placeholder="PAN (Company/Firm)">
                         </mat-form-field>
                     </div>
                 </div>
@@ -60,13 +60,13 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Name of Director (Company/Firm)</mat-label>
-                            <input matInput formControlName="director_name" placeholder="Name of Director (Company/Firm)">
+                            <input matInput formControlName="transporter_partner" placeholder="Name of Director (Company/Firm)">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>PAN of Director (Company/Firm)</mat-label>
-                            <input matInput formControlName="pan_of_director" placeholder="PAN of Director (Company/Firm)">
+                            <input matInput formControlName="transporter_partner_PAN" placeholder="PAN of Director (Company/Firm)">
                         </mat-form-field>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <div fxFlex="100%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Address of Director(Company/Firm)</mat-label>
-                            <input matInput formControlName="director_address" placeholder="Address of Director(Company/Firm)">
+                            <input matInput formControlName="transporter_partner_address" placeholder="Address of Director(Company/Firm)">
                         </mat-form-field>
                     </div>
                 </div>
@@ -82,27 +82,34 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Account No.</mat-label>
-                            <input matInput formControlName="account_number" placeholder="Account No.">
+                            <input matInput formControlName="transporter_bank_acno" placeholder="Account No.">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Confirm Account No.</mat-label>
-                            <input matInput formControlName="confirm_account_number" placeholder="Confirm Account No.">
+                            <input matInput formControlName="confirm_transporter_bank_acno" placeholder="Confirm Account No." [errorStateMatcher]="confirmAccErrormatcher">
                         </mat-form-field>
+                        <div *ngIf="transporterForm.errors"><mat-error *ngIf="transporterForm.controls['confirm_transporter_bank_acno'].dirty && transporterForm.errors['notSame']">Account Numbers must match</mat-error></div>
                     </div>
                 </div>
                 <div fxLayout='row' fxLayoutGap="10px">
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Account Type</mat-label>
-                            <input matInput formControlName="account_type" placeholder="Account Type">
+                            <mat-select matNativeControl formControlName="transporter_ac_type" [errorStateMatcher]="accTypeErrormatcher">
+                                <mat-option *ngFor="let accType of accountTypes" [value]="accType.value">
+                                    {{accType.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="transporterForm.controls['transporter_ac_type'].hasError('required')">You must make a
+                                selection</mat-error>
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Name of Bank</mat-label>
-                            <input matInput formControlName="bank_name" placeholder="Name of Bank">
+                            <input matInput formControlName="transporter_bank_name" placeholder="Name of Bank">
                         </mat-form-field>
                     </div>
                 </div>
@@ -110,22 +117,22 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Branch</mat-label>
-                            <input matInput formControlName="branch" placeholder="Branch">
+                            <input matInput formControlName="transporter_bank_branch" placeholder="Branch">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>IFSC Code</mat-label>
-                            <input matInput formControlName="ifsc_code" placeholder="IFSC Code">
+                            <input matInput formControlName="transporter_bank_ifsc" placeholder="IFSC Code">
                         </mat-form-field>
                     </div>
                 </div>
                 <div fxLayout="row">
                     <div fxFlex="20%">
-                        <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="transporter_is_active">Active</mat-slide-toggle>
                     </div>
                     <div fxFlex="20%">
-                        <mat-slide-toggle formControlName="is_verified">Verify</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="transporter_is_verify">Verify</mat-slide-toggle>
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutGap="10px">

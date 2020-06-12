@@ -21,13 +21,15 @@ import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
 import { VehicleService } from './services/vehicle.service';
 import { TransporterRegistrationComponent } from './transporter-registration/transporter-registration.component';
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
+import { TransporterListComponent } from './transporter-list/transporter-list.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
   { path: 'register-vehicle', component: VehicleRegistrationComponent },
   { path: 'vehicle-list', component: VehicleListComponent },
   { path: 'register-transporter', component: TransporterRegistrationComponent },
-  { path: 'register-driver', component: DriverRegistrationComponent }
+  { path: 'register-driver', component: DriverRegistrationComponent },
+  { path: 'transporter-list', component: TransporterListComponent }
 ];
 
 const toasterConfig : MatSnackBarConfig = {
@@ -42,7 +44,8 @@ const toasterConfig : MatSnackBarConfig = {
     VehicleRegistrationComponent,
     VehicleListComponent,
     TransporterRegistrationComponent,
-    DriverRegistrationComponent
+    DriverRegistrationComponent,
+    TransporterListComponent
   ],
   imports: [
     CommonModule,
