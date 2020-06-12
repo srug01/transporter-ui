@@ -31,7 +31,8 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      mobileNumber: ['', Validators.required]
+      mobileNumber: ['', Validators.required],
+      typeSyscode: [2]
     });
   }
 
