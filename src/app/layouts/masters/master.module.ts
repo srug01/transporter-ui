@@ -96,6 +96,10 @@ import { MileageNewComponent } from './mileage/mileage-new.component';
 import { MileageDetailsComponent } from './mileage/mileage-details.component';
 import { MileageEditComponent } from './mileage/mileage-edit.component';
 import { MileageFormComponent } from './mileage/mileage-form.component';
+import { CfsrateDetailsComponent } from './cfsrate/cfsrate-details.component';
+import { CfsrateEditComponent } from './cfsrate/cfsrate-edit.component';
+import { CfsrateFormComponent } from './cfsrate/cfsrate-form.component';
+import { CfsrateNewComponent } from './cfsrate/cfsrate-new.component';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -122,7 +126,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MileageMasterListComponent },
       { path: 'new', component: MileageNewComponent },
-      { path: 'edit/:id', component: MileageEditComponent, 
+      { path: 'edit/:id', component: MileageEditComponent,
       resolve: { mileagesResolver: MileagesResolver } },
       { path: 'details/:id', component: MileageDetailsComponent }
 
@@ -257,6 +261,10 @@ const routes: Routes = [
     MileageDetailsComponent,
     MileageEditComponent,
     MileageFormComponent,
+    CfsrateDetailsComponent,
+    CfsrateEditComponent,
+    CfsrateFormComponent,
+    CfsrateNewComponent,
 
   ],
   imports: [
