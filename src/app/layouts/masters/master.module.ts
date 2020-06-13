@@ -26,7 +26,7 @@ import { WeightComponent } from './weight/weight.component';
 import { CfsrateComponent } from './cfsrate/cfsrate.component';
 import { YardcfsrateComponent } from './yardcfsrate/yardcfsrate.component';
 import { MileageComponent } from './mileage/mileage.component';
-import { DieselrateComponent } from './dieselrate/dieselrate.component';
+
 import { ZoneComponent } from './zone/zone.component';
 import { ZonedayComponent } from './zoneday/zoneday.component';
 import { StateComponent } from './state/state.component';
@@ -45,7 +45,7 @@ import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.compon
 
 import { YardcfsrateMasterListComponent } from './yardcfsrate/yardcfsrate-master-list.component';
 import { MileageMasterListComponent } from './mileage/mileage-master-list.component';
-import { DieselrateMasterListComponent } from './dieselrate/dieselrate-master-list.component';
+
 import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
 import { StateMasterListComponent } from './state/state-master-list.component';
 
@@ -96,6 +96,19 @@ import { MileageNewComponent } from './mileage/mileage-new.component';
 import { MileageDetailsComponent } from './mileage/mileage-details.component';
 import { MileageEditComponent } from './mileage/mileage-edit.component';
 import { MileageFormComponent } from './mileage/mileage-form.component';
+import { StateDetailsComponent } from './state/state-details.component';
+import { StateEditComponent } from './state/state-edit.component';
+import { StateFormComponent } from './state/state-form.component';
+import { StateNewComponent } from './state/state-new.component';
+import { StatesResolver } from './resolvers/state.resolver';
+import { DieselResolver } from './resolvers/diesel.resolver';
+import { DieselDetailsComponent } from './diesel/diesel-details.component';
+import { DieselEditComponent } from './diesel/diesel-edit.component';
+import { DieselFormComponent } from './diesel/diesel-form.component';
+import { DieselMasterListComponent } from './diesel/diesel-master-list.component';
+import { DieselNewComponent } from './diesel/diesel-new.component';
+import { DieselComponent } from './diesel/diesel.component';
+
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -161,8 +174,7 @@ const routes: Routes = [
     { path: 'edit/:id', component: ContainerEditComponent, resolve: { containerResolver: ContainerResolver } },
     { path: 'details/:id', component: ContainerDetailsComponent }
 
-  ]
-  },
+  ]},
   { path: 'weight', component: WeightComponent,
   children: [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -170,12 +182,33 @@ const routes: Routes = [
     { path: 'new', component: WeightNewComponent },
     { path: 'edit/:id', component: WeightEditComponent, resolve: { weightsResolver: WeightsResolver } },
     { path: 'details/:id', component: WeightDetailsComponent }
-  ]
-  },
+  ]},
+  
+  { path: 'state', component: StateComponent,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: StateMasterListComponent },
+    { path: 'new', component: StateNewComponent },
+    { path: 'edit/:id', component: StateEditComponent, 
+      resolve: { statesResolver: StatesResolver } },
+    { path: 'details/:id', component: StateDetailsComponent }
+  ]},
+  
+
   { path: 'cfs-rate', component: CfsrateComponent },
   { path: 'yard-cfs-rate', component: YardcfsrateComponent },
   { path: 'mileage', component: MileageComponent },
-  { path: 'diesel-rate', component: DieselrateComponent },
+  { path: 'diesel', component: DieselComponent ,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: DieselMasterListComponent },
+    { path: 'new', component: DieselNewComponent },
+    { path: 'edit/:id', component: DieselEditComponent, 
+        resolve: { dieselResolver: DieselResolver } },
+    { path: 'details/:id', component: DieselDetailsComponent }
+  ]
+
+},
   { path: 'zone', component: ZoneComponent,
   children: [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -196,7 +229,7 @@ const routes: Routes = [
   { path: 'cfs-rate-master-list', component: CfsrateMasterListComponent },
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
   { path: 'mileage-master-list', component: MileageMasterListComponent },
-  { path: 'diesel-rate-master-list', component: DieselrateMasterListComponent },
+
   { path: 'zone-master-list', component: ZoneMasterListComponent },
   { path: 'zone-day-master-list', component: ZonedayMasterListComponent },
   { path: 'state-master-list', component: StateMasterListComponent },
@@ -212,7 +245,7 @@ const routes: Routes = [
     CfsrateComponent,
     YardcfsrateComponent,
     MileageComponent,
-    DieselrateComponent,
+
     ZoneComponent,
     ZonedayComponent,
     StateComponent,
@@ -224,7 +257,7 @@ const routes: Routes = [
     WeightMasterListComponent,
     YardcfsrateMasterListComponent,
     MileageMasterListComponent,
-    DieselrateMasterListComponent,
+   
     ZonedayMasterListComponent,
     StateMasterListComponent,
     PortEditComponent,
@@ -257,6 +290,16 @@ const routes: Routes = [
     MileageDetailsComponent,
     MileageEditComponent,
     MileageFormComponent,
+    StateDetailsComponent,
+    StateEditComponent,
+    StateFormComponent,
+    StateNewComponent,
+    DieselDetailsComponent,
+    DieselEditComponent,
+    DieselFormComponent,
+    DieselMasterListComponent,
+    DieselNewComponent,
+    DieselComponent,
 
   ],
   imports: [
@@ -285,6 +328,8 @@ const routes: Routes = [
     WeightsResolver,
     ZonesResolver,
     MileagesResolver,
+    StatesResolver,
+    DieselResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
