@@ -37,7 +37,7 @@ import { MatListModule } from '@angular/material/list';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //import {NumbersOnly} from './directives/numbersonly.directive';
-import {CfsModule} from './layouts/cfs/cfs.module';
+
 
 const toasterConfig: MatSnackBarConfig = {
   horizontalPosition: 'right',

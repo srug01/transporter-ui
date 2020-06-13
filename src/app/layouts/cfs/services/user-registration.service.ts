@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-import { Cfsuserregistration } from './../models/user-registration.model';
+import { Cfsuserregistration } from '../../../shared/models/user-registration.model';
 import { environment } from './../../../../environments/environment';
 
 

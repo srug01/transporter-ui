@@ -113,7 +113,16 @@ import { CfsrateDetailsComponent } from './cfsrate/cfsrate-details.component';
 import { CfsrateEditComponent } from './cfsrate/cfsrate-edit.component';
 import { CfsrateFormComponent } from './cfsrate/cfsrate-form.component';
 import { CfsrateNewComponent } from './cfsrate/cfsrate-new.component';
+import { CfsComponent } from './cfs/cfs.component';
+import { CfsDetailsComponent } from './cfs/cfs-details.component';
+import { CfsEditComponent } from './cfs/cfs-edit.component';
+import { CfsFormComponent } from './cfs/cfs-form.component';
+import { CfsMasterListComponent } from './cfs/cfs-master-list.component';
+import { CfsNewComponent } from './cfs/cfs-new.component';
+import { CfsResolver} from './resolvers/cfs.resolver';
+import { CfsrateResolver} from './resolvers/cfsrate.resolver';
 
+import { NumbersOnly} from './../../shared/directives/numbersonly.directive';
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
 const toasterConfig: MatSnackBarConfig = {
@@ -123,6 +132,16 @@ const toasterConfig: MatSnackBarConfig = {
 };
 
 const routes: Routes = [
+  {
+    path: 'cfs', component: CfsComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: CfsMasterListComponent },
+      { path: 'new', component: CfsNewComponent },
+      { path: 'edit/:id', component: CfsEditComponent, resolve: { cfsResolver: CfsResolver } },
+      { path: 'details/:id', component: CfsDetailsComponent }
+    ]
+  },
   {
     path: 'port', component: PortComponent,
     children: [
@@ -187,19 +206,27 @@ const routes: Routes = [
     { path: 'edit/:id', component: WeightEditComponent, resolve: { weightsResolver: WeightsResolver } },
     { path: 'details/:id', component: WeightDetailsComponent }
   ]},
-  
+
   { path: 'state', component: StateComponent,
   children: [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'list', component: StateMasterListComponent },
     { path: 'new', component: StateNewComponent },
-    { path: 'edit/:id', component: StateEditComponent, 
+    { path: 'edit/:id', component: StateEditComponent,
       resolve: { statesResolver: StatesResolver } },
     { path: 'details/:id', component: StateDetailsComponent }
   ]},
-  
 
-  { path: 'cfs-rate', component: CfsrateComponent },
+
+  { path: 'cfs-rate', component: CfsrateComponent,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: CfsrateMasterListComponent },
+    { path: 'new', component: CfsrateNewComponent },
+    { path: 'edit/:id', component: CfsrateEditComponent, resolve: { cfsrateResolver: CfsrateResolver } },
+    { path: 'details/:id', component: CfsrateDetailsComponent }
+
+  ]},
   { path: 'yard-cfs-rate', component: YardcfsrateComponent },
   { path: 'mileage', component: MileageComponent },
   { path: 'diesel', component: DieselComponent ,
@@ -207,7 +234,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'list', component: DieselMasterListComponent },
     { path: 'new', component: DieselNewComponent },
-    { path: 'edit/:id', component: DieselEditComponent, 
+    { path: 'edit/:id', component: DieselEditComponent,
         resolve: { dieselResolver: DieselResolver } },
     { path: 'details/:id', component: DieselDetailsComponent }
   ]
@@ -249,7 +276,7 @@ const routes: Routes = [
     CfsrateComponent,
     YardcfsrateComponent,
     MileageComponent,
-
+    NumbersOnly,
     ZoneComponent,
     ZonedayComponent,
     StateComponent,
@@ -261,7 +288,7 @@ const routes: Routes = [
     WeightMasterListComponent,
     YardcfsrateMasterListComponent,
     MileageMasterListComponent,
-   
+
     ZonedayMasterListComponent,
     StateMasterListComponent,
     PortEditComponent,
@@ -308,6 +335,12 @@ const routes: Routes = [
     CfsrateEditComponent,
     CfsrateFormComponent,
     CfsrateNewComponent,
+    CfsComponent,
+    CfsDetailsComponent,
+    CfsEditComponent,
+    CfsFormComponent,
+    CfsMasterListComponent,
+    CfsNewComponent,
 
   ],
   imports: [
@@ -338,6 +371,8 @@ const routes: Routes = [
     MileagesResolver,
     StatesResolver,
     DieselResolver,
+    CfsResolver,
+    CfsrateResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

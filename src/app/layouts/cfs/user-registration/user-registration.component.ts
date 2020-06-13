@@ -1,11 +1,11 @@
-import { Cfsuserregistration} from './../models/user-registration.model';
+import { Cfsuserregistration} from '../../../shared/models/user-registration.model';
 import { UserRegistrationService } from './../services/user-registration.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
+import {CfsService} from './../../masters/services/cfs.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -18,12 +18,7 @@ export class UserRegistrationComponent implements OnInit {
   cfsTypeErrormatcher = new FormErrorStateMatcher();
   userTypeErrormatcher = new FormErrorStateMatcher();
 
-  public cfsTypes: Array<any> = [
-    { value: 1, viewValue: 'cfs-1' },
-    { value: 2, viewValue: 'cfs-2' },
-    { value: 3, viewValue: 'cfs-3' },
-    { value: 4, viewValue: 'cfs-4' }
-  ];
+  public cfsTypes: Array<any> = [];
   public userTypes: Array<any> = [
     { value: 5, viewValue: 'Super Admin' },
     { value: 6, viewValue: 'Admin' },
@@ -33,6 +28,7 @@ export class UserRegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _userRegistrationService: UserRegistrationService,
+    private _cfsService: CfsService,
     private _router: Router
 
   ) { }
@@ -55,9 +51,20 @@ export class UserRegistrationComponent implements OnInit {
     {
         validator: this.checkPasswords
     });
-
+    this.getAllCfsMasters();
   }
 
+
+  getAllCfsMasters() {
+    this._cfsService.getAllCfsMasters().subscribe(
+      (cfsTypes) => {
+        this.cfsTypes = cfsTypes;
+      },
+      (err) => {
+        console.log('could not fetch cfs masters');
+      }
+    );
+  }
   submitUserForm(ev) {
     if (ev) {
       ev.preventDefault();

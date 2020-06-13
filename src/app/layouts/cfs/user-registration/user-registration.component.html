@@ -11,8 +11,8 @@
                         <mat-form-field class="demo-full-width">
                             <mat-label>CFS Type</mat-label>
                             <mat-select matNativeControl formControlName="cfs_syscode" [errorStateMatcher]="cfsTypeErrormatcher">
-                                <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.value">
-                                    {{cfs.viewValue}}
+                                <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfs_syscode">
+                                    {{cfs.cfs_name}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="userForm.controls['cfs_syscode'].hasError('required')">You must make a
@@ -56,9 +56,7 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Mobile Number</mat-label>
-                            <input matInput NumbersOnly
-                            [allowDecimals]="false"
-                            [allowSign]="true"
+                            <input matInput type="number"
                              formControlName="cfs_user_mobile_no" placeholder="Mobile Number">
                         </mat-form-field>
                     </div>
