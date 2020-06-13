@@ -20,6 +20,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
 const routes: Routes = [
   { path: '', component: CfsComponent },
@@ -30,7 +31,9 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [CfsComponent, CreateOrderComponent, PlacedBidsComponent, UserRegistrationComponent],
+  declarations: [CfsComponent, CreateOrderComponent, PlacedBidsComponent, UserRegistrationComponent,
+    NumbersOnly
+  ],
   imports: [
     CommonModule,
     MatCardModule,
@@ -46,6 +49,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes)
-  ]
+  ],
+
 })
 export class CfsModule { }

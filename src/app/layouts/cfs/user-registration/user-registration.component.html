@@ -10,24 +10,24 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>CFS Type</mat-label>
-                            <mat-select matNativeControl formControlName="cfs_type" [errorStateMatcher]="cfsTypeErrormatcher">
+                            <mat-select matNativeControl formControlName="cfs_syscode" [errorStateMatcher]="cfsTypeErrormatcher">
                                 <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.value">
                                     {{cfs.viewValue}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="userForm.controls['cfs_type'].hasError('required')">You must make a
+                            <mat-error *ngIf="userForm.controls['cfs_syscode'].hasError('required')">You must make a
                                 selection</mat-error>
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>User Type</mat-label>
-                            <mat-select matNativeControl formControlName="user_type" [errorStateMatcher]="userTypeErrormatcher">
+                            <mat-select matNativeControl formControlName="user_type_syscode" [errorStateMatcher]="userTypeErrormatcher">
                                 <mat-option *ngFor="let user of userTypes" [value]="user.value">
                                     {{user.viewValue}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="userForm.controls['user_type'].hasError('required')">You must make a
+                            <mat-error *ngIf="userForm.controls['user_type_syscode'].hasError('required')">You must make a
                                 selection</mat-error>
                         </mat-form-field>
                     </div>
@@ -35,20 +35,20 @@
                 <div fxLayout='row'>
                     <mat-form-field class="demo-full-width">
                         <mat-label>Name</mat-label>
-                        <input matInput type="text" formControlName="name" placeholder="Enter Name">
+                        <input matInput type="text" formControlName="cfs_user_name" placeholder="Enter Name">
                     </mat-form-field>
                 </div>
                 <div fxLayout='row' fxLayoutGap="10px">
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Designation</mat-label>
-                            <input matInput formControlName="designation" placeholder="Designation">
+                            <input matInput formControlName="cfs_user_designation" placeholder="Designation">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Department</mat-label>
-                            <input matInput formControlName="department" placeholder="Department">
+                            <input matInput formControlName="cfs_user_department" placeholder="Department">
                         </mat-form-field>
                     </div>
                 </div>
@@ -56,13 +56,16 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Mobile Number</mat-label>
-                            <input matInput formControlName="mobile_number" placeholder="Mobile Number">
+                            <input matInput NumbersOnly
+                            [allowDecimals]="false"
+                            [allowSign]="true"
+                             formControlName="cfs_user_mobile_no" placeholder="Mobile Number">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email" placeholder="Email">
+                            <input matInput formControlName="cfs_user_email" placeholder="Email">
                         </mat-form-field>
                     </div>
                 </div>
@@ -70,22 +73,26 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Password</mat-label>
-                            <input matInput type="password" formControlName="password" placeholder="Password">
+                            <input matInput type="password" formControlName="cfs_user_password" placeholder="Password">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Confirm Password</mat-label>
-                            <input matInput type="password" formControlName="confirm_password" placeholder="Confirm Password">
+                            <input matInput type="password"
+                            formControlName="cfs_user_confirm_password"
+                            placeholder="Confirm Password"
+                            [errorStateMatcher]="confirmPasswordmatcher">
                         </mat-form-field>
+                        <div *ngIf="userForm.errors"><mat-error *ngIf="userForm.controls['cfs_user_confirm_password'].dirty && userForm.errors['notSame']">Passwords must match</mat-error></div>
                     </div>
                 </div>
                 <div fxLayout="row">
                     <div fxFlex="20%">
-                        <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="cfs_user_is_active">Active</mat-slide-toggle>
                     </div>
                     <div fxFlex="20%">
-                        <mat-slide-toggle formControlName="is_verified">Verify</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="cfs_user_is_verify">Verify</mat-slide-toggle>
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutGap="10px">
