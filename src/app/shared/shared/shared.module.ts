@@ -22,6 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgModel, FormsModule } from '@angular/forms';
 
+//import {NumbersOnly} from '../directives/numbersonly.directive';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { NgModel, FormsModule } from '@angular/forms';
     AreaComponent,
     CardComponent,
     PieComponent,
-    AuthComponent
+    AuthComponent,
+    //NumbersOnly
   ],
   imports: [
     CommonModule,
@@ -56,7 +59,8 @@ import { NgModel, FormsModule } from '@angular/forms';
     AreaComponent,
     CardComponent,
     PieComponent,
-    AuthComponent
+    AuthComponent,
+   // NumbersOnly
   ]
 })
 export class SharedModule { }

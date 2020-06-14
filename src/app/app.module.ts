@@ -36,6 +36,8 @@ import { SignupSidebarComponent } from './shared/component/signup-sidebar/signup
 import { MatListModule } from '@angular/material/list';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+//import {NumbersOnly} from './directives/numbersonly.directive';
+
 
 const toasterConfig: MatSnackBarConfig = {
   horizontalPosition: 'right',
@@ -54,7 +56,8 @@ const toasterConfig: MatSnackBarConfig = {
     TransporterSignupComponent,
     SignupComponent,
     SignupHeaderComponent,
-    SignupSidebarComponent
+    SignupSidebarComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ const toasterConfig: MatSnackBarConfig = {
     MatCardModule,
     MatInputModule,
     MatProgressSpinnerModule,
+
     FormsModule
   ],
   providers: [

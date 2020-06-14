@@ -1,0 +1,103 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>CFS Management</mat-card-title>
+        <mat-card-subtitle>User Registration</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="userForm" (ngSubmit)="submitUserForm($event)">
+            <div fxLayout="column" fxLayoutGap="10px">
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>CFS Type</mat-label>
+                            <mat-select matNativeControl formControlName="cfs_syscode" [errorStateMatcher]="cfsTypeErrormatcher">
+                                <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfs_syscode">
+                                    {{cfs.cfs_name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="userForm.controls['cfs_syscode'].hasError('required')">You must make a
+                                selection</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>User Type</mat-label>
+                            <mat-select matNativeControl formControlName="user_type_syscode" [errorStateMatcher]="userTypeErrormatcher">
+                                <mat-option *ngFor="let user of userTypes" [value]="user.value">
+                                    {{user.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="userForm.controls['user_type_syscode'].hasError('required')">You must make a
+                                selection</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout='row'>
+                    <mat-form-field class="demo-full-width">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="cfs_user_name" placeholder="Enter Name">
+                    </mat-form-field>
+                </div>
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Designation</mat-label>
+                            <input matInput formControlName="cfs_user_designation" placeholder="Designation">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Department</mat-label>
+                            <input matInput formControlName="cfs_user_department" placeholder="Department">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput type="number"
+                             formControlName="cfs_user_mobile_no" placeholder="Mobile Number">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="cfs_user_email" placeholder="Email">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="cfs_user_password" placeholder="Password">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput type="password"
+                            formControlName="cfs_user_confirm_password"
+                            placeholder="Confirm Password"
+                            [errorStateMatcher]="confirmPasswordmatcher">
+                        </mat-form-field>
+                        <div *ngIf="userForm.errors"><mat-error *ngIf="userForm.controls['cfs_user_confirm_password'].dirty && userForm.errors['notSame']">Passwords must match</mat-error></div>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxFlex="20%">
+                        <mat-slide-toggle formControlName="cfs_user_is_active">Active</mat-slide-toggle>
+                    </div>
+                    <div fxFlex="20%">
+                        <mat-slide-toggle formControlName="cfs_user_is_verify">Verify</mat-slide-toggle>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button type="submit" mat-raised-button color="primary">Save</button>
+                    <button mat-raised-button color="warn">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

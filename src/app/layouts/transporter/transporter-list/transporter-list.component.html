@@ -1,0 +1,57 @@
+<mat-card-content>
+    <table mat-table [dataSource]="transporters" class="mat-elevation-z8">
+  
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="transporter_syscode">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_syscode}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="transporter_name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_name}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="transporter_address">
+        <th mat-header-cell *matHeaderCellDef> Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_address}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="transporter_partner">
+        <th mat-header-cell *matHeaderCellDef> Partener / Director </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_partner}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="transporter_partner_address">
+        <th mat-header-cell *matHeaderCellDef> Partners Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_partner_address}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="transporter_is_active">
+        <th mat-header-cell *matHeaderCellDef> Active </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_is_active}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="transporter_is_verify">
+        <th mat-header-cell *matHeaderCellDef> Verified </th>
+        <td mat-cell *matCellDef="let element"> {{element.transporter_is_verify}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <a><i class="material-icons md-24 p5">create</i></a>
+          <a><i class="material-icons md-24 p5">delete_sweep</i></a>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
