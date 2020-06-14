@@ -113,6 +113,16 @@ import { CfsrateDetailsComponent } from './cfsrate/cfsrate-details.component';
 import { CfsrateEditComponent } from './cfsrate/cfsrate-edit.component';
 import { CfsrateFormComponent } from './cfsrate/cfsrate-form.component';
 import { CfsrateNewComponent } from './cfsrate/cfsrate-new.component';
+import { ZonedayDetailsComponent } from './zoneday/zoneday-details.component';
+import { ZonedayEditComponent } from './zoneday/zoneday-edit.component';
+import { ZonedayFormComponent } from './zoneday/zoneday-form.component';
+import { ZonedayNewComponent } from './zoneday/zoneday-new.component';
+import { ZoneDayResolver } from './resolvers/zonday.resolver';
+import { YardcfsrateDetailsComponent } from './yardcfsrate/yardcfsrate-details.component';
+import { YardcfsrateEditComponent } from './yardcfsrate/yardcfsrate-edit.component';
+import { YardcfsrateFormComponent } from './yardcfsrate/yardcfsrate-form.component';
+import { YardcfsrateNewComponent } from './yardcfsrate/yardcfsrate-new.component';
+import { YardCFSRatesResolver } from './resolvers/yardcfsrate.resolver';
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
@@ -200,7 +210,15 @@ const routes: Routes = [
   
 
   { path: 'cfs-rate', component: CfsrateComponent },
-  { path: 'yard-cfs-rate', component: YardcfsrateComponent },
+  { path: 'yardcfsrate', component: YardcfsrateComponent ,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: YardcfsrateMasterListComponent },
+    { path: 'new', component: YardcfsrateNewComponent },
+    { path: 'edit/:id', component: YardcfsrateEditComponent, 
+        resolve: { YardCFSRatesResolver: YardCFSRatesResolver } },
+    { path: 'details/:id', component: YardcfsrateDetailsComponent }
+  ]},
   { path: 'mileage', component: MileageComponent },
   { path: 'diesel', component: DieselComponent ,
   children: [
@@ -222,7 +240,19 @@ const routes: Routes = [
     { path: 'details/:id', component: ZoneDetailsComponent }
   ]
   },
-  { path: 'zone-day', component: ZonedayComponent },
+  { path: 'zone-day', component: ZonedayComponent ,
+
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: ZonedayMasterListComponent },
+    { path: 'new', component: ZonedayNewComponent },
+    { path: 'edit/:id', component: ZonedayEditComponent, 
+    resolve: { zonedayResolver: ZoneDayResolver } },
+    { path: 'details/:id', component: ZonedayEditComponent }
+  ]
+
+
+},
   { path: 'state', component: StateComponent },
   /**
    * Lists
@@ -308,6 +338,14 @@ const routes: Routes = [
     CfsrateEditComponent,
     CfsrateFormComponent,
     CfsrateNewComponent,
+    ZonedayDetailsComponent,
+    ZonedayEditComponent,
+    ZonedayFormComponent,
+    ZonedayNewComponent,
+    YardcfsrateDetailsComponent,
+    YardcfsrateEditComponent,
+    YardcfsrateFormComponent,
+    YardcfsrateNewComponent,
 
   ],
   imports: [
@@ -338,6 +376,8 @@ const routes: Routes = [
     MileagesResolver,
     StatesResolver,
     DieselResolver,
+    ZoneDayResolver,
+    YardCFSRatesResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
