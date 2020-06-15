@@ -14,26 +14,26 @@ import { ZoneService } from '../services/zone.service';
 })
 export class ZoneComponent implements OnInit {
 
-  matcher = new FormErrorStateMatcher();
-  public zoneForm: FormGroup;
+  //matcher = new FormErrorStateMatcher();
+ // public zoneForm: FormGroup;
 
 
   constructor(
-    private fb: FormBuilder,
-    private _snackBar: MatSnackBar,
-    private _router: Router,
-    private _zoneService: ZoneService
+    // private fb: FormBuilder,
+    // private _snackBar: MatSnackBar,
+    // private _router: Router,
+    // private _zoneService: ZoneService
   ) { }
 
-  ngOnInit(): void {
-    this.zoneForm = this.fb.group({
-      zone_name: ['', Validators.required],
-      zone_description:['', Validators.required],
-      pincode:['', Validators.required],
-      is_active: ['', Validators.required]
-    });
-  }
-
+  ngOnInit() {
+    // this.zoneForm = this.fb.group({
+    //   zone_name: ['', Validators.required],
+    //   zone_description:['', Validators.required],
+    //   pincode:['', Validators.required],
+    //   is_active: ['', Validators.required]
+    }
+  //}
+/*
   submitZoneForm(ev) {
     if (ev) {
       ev.preventDefault();
@@ -63,5 +63,5 @@ export class ZoneComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
-  }
+  }*/
 }

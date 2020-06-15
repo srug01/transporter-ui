@@ -13,7 +13,5 @@ export class WeightComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm){
-    console.log(form);
-  }
+
 }

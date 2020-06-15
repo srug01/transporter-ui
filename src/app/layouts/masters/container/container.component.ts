@@ -12,7 +12,5 @@ export class ContainerComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  onSubmit(form: NgForm){
-    console.log(form);
-  }
+
 }

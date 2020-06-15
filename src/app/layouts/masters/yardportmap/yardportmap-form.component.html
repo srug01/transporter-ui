@@ -1,0 +1,49 @@
+<div fxLayout="row wrap" class="matero-row">
+  <div fxFlex="66.67" class="matero-col">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Yard Port Mapping </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form
+          fxLayout="row"
+          fxLayoutGap="10px"
+          [formGroup]="yardportmapForm"
+          (ngSubmit)="submityardportmapForm($event)"
+        >
+          <div fxLayout="row wrap" fxLayoutGap="8px grid">
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <mat-label>Yard</mat-label>
+                <mat-select formControlName="yard_syscode" [errorStateMatcher]="matcher">
+                  <mat-option *ngFor="let yard of yardMasters" [value]="yard.yard_syscode">
+                    {{ yard.yard_name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+              <mat-form-field>
+                <mat-label>Port</mat-label>
+                <mat-select formControlName="port_syscode" [errorStateMatcher]="matcher">
+                  <mat-option *ngFor="let port of portMasters" [value]="port.port_syscode">
+                    {{ port.port_name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.lt-sm="100">
+              <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+            </div>
+            <div fxFlex="100" fxFlex.lt-sm="100">
+              <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>
+
+

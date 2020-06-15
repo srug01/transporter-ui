@@ -1,0 +1,57 @@
+<div fxLayout="row wrap" class="matero-row">
+    <div fxFlex="66.67" class="matero-col">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Mileage Master</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form
+            fxLayout="row"
+            fxLayoutGap="10px"
+            [formGroup]="mileageForm" (ngSubmit)="submitMileageForm($event)"
+          >
+            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Mileage"
+                    formControlName="mileage"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <mat-label>Weight</mat-label>
+                  <mat-select formControlName="weight_syscode" >
+                    <mat-option *ngFor="let weight of weightMasters" [value]="weight.weight_syscode">
+                      {{ weight.weight_name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <mat-label>Container</mat-label>
+                  <mat-select formControlName="container_syscode">
+                    <mat-option *ngFor="let container of containers" [value]="container.container_syscode">
+                      {{ container.container_name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+              </div>
+              <div fxFlex="100" fxFlex.lt-sm="100">
+                <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  

@@ -1,0 +1,101 @@
+<div fxLayout="row wrap" class="matero-row">
+    <div fxFlex="66.67" class="matero-col">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Driver Master</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form
+            fxLayout="row"
+            fxLayoutGap="10px"
+            [formGroup]="driverForm" (ngSubmit)="submitDriverForm($event)"
+          >
+            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Driver Name"
+                    formControlName="name"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="First Name"
+                    formControlName="firstname"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Last Name"
+                    formControlName="lastname"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Pin Code"
+                    formControlName="pincode"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <mat-label>Identity Type</mat-label>
+                  <mat-select formControlName="identitytypesyscode" 
+                  [errorStateMatcher]="matcher">
+                    <mat-option *ngFor="let identitytype of identitytypeMaster" 
+                    [value]="identitytype.identitytypesyscode">
+                      {{ identitytype.identitytname }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Identity Number"
+                    formControlName="identitynumber"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+             
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+              </div>
+              <div fxFlex="100" fxFlex.lt-sm="100">
+                <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
