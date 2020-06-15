@@ -130,10 +130,10 @@ import { CfsEditComponent } from './cfs/cfs-edit.component';
 import { CfsFormComponent } from './cfs/cfs-form.component';
 import { CfsMasterListComponent } from './cfs/cfs-master-list.component';
 import { CfsNewComponent } from './cfs/cfs-new.component';
-import { CfsResolver} from './resolvers/cfs.resolver';
-import { CfsrateResolver} from './resolvers/cfsrate.resolver';
+import { CfsResolver } from './resolvers/cfs.resolver';
+import { CfsrateResolver } from './resolvers/cfsrate.resolver';
 
-import { NumbersOnly} from './../../shared/directives/numbersonly.directive';
+import { NumbersOnly } from './../../shared/directives/numbersonly.directive';
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
 const toasterConfig: MatSnackBarConfig = {
@@ -163,22 +163,22 @@ const routes: Routes = [
       { path: 'details/:id', component: PortDetailsComponent }
     ]
   },
-
-  { path: 'mileage', component: MileageComponent,
+  {
+    path: 'mileage', component: MileageComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MileageMasterListComponent },
       { path: 'new', component: MileageNewComponent },
-      { path: 'edit/:id', component: MileageEditComponent,
-      resolve: { mileagesResolver: MileagesResolver } },
+      {
+        path: 'edit/:id', component: MileageEditComponent,
+        resolve: { mileagesResolver: MileagesResolver }
+      },
       { path: 'details/:id', component: MileageDetailsComponent }
 
     ]
   },
-
-
-
-  { path: 'yard', component: YardComponent,
+  {
+    path: 'yard', component: YardComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: YardMasterListComponent },
@@ -188,112 +188,123 @@ const routes: Routes = [
 
     ]
   },
-  { path: 'yard-port-map', component: YardportmapComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: YardportmapMasterListComponent },
-    { path: 'new', component: YardportmapNewComponent },
-    { path: 'edit/:id', component: YardportmapEditComponent, resolve: { yardportmapResolver: YardPortMapResolver } },
-    { path: 'details/:id', component: YardportmapDetailsComponent }
+  {
+    path: 'yard-port-map', component: YardportmapComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: YardportmapMasterListComponent },
+      { path: 'new', component: YardportmapNewComponent },
+      { path: 'edit/:id', component: YardportmapEditComponent, resolve: { yardportmapResolver: YardPortMapResolver } },
+      { path: 'details/:id', component: YardportmapDetailsComponent }
 
-  ]
+    ]
 
 
   },
-  { path: 'container', component: ContainerComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: ContainerMasterListComponent },
-    { path: 'new', component: ContainerNewComponent },
-    { path: 'edit/:id', component: ContainerEditComponent, resolve: { containerResolver: ContainerResolver } },
-    { path: 'details/:id', component: ContainerDetailsComponent }
+  {
+    path: 'container', component: ContainerComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: ContainerMasterListComponent },
+      { path: 'new', component: ContainerNewComponent },
+      { path: 'edit/:id', component: ContainerEditComponent, resolve: { containerResolver: ContainerResolver } },
+      { path: 'details/:id', component: ContainerDetailsComponent }
 
-  ]},
-  { path: 'weight', component: WeightComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: WeightMasterListComponent },
-    { path: 'new', component: WeightNewComponent },
-    { path: 'edit/:id', component: WeightEditComponent, resolve: { weightsResolver: WeightsResolver } },
-    { path: 'details/:id', component: WeightDetailsComponent }
-  ]},
-
-  { path: 'state', component: StateComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: StateMasterListComponent },
-    { path: 'new', component: StateNewComponent },
-    { path: 'edit/:id', component: StateEditComponent,
-      resolve: { statesResolver: StatesResolver } },
-    { path: 'details/:id', component: StateDetailsComponent }
-  ]},
-
-  
-  { path: 'yardcfsrate', component: YardcfsrateComponent ,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: YardcfsrateMasterListComponent },
-    { path: 'new', component: YardcfsrateNewComponent },
-    { path: 'edit/:id', component: YardcfsrateEditComponent, 
-        resolve: { YardCFSRatesResolver: YardCFSRatesResolver } },
-    { path: 'details/:id', component: YardcfsrateDetailsComponent }
-  ]},
-
-  { path: 'cfs-rate', component: CfsrateComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: CfsrateMasterListComponent },
-    { path: 'new', component: CfsrateNewComponent },
-    { path: 'edit/:id', component: CfsrateEditComponent, resolve: { cfsrateResolver: CfsrateResolver } },
-    { path: 'details/:id', component: CfsrateDetailsComponent }
-
-  ]},
-  
-  
-  { path: 'diesel', component: DieselComponent ,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: DieselMasterListComponent },
-    { path: 'new', component: DieselNewComponent },
-    { path: 'edit/:id', component: DieselEditComponent,
-        resolve: { dieselResolver: DieselResolver } },
-    { path: 'details/:id', component: DieselDetailsComponent }
-  ]
-
-},
-  { path: 'zone', component: ZoneComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: ZoneMasterListComponent },
-    { path: 'new', component: ZoneNewComponent },
-    { path: 'edit/:id', component: ZoneEditComponent, resolve: { zonesResolver: ZonesResolver } },
-    { path: 'details/:id', component: ZoneDetailsComponent }
-  ]
+    ]
   },
-  { path: 'zone-day', component: ZonedayComponent ,
+  {
+    path: 'weight', component: WeightComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: WeightMasterListComponent },
+      { path: 'new', component: WeightNewComponent },
+      { path: 'edit/:id', component: WeightEditComponent, resolve: { weightsResolver: WeightsResolver } },
+      { path: 'details/:id', component: WeightDetailsComponent }
+    ]
+  },
+  {
+    path: 'state', component: StateComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: StateMasterListComponent },
+      { path: 'new', component: StateNewComponent },
+      {
+        path: 'edit/:id', component: StateEditComponent,
+        resolve: { statesResolver: StatesResolver }
+      },
+      { path: 'details/:id', component: StateDetailsComponent }
+    ]
+  },
+  {
+    path: 'yardcfsrate', component: YardcfsrateComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: YardcfsrateMasterListComponent },
+      { path: 'new', component: YardcfsrateNewComponent },
+      {
+        path: 'edit/:id', component: YardcfsrateEditComponent,
+        resolve: { YardCFSRatesResolver: YardCFSRatesResolver }
+      },
+      { path: 'details/:id', component: YardcfsrateDetailsComponent }
+    ]
+  },
+  {
+    path: 'cfs-rate', component: CfsrateComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: CfsrateMasterListComponent },
+      { path: 'new', component: CfsrateNewComponent },
+      { path: 'edit/:id', component: CfsrateEditComponent, resolve: { cfsrateResolver: CfsrateResolver } },
+      { path: 'details/:id', component: CfsrateDetailsComponent }
 
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: ZonedayMasterListComponent },
-    { path: 'new', component: ZonedayNewComponent },
-    { path: 'edit/:id', component: ZonedayEditComponent, 
-    resolve: { zonedayResolver: ZoneDayResolver } },
-    { path: 'details/:id', component: ZonedayEditComponent }
-  ]
+    ]
+  },
+  {
+    path: 'diesel', component: DieselComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: DieselMasterListComponent },
+      { path: 'new', component: DieselNewComponent },
+      {
+        path: 'edit/:id', component: DieselEditComponent,
+        resolve: { dieselResolver: DieselResolver }
+      },
+      { path: 'details/:id', component: DieselDetailsComponent }
+    ]
+
+  },
+  {
+    path: 'zone', component: ZoneComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: ZoneMasterListComponent },
+      { path: 'new', component: ZoneNewComponent },
+      { path: 'edit/:id', component: ZoneEditComponent, resolve: { zonesResolver: ZonesResolver } },
+      { path: 'details/:id', component: ZoneDetailsComponent }
+    ]
+  },
+  {
+    path: 'zone-day', component: ZonedayComponent,
+
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: ZonedayMasterListComponent },
+      { path: 'new', component: ZonedayNewComponent },
+      {
+        path: 'edit/:id', component: ZonedayEditComponent,
+        resolve: { zonedayResolver: ZoneDayResolver }
+      },
+      { path: 'details/:id', component: ZonedayEditComponent }
+    ]
 
 
-},
-  
+  },
   /**
    * Lists
    */
-
-
-
   { path: 'cfs-rate-master-list', component: CfsrateMasterListComponent },
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
   { path: 'mileage-master-list', component: MileageMasterListComponent },
-
   { path: 'zone-master-list', component: ZoneMasterListComponent },
   { path: 'zone-day-master-list', component: ZonedayMasterListComponent },
   { path: 'state-master-list', component: StateMasterListComponent },
@@ -321,7 +332,6 @@ const routes: Routes = [
     WeightMasterListComponent,
     YardcfsrateMasterListComponent,
     MileageMasterListComponent,
-
     ZonedayMasterListComponent,
     StateMasterListComponent,
     PortEditComponent,
@@ -376,10 +386,17 @@ const routes: Routes = [
     YardcfsrateEditComponent,
     YardcfsrateFormComponent,
     YardcfsrateNewComponent,
+    CfsComponent,
+    CfsDetailsComponent,
+    CfsEditComponent,
+    CfsFormComponent,
+    CfsMasterListComponent,
+    CfsNewComponent
 
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
@@ -392,8 +409,7 @@ const routes: Routes = [
     FlexLayoutModule,
     MatButtonModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
-    RouterModule.forChild(routes)
+    MatSnackBarModule
   ],
   providers: [
     StateMasterService,
