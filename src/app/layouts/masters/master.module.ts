@@ -368,7 +368,6 @@ const routes: Routes = [
     CfsrateEditComponent,
     CfsrateFormComponent,
     CfsrateNewComponent,
-<<<<<<< HEAD
     ZonedayDetailsComponent,
     ZonedayEditComponent,
     ZonedayFormComponent,
@@ -377,14 +376,6 @@ const routes: Routes = [
     YardcfsrateEditComponent,
     YardcfsrateFormComponent,
     YardcfsrateNewComponent,
-=======
-    CfsComponent,
-    CfsDetailsComponent,
-    CfsEditComponent,
-    CfsFormComponent,
-    CfsMasterListComponent,
-    CfsNewComponent,
->>>>>>> bea6a8f2258c18ab3caa731fff3625ff03f08541
 
   ],
   imports: [
@@ -415,13 +406,8 @@ const routes: Routes = [
     MileagesResolver,
     StatesResolver,
     DieselResolver,
-<<<<<<< HEAD
     ZoneDayResolver,
     YardCFSRatesResolver,
-=======
-    CfsResolver,
-    CfsrateResolver,
->>>>>>> bea6a8f2258c18ab3caa731fff3625ff03f08541
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
