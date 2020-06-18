@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$srug-theme-primary: mat-palette($mat-indigo);
+$srug-theme-accent: mat-palette($mat-pink, A200, A100, A400);
+$srug-theme-warn: mat-palette($mat-red);
+
+$srug-theme: mat-light-theme($srug-theme-primary,$srug-theme-accent,$srug-theme-warn);
+
+@include angular-material-theme($srug-theme);
