@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { PlacedBidsComponent } from './placed-bids/placed-bids.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -47,6 +48,7 @@ const routes: Routes = [
     MatButtonModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
+    NgSelectModule,
     FormsModule,
     RouterModule.forChild(routes)
   ],

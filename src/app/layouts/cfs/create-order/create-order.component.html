@@ -5,125 +5,127 @@
     </mat-card-header>
     <mat-card-content>
         <form class="example-form" [formGroup]="orderForm" (ngSubmit)="submitOrderForm($event)">
-            <div fxLayout='row'>
-                <div fxFlex="50%">
-                    <mat-form-field class="demo-full-width">
-                        <mat-label>Port To CFS</mat-label>
-                        <mat-select matNativeControl formControlName="port_to_cfs"
-                            [errorStateMatcher]="errorStateMatcher">
-                            <mat-option *ngFor="let port of ports" [value]="port.value">
-                                {{port.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="orderForm.controls['port_to_cfs'].hasError('required')">You must make a
-                            selection</mat-error>
-                    </mat-form-field>
+            <div fxLayout="column" fxLayoutGap="15px">
+                <div fxLayout='row'>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Port To CFS</mat-label>
+                            <mat-select matNativeControl formControlName="port_to_cfs"
+                                [errorStateMatcher]="errorStateMatcher">
+                                <mat-option *ngFor="let port of ports" [value]="port.value">
+                                    {{port.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="orderForm.controls['port_to_cfs'].hasError('required')">You must make a
+                                selection</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%" fxFlexOffset="10px">
+                        <mat-form-field color="accent">
+                            <mat-label>Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div fxFlex="50%" fxFlexOffset="10px">
-                    <mat-form-field color="accent">
-                        <mat-label>Date</mat-label>
-                        <input matInput [matDatepicker]="picker1" formControlName="date">
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-                    </mat-form-field>
+                <div fxLayout='row'>
+                    <div fxFlex="3%">
+                        <i class="material-icons md-24 p5">location_on</i>
+                    </div>
+                    <div fxFlex="47%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Source</mat-label>
+                            <mat-select matNativeControl formControlName="source"
+                                [errorStateMatcher]="errorStateMatcher">
+                                <mat-option *ngFor="let port of ports" [value]="port.value">
+                                    {{port.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
+                                selection</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="3%">
+                        <i class="material-icons md-24 p5">location_on</i>
+                    </div>
+                    <div fxFlex="47%" fxFlexOffset="10px">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Destination</mat-label>
+                            <mat-select matNativeControl formControlName="destination"
+                                [errorStateMatcher]="errorStateMatcher">
+                                <mat-option *ngFor="let port of ports" [value]="port.value">
+                                    {{port.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="orderForm.controls['destination'].hasError('required')">You must make a
+                                selection</mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
-            </div>
-            <div fxLayout='row'>
-                <div fxFlex="3%">
-                    <i class="material-icons md-24 p5">location_on</i>
-                </div>
-                <div fxFlex="47%">
-                    <mat-form-field class="demo-full-width">
-                        <mat-label>Source</mat-label>
-                        <mat-select matNativeControl formControlName="source" [errorStateMatcher]="errorStateMatcher">
-                            <mat-option *ngFor="let port of ports" [value]="port.value">
-                                {{port.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                            selection</mat-error>
-                    </mat-form-field>
-                </div>
-                <div fxFlex="3%">
-                    <i class="material-icons md-24 p5">location_on</i>
-                </div>
-                <div fxFlex="47%" fxFlexOffset="10px">
-                    <mat-form-field class="demo-full-width">
-                        <mat-label>Destination</mat-label>
-                        <mat-select matNativeControl formControlName="destination"
-                            [errorStateMatcher]="errorStateMatcher">
-                            <mat-option *ngFor="let port of ports" [value]="port.value">
-                                {{port.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="orderForm.controls['destination'].hasError('required')">You must make a
-                            selection</mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <h3>Container Details</h3>
-            <div formArrayName="containers">
-                <div fxLayout="column" fxLayoutGap="15px">
-                    <div *ngFor="let containerRow of this.orderForm.controls.containers['controls'];let i=index">
-                        <div [formGroup]="containerRow" fxLayout="row" fxLayoutGap="15px">
-                            <div fxFlex="25%">
-                                <mat-form-field>
-                                    <mat-label>Type</mat-label>
-                                    <mat-select matNativeControl formControlName="type"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let type of types" [value]="type.value">
-                                            {{type.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex="25%">
-                                <mat-form-field>
-                                    <mat-label>Weight</mat-label>
-                                    <mat-select matNativeControl formControlName="weight"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let weight of weights" [value]="weight.value">
-                                            {{weight.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex="20%">
-                                <mat-form-field>
-                                    <mat-label>No. of Trucks</mat-label>
-                                    <input matInput type="text" formControlName="number_of_trucks"
-                                        placeholder="No. of Trucks">
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex="20%">
-                                <mat-form-field>
-                                    <mat-label>Container Numbers</mat-label>
-                                    <input matInput type="text" formControlName="container_number"
-                                        placeholder="Container Numbers">
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex="10%">
-                                <button><i class="material-icons md-24 p5"
-                                        (click)="removeFormControl(i)">delete_sweep</i></button>
+                <h3>Container Details</h3>
+                <div formArrayName="containers">
+                    <div fxLayout="column" fxLayoutGap="15px">
+                        <div *ngFor="let containerRow of this.orderForm.controls.containers['controls'];let i=index">
+                            <div [formGroup]="containerRow" fxLayout="row" fxLayoutGap="15px">
+                                <div fxFlex="25%">
+                                    <mat-form-field>
+                                        <mat-label>Type</mat-label>
+                                        <mat-select matNativeControl formControlName="type"
+                                            [errorStateMatcher]="errorStateMatcher">
+                                            <mat-option *ngFor="let type of types" [value]="type.value">
+                                                {{type.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="25%">
+                                    <mat-form-field>
+                                        <mat-label>Weight</mat-label>
+                                        <mat-select matNativeControl formControlName="weight"
+                                            [errorStateMatcher]="errorStateMatcher">
+                                            <mat-option *ngFor="let weight of weights" [value]="weight.value">
+                                                {{weight.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="20%">
+                                    <mat-form-field>
+                                        <mat-label>No. of Trucks</mat-label>
+                                        <input matInput type="text" formControlName="number_of_trucks"
+                                            placeholder="No. of Trucks">
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="20%">
+                                    <ng-select [items]="containerNumbers" bindLabel="text" bindValue="id"
+                                        [addTag]="true" (change)="changeContainerNumbers($event, i)"
+                                        [multiple]="true" placeholder="add container number & press enter">
+                                    </ng-select>
+                                </div>
+                                <div fxFlex="10%">
+                                    <button><i class="material-icons md-24 p5"
+                                            (click)="removeFormControl(i)">delete_sweep</i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <button type="button" mat-raised-button color="primary" (click)="addFormControl()">Add
-                            Containers</button>
+                        <div>
+                            <button type="button" mat-raised-button color="primary" (click)="addFormControl()">Add
+                                Containers</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div fxLayout="row">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Remarks</mat-label>
-                    <input matInput formControlName="remarks" placeholder="Remarks">
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutGap="10px">
-                <button mat-raised-button color="primary">Save</button>
-                <button mat-raised-button color="accent">Submit</button>
-                <button mat-raised-button color="warn">Cancel</button>
+                <div fxLayout="row">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Remarks</mat-label>
+                        <input matInput formControlName="remarks" placeholder="Remarks">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button mat-raised-button color="primary">Save</button>
+                    <button mat-raised-button color="accent">Submit</button>
+                    <button mat-raised-button color="warn">Cancel</button>
+                </div>
             </div>
         </form>
     </mat-card-content>

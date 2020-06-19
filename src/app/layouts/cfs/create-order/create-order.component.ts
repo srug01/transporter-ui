@@ -1,3 +1,4 @@
+import { Order } from './../../../shared/models/order';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
@@ -6,6 +7,7 @@ import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher'
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-create-order',
@@ -16,6 +18,10 @@ export class CreateOrderComponent implements OnInit {
 
   errorStateMatcher = new FormErrorStateMatcher();
   public orderForm: FormGroup;
+  public selectedSimpleItem;
+  public containers: [] = [];
+  public containerNumbers: Array<any> = [
+  ];
 
   ports: any[] = [
     { value: '1', viewValue: 'Mumbai' },
@@ -47,7 +53,8 @@ export class CreateOrderComponent implements OnInit {
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    private _orderService: OrderService
   ) { }
 
   initialiseOrderForm() {
@@ -60,15 +67,17 @@ export class CreateOrderComponent implements OnInit {
       remarks: ['', Validators.required]
     });
     this.addFormControl();
-    this.addFormControl();
-    this.addFormControl();
-    console.log(this.orderForm);
 
   }
 
   removeFormControl(i) {
     let containersArray = this.orderForm.controls.containers as FormArray;
     containersArray.removeAt(i);
+  }
+
+  changeContainerNumbers(ev, index) {
+    const arr = this.orderForm.get('containers').value;
+    arr[index].container_numbers = ev;
   }
 
   addFormControl() {
@@ -79,36 +88,14 @@ export class CreateOrderComponent implements OnInit {
       type: ['', Validators.required],
       weight: ['', Validators.required],
       number_of_trucks: ['', Validators.required],
-      container_number: ['', Validators.required]
+      container_numbers: [null]
     });
-
     containersArray.insert(arraylen, containerRow);
   }
 
+  addCustomContainer = (term) => ({ id: term, value: term });
+
   ngOnInit(): void {
-    this.dataSource = [
-      {
-        position: 1,
-        Type: '10 FT',
-        Weight: '1 TON',
-        NoOfTrucks: '10',
-        ContainerNo: '200'
-      },
-      {
-        position: 2,
-        Type: '10 FT',
-        Weight: '1 TON',
-        NoOfTrucks: '10',
-        ContainerNo: '200'
-      },
-      {
-        position: 3,
-        Type: '10 FT',
-        Weight: '1 TON',
-        NoOfTrucks: '10',
-        ContainerNo: '200'
-      },
-    ];
     this.initialiseOrderForm();
   }
 
@@ -116,13 +103,61 @@ export class CreateOrderComponent implements OnInit {
     if (ev) {
       ev.preventDefault();
     }
-    console.log(this.orderForm);
+    if (this.orderForm.valid) {
+      const order = this.transformOrderObj(this.orderForm.value);
+      this.saveOrder(order);
+      this.openSnackBar('Success !', 'Order placed successfully');
+    } else {
+      console.log(this.orderForm);
+      this.openSnackBar('Failure !', 'could not place the order');
+    }
+  }
+
+  transformOrderObj(order: any): Order {
+    return {
+      order_date: order.date,
+      order_remarks: order.remarks,
+      order_type_syscode: 1,
+      order_address: '',
+      destination_syscode: Number(order.destination),
+      source_syscode: Number(order.source),
+      is_delete: false,
+      created_by: 1,
+      created_on: new Date(),
+      modify_by: 1,
+      modify_on: new Date(),
+      destination_type_syscode: Number(order.destination),
+      source_type_syscode: Number(order.source),
+      ordercontainers: order.containers
+    } as Order;
+  }
+
+  transformContainers() {
+    
+  }
+
+
+  saveOrder(order: Order) {
+    this._orderService.saveOrder(order).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
     this._ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }
