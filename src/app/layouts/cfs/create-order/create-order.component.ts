@@ -1,3 +1,4 @@
+import { OrderContainer } from './../../../shared/models/order-container';
 import { Order } from './../../../shared/models/order';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -105,15 +106,21 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value);
+      console.log(order);
       this.saveOrder(order);
       this.openSnackBar('Success !', 'Order placed successfully');
     } else {
-      console.log(this.orderForm);
       this.openSnackBar('Failure !', 'could not place the order');
     }
   }
 
   transformOrderObj(order: any): Order {
+    const containers: Array<OrderContainer> = [];
+    if (order.containers.length > 0) {
+      order.containers.forEach(container => {
+        containers.push(this.transformOrderContainerObj(container));
+      });
+    }
     return {
       order_date: order.date,
       order_remarks: order.remarks,
@@ -128,12 +135,23 @@ export class CreateOrderComponent implements OnInit {
       modify_on: new Date(),
       destination_type_syscode: Number(order.destination),
       source_type_syscode: Number(order.source),
-      ordercontainers: order.containers
+      ordercontainers: containers
     } as Order;
   }
 
-  transformContainers() {
-    
+  transformOrderContainerObj(container: any): OrderContainer {
+    return {
+      container_type: container.type,
+      order_container_numbers: container.container_numbers,
+      no_of_truck: container.number_of_trucks,
+      weight_type: container.weight,
+      is_delete: false,
+      created_by: 1,
+      created_on: new Date(),
+      modify_by: 1,
+      modify_on: new Date(),
+      order_syscode: null
+    } as OrderContainer;
   }
 
 
