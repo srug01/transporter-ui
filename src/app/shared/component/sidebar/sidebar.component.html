@@ -9,6 +9,7 @@
 
     <mat-divider></mat-divider>
     <a mat-list-item routerLinkActive="list-item-active" routerLink='/default'><i class="material-icons md-24 p5">dashboard</i>Dashboard</a>
+    <div *ngIf="currentUser.typeSyscode == 1 || currentUser.typeSyscode == 4 ">
     <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1"><i class="material-icons md-24 p5">games</i>CFS</a>
     <mat-menu #menu1="matMenu">
         <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
@@ -17,6 +18,8 @@
         <button mat-menu-item routerLink='/default/cfs/register-user'>User Registration</button>
         <button mat-menu-item routerLink='/default/cfs/user-list'>User List</button>
     </mat-menu>
+  </div>
+    <div *ngIf="currentUser.typeSyscode == 1 || currentUser.typeSyscode == 5 ">
     <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2"><i class="material-icons md-24 p5">games</i>Transporter</a>
     <mat-menu #menu2="matMenu">
         <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
@@ -25,6 +28,8 @@
         <button mat-menu-item routerLink='/default/transporter/transporter-list'>Transporter List</button>
         <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
     </mat-menu>
+  </div>
+    <div *ngIf="currentUser.typeSyscode == 1">
     <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu3"><i class="material-icons md-24 p5">games</i>Masters</a>
     <mat-menu #menu3="matMenu">
       <button mat-menu-item routerLink='/default/masters/cfs/new'>CFS Master</button>
@@ -61,6 +66,7 @@
         <button mat-menu-item routerLink='/default/masters/zone-day-master-list'>Zone Day Master</button>
         <button mat-menu-item routerLink='/default/masters/state-master-list'>State Master</button>
     </mat-menu>
+  </div>
     <mat-divider></mat-divider>
 
     <!-- <h2 matSubheader>Tools</h2>
