@@ -35,6 +35,15 @@ a{
   margin-top: -12px;
 }
 
+@media(max-width: 768px) {
+  body {
+    padding: 0px;
+  }
+  .target-to-drawer {
+      display: none;
+  }
+}
+
 
 
 

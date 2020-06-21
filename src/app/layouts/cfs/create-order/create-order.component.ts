@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
+import { StateMasterService } from '../../masters/services/state-master.service';
 
 @Component({
   selector: 'app-create-order',
@@ -23,6 +24,8 @@ export class CreateOrderComponent implements OnInit {
   public containers: [] = [];
   public containerNumbers: Array<any> = [
   ];
+
+  public states: [] = [];
 
   ports: any[] = [
     { value: '1', viewValue: 'Mumbai' },
@@ -55,7 +58,8 @@ export class CreateOrderComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _router: Router,
-    private _orderService: OrderService
+    private _orderService: OrderService,
+    private _stateService: StateMasterService
   ) { }
 
   initialiseOrderForm() {
@@ -97,6 +101,7 @@ export class CreateOrderComponent implements OnInit {
   addCustomContainer = (term) => ({ id: term, value: term });
 
   ngOnInit(): void {
+    this.getStates();
     this.initialiseOrderForm();
   }
 
@@ -106,11 +111,10 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value);
-      console.log(order);
       this.saveOrder(order);
-      this.openSnackBar('Success !', 'Order placed successfully');
+
     } else {
-      this.openSnackBar('Failure !', 'could not place the order');
+      this.openSnackBar('Invalid Form !', 'please review all fields');
     }
   }
 
@@ -135,22 +139,22 @@ export class CreateOrderComponent implements OnInit {
       modify_on: new Date(),
       destination_type_syscode: Number(order.destination),
       source_type_syscode: Number(order.source),
-      ordercontainers: containers
+      containers
     } as Order;
   }
 
   transformOrderContainerObj(container: any): OrderContainer {
     return {
       container_type: container.type,
-      order_container_numbers: container.container_numbers,
-      no_of_truck: container.number_of_trucks,
+      // order_container_numbers: container.container_numbers,
+      no_of_trucks: container.number_of_trucks,
       weight_type: container.weight,
       is_delete: false,
       created_by: 1,
       created_on: new Date(),
       modify_by: 1,
       modify_on: new Date(),
-      order_syscode: null
+      orderId: null
     } as OrderContainer;
   }
 
@@ -159,9 +163,21 @@ export class CreateOrderComponent implements OnInit {
     this._orderService.saveOrder(order).subscribe(
       (res) => {
         console.log(res);
+        this.openSnackBar('Success !', 'Order placed successfully');
+        this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);
+        this.openSnackBar('Failure !', 'could not place the order');
+      }
+    );
+  }
+
+  getStates() {
+    this._stateService.getAllStateMasters().subscribe(
+      (states) => {
+        this.states = states;
+        console.log(this.states);
       }
     );
   }
