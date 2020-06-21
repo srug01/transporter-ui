@@ -1,3 +1,4 @@
+import { Include } from './../../../shared/models/filter';
 import { Order } from './../../../shared/models/order';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -10,12 +11,41 @@ import { environment } from './../../../../environments/environment';
 })
 export class OrderService {
   baseUrl = environment.baseUri;
+
+  filter: any = {
+    include: [
+      {
+        relation: 'containers'
+      }
+    ],
+    fields: {
+      order_type_syscode: true,
+      orderId: true,
+      order_date: true,
+      source_syscode: true,
+      destination_syscode: true,
+      destination_type_syscode: true,
+      source_type_syscode: true,
+      order_remarks: true,
+      order_address: true,
+      is_delete: true,
+      created_by: true,
+      created_on: true,
+      modify_by: true,
+      modify_on: true
+    }
+  };
   constructor(
     private http: HttpClient
   ) { }
 
   saveOrder(order: Order): Observable<any> {
     return this.http.post<Order>(this.baseUrl + 'orders', JSON.stringify(order));
+  }
+
+  getAllOrders(): Observable<Order[]> {
+    console.log(this.filter);
+    return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
   }
 }
 

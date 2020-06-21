@@ -23,6 +23,7 @@ import { TransporterRegistrationComponent } from './transporter-registration/tra
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { TransporterListComponent } from './transporter-list/transporter-list.component';
 
+
 const routes: Routes = [
   { path: '', component: TransporterComponent },
   { path: 'register-vehicle', component: VehicleRegistrationComponent },

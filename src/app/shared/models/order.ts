@@ -12,5 +12,5 @@ export interface Order {
     created_on: Date;
     modify_by: number;
     modify_on: Date;
-    ordercontainers: Array<any>;
+    containers: Array<any>;
 }
