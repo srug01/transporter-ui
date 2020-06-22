@@ -1,3 +1,5 @@
+@import './../../../../assets/scss/variable.scss';
+
 :host{
     .mat-icon{
         vertical-align: middle;
@@ -14,4 +16,17 @@
          border-radius: 50%;
         }
     }
+}
+
+.menu-item {
+    font-size: $font-size-large;
+}
+
+.cfs-icon {
+    font-size: 1.8888em;
+}
+
+.menu-text{
+    margin: 5px;
+    padding-top: 5px;
 }

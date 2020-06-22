@@ -44,8 +44,13 @@
             <ng-container matColumnDef="Action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <a><i class="material-icons md-24 p5">create</i></a>
-                    <a><i class="material-icons md-24 p5">delete_sweep</i></a>
+                    <div class="action">
+                        <a><i class="fas fa-trash-alt fa-lg" (click)="openDialog($event,element.orderId)"></i></a>
+                        <a>
+                            <mat-icon fontSet="fa" fontIcon="fa-clipboard-check" class="fa-lg"
+                                [routerLink]="['/default/cfs',element.orderId,'order-details']"></mat-icon>
+                        </a>
+                    </div>
                 </td>
             </ng-container>
 
