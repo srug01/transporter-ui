@@ -21,6 +21,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UserRegistrationListComponent } from './user-registration-list/user-registration-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { MatIconModule } from '@angular/material/icon';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
@@ -30,7 +32,8 @@ const routes: Routes = [
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'register-user', component: UserRegistrationComponent },
   { path: 'user-list', component: UserRegistrationListComponent },
-  { path: 'order-list', component: OrderListComponent }
+  { path: 'order-list', component: OrderListComponent },
+  { path: ':id/order-details', component: OrderDetailsComponent }
 ];
 
 
@@ -41,7 +44,8 @@ const routes: Routes = [
     PlacedBidsComponent,
     UserRegistrationComponent,
     UserRegistrationListComponent,
-    OrderListComponent
+    OrderListComponent,
+    OrderDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -59,6 +63,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgSelectModule,
     FormsModule,
+    MatIconModule,
     RouterModule.forChild(routes)
   ],
   providers:[

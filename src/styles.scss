@@ -1,5 +1,6 @@
 @import '~material-design-icons/iconfont/material-icons.css';
 @import "~@ng-select/ng-select/themes/material.theme.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
 @import "./assets/scss/variable.scss";
 
 /* You can add global styles to this file, and also import other style files */
@@ -29,6 +30,7 @@ $gutter: 16px !default;
 }
 a{
   cursor: pointer;
+  padding: 5px;
 }
 
 .ng-select {

@@ -44,8 +44,11 @@ export class OrderService {
   }
 
   getAllOrders(): Observable<Order[]> {
-    console.log(this.filter);
     return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+  }
+
+  deleteOrderById(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'orders/' + id);
   }
 }
 
