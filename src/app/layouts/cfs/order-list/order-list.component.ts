@@ -32,7 +32,6 @@ export class OrderListComponent implements OnInit {
     this._stateService.getAllStateMasters().subscribe(
       (states) => {
         this.states = states;
-        console.log(this.states);
       }
     );
   }
