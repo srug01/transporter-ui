@@ -8,5 +8,6 @@ export interface OrderContainer {
     created_on: Date;
     modify_by: number;
     modify_on: Date;
+    trucks: Array<any>;
     // order_container_numbers: Array<any>;
 }

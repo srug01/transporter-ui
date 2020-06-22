@@ -1,3 +1,4 @@
+import { Truck } from './../../../shared/models/truck';
 import { OrderContainer } from './../../../shared/models/order-container';
 import { Order } from './../../../shared/models/order';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -86,10 +87,9 @@ export class CreateOrderComponent implements OnInit {
   }
 
   addFormControl() {
-    let containersArray = this.orderForm.controls.containers as FormArray;
-    let arraylen = containersArray.length;
-
-    let containerRow: FormGroup = this.fb.group({
+    const containersArray = this.orderForm.controls.containers as FormArray;
+    const arraylen = containersArray.length;
+    const containerRow: FormGroup = this.fb.group({
       type: ['', Validators.required],
       weight: ['', Validators.required],
       number_of_trucks: ['', Validators.required],
@@ -112,7 +112,6 @@ export class CreateOrderComponent implements OnInit {
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value);
       this.saveOrder(order);
-      
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
@@ -143,10 +142,28 @@ export class CreateOrderComponent implements OnInit {
     } as Order;
   }
 
+  transformTruckObj(truck): Truck {
+    return {
+      truckId: null,
+      containerId: null,
+      created_by: 1,
+      modify_by: 1,
+      is_delete: false,
+      truck_no: truck.text,
+      created_on: new Date(),
+      modify_on: new Date()
+    } as Truck;
+  }
+
   transformOrderContainerObj(container: any): OrderContainer {
+    const trucks: Array<Truck> = [];
+    if (container.container_numbers.length > 0) {
+      container.container_numbers.forEach(truck => {
+        trucks.push(this.transformTruckObj(truck));
+      });
+    }
     return {
       container_type: container.type,
-      // order_container_numbers: container.container_numbers,
       no_of_trucks: container.number_of_trucks,
       weight_type: container.weight,
       is_delete: false,
@@ -154,7 +171,8 @@ export class CreateOrderComponent implements OnInit {
       created_on: new Date(),
       modify_by: 1,
       modify_on: new Date(),
-      orderId: null
+      orderId: null,
+      trucks
     } as OrderContainer;
   }
 
@@ -177,7 +195,6 @@ export class CreateOrderComponent implements OnInit {
     this._stateService.getAllStateMasters().subscribe(
       (states) => {
         this.states = states;
-        console.log(this.states);
       }
     );
   }
