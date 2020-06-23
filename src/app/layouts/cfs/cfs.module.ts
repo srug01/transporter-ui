@@ -19,6 +19,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UserRegistrationListComponent } from './user-registration-list/user-registration-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,18 +32,20 @@ const routes: Routes = [
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'register-user', component: UserRegistrationComponent },
   { path: 'order-list', component: OrderListComponent },
-  { path: ':id/order-details', component: OrderDetailsComponent }
+  { path: ':id/order-details', component: OrderDetailsComponent },
+  { path: 'user-list', component: UserRegistrationListComponent }
 ];
 
 
 @NgModule({
   declarations: [
-    CfsComponent, 
-    CreateOrderComponent, 
-    PlacedBidsComponent, 
+    CfsComponent,
+    CreateOrderComponent,
+    PlacedBidsComponent,
     UserRegistrationComponent,
     OrderListComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    UserRegistrationListComponent
   ],
   imports: [
     CommonModule,
