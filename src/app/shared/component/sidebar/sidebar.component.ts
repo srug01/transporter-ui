@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (res) => {
         this.currentUser = res;
+        console.log(this.currentUser);
       },
       (err) => {
         console.log(err);

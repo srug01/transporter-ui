@@ -1,4 +1,4 @@
-<mat-nav-list>
+<mat-nav-list *ngIf="currentUser">
 
     <div class="profile-card">
         <div class="header" *ngIf="currentUser">
@@ -9,8 +9,8 @@
 
     <mat-divider></mat-divider>
     <a mat-list-item class="menu-item" routerLinkActive="list-item-active" routerLink='/default'><i
-            class="fas cfs-icon fa-tachometer-alt fa-lg md-24 p5"></i><span class="menu-text">Dashboard</span></a>
-    <div *ngIf="currentUser.typeSyscode == 1 || currentUser.typeSyscode == 4 ">
+            class="fas dashboard-icon fa-tachometer-alt fa-lg md-24 p5"></i><span class="menu-text">Dashboard</span></a>
+    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 4 || currentUser.typeSyscode === 0">
         <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1"><i
                 class="fas fa fa-cubes fa-lg md-24 p5 cfs-icon" aria-hidden="true"></i><span
                 class="menu-text">CFS</span></a>
@@ -23,9 +23,9 @@
         </mat-menu>
     </div>
 
-    <div *ngIf="currentUser.typeSyscode == 1 || currentUser.typeSyscode == 5 ">
+    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5 || currentUser.typeSyscode === 0">
         <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2"><i
-                class="fas cfs-icon fa fa-truck fa-lg md-24 p5" aria-hidden="true"></i><span
+                class="fas transporter-icon fa fa-truck fa-lg md-24 p5" aria-hidden="true"></i><span
                 class="menu-text">Transporter</span></a>
         <mat-menu #menu2="matMenu">
             <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
@@ -36,12 +36,13 @@
             <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
         </mat-menu>
     </div>
-    <div *ngIf="currentUser.typeSyscode == 1">
+    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 0">
         <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu3"><i
-                class="fas fa fa-briefcase fa-lg md-24 p5 cfs-icon" aria-hidden="true"></i><span
+                class="fas fa fa-briefcase fa-lg md-24 p5 masters-icon" aria-hidden="true"></i><span
                 class="menu-text">Masters</span></a>
         <mat-menu #menu3="matMenu">
             <button mat-menu-item routerLink='/default/masters/cfs/new'>CFS Master</button>
+            <button mat-menu-item routerLink='/default/masters/location/new'>Location Master</button>
             <button mat-menu-item routerLink='/default/masters/port/new'>Port Master</button>
             <button mat-menu-item routerLink='/default/masters/yard/new'>Yard Master</button>
             <button mat-menu-item routerLink='/default/masters/container/new'>Container Master</button>
@@ -58,10 +59,11 @@
             <button mat-menu-item routerLink='/default/masters/state/new'>State Master</button>
         </mat-menu>
         <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
-            <i class="fas fa fa-th-list fa-lg md-24 p5 cfs-icon" aria-hidden="true"></i><span class="menu-text">Masters
+            <i class="fas fa fa-th-list fa-lg md-24 p5 master-list-icon" aria-hidden="true"></i><span class="menu-text">Masters
                 List</span></a>
         <mat-menu #menu4="matMenu">
             <button mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</button>
+            <button mat-menu-item routerLink='/default/masters/location/list'>Location Master</button>
             <button mat-menu-item routerLink='/default/masters/port/list'>Port Master</button>
             <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>
             <button mat-menu-item routerLink='/default/masters/container/list'>Container Master</button>
