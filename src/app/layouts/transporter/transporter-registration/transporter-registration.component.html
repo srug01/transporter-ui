@@ -126,6 +126,15 @@
                             <input matInput formControlName="transporter_bank_ifsc" placeholder="IFSC Code">
                         </mat-form-field>
                     </div>
+                    <div fxFlex="50%">
+
+                        <button mat-button color="warn" (click)="onfileClick()">
+                          <mat-icon>file_upload</mat-icon>
+                          Upload
+                      </button>
+                      <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />
+
+                    </div>
                 </div>
                 <div fxLayout="row">
                     <div fxFlex="20%">
