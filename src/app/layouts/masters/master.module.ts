@@ -134,6 +134,13 @@ import { CfsResolver } from './resolvers/cfs.resolver';
 import { CfsrateResolver } from './resolvers/cfsrate.resolver';
 
 import { NumbersOnly } from './../../shared/directives/numbersonly.directive';
+import { LocationComponent } from './location/location.component';
+import { LocationNewComponent } from './location/location-new.component';
+import { LocationListComponent } from './location/location-list.component';
+import { LocationEditComponent } from './location/location-edit.component';
+import { LocationFormComponent } from './location/location-form.component';
+import { LocationDetailsComponent } from './location/location-details.component';
+import { LocationResolver } from './resolvers/location.resolver';
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
 const toasterConfig: MatSnackBarConfig = {
@@ -161,6 +168,16 @@ const routes: Routes = [
       { path: 'new', component: PortNewComponent },
       { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
       { path: 'details/:id', component: PortDetailsComponent }
+    ]
+  },
+  {
+    path: 'location', component: PortComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: LocationListComponent },
+      { path: 'new', component: LocationNewComponent },
+      { path: 'edit/:id', component: LocationEditComponent, resolve: { locationResolver: LocationResolver } },
+      { path: 'details/:id', component: LocationDetailsComponent }
     ]
   },
   {
@@ -391,7 +408,13 @@ const routes: Routes = [
     CfsEditComponent,
     CfsFormComponent,
     CfsMasterListComponent,
-    CfsNewComponent
+    CfsNewComponent,
+    LocationComponent,
+    LocationNewComponent,
+    LocationListComponent,
+    LocationEditComponent,
+    LocationFormComponent,
+    LocationDetailsComponent
 
   ],
   imports: [
@@ -414,6 +437,7 @@ const routes: Routes = [
   providers: [
     StateMasterService,
     PortsResolver,
+    LocationResolver,
     YardsResolver,
     ContainerResolver,
     YardPortMapResolver,

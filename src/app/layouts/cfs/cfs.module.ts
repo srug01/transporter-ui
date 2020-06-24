@@ -43,9 +43,9 @@ const routes: Routes = [
     CreateOrderComponent,
     PlacedBidsComponent,
     UserRegistrationComponent,
-    UserRegistrationListComponent,
     OrderListComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    UserRegistrationListComponent
   ],
   imports: [
     CommonModule,
