@@ -7,6 +7,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { StateMasterService} from './../services/state-master.service';
+import {  LocationService } from './../services/location.service';
+import { State } from 'src/app/shared/models/state';
+import { LocationMaster } from 'src/app/shared/models/location';
 
 @Component({
   selector: 'app-port-master-list',
@@ -19,9 +23,13 @@ export class PortMasterListComponent implements OnInit {
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public portMasters: Array<any> = [];
+  public states: Array<State> = [];
+  public locations: Array<LocationMaster> = [];
 
   constructor(
     private _portService: PortService,
+    private _stateService: StateMasterService,
+    private _locationService: LocationService,
     private _snackBar: MatSnackBar,
     private _router: Router,
     public dialog: MatDialog
@@ -29,8 +37,25 @@ export class PortMasterListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPortMasters();
+    this.getAllStateMasters();
+    this.getAllLocations();
   }
 
+  getAllLocations() {
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations) => {
+        this.locations = locations;
+      }
+    );
+  }
+
+  getAllStateMasters() {
+    this._stateService.getAllStateMasters().subscribe(
+      (states) => {
+        this.states = states;
+      }
+    );
+  }
   openDialog(ev, portId: number) {
     if (ev) {
       ev.preventDefault();
@@ -56,6 +81,23 @@ export class PortMasterListComponent implements OnInit {
     );
   }
 
+  getStatebyId(id): string {
+    for (let i = 0; i < this.states.length; i++) {
+      if (this.states[i].state_syscode === id) {
+        return this.states[i].state;
+      }
+    }
+  }
+
+  getLocationbyId(id): string
+  {
+
+    for (let i = 0; i < this.locations.length; i++) {
+      if (this.locations[i].locationId === id) {
+        return this.locations[i].locationName;
+      }
+    }
+  }
   deletePortById(portId: number) {
     this._portService.deletePortMastersById(portId).subscribe(
       (res) => {

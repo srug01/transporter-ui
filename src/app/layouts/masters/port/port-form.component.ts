@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { PortService } from '../services/port.service';
+import {  LocationService } from './../services/location.service';
 
 @Component({
   selector: 'app-port-form',
@@ -19,24 +20,16 @@ export class PortFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public portForm: FormGroup;
   public stateMasters: Array<any> = [];
-  public locations: Array<any> = [
-    { location_syscode: 1, location: 'Nashik' },
-    { location_syscode: 2, location: 'Pune' },
-    { location_syscode: 3, location: 'Mumbai' },
-    { location_syscode: 4, location: 'Goa' },
-  ];
-  public ports: Array<any> = [
-    { port_syscode: 1, port: 'Nashik' },
-    { port_syscode: 2, port: 'Pune' },
-    { port_syscode: 3, port: 'Mumbai' },
-    { port_syscode: 4, port: 'Goa' },
-  ];
+  public locations: Array<any> = [];
+
+
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _stateService: StateMasterService,
     private _portService: PortService,
+    private _locationService: LocationService,
     private _router: Router
   ) { }
 
@@ -59,6 +52,7 @@ export class PortFormComponent implements OnInit {
       });
     }
     this.getAllStateMasters();
+    this.getAllLocationMasters();
   }
 
   getAllStateMasters() {
@@ -68,6 +62,14 @@ export class PortFormComponent implements OnInit {
       },
       (err) => {
         console.log('could not fetch state masters');
+      }
+    );
+  }
+
+  getAllLocationMasters() {
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations) => {
+        this.locations = locations;
       }
     );
   }

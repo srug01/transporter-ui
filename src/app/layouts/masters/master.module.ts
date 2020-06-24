@@ -448,6 +448,7 @@ const routes: Routes = [
     DieselResolver,
     ZoneDayResolver,
     YardCFSRatesResolver,
+    CfsResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Yard } from 'src/app/shared/models/yard';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
-
+import { PortService } from '../services/port.service';
 
 @Component({
   selector: 'app-yard-master-list',
@@ -18,20 +18,23 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 export class YardMasterListComponent implements OnInit {
   displayedColumns: string[] = [
     'yard_syscode', 'yard_name',
-    'port_syscode','is_active', 'action'
+    'port','is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public yardMasters: Array<any> = [];
+  public portMasters: Array<any> = [];
   constructor(
     private _yardService: YardService,
     private _snackBar: MatSnackBar,
     private _router: Router,
+    private _portService: PortService,
     public dialog: MatDialog
 
   ) { }
 
   ngOnInit(): void {
     this.getAllYardMasters();
+    this.getAllPortMasters();
   }
 
   openDialog(ev, yardId: number) {
@@ -47,6 +50,16 @@ export class YardMasterListComponent implements OnInit {
     });
   }
 
+  getAllPortMasters() {
+    this._portService.getAllPortMasters().subscribe(
+      (portMasters) => {
+        this.portMasters = portMasters;
+      },
+      (err) => {
+        console.log('could not fetch port masters');
+      }
+    );
+  }
   getAllYardMasters() {
     this._yardService.getAllYardMasters().subscribe(
       (yardMasters) => {
@@ -58,7 +71,13 @@ export class YardMasterListComponent implements OnInit {
       }
     );
   }
-
+  getPortbyId(id): string {
+    for (let i = 0; i < this.portMasters.length; i++) {
+      if (this.portMasters[i].port_syscode === id) {
+        return this.portMasters[i].port_name;
+      }
+    }
+  }
   deleteYardById( yardId: number) {
 
     this._yardService.deleteYardMasterById(yardId).subscribe(
