@@ -9,14 +9,14 @@
                 <div fxLayout='row'>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
-                            <mat-label>Port To CFS</mat-label>
-                            <mat-select matNativeControl formControlName="port_to_cfs"
+                            <mat-label>Select Source & Destination Types</mat-label>
+                            <mat-select matNativeControl formControlName="masterType"
                                 [errorStateMatcher]="errorStateMatcher">
-                                <mat-option *ngFor="let state of states" [value]="state.state_syscode">
-                                    {{state.state}}
+                                <mat-option *ngFor="let masterType of masterTypes" [value]="masterType.masterTypeId">
+                                    {{masterType.masterType}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="orderForm.controls['port_to_cfs'].hasError('required')">You must make a
+                            <mat-error *ngIf="orderForm.controls['masterType'].hasError('required')">You must make a
                                 selection</mat-error>
                         </mat-form-field>
                     </div>
@@ -38,8 +38,8 @@
                             <mat-label>Source</mat-label>
                             <mat-select matNativeControl formControlName="source"
                                 [errorStateMatcher]="errorStateMatcher">
-                                <mat-option *ngFor="let state of states" [value]="state.state_syscode">
-                                    {{state.state}}
+                                <mat-option *ngFor="let location of locations" [value]="location.locationId">
+                                    {{location.locationName}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
@@ -54,8 +54,8 @@
                             <mat-label>Destination</mat-label>
                             <mat-select matNativeControl formControlName="destination"
                                 [errorStateMatcher]="errorStateMatcher">
-                                <mat-option *ngFor="let state of states" [value]="state.state_syscode">
-                                    {{state.state}}
+                                <mat-option *ngFor="let location of locations" [value]="location.locationId">
+                                    {{location.locationName}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="orderForm.controls['destination'].hasError('required')">You must make a
@@ -99,8 +99,8 @@
                                 </div>
                                 <div fxFlex="20%">
                                     <ng-select [items]="containerNumbers" bindLabel="text" bindValue="id"
-                                        [addTag]="true" (change)="changeContainerNumbers($event, i)"
-                                        [multiple]="true" placeholder="add container number & press enter">
+                                        [addTag]="true" (change)="changeContainerNumbers($event, i)" [multiple]="true"
+                                        placeholder="add container number & press enter">
                                     </ng-select>
                                 </div>
                                 <div fxFlex="10%">

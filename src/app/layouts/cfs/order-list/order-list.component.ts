@@ -1,3 +1,5 @@
+import { LocationMaster } from './../../../shared/models/location';
+import { LocationService } from './../../masters/services/location.service';
 import { StateMasterService } from './../../masters/services/state-master.service';
 import { State } from './../../../shared/models/state';
 import { Order } from './../../../shared/models/order';
@@ -18,12 +20,12 @@ export class OrderListComponent implements OnInit {
     'Order ID', 'Source', 'Destination',
     'Containers', 'Created By', 'Created On', 'Action'
   ];
-  public states: Array<State> = [];
+  public locations: Array<LocationMaster> = [];
   orders: Array<Order> = [];
 
   constructor(
     private _orderService: OrderService,
-    private _stateService: StateMasterService,
+    private _locationService: LocationService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) { }
@@ -34,9 +36,9 @@ export class OrderListComponent implements OnInit {
   }
 
   getStates() {
-    this._stateService.getAllStateMasters().subscribe(
-      (states) => {
-        this.states = states;
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations) => {
+        this.locations = locations;
       }
     );
   }
@@ -77,10 +79,10 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  searchStateById(id): string {
-    for (let i = 0; i < this.states.length; i++) {
-      if (this.states[i].state_syscode === id) {
-        return this.states[i].state;
+  searchLocationById(id): string {
+    for (let i = 0; i < this.locations.length; i++) {
+      if (this.locations[i].locationId === id) {
+        return this.locations[i].locationName;
       }
     }
   }

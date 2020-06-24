@@ -1,3 +1,5 @@
+import { LocationService } from './../../masters/services/location.service';
+import { MasterType } from './../../../shared/models/masterType';
 import { Truck } from './../../../shared/models/truck';
 import { OrderContainer } from './../../../shared/models/order-container';
 import { Order } from './../../../shared/models/order';
@@ -11,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
 import { StateMasterService } from '../../masters/services/state-master.service';
+import { MasterTypeService } from '../services/master-type.service';
 
 @Component({
   selector: 'app-create-order',
@@ -25,8 +28,9 @@ export class CreateOrderComponent implements OnInit {
   public containers: [] = [];
   public containerNumbers: Array<any> = [
   ];
+  public masterTypes: MasterType[] = [];
 
-  public states: [] = [];
+  public locations: [] = [];
 
   ports: any[] = [
     { value: '1', viewValue: 'Mumbai' },
@@ -60,12 +64,13 @@ export class CreateOrderComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _router: Router,
     private _orderService: OrderService,
-    private _stateService: StateMasterService
+    private _locationService: LocationService,
+    private _masterTypeService: MasterTypeService
   ) { }
 
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
-      port_to_cfs: ['', Validators.required],
+      masterType: ['', Validators.required],
       date: ['', Validators.required],
       source: ['', Validators.required],
       destination: ['', Validators.required],
@@ -73,11 +78,34 @@ export class CreateOrderComponent implements OnInit {
       remarks: ['', Validators.required]
     });
     this.addFormControl();
+  }
 
+
+  getMasterTypes() {
+    this._masterTypeService.getAllMasterTypes().subscribe(
+      (masterTypes) => {
+        this.masterTypes = masterTypes;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  getLocations() {
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations) => {
+        this.locations = locations;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   removeFormControl(i) {
-    let containersArray = this.orderForm.controls.containers as FormArray;
+    const containersArray = this.orderForm.controls.containers as FormArray;
     containersArray.removeAt(i);
   }
 
@@ -101,7 +129,8 @@ export class CreateOrderComponent implements OnInit {
   addCustomContainer = (term) => ({ id: term, value: term });
 
   ngOnInit(): void {
-    this.getStates();
+    this.getMasterTypes();
+    this.getLocations();
     this.initialiseOrderForm();
   }
 
@@ -111,6 +140,7 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value);
+      console.log(order);
       this.saveOrder(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
@@ -125,6 +155,7 @@ export class CreateOrderComponent implements OnInit {
       });
     }
     return {
+      master_type_syscode: order.masterType,
       order_date: order.date,
       order_remarks: order.remarks,
       order_type_syscode: 1,
@@ -136,10 +167,22 @@ export class CreateOrderComponent implements OnInit {
       created_on: new Date(),
       modify_by: 1,
       modify_on: new Date(),
-      destination_type_syscode: Number(order.destination),
-      source_type_syscode: Number(order.source),
-      containers
+      source_type: this.getMasterTypeSource(order.masterType),
+      destination_type: this.getMasterTypeDestination(order.masterType),
+      containers,
     } as Order;
+  }
+
+  getMasterTypeSource(masterTypeId): string {
+    const masterType = this.masterTypes.find(m => m.masterTypeId === masterTypeId);
+    console.log(masterType);
+    return masterType.sourceType;
+  }
+
+  getMasterTypeDestination(masterTypeId): string {
+    const masterType = this.masterTypes.find(m => m.masterTypeId === masterTypeId);
+    console.log(masterType);
+    return masterType.destinationType;
   }
 
   transformTruckObj(truck): Truck {
@@ -187,14 +230,6 @@ export class CreateOrderComponent implements OnInit {
       (err) => {
         console.log(err);
         this.openSnackBar('Failure !', 'could not place the order');
-      }
-    );
-  }
-
-  getStates() {
-    this._stateService.getAllStateMasters().subscribe(
-      (states) => {
-        this.states = states;
       }
     );
   }

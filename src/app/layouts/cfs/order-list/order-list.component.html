@@ -17,13 +17,13 @@
             <!-- Name Column -->
             <ng-container matColumnDef="Source">
                 <th mat-header-cell *matHeaderCellDef class="table-title"> Source </th>
-                <td mat-cell *matCellDef="let element" class="table-row"> {{searchStateById(element.source_syscode)}} </td>
+                <td mat-cell *matCellDef="let element" class="table-row"> {{searchLocationById(element.source_syscode)}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="Destination">
                 <th mat-header-cell *matHeaderCellDef class="table-title"> Destination </th>
-                <td mat-cell *matCellDef="let element" class="table-row"> {{searchStateById(element.destination_syscode)}} </td>
+                <td mat-cell *matCellDef="let element" class="table-row"> {{searchLocationById(element.destination_syscode)}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Containers">
