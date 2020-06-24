@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CfsService } from '../services/cfs.service';
 import { PortService } from '../services/port.service';
+import { LocationService } from '../services/location.service';
 
 
 @Component({
@@ -20,13 +21,15 @@ export class CfsFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public cfsForm: FormGroup;
   public portMasters: Array<any> = [];
+  public locations: Array<any> = [];
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _cfsService: CfsService,
     private _portService: PortService,
-    private _router: Router
+    private _router: Router,
+    private _locationService: LocationService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +50,7 @@ export class CfsFormComponent implements OnInit {
         additional_contact_name: [this.cfsData.additional_contact_name ? this.cfsData.additional_contact_name : '', Validators.required],
         additional_mobile_no: [this.cfsData.additional_mobile_no ? this.cfsData.additional_mobile_no : '', Validators.required],
         port_syscode: [this.cfsData.port_syscode ? this.cfsData.port_syscode : '', Validators.required],
+        location: [this.cfsData.location ? this.cfsData.location : '', Validators.required],
         is_active: [this.cfsData.is_active ? this.cfsData.is_active : '', Validators.required]
       });
     } else {
@@ -66,10 +70,23 @@ export class CfsFormComponent implements OnInit {
         additional_contact_name: ['', Validators.required],
         additional_mobile_no: ['', Validators.required],
         port_syscode: ['', Validators.required],
+        location: ['', Validators.required],
         is_active: ['', Validators.required]
       });
     }
     this.getAllPortMasters();
+    this.getLocations();
+  }
+
+  getLocations() {
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations) => {
+        this.locations = locations;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getAllPortMasters() {

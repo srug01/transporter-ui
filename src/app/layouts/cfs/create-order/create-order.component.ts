@@ -1,3 +1,5 @@
+import { LocationMaster } from './../../../shared/models/location';
+import { PortService } from './../../masters/services/port.service';
 import { LocationService } from './../../masters/services/location.service';
 import { MasterType } from './../../../shared/models/masterType';
 import { Truck } from './../../../shared/models/truck';
@@ -14,6 +16,10 @@ import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
 import { StateMasterService } from '../../masters/services/state-master.service';
 import { MasterTypeService } from '../services/master-type.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/user';
+import { YardService } from '../../masters/services/yard.service';
+import { CfsService } from '../../masters/services/cfs.service';
 
 @Component({
   selector: 'app-create-order',
@@ -26,31 +32,31 @@ export class CreateOrderComponent implements OnInit {
   public orderForm: FormGroup;
   public selectedSimpleItem;
   public containers: [] = [];
+  public currentUser: User;
   public containerNumbers: Array<any> = [
   ];
+  public cfsMasters: [] = [];
+  public yardMasters: [] = [];
+  public portMasters: [] = [];
+  public sourceLocations: Array<any> = [];
+  public destinationLocations: Array<any> = [];
   public masterTypes: MasterType[] = [];
-
-  public locations: [] = [];
-
+  public locations: LocationMaster[] = [];
   ports: any[] = [
     { value: '1', viewValue: 'Mumbai' },
     { value: '2', viewValue: 'Pune' },
     { value: '3', viewValue: 'Delhi' }
   ];
-
   types: any[] = [
     { value: '10', viewValue: '10 FT' },
     { value: '20', viewValue: '20 FT' },
     { value: '30', viewValue: '30 FT' }
   ];
-
   weights: any[] = [
     { value: '1', viewValue: '1 TON' },
     { value: '2', viewValue: '2 TON' },
     { value: '3', viewValue: '3 TON' }
   ];
-
-
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
   ];
@@ -64,9 +70,21 @@ export class CreateOrderComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _router: Router,
     private _orderService: OrderService,
+    private _portService: PortService,
     private _locationService: LocationService,
-    private _masterTypeService: MasterTypeService
+    private _masterTypeService: MasterTypeService,
+    private _userService: UserService,
+    private _yardService: YardService,
+    private _cfsService: CfsService
   ) { }
+
+
+  ngOnInit(): void {
+    this.getUserInfo();
+    this.getMasterTypes();
+    this.getLocations();
+    this.initialiseOrderForm();
+  }
 
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
@@ -80,6 +98,125 @@ export class CreateOrderComponent implements OnInit {
     this.addFormControl();
   }
 
+  masterTypeSelected(masterTypeId) {
+    switch (this.getMasterTypeSource(masterTypeId)) {
+      case 'cfs':
+        this.getAllCFS();
+        break;
+      case 'port':
+        this.getAllPorts();
+        break;
+      case 'yard':
+        this.getAllYards();
+        this.sourceLocations = this.yardMasters;
+        break;
+      default:
+        break;
+    }
+    switch (this.getMasterTypeDestination(masterTypeId)) {
+      case 'cfs':
+        this.getAllCFS();
+        this.destinationLocations = this.cfsMasters;
+        break;
+      case 'port':
+        this.getAllPorts();
+        this.destinationLocations = this.portMasters;
+        break;
+      case 'yard':
+        this.getAllYards();
+        this.destinationLocations = this.yardMasters;
+        break;
+      default:
+        break;
+    }
+  }
+
+  transformCfstoLocations(cfsMasters: Array<any>): Array<any> {
+    const cfsLocations: Array<any> = [];
+    console.log(cfsMasters);
+    if (cfsMasters.length > 0) {
+      for (let i = 0; i < cfsMasters.length; i++) {
+        const element = cfsMasters[i];
+        let locationName: string = '';
+        for (let j = 0; j < this.locations.length; j++) {
+          if (this.locations[j].locationId === element.location) {
+            locationName = this.locations[j].locationName;
+          }
+        }
+        const cfsObj = {
+          locationId: element.location,
+          locationName
+        }
+        cfsLocations.push(cfsObj);
+      }
+    }
+    return cfsLocations;
+  }
+  transformPortstoLocations(portsMasters: Array<any>) {
+    const portsLocations: Array<any> = [];
+    console.log(portsMasters);
+    // console.log(portsLocations);    
+    // if (portsLocations.length > 0) {
+    //   for (let i = 0; i < portsLocations.length; i++) {
+    //     const element = portsLocations[i];
+    //     let locationName: string = '';
+    //     for (let j = 0; j < this.locations.length; j++) {
+    //       if (this.locations[j].locationId === element.location) {
+    //         locationName = this.locations[j].locationName;
+    //       }
+    //     }
+    //     const cfsObj = {
+    //       locationId: element.location,
+    //       locationName
+    //     }
+    //     cfsLocations.push(cfsObj);
+    //   }
+    // }
+    // console.log(cfsLocations); 
+    return portsLocations;
+  }
+  transformYardsstoLocations(yardsMasters: Array<any>) {
+
+  }
+
+  getAllCFS() {
+    this._cfsService.getAllCfsMasters().subscribe(
+      (cfsMasters) => {
+        this.cfsMasters = cfsMasters;
+        this.transformCfstoLocations(this.cfsMasters)
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getAllPorts() {
+    this._portService.getAllPortMasters().subscribe(
+      (ports) => {
+        this.portMasters = ports;
+        this.transformPortstoLocations(this.portMasters);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getAllYards() {
+    this._yardService.getAllYardMasters().subscribe(
+      (yards) => {
+        this.yardMasters = yards;
+        this.transformYardsstoLocations(this.yardMasters);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  changeSourceType() { }
+  changeDestinationType() { }
 
   getMasterTypes() {
     this._masterTypeService.getAllMasterTypes().subscribe(
@@ -88,6 +225,14 @@ export class CreateOrderComponent implements OnInit {
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
       }
     );
   }
@@ -128,11 +273,7 @@ export class CreateOrderComponent implements OnInit {
 
   addCustomContainer = (term) => ({ id: term, value: term });
 
-  ngOnInit(): void {
-    this.getMasterTypes();
-    this.getLocations();
-    this.initialiseOrderForm();
-  }
+
 
   submitOrderForm(ev) {
     if (ev) {
@@ -140,7 +281,6 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value);
-      console.log(order);
       this.saveOrder(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
@@ -163,9 +303,9 @@ export class CreateOrderComponent implements OnInit {
       destination_syscode: Number(order.destination),
       source_syscode: Number(order.source),
       is_delete: false,
-      created_by: 1,
+      created_by: this.currentUser.id,
       created_on: new Date(),
-      modify_by: 1,
+      modify_by: this.currentUser.id,
       modify_on: new Date(),
       source_type: this.getMasterTypeSource(order.masterType),
       destination_type: this.getMasterTypeDestination(order.masterType),
@@ -175,13 +315,11 @@ export class CreateOrderComponent implements OnInit {
 
   getMasterTypeSource(masterTypeId): string {
     const masterType = this.masterTypes.find(m => m.masterTypeId === masterTypeId);
-    console.log(masterType);
     return masterType.sourceType;
   }
 
   getMasterTypeDestination(masterTypeId): string {
     const masterType = this.masterTypes.find(m => m.masterTypeId === masterTypeId);
-    console.log(masterType);
     return masterType.destinationType;
   }
 

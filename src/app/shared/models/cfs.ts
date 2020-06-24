@@ -14,5 +14,6 @@ export interface Cfs {
   additional_contact_name: string;
   additional_mobile_no: string;
   port_syscode: number;
+  location: number;
   is_active: boolean;
 }

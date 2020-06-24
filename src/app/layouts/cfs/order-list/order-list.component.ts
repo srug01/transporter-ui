@@ -1,13 +1,13 @@
 import { LocationMaster } from './../../../shared/models/location';
 import { LocationService } from './../../masters/services/location.service';
-import { StateMasterService } from './../../masters/services/state-master.service';
-import { State } from './../../../shared/models/state';
 import { Order } from './../../../shared/models/order';
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-order-list',
@@ -22,17 +22,23 @@ export class OrderListComponent implements OnInit {
   ];
   public locations: Array<LocationMaster> = [];
   orders: Array<Order> = [];
+  public currentUser: User;
+  public users: User[] = [];
+  public orderUserIds: Array<{ id: number }> = null;
+
 
   constructor(
     private _orderService: OrderService,
     private _locationService: LocationService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.getStates();
     this.getAllOrders();
+
   }
 
   getStates() {
@@ -43,10 +49,37 @@ export class OrderListComponent implements OnInit {
     );
   }
 
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
+      }
+    );
+  }
+
   getAllOrders() {
     this._orderService.getAllOrders().subscribe(
-      (orders) => {
+      (orders: Order[]) => {
         this.orders = orders;
+        this.orderUserIds = this.orders.map((order) => {
+          return { id: order.created_by };
+        });
+        this.orderUserIds = this.orderUserIds.reduce((accumulator, currentValue) => {
+          const indx = accumulator.findIndex((val) => val.id === currentValue.id);
+          if (indx < 0) {
+            accumulator.push(currentValue);
+          }
+          return accumulator;
+        }, []);
+        this.getAllUsers();
+      }
+    );
+  }
+
+  getAllUsers() {
+    this._userService.getAllUsersByFilter(this.orderUserIds).subscribe(
+      (users) => {
+        this.users = users;
       }
     );
   }
@@ -83,6 +116,14 @@ export class OrderListComponent implements OnInit {
     for (let i = 0; i < this.locations.length; i++) {
       if (this.locations[i].locationId === id) {
         return this.locations[i].locationName;
+      }
+    }
+  }
+
+  searchUserById(userId): string {
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].id === userId) {
+        return this.users[i].firstName + this.users[i].lastName;
       }
     }
   }
