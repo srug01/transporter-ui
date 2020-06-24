@@ -36,6 +36,11 @@ import { SignupSidebarComponent } from './shared/component/signup-sidebar/signup
 import { MatListModule } from '@angular/material/list';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DateFormatPipe } from './shared/pipe/date-format.pipe';
+import { DateTimeFormatPipe } from './shared/pipe/date-time-format.pipe';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { AppDateAdapter, AppDateFormats } from './shared/date-formats';
+import { Platform } from '@angular/cdk/platform';
 //import {NumbersOnly} from './directives/numbersonly.directive';
 
 
@@ -57,6 +62,8 @@ const toasterConfig: MatSnackBarConfig = {
     SignupComponent,
     SignupHeaderComponent,
     SignupSidebarComponent,
+    DateFormatPipe,
+    DateTimeFormatPipe,
 
   ],
   imports: [
@@ -96,7 +103,13 @@ const toasterConfig: MatSnackBarConfig = {
     },
     // {provide: ErrorHandler, useClass: GlobalErrorHandler},
     AuthenticationService,
-    SignupService
+    SignupService,
+    {
+      provide: DateAdapter,useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: AppDateFormats
+    }
   ],
   bootstrap: [AppComponent]
 })

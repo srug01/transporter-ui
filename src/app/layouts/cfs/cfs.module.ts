@@ -1,3 +1,4 @@
+import { AppDateFormats } from './../../shared/date-formats';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CfsComponent } from './cfs.component';
@@ -18,11 +19,13 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { UserRegistrationListComponent } from './user-registration-list/user-registration-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AppDateAdapter } from 'src/app/shared/date-formats';
+import { Platform } from '@angular/cdk/platform';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
@@ -67,7 +70,13 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers:[
-    MatDatepickerModule
+    MatDatepickerModule,
+    {
+      provide: DateAdapter,useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: AppDateFormats
+    }
   ]
 })
 export class CfsModule { }
