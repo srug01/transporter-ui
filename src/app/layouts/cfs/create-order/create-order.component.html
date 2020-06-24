@@ -10,7 +10,7 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Select Source & Destination Types</mat-label>
-                            <mat-select matNativeControl formControlName="masterType"
+                            <mat-select matNativeControl formControlName="masterType" (valueChange)="masterTypeSelected($event)"
                                 [errorStateMatcher]="errorStateMatcher">
                                 <mat-option *ngFor="let masterType of masterTypes" [value]="masterType.masterTypeId">
                                     {{masterType.masterType}}

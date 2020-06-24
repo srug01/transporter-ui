@@ -1,5 +1,5 @@
 export interface Where {
-    additionalProp1: any;
+    or?: any;
 }
 
 export interface Scope {
