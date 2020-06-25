@@ -203,14 +203,32 @@ export class CreateOrderComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.orderForm.valid) {
-      const order = this.transformOrderObj(this.orderForm.value);
+      const order = this.transformOrderObj(this.orderForm.value, 'submitted');
       this.saveOrder(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
   }
 
-  transformOrderObj(order: any): Order {
+  resetOrderForm() {
+    this.orderForm.reset();
+    this.orderForm.markAsPristine()
+    console.log(this.orderForm);
+  }
+
+  saveOrderAsDraft(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    if (this.orderForm.valid) {
+      const order = this.transformOrderObj(this.orderForm.value, 'pending');
+      this.saveOrderDraft(order);
+    } else {
+      this.openSnackBar('Invalid Form !', 'please review all fields');
+    }
+  }
+
+  transformOrderObj(order: any, status: string): Order {
     const containers: Array<OrderContainer> = [];
     if (order.containers.length > 0) {
       order.containers.forEach(container => {
@@ -232,6 +250,7 @@ export class CreateOrderComponent implements OnInit {
       modify_on: new Date(),
       source_type: this.getMasterTypeSource(order.masterType),
       destination_type: this.getMasterTypeDestination(order.masterType),
+      status,
       containers,
     } as Order;
   }
@@ -284,13 +303,24 @@ export class CreateOrderComponent implements OnInit {
   saveOrder(order: Order) {
     this._orderService.saveOrder(order).subscribe(
       (res) => {
-        console.log(res);
         this.openSnackBar('Success !', 'Order placed successfully');
         this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);
         this.openSnackBar('Failure !', 'could not place the order');
+      }
+    );
+  }
+
+  saveOrderDraft(order: Order) {
+    this._orderService.saveOrder(order).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Order saved');
+      },
+      (err) => {
+        console.log(err);
+        this.openSnackBar('Failure !', 'could not save the order');
       }
     );
   }

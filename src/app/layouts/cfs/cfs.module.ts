@@ -26,6 +26,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AppDateAdapter } from 'src/app/shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
+import { PendingOrderListComponent } from './pending-order-list/pending-order-list.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
@@ -35,6 +37,7 @@ const routes: Routes = [
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'register-user', component: UserRegistrationComponent },
   { path: 'order-list', component: OrderListComponent },
+  { path: 'saved-orders', component: PendingOrderListComponent },
   { path: ':id/order-details', component: OrderDetailsComponent },
   { path: 'user-list', component: UserRegistrationListComponent }
 ];
@@ -48,7 +51,8 @@ const routes: Routes = [
     UserRegistrationComponent,
     OrderListComponent,
     OrderDetailsComponent,
-    UserRegistrationListComponent
+    UserRegistrationListComponent,
+    PendingOrderListComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +71,7 @@ const routes: Routes = [
     NgSelectModule,
     FormsModule,
     MatIconModule,
+    MatTooltipModule,
     RouterModule.forChild(routes)
   ],
   providers:[

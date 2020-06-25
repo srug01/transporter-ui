@@ -32,7 +32,9 @@ export class OrderService {
       created_by: true,
       created_on: true,
       modify_by: true,
-      modify_on: true
+      modify_on: true,
+      status: true,
+      is_verified: true
     }
   };
   constructor(
@@ -44,6 +46,16 @@ export class OrderService {
   }
 
   getAllOrders(): Observable<Order[]> {
+    this.filter.where = {
+      status: 'submitted'
+    };
+    return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+  }
+
+  getAllSavedOrders(): Observable<Order[]> {
+    this.filter.where = {
+      status: 'pending'
+    };
     return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
   }
 
