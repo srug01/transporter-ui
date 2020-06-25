@@ -8,15 +8,13 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
-import { DateFormatPipe } from './../../../shared/pipe/date-format.pipe';
 
 @Component({
-  selector: 'app-order-list',
-  templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.scss']
+  selector: 'app-pending-order-list',
+  templateUrl: './pending-order-list.component.html',
+  styleUrls: ['./pending-order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
-
+export class PendingOrderListComponent implements OnInit {
   displayedColumns: string[] = [
     'Order ID', 'Source', 'Destination',
     'Containers', 'Created By', 'Created On', 'Status', 'Action'
@@ -37,12 +35,11 @@ export class OrderListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getStates();
+    this.getLocations();
     this.getAllOrders();
-
   }
 
-  getStates() {
+  getLocations() {
     this._locationService.getAllLocationMasters().subscribe(
       (locations) => {
         this.locations = locations;
@@ -59,9 +56,10 @@ export class OrderListComponent implements OnInit {
   }
 
   getAllOrders() {
-    this._orderService.getAllOrders().subscribe(
+    this._orderService.getAllSavedOrders().subscribe(
       (orders: Order[]) => {
         this.orders = orders;
+        console.log(this.orders);
         this.orderUserIds = this.orders.map((order) => {
           return { id: order.created_by };
         });
@@ -124,7 +122,7 @@ export class OrderListComponent implements OnInit {
   searchUserById(userId): string {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].id === userId) {
-        return `${ this.users[i].firstName } ${ this.users[i].lastName }`;
+        return `${this.users[i].firstName} ${this.users[i].lastName}`;
       }
     }
   }

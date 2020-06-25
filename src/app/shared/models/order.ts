@@ -14,4 +14,6 @@ export interface Order {
     modify_on: Date;
     master_type_syscode: number;
     containers: Array<any>;
+    is_verified: boolean;
+    status: string;
 }

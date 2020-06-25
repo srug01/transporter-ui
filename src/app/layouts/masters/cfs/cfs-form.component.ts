@@ -50,7 +50,7 @@ export class CfsFormComponent implements OnInit {
         additional_contact_name: [this.cfsData.additional_contact_name ? this.cfsData.additional_contact_name : '', Validators.required],
         additional_mobile_no: [this.cfsData.additional_mobile_no ? this.cfsData.additional_mobile_no : '', Validators.required],
         port_syscode: [this.cfsData.port_syscode ? this.cfsData.port_syscode : '', Validators.required],
-        location: [this.cfsData.location ? this.cfsData.location : '', Validators.required],
+        locationId: [this.cfsData.locationId ? this.cfsData.locationId : '', Validators.required],
         is_active: [this.cfsData.is_active ? this.cfsData.is_active : '', Validators.required]
       });
     } else {
@@ -70,7 +70,7 @@ export class CfsFormComponent implements OnInit {
         additional_contact_name: ['', Validators.required],
         additional_mobile_no: ['', Validators.required],
         port_syscode: ['', Validators.required],
-        location: ['', Validators.required],
+        locationId: ['', Validators.required],
         is_active: ['', Validators.required]
       });
     }
