@@ -26,5 +26,9 @@ export class MasterTypeService {
   getAllMasterTypes(): Observable<MasterType[]> {
     return this.http.get<MasterType[]>(this.baseUrl + 'master-types?filter=' + JSON.stringify(this.filter));
   }
+
+  getMasterTypeById(masterTypeId): Observable<MasterType> {
+    return this.http.get<MasterType>(this.baseUrl + 'master-types/' + masterTypeId);
+  }
 }
 

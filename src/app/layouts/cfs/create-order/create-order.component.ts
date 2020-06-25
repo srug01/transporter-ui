@@ -1,3 +1,6 @@
+import { Port } from './../../../shared/models/port';
+import { Yard } from 'src/app/shared/models/yard';
+import { Cfs } from './../../../shared/models/cfs';
 import { LocationMaster } from './../../../shared/models/location';
 import { PortService } from './../../masters/services/port.service';
 import { LocationService } from './../../masters/services/location.service';
@@ -14,7 +17,6 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
-import { StateMasterService } from '../../masters/services/state-master.service';
 import { MasterTypeService } from '../services/master-type.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
@@ -35,18 +37,17 @@ export class CreateOrderComponent implements OnInit {
   public currentUser: User;
   public containerNumbers: Array<any> = [
   ];
-  public cfsMasters: [] = [];
-  public yardMasters: [] = [];
-  public portMasters: [] = [];
+  public cfsMasters: Cfs[] = [];
+  public yardMasters: Yard[] = [];
+  public portMasters: Port[] = [];
   public sourceLocations: Array<any> = [];
   public destinationLocations: Array<any> = [];
   public masterTypes: MasterType[] = [];
   public locations: LocationMaster[] = [];
-  ports: any[] = [
-    { value: '1', viewValue: 'Mumbai' },
-    { value: '2', viewValue: 'Pune' },
-    { value: '3', viewValue: 'Delhi' }
-  ];
+  public selectedMasterType: MasterType = null;
+  public source: string;
+  public destination: string;
+
   types: any[] = [
     { value: '10', viewValue: '10 FT' },
     { value: '20', viewValue: '20 FT' },
@@ -98,92 +99,30 @@ export class CreateOrderComponent implements OnInit {
     this.addFormControl();
   }
 
+  getLocations() {
+    this.getAllCFS();
+    this.getAllPorts();
+    this.getAllYards();
+  }
+
   masterTypeSelected(masterTypeId) {
-    switch (this.getMasterTypeSource(masterTypeId)) {
-      case 'cfs':
-        this.getAllCFS();
-        break;
-      case 'port':
-        this.getAllPorts();
-        break;
-      case 'yard':
-        this.getAllYards();
-        this.sourceLocations = this.yardMasters;
-        break;
-      default:
-        break;
-    }
-    switch (this.getMasterTypeDestination(masterTypeId)) {
-      case 'cfs':
-        this.getAllCFS();
-        this.destinationLocations = this.cfsMasters;
-        break;
-      case 'port':
-        this.getAllPorts();
-        this.destinationLocations = this.portMasters;
-        break;
-      case 'yard':
-        this.getAllYards();
-        this.destinationLocations = this.yardMasters;
-        break;
-      default:
-        break;
-    }
-  }
-
-  transformCfstoLocations(cfsMasters: Array<any>): Array<any> {
-    const cfsLocations: Array<any> = [];
-    console.log(cfsMasters);
-    if (cfsMasters.length > 0) {
-      for (let i = 0; i < cfsMasters.length; i++) {
-        const element = cfsMasters[i];
-        let locationName: string = '';
-        for (let j = 0; j < this.locations.length; j++) {
-          if (this.locations[j].locationId === element.location) {
-            locationName = this.locations[j].locationName;
-          }
-        }
-        const cfsObj = {
-          locationId: element.location,
-          locationName
-        }
-        cfsLocations.push(cfsObj);
+    this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
+      (masterType: MasterType) => {
+        this.selectedMasterType = masterType;
+        this.source = this.selectedMasterType.sourceType;
+        this.destination = this.selectedMasterType.destinationType;
+      },
+      (err) => {
+        console.log(err);
       }
-    }
-    return cfsLocations;
+    );
   }
-  transformPortstoLocations(portsMasters: Array<any>) {
-    const portsLocations: Array<any> = [];
-    console.log(portsMasters);
-    // console.log(portsLocations);    
-    // if (portsLocations.length > 0) {
-    //   for (let i = 0; i < portsLocations.length; i++) {
-    //     const element = portsLocations[i];
-    //     let locationName: string = '';
-    //     for (let j = 0; j < this.locations.length; j++) {
-    //       if (this.locations[j].locationId === element.location) {
-    //         locationName = this.locations[j].locationName;
-    //       }
-    //     }
-    //     const cfsObj = {
-    //       locationId: element.location,
-    //       locationName
-    //     }
-    //     cfsLocations.push(cfsObj);
-    //   }
-    // }
-    // console.log(cfsLocations); 
-    return portsLocations;
-  }
-  transformYardsstoLocations(yardsMasters: Array<any>) {
 
-  }
 
   getAllCFS() {
     this._cfsService.getAllCfsMasters().subscribe(
       (cfsMasters) => {
         this.cfsMasters = cfsMasters;
-        this.transformCfstoLocations(this.cfsMasters)
       },
       (err) => {
         console.log(err);
@@ -195,7 +134,6 @@ export class CreateOrderComponent implements OnInit {
     this._portService.getAllPortMasters().subscribe(
       (ports) => {
         this.portMasters = ports;
-        this.transformPortstoLocations(this.portMasters);
       },
       (err) => {
         console.log(err);
@@ -207,16 +145,13 @@ export class CreateOrderComponent implements OnInit {
     this._yardService.getAllYardMasters().subscribe(
       (yards) => {
         this.yardMasters = yards;
-        this.transformYardsstoLocations(this.yardMasters);
+        console.log(this.yardMasters);
       },
       (err) => {
         console.log(err);
       }
     );
   }
-
-  changeSourceType() { }
-  changeDestinationType() { }
 
   getMasterTypes() {
     this._masterTypeService.getAllMasterTypes().subscribe(
@@ -233,18 +168,6 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-      }
-    );
-  }
-
-
-  getLocations() {
-    this._locationService.getAllLocationMasters().subscribe(
-      (locations) => {
-        this.locations = locations;
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }

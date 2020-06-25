@@ -123,7 +123,7 @@ export class OrderListComponent implements OnInit {
   searchUserById(userId): string {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].id === userId) {
-        return this.users[i].firstName + this.users[i].lastName;
+        return `${ this.users[i].firstName } ${ this.users[i].lastName }`;
       }
     }
   }

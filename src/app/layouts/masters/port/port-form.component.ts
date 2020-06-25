@@ -1,3 +1,4 @@
+import { LocationService } from './../services/location.service';
 import { Port } from './../../../shared/models/port';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
@@ -19,28 +20,28 @@ export class PortFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public portForm: FormGroup;
   public stateMasters: Array<any> = [];
-  public locations: Array<any> = [
-    { location_syscode: 1, location: 'Nashik' },
-    { location_syscode: 2, location: 'Pune' },
-    { location_syscode: 3, location: 'Mumbai' },
-    { location_syscode: 4, location: 'Goa' },
-  ];
-  public ports: Array<any> = [
-    { port_syscode: 1, port: 'Nashik' },
-    { port_syscode: 2, port: 'Pune' },
-    { port_syscode: 3, port: 'Mumbai' },
-    { port_syscode: 4, port: 'Goa' },
-  ];
+  public locations: Array<any> = [];
+  public ports: Array<any> = [];
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _stateService: StateMasterService,
+    private _locationService: LocationService,
     private _portService: PortService,
     private _router: Router
   ) { }
 
+  getLocations() {
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations)=>{
+        this.locations = locations;
+      }
+    );
+  }
+
   ngOnInit(): void {
+    this.getLocations();
     if (this.portData) {
       this.portForm = this.fb.group({
         port_syscode: [this.portData.port_syscode ? this.portData.port_syscode : ''],

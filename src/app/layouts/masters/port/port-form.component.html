@@ -36,8 +36,8 @@
               <mat-form-field>
                 <mat-label>Location</mat-label>
                 <mat-select formControlName="location_syscode">
-                  <mat-option *ngFor="let location of locations" [value]="location.location_syscode">
-                    {{ location.location }}
+                  <mat-option *ngFor="let location of locations" [value]="location.locationId">
+                    {{ location.locationName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
