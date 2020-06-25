@@ -15,7 +15,7 @@ export class ZonedayEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.zoneday = this.route.snapshot.data['zonedaysResolver'];   
+    this.zoneday = this.route.snapshot.data['zonedayResolver'];   
   }
 
 }

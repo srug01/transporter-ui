@@ -7,7 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
-
+import { WeightService } from '../services/weight.service';
+import { ContianerService } from '../services/contianer.service';
 
 @Component({
   selector: 'app-mileage-master-list',
@@ -17,19 +18,27 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 export class MileageMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'mileage_syscode', 'mileage', 'container_syscode', 'weight_syscode', 'is_active', 'action'
+    'mileage_syscode', 'mileage', 'container_syscode',
+     'weight_syscode', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public mileageMasters: Array<any> = [];
+  public Container: Array<any> = [];
+  public Weight: Array<any> = [];
 
 
   constructor( private _mileageService: MileageService,
     private _snackBar: MatSnackBar,
     private _router: Router,
+    private _weightService:WeightService,
+    private _containerService:ContianerService,
+
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllMileageMasters();
+    this.getAllContainerMasters();
+    this.getAllWeightMasters();
   }
 
   openDialog(ev, mileage_syscode: number) {
@@ -42,6 +51,44 @@ export class MileageMasterListComponent implements OnInit {
         this.deleteMileageById(mileage_syscode);
       }
     });
+  }
+
+  getAllContainerMasters() {
+    this._containerService.getAllContainerMasters().subscribe(
+      (container) => {
+        console.log(container);
+        this.Container = container;
+      },
+      (err) => {
+        console.log('could not fetch Container masters');
+      }
+    );
+  }
+  getContainerbyId(id): string {
+    for (let i = 0; i < this.Container.length; i++) {
+      if (this.Container[i].container_syscode === id) {
+        return this.Container[i].container_name;
+      }
+    }
+  }
+
+  getAllWeightMasters() {
+    this._weightService.getAllWeightMasters().subscribe(
+      (weight) => {
+        console.log(weight);
+        this.Weight = weight;
+      },
+      (err) => {
+        console.log('could not fetch Weight');
+      }
+    );
+  }
+  getWeightbyId(id): string {
+    for (let i = 0; i < this.Weight.length; i++) {
+      if (this.Weight[i].weight_syscode === id) {
+        return this.Weight[i].weight_description;
+      }
+    }
   }
 
   getAllMileageMasters() {

@@ -13,12 +13,17 @@
     <ng-container matColumnDef="mileage">
       <th mat-header-cell *matHeaderCellDef> Mileage </th>
       <td mat-cell *matCellDef="let element"><a
-          [routerLink]="['/default/masters/mileage_syscode/details/',element.mileage_syscode]">{{element.port_name}}</a> </td>
+          [routerLink]="['/default/masters/mileage_syscode/details/',element.mileage_syscode]">{{element.mileage}}</a> </td>
     </ng-container>
 
     <ng-container matColumnDef="weight_syscode">
       <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight_syscode}} </td>
+      <td mat-cell *matCellDef="let element"> {{getWeightbyId(element.weight_syscode)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="container_syscode">
+      <th mat-header-cell *matHeaderCellDef> Container </th>
+      <td mat-cell *matCellDef="let element"> {{getContainerbyId(element.container_syscode)}} </td>
     </ng-container>
 
    

@@ -13,17 +13,17 @@
 
     <ng-container matColumnDef="cfs_syscode">
       <th mat-header-cell *matHeaderCellDef> CFS Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.cfs_syscode}} </td>
+      <td mat-cell *matCellDef="let element"> {{getCFSbyId(element.cfs_syscode)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="port_syscode">
-      <th mat-header-cell *matHeaderCellDef> Port Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.port_syscode}} </td>
+      <th mat-header-cell *matHeaderCellDef> Port  </th>
+      <td mat-cell *matCellDef="let element"> {{getPortbyId(element.port_syscode)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="weight_syscode">
       <th mat-header-cell *matHeaderCellDef> Weight Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight_syscode}} </td>
+      <td mat-cell *matCellDef="let element"> {{getWeightbyId(element.weight_syscode)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="rate">
