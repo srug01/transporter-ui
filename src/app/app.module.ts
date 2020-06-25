@@ -61,10 +61,7 @@ const toasterConfig: MatSnackBarConfig = {
     TransporterSignupComponent,
     SignupComponent,
     SignupHeaderComponent,
-    SignupSidebarComponent,
-    DateFormatPipe,
-    DateTimeFormatPipe,
-
+    SignupSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +87,6 @@ const toasterConfig: MatSnackBarConfig = {
     MatCardModule,
     MatInputModule,
     MatProgressSpinnerModule,
-
     FormsModule
   ],
   providers: [

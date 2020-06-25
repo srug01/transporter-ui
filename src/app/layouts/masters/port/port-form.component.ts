@@ -1,3 +1,4 @@
+import { LocationService } from './../services/location.service';
 import { Port } from './../../../shared/models/port';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
@@ -8,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { PortService } from '../services/port.service';
-import {  LocationService } from './../services/location.service';
+
 
 @Component({
   selector: 'app-port-form',
@@ -28,12 +29,22 @@ export class PortFormComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _stateService: StateMasterService,
-    private _portService: PortService,
     private _locationService: LocationService,
+    private _portService: PortService,
+
     private _router: Router
   ) { }
 
+  getLocations() {
+    this._locationService.getAllLocationMasters().subscribe(
+      (locations)=>{
+        this.locations = locations;
+      }
+    );
+  }
+
   ngOnInit(): void {
+    this.getLocations();
     if (this.portData) {
       this.portForm = this.fb.group({
         port_syscode: [this.portData.port_syscode ? this.portData.port_syscode : ''],
@@ -52,7 +63,7 @@ export class PortFormComponent implements OnInit {
       });
     }
     this.getAllStateMasters();
-    this.getAllLocationMasters();
+
   }
 
   getAllStateMasters() {
@@ -66,13 +77,7 @@ export class PortFormComponent implements OnInit {
     );
   }
 
-  getAllLocationMasters() {
-    this._locationService.getAllLocationMasters().subscribe(
-      (locations) => {
-        this.locations = locations;
-      }
-    );
-  }
+
 
   submitPortForm(ev) {
     if (ev) {
