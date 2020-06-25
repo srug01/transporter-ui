@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
+import { DateFormatPipe } from './../../../shared/pipe/date-format.pipe';
 
 @Component({
   selector: 'app-order-list',

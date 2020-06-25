@@ -1,6 +1,6 @@
 import { AppDateFormats } from './../../shared/date-formats';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CfsComponent } from './cfs.component';
 
 import { Routes, RouterModule } from '@angular/router';
@@ -28,6 +28,8 @@ import { AppDateAdapter } from 'src/app/shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { PendingOrderListComponent } from './pending-order-list/pending-order-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { DateFormatPipe } from 'src/app/shared/pipe/date-format.pipe';
+
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
@@ -52,7 +54,8 @@ const routes: Routes = [
     OrderListComponent,
     OrderDetailsComponent,
     UserRegistrationListComponent,
-    PendingOrderListComponent
+    PendingOrderListComponent,
+    DateFormatPipe
   ],
   imports: [
     CommonModule,
