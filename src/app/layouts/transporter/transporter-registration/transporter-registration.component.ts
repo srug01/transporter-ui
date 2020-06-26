@@ -54,6 +54,7 @@ export class TransporterRegistrationComponent implements OnInit {
       transporter_bank_name: ['', Validators.required],
       transporter_bank_branch: ['', Validators.required],
       transporter_bank_ifsc: ['', Validators.required],
+      fileUpload: [''],
       transporter_is_active: [false],
       transporter_is_verify: [false]
     },
