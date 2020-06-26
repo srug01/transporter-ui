@@ -12,7 +12,12 @@
       <!-- Name Column -->
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef> State </th>
-        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+        <td mat-cell *matCellDef="let element"> 
+          <a
+          [routerLink]="['/default/masters/state/details/',element.state_syscode]">
+          {{element.state}} 
+          </a>
+        </td>
       </ng-container>
   
       <!-- Weight Column -->

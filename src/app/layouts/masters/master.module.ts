@@ -47,6 +47,8 @@ import { YardcfsrateMasterListComponent } from './yardcfsrate/yardcfsrate-master
 import { MileageMasterListComponent } from './mileage/mileage-master-list.component';
 
 import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
+
+
 import { StateMasterListComponent } from './state/state-master-list.component';
 
 import { PortEditComponent } from './port/port-edit.component';
@@ -271,7 +273,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: CfsrateMasterListComponent },
       { path: 'new', component: CfsrateNewComponent },
-      { path: 'edit/:id', component: CfsrateEditComponent, resolve: { cfsrateResolver: CfsrateResolver } },
+      { path: 'edit/:id', component: CfsrateEditComponent, 
+      resolve: { cfsrateResolver: CfsrateResolver } },
       { path: 'details/:id', component: CfsrateDetailsComponent }
 
     ]
@@ -323,7 +326,18 @@ const routes: Routes = [
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
   { path: 'mileage-master-list', component: MileageMasterListComponent },
   { path: 'zone-master-list', component: ZoneMasterListComponent },
-  { path: 'zone-day-master-list', component: ZonedayMasterListComponent },
+  { path: 'zone-day-master-list', component: ZonedayMasterListComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: ZonedayMasterListComponent },
+      { path: 'new', component: ZonedayNewComponent },
+      {
+        path: 'edit/:id', component: ZonedayEditComponent,
+        resolve: { zonedayResolver: ZoneDayResolver }
+      },
+      { path: 'details/:id', component: ZonedayEditComponent }
+    ]
+  },
   { path: 'state-master-list', component: StateMasterListComponent },
 ];
 
@@ -448,6 +462,9 @@ const routes: Routes = [
     DieselResolver,
     ZoneDayResolver,
     YardCFSRatesResolver,
+    CfsResolver,
+    CfsrateResolver,
+
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

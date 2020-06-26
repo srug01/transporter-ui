@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { PortService } from '../services/port.service';
 
+
 @Component({
   selector: 'app-port-form',
   templateUrl: './port-form.component.html',
@@ -21,7 +22,8 @@ export class PortFormComponent implements OnInit {
   public portForm: FormGroup;
   public stateMasters: Array<any> = [];
   public locations: Array<any> = [];
-  public ports: Array<any> = [];
+
+
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -29,6 +31,7 @@ export class PortFormComponent implements OnInit {
     private _stateService: StateMasterService,
     private _locationService: LocationService,
     private _portService: PortService,
+
     private _router: Router
   ) { }
 
@@ -60,6 +63,7 @@ export class PortFormComponent implements OnInit {
       });
     }
     this.getAllStateMasters();
+
   }
 
   getAllStateMasters() {
@@ -72,6 +76,8 @@ export class PortFormComponent implements OnInit {
       }
     );
   }
+
+
 
   submitPortForm(ev) {
     if (ev) {

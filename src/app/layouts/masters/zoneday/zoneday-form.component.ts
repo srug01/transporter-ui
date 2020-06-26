@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { ZonedayService } from '../services/zoneday.service';
+import { PortService } from '../services/port.service';
 
 @Component({
   selector: 'app-zoneday-form',
@@ -19,16 +20,17 @@ export class ZonedayFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public zonedayForm: FormGroup;
   public zonedayMasters: Array<any> = [];
-  public portMasters: Array<any> = [
-    { port_syscode: 1, port_name: 'Jazira' },
-    { port_syscode: 2, port_name: 'Gujrat' },
-    { port_syscode: 3, port_name: 'Mumbai' },
-    { port_syscode: 4, port_name: 'Goa' },
-  ];
+  public portMasters: Array<any> = [];
+  //   { port_syscode: 1, port_name: 'Jazira' },
+  //   { port_syscode: 2, port_name: 'Gujrat' },
+  //   { port_syscode: 3, port_name: 'Mumbai' },
+  //   { port_syscode: 4, port_name: 'Goa' },
+  // ];
 
   constructor(    private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
+    private _portService : PortService,
   
     private _zonedayService: ZonedayService,
     private _router: Router) { }
@@ -60,7 +62,7 @@ export class ZonedayFormComponent implements OnInit {
           is_active: ['', Validators.required]
         });
       }
-      this.getAllZoneDayMasters();
+      this.getAllPortMasters();
     }
     getAllZoneDayMasters() {
       this._zonedayService.getAllZoneDayMasters().subscribe(
@@ -110,6 +112,17 @@ export class ZonedayFormComponent implements OnInit {
         (err) => {
           console.log('err');
           this.openSnackBar('Failure !', 'Could not update Zone Day!');
+        }
+      );
+    }
+
+    getAllPortMasters() {
+      this._portService.getAllPortMasters().subscribe(
+        (portMasters) => {
+          this.portMasters = portMasters;
+        },
+        (err) => {
+          console.log('could not fetch Port masters');
         }
       );
     }

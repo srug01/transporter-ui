@@ -1,9 +1,14 @@
 import { TransporterRegistrationService } from './../services/transporter-registration.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ViewChild, ElementRef  } from '@angular/core';
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ImageUploadService } from './../../../shared/services/image-upload.service';
+
 
 @Component({
   selector: 'app-transporter-registration',
@@ -11,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./transporter-registration.component.scss']
 })
 export class TransporterRegistrationComponent implements OnInit {
+  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;files  = [];
 
   public transporterForm: FormGroup;
   accTypeErrormatcher = new FormErrorStateMatcher();
@@ -26,7 +32,8 @@ export class TransporterRegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _transporterService: TransporterRegistrationService,
-    private _router: Router
+    private _router: Router,
+    private _imageuploadService: ImageUploadService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +54,7 @@ export class TransporterRegistrationComponent implements OnInit {
       transporter_bank_name: ['', Validators.required],
       transporter_bank_branch: ['', Validators.required],
       transporter_bank_ifsc: ['', Validators.required],
+      fileUpload: [''],
       transporter_is_active: [false],
       transporter_is_verify: [false]
     },
@@ -85,6 +93,49 @@ export class TransporterRegistrationComponent implements OnInit {
       }
     );
   }
+
+  uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file.data);
+    file.inProgress = true;
+    this._imageuploadService.imageUpload(formData).pipe(
+      map(event => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            file.progress = Math.round(event.loaded * 100 / event.total);
+            break;
+          case HttpEventType.Response:
+            return event;
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        file.inProgress = false;
+        return of(`${file.data.name} upload failed.`);
+      })).subscribe((event: any) => {
+        if (typeof (event) === 'object') {
+          console.log(event.body);
+        }
+      });
+  }
+
+  private uploadFiles() {
+    this.fileUpload.nativeElement.value = '';
+    this.files.forEach(file => {
+      this.uploadFile(file);
+    });
+}
+
+onfileClick() {
+  const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {
+  for (let index = 0; index < fileUpload.files.length; index++)
+  {
+   const file = fileUpload.files[index];
+   this.files.push({ data: file, inProgress: false, progress: 0});
+  }
+    this.uploadFiles();
+  };
+  fileUpload.click();
+}
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { Port } from 'src/app/shared/models/port';
+import { PortService } from 'src/app/layouts/masters/services/port.service';
 
 
 @Component({
@@ -16,20 +18,31 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 })
 export class ZonedayMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'zone_day_syscode', 'zone_name', 'port', 'import','export', 'is_active', 'action'
+    'zone_day_syscode', 'zone_name', 'port_syscode', 'import','export', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  public port: Array<Port> = [];
   public zonedayMasters: Array<any> = [];
 
   constructor(
     private _zonedayService: ZonedayService,
     private _snackBar: MatSnackBar,
     private _router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _portService: PortService,
   ) { }
 
   ngOnInit(): void {
     this.getAllZoneDayMasters();
+    this.getAllPortMasters();
+  }
+
+  getAllPortMasters() {
+    this._portService.getAllPortMasters().subscribe(
+      (port) => {
+        this.port = port;
+      }
+    );
   }
 
   openDialog(ev, zone_day_syscode: number) {
@@ -56,6 +69,18 @@ export class ZonedayMasterListComponent implements OnInit {
       }
     );
   }
+
+
+
+  getPortbyId(id): string {
+    for (let i = 0; i < this.port.length; i++) {
+      if (this.port[i].port_syscode === id) {
+        return this.port[i].port_name;
+      }
+    }
+  }
+
+
 
   deleteZoneDayById(zone_day_syscode: number) {
     this._zonedayService.deleteZoneDayMastersById(zone_day_syscode).subscribe(

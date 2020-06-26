@@ -35,7 +35,7 @@
                 </mat-form-field>
               </div>
               <div fxFlex="50" fxFlex.lt-sm="100">
-                <mat-form-field>
+                <!-- <mat-form-field>
                   <input
                     matInput
                     placeholder="Import"
@@ -43,11 +43,19 @@
                     name="name"
                     required
                   />
-                </mat-form-field>
+                </mat-form-field> -->
+
+                <mat-form-field color="accent">
+                  <mat-label>Import Date</mat-label>
+                  <input matInput [matDatepicker]="picker1" formControlName="import">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
               </div>
 
               <div fxFlex="50" fxFlex.lt-sm="100">
-                <mat-form-field>
+                <!-- <mat-form-field>
                   <input
                     matInput
                     placeholder="Export"
@@ -55,7 +63,16 @@
                     name="name"
                     required
                   />
-                </mat-form-field>
+                </mat-form-field> -->
+                <mat-form-field color="accent">
+                  <mat-label>Export Date</mat-label>
+                  <input matInput [matDatepicker]="picker2" formControlName="export">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+
+
+
               </div>
          
               <div fxFlex="50" fxFlex.lt-sm="100">

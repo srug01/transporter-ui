@@ -38,6 +38,7 @@ const routes: Routes = [
   { path: 'create-order', component: CreateOrderComponent },
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'register-user', component: UserRegistrationComponent },
+  { path: 'user-list', component: UserRegistrationListComponent },
   { path: 'order-list', component: OrderListComponent },
   { path: 'saved-orders', component: PendingOrderListComponent },
   { path: ':id/order-details', component: OrderDetailsComponent },

@@ -12,14 +12,14 @@
     <!-- Name Column -->
 
 
-    <ng-container matColumnDef="yard_syscode">
-      <th mat-header-cell *matHeaderCellDef> Yard Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.yard_syscode}} </td>
+    <ng-container matColumnDef="yard">
+      <th mat-header-cell *matHeaderCellDef> Yard Name </th>
+      <td mat-cell *matCellDef="let element"> {{getYardbyId(element.yard_syscode)}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="port_syscode">
-      <th mat-header-cell *matHeaderCellDef> Port Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.port_syscode}} </td>
+    <ng-container matColumnDef="port">
+      <th mat-header-cell *matHeaderCellDef> Port Name </th>
+      <td mat-cell *matCellDef="let element"> {{getPortbyId(element.port_syscode)}} </td>
     </ng-container>
 
     <!-- Weight Column -->

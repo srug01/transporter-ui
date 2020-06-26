@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatIconModule} from '@angular/material/icon';
 
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
 import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
@@ -63,6 +64,7 @@ const toasterConfig : MatSnackBarConfig = {
     MatButtonModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatIconModule,
     RouterModule.forChild(routes)
   ],
   providers: [
