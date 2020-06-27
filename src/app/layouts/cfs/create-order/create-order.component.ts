@@ -47,6 +47,7 @@ export class CreateOrderComponent implements OnInit {
   public selectedMasterType: MasterType = null;
   public source: string;
   public destination: string;
+  public cfsLocation: Array<any> = [];
 
   types: any[] = [
     { value: '10', viewValue: '10 FT' },
@@ -84,6 +85,7 @@ export class CreateOrderComponent implements OnInit {
     this.getUserInfo();
     this.getMasterTypes();
     this.getLocations();
+    this.getCFSLocation();
     this.initialiseOrderForm();
   }
 
@@ -168,6 +170,19 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
+      }
+    );
+  }
+
+  getCFSLocation() {
+    this._orderService.getCfsLocation(2).subscribe(
+      (cfsLocation) => {
+        this.cfsLocation = cfsLocation;
+
+        console.log(this.cfsLocation);
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }

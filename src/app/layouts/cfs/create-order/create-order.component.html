@@ -40,8 +40,8 @@
                                     <mat-label>CFS</mat-label>
                                     <mat-select matNativeControl formControlName="source"
                                         [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfs_syscode">
-                                            {{cfs.cfs_name}}
+                                        <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
+                                            {{cfs.cfs_name +  cfs.locationName}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
@@ -96,8 +96,8 @@
                                     <mat-label>CFS</mat-label>
                                     <mat-select matNativeControl formControlName="destination"
                                         [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfs_syscode">
-                                            {{cfs.cfs_name}}
+                                        <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
+                                            {{cfs.cfs_name +  cfs.locationName}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
