@@ -52,6 +52,10 @@ export class OrderService {
     return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
   }
 
+  getCfsLocation(userId: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'searchCFSLocation/' + userId);
+  }
+
   getAllSavedOrders(): Observable<Order[]> {
     this.filter.where = {
       status: 'pending'

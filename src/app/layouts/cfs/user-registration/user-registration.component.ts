@@ -19,6 +19,7 @@ export class UserRegistrationComponent implements OnInit {
   userTypeErrormatcher = new FormErrorStateMatcher();
 
   public cfsTypes: Array<any> = [];
+  public cfsData: Array<any> = [];
   public userTypes: Array<any> = [
     { value: 5, viewValue: 'Super Admin' },
     { value: 6, viewValue: 'Admin' },
@@ -52,6 +53,7 @@ export class UserRegistrationComponent implements OnInit {
         validator: this.checkPasswords
     });
     this.getAllCfsMasters();
+    // this.getCfsData();
   }
 
 
@@ -95,6 +97,19 @@ export class UserRegistrationComponent implements OnInit {
       }
     );
   }
+
+  /* getCfsData() {
+    this._userRegistrationService.getCfsUserData(2,4).subscribe(
+      (cfsData) => {
+        this.cfsData = cfsData;
+        console.log(this.cfsData);
+      },
+      (err) => {
+        console.log('could not fetch cfs masters');
+      }
+    );
+  } */
+
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

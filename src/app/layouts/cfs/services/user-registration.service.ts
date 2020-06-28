@@ -37,6 +37,11 @@ getCfsUserRegistrationById(id: number): Observable<any> {
   return this.http.get(this.baseUrl + 'cfs-user-registrations/' + id);
 }
 
+getCfsUserData(userid: number,roleid: number): Observable<any> {
+  return this.http.get(this.baseUrl + '/MultipleTables/' + userid + "/" + roleid);
+}
+
+
 deleteCfsUserRegistrationById(id: number): Observable<any> {
   return this.http.delete(this.baseUrl + 'cfs-user-registrations/' + id);
 }
