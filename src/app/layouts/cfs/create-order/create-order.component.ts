@@ -22,6 +22,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
+import { WeightService } from '../../masters/services/weight.service';
 
 @Component({
   selector: 'app-create-order',
@@ -48,17 +49,31 @@ export class CreateOrderComponent implements OnInit {
   public source: string;
   public destination: string;
   public cfsLocation: Array<any> = [];
+  public weights: Array<any> = [];
+
 
   types: any[] = [
     { value: '10', viewValue: '10 FT' },
     { value: '20', viewValue: '20 FT' },
     { value: '30', viewValue: '30 FT' }
   ];
-  weights: any[] = [
-    { value: '1', viewValue: '1 TON' },
-    { value: '2', viewValue: '2 TON' },
-    { value: '3', viewValue: '3 TON' }
-  ];
+  // weights: any[] = [
+  //   { value: '1', viewValue: '1 TON' },
+  //   { value: '2', viewValue: '2 TON' },
+  //   { value: '3', viewValue: '3 TON' }
+  // ];
+
+  getAllWeightMasters() {
+    this._weightService.getAllWeightMasters().subscribe(
+      (weightMasters) => {
+        this.weights = weightMasters;
+      },
+      (err) => {
+        console.log('could not fetch weight masters');
+      }
+    );
+  }
+
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
   ];
@@ -77,7 +92,8 @@ export class CreateOrderComponent implements OnInit {
     private _masterTypeService: MasterTypeService,
     private _userService: UserService,
     private _yardService: YardService,
-    private _cfsService: CfsService
+    private _cfsService: CfsService,
+    private _weightService: WeightService
   ) { }
 
 
@@ -87,6 +103,7 @@ export class CreateOrderComponent implements OnInit {
     this.getLocations();
     this.getCFSLocation();
     this.initialiseOrderForm();
+    this.getAllWeightMasters();
   }
 
   initialiseOrderForm() {

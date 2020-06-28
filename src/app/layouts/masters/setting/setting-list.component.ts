@@ -30,6 +30,20 @@ export class SettingListComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
+
+  openDialog(ev, stateId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteSettingById(stateId);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.getAllSettingMasters();
   }

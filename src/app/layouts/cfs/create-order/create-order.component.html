@@ -164,8 +164,8 @@
                                         <mat-label>Weight</mat-label>
                                         <mat-select matNativeControl formControlName="weight"
                                             [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let weight of weights" [value]="weight.value">
-                                                {{weight.viewValue}}
+                                            <mat-option *ngFor="let weight of weights" [value]="weight.weight_syscode">
+                                                {{weight.weight_description}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
