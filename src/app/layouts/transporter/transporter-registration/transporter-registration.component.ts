@@ -1,5 +1,6 @@
+import { ImageUploadService } from './../../../shared/services/image-upload.service';
 import { TransporterRegistrationService } from './../services/transporter-registration.service';
-import { Component, OnInit,  ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
@@ -7,7 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ImageUploadService } from './../../../shared/services/image-upload.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 
 @Component({
@@ -16,11 +18,10 @@ import { ImageUploadService } from './../../../shared/services/image-upload.serv
   styleUrls: ['./transporter-registration.component.scss']
 })
 export class TransporterRegistrationComponent implements OnInit {
-  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;files  = [];
-
   public transporterForm: FormGroup;
   accTypeErrormatcher = new FormErrorStateMatcher();
   confirmAccErrormatcher = new FormErrorStateMatcher();
+  currentUser: User;
 
   public accountTypes: Array<any> = [
     { value: 'saving', viewValue: 'Saving' },
@@ -33,10 +34,17 @@ export class TransporterRegistrationComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _transporterService: TransporterRegistrationService,
     private _router: Router,
-    private _imageuploadService: ImageUploadService
-  ) { }
+    private _imageService: ImageUploadService,
+    private _userService: UserService
+  ) {
+  }
 
   ngOnInit(): void {
+    this._userService.getUsersInfo().subscribe(
+      (user) => {
+        this.currentUser = user;
+      }
+    );
     this.transporterForm = this.fb.group({
       transporter_name: ['', Validators.required],
       transporter_mobile_no: ['', Validators.required],
@@ -54,24 +62,34 @@ export class TransporterRegistrationComponent implements OnInit {
       transporter_bank_name: ['', Validators.required],
       transporter_bank_branch: ['', Validators.required],
       transporter_bank_ifsc: ['', Validators.required],
-      fileUpload: [''],
+      transporter_pan_card: [''],
       transporter_is_active: [false],
       transporter_is_verify: [false]
     },
-    {
+      {
         validator: this.checkAccountNumbers
-    });
+      });
   }
 
+
   submitTransporterForm(ev) {
+    console.log(this.transporterForm);
+    this.uploadFile(this.transporterForm.get('transporter_pan_card'));
     if (ev) {
       ev.preventDefault();
     }
     if (this.transporterForm.valid) {
-      this.saveTransporter(this.transporterForm);
-    } else {console.log(this.transporterForm);
+      //this.saveTransporter(this.transporterForm);
+    } else {
+      console.log(this.transporterForm);
       this.openSnackBar('Invalid Form !', 'Please Review All Fields');
     }
+  }
+
+  uploadFile(fileControl: any) {
+    fileControl.value.files.forEach(file => {
+      this._imageService.uploadFile(file, 'transporter');
+    });
   }
 
   checkAccountNumbers(group: FormGroup) {
@@ -94,48 +112,7 @@ export class TransporterRegistrationComponent implements OnInit {
     );
   }
 
-  uploadFile(file) {
-    const formData = new FormData();
-    formData.append('file', file.data);
-    file.inProgress = true;
-    this._imageuploadService.imageUpload(formData).pipe(
-      map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
-        }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        return of(`${file.data.name} upload failed.`);
-      })).subscribe((event: any) => {
-        if (typeof (event) === 'object') {
-          console.log(event.body);
-        }
-      });
-  }
 
-  private uploadFiles() {
-    this.fileUpload.nativeElement.value = '';
-    this.files.forEach(file => {
-      this.uploadFile(file);
-    });
-}
-
-onfileClick() {
-  const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {
-  for (let index = 0; index < fileUpload.files.length; index++)
-  {
-   const file = fileUpload.files[index];
-   this.files.push({ data: file, inProgress: false, progress: 0});
-  }
-    this.uploadFiles();
-  };
-  fileUpload.click();
-}
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

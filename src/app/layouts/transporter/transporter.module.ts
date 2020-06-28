@@ -16,13 +16,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatIconModule} from '@angular/material/icon';
-
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
 import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
 import { VehicleService } from './services/vehicle.service';
 import { TransporterRegistrationComponent } from './transporter-registration/transporter-registration.component';
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { TransporterListComponent } from './transporter-list/transporter-list.component';
+import { MaterialFileInputModule, FileInputConfig, NGX_MAT_FILE_INPUT_CONFIG } from 'ngx-material-file-input';
 
 
 const routes: Routes = [
@@ -39,6 +39,11 @@ const toasterConfig : MatSnackBarConfig = {
   verticalPosition: 'top',
   duration : 2500
 };
+
+export const config: FileInputConfig = {
+  sizeUnit: 'Octet'
+};
+
 
 @NgModule({
   declarations: [
@@ -65,11 +70,13 @@ const toasterConfig : MatSnackBarConfig = {
     MatSlideToggleModule,
     MatSnackBarModule,
     MatIconModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MaterialFileInputModule
   ],
   providers: [
     VehicleService,
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
+    { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config }
   ]
 })
 export class TransporterModule { }
