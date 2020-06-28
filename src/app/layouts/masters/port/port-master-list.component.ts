@@ -27,12 +27,12 @@ export class PortMasterListComponent implements OnInit {
   public locations: Array<LocationMaster> = [];
 
   constructor(
-    private _portService: PortService,
-    private _stateService: StateMasterService,
-    private _locationService: LocationService,
-    private _snackBar: MatSnackBar,
-    private _router: Router,
-    public dialog: MatDialog
+      private _portService: PortService,
+      private _stateService: StateMasterService,
+      private _locationService: LocationService,
+      private _snackBar: MatSnackBar,
+      private _router: Router,
+      public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {

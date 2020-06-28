@@ -143,6 +143,12 @@ import { LocationEditComponent } from './location/location-edit.component';
 import { LocationFormComponent } from './location/location-form.component';
 import { LocationDetailsComponent } from './location/location-details.component';
 import { LocationResolver } from './resolvers/location.resolver';
+import { SettingFormComponent } from './setting/setting-form.component';
+import { SettingEditComponent } from './setting/setting-edit.component';
+import { SettingListComponent } from './setting/setting-list.component';
+import { SettingDetailsComponent } from './setting/setting-details.component';
+import { SettingNewComponent } from './setting/setting-new.component';
+import { SettingComponent } from './setting/setting.component';
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
 const toasterConfig: MatSnackBarConfig = {
@@ -428,7 +434,13 @@ const routes: Routes = [
     LocationListComponent,
     LocationEditComponent,
     LocationFormComponent,
-    LocationDetailsComponent
+    LocationDetailsComponent,
+    SettingFormComponent,
+    SettingEditComponent,
+    SettingListComponent,
+    SettingDetailsComponent,
+    SettingNewComponent,
+    SettingComponent
 
   ],
   imports: [
