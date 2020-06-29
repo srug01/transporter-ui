@@ -1,5 +1,5 @@
 
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from './../../../environments/environment';
@@ -11,16 +11,14 @@ import * as S3 from 'aws-sdk/clients/s3';
 })
 export class ImageUploadService {
   baseUrl = environment.baseUri;
-
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({ 
+    })
+  }
   constructor(private http: HttpClient) { }
 
-  imageUpload(imageForm: FormData) {
-    console.log('image uploading');
-    return this.http.post(this.baseUrl + 'buckets/srug01/upload', imageForm,
-      {
-        reportProgress: true,
-        observe: 'events'
-      });
+  imageUpload(formData: any) {
+    return this.http.post(this.baseUrl + 'buckets/srug-images/upload', formData, this.HttpUploadOptions);
   }
 
   uploadFile(file, folderName: string) {

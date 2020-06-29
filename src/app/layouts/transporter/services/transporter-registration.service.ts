@@ -9,6 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class TransporterRegistrationService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type' : 'application/json'
+    })
+  }
 
   constructor(
     private http: HttpClient
@@ -16,7 +21,8 @@ export class TransporterRegistrationService {
 
   saveTransporter(transporter: any): Observable<any> {
     delete transporter.confirm_transporter_bank_acno;
-    return this.http.post<Vehicle>(this.baseUrl + 'transporter-registrations', JSON.stringify(transporter));
+    delete transporter.transporter_syscode;
+    return this.http.post<Vehicle>(this.baseUrl + 'transporter-registrations', JSON.stringify(transporter), this.HttpUploadOptions);
   }
 
   getAllTransporters(): Observable<any> {
