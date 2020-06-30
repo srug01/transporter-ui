@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -11,6 +11,11 @@ import { environment } from './../../../../environments/environment';
 })
 export class YardService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
   constructor(
     private http: HttpClient
   ) { }
@@ -19,11 +24,11 @@ export class YardService {
     console.log(yard);
     delete yard.yard_syscode;
     console.log(yard);
-    return this.http.post<Yard>(this.baseUrl + 'yard-masters', JSON.stringify(yard));
+    return this.http.post<Yard>(this.baseUrl + 'yard-masters', JSON.stringify(yard), this.HttpUploadOptions);
   }
 
   updateYardMaster(yard: Yard): Observable<any> {
-    return this.http.put<Yard>(this.baseUrl + 'yard-masters/'+ yard.yard_syscode, JSON.stringify(yard));
+    return this.http.put<Yard>(this.baseUrl + 'yard-masters/'+ yard.yard_syscode, JSON.stringify(yard), this.HttpUploadOptions);
   }
 
   getAllYardMasters(): Observable<any> {

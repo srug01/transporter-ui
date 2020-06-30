@@ -1,35 +1,46 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-       <button mat-icon-button (click)="toggleSidebar()">
-           <mat-icon>menu</mat-icon>
-       </button>
-       <span>CFS Master</span>
+        <button mat-icon-button (click)="toggleSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>CFS Master</span>
 
-       <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
-           <ul fxLayout="row" fxLayoutGap="20px">
-               <li>
-                   <button mat-icon-button>
-                       <mat-icon>settings </mat-icon>
-                   </button>
-               </li>
-               <li>
-                <button mat-icon-button>
-                    <mat-icon>help_outline </mat-icon>
-                </button>
-            </li>
-            <li>
-                <button mat-button [matMenuTriggerFor]="menu">
-                    <mat-icon>person_outline</mat-icon>
-               </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="logOut()" >
-                      <mat-icon>exit_to_app</mat-icon>
-                        <span>Sign out</span>
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li *ngIf="notifications">
+                    <button mat-icon-button [matMenuTriggerFor]="menuNotifications">
+                        <mat-icon>notifications</mat-icon>
+                        <small class="notification-badge">{{notifications.length}}</small>
                     </button>
-                  </mat-menu>
-            </li>
-           </ul>
-       </div>
+                    <mat-menu #menuNotifications="matMenu" class="notification-container">
+                        <div *ngFor="let notifyItem of notifications" class="notification notification-info">
+                            {{notifyItem.notificationDesc}}
+                        </div>
+                    </mat-menu>
+                </li>
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>settings </mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>help_outline </mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logOut()">
+                            <mat-icon>exit_to_app</mat-icon>
+                            <span>Sign out</span>
+                        </button>
+                    </mat-menu>
+                </li>
+            </ul>
+        </div>
 
     </mat-toolbar-row>
 </mat-toolbar>

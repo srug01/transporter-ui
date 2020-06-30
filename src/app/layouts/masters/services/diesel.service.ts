@@ -1,7 +1,7 @@
 import { Diesel } from './../../../shared/models/diesel';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,6 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class DieselService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(
     private http: HttpClient
@@ -18,11 +23,11 @@ export class DieselService {
     console.log(diesel);
     delete diesel.diesel_rate_syscode;
     console.log(diesel);
-    return this.http.post<Diesel>(this.baseUrl + 'diesel-rate-masters', JSON.stringify(diesel));
+    return this.http.post<Diesel>(this.baseUrl + 'diesel-rate-masters', JSON.stringify(diesel), this.HttpUploadOptions);
   }
 
   updateDieselMaster(diesel: Diesel): Observable<any> {
-    return this.http.put<Diesel>(this.baseUrl + 'diesel-rate-masters/'+ diesel.diesel_rate_syscode, JSON.stringify(diesel));
+    return this.http.put<Diesel>(this.baseUrl + 'diesel-rate-masters/'+ diesel.diesel_rate_syscode, JSON.stringify(diesel), this.HttpUploadOptions);
   }
 
   getAllDieselMasters(): Observable<any> {

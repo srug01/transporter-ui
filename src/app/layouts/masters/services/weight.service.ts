@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -12,6 +12,11 @@ import { environment } from './../../../../environments/environment';
 })
 export class WeightService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
   constructor(
     private http: HttpClient
   ) { }
@@ -20,11 +25,11 @@ export class WeightService {
     console.log(weight);
     delete weight.weight_syscode;
     console.log(weight);
-    return this.http.post<Weight>(this.baseUrl + 'weight-masters', JSON.stringify(weight));
+    return this.http.post<Weight>(this.baseUrl + 'weight-masters', JSON.stringify(weight), this.HttpUploadOptions);
   }
 
   updateWeightMaster(weight: Weight): Observable<any> {
-    return this.http.put<Weight>(this.baseUrl + 'weight-masters/'+ weight.weight_syscode, JSON.stringify(weight));
+    return this.http.put<Weight>(this.baseUrl + 'weight-masters/'+ weight.weight_syscode, JSON.stringify(weight), this.HttpUploadOptions);
   }
 
   getAllWeightMasters(): Observable<any> {

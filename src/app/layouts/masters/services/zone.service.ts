@@ -1,7 +1,7 @@
 import { Zone } from './../../../shared/models/zone';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,6 +10,11 @@ import { Observable } from 'rxjs';
 export class ZoneService {
 
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(
     private http: HttpClient
@@ -17,12 +22,12 @@ export class ZoneService {
 
   saveZoneMaster(zone: Zone): Observable<any> {
     delete zone.zone_syscode;
-    return this.http.post<Zone>(this.baseUrl + 'zone-masters', JSON.stringify(zone));
+    return this.http.post<Zone>(this.baseUrl + 'zone-masters', JSON.stringify(zone), this.HttpUploadOptions);
   }
 
   updateZoneMaster(zone: Zone): Observable<any> {
     return this.http.put<Zone>(this.baseUrl + 'zone-masters/'+ zone.zone_syscode,
-     JSON.stringify(zone));
+     JSON.stringify(zone), this.HttpUploadOptions);
   }
 
   getAllZoneMasters(): Observable<any> {

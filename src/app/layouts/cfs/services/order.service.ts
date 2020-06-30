@@ -1,7 +1,7 @@
 import { Include } from './../../../shared/models/filter';
 import { Order } from './../../../shared/models/order';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
 
@@ -11,6 +11,11 @@ import { environment } from './../../../../environments/environment';
 })
 export class OrderService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   filter: any = {
     include: [
@@ -42,7 +47,7 @@ export class OrderService {
   ) { }
 
   saveOrder(order: Order): Observable<any> {
-    return this.http.post<Order>(this.baseUrl + 'orders', JSON.stringify(order));
+    return this.http.post<Order>(this.baseUrl + 'orders', JSON.stringify(order), this.HttpUploadOptions);
   }
 
   getAllOrders(): Observable<Order[]> {

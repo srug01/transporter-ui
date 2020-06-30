@@ -1,7 +1,7 @@
 import { Mileage } from './../../../shared/models/mileage';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -10,6 +10,11 @@ import { Observable } from 'rxjs';
 })
 export class MileageService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(
     private http: HttpClient
@@ -19,12 +24,12 @@ export class MileageService {
     console.log(mileage);
     delete mileage.mileage_syscode;
     console.log(mileage);
-    return this.http.post<Mileage>(this.baseUrl + 'mileage-masters', JSON.stringify(mileage));
+    return this.http.post<Mileage>(this.baseUrl + 'mileage-masters', JSON.stringify(mileage), this.HttpUploadOptions);
   }
 
   updateMileageMaster(mileage: Mileage): Observable<any> {
     return this.http.put<Mileage>(this.baseUrl + 'mileage-masters/'+ mileage.mileage_syscode,
-     JSON.stringify(mileage));
+     JSON.stringify(mileage), this.HttpUploadOptions);
   }
 
   getAllMileageMasters(): Observable<any> {

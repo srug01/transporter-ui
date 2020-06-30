@@ -1,0 +1,30 @@
+export class Transporter {   
+      transporter_syscode?: number;     
+      transporter_name?: string;
+      transporter_mobile_no: string;
+      transporter_email?: string;
+      transporter_address?: string;
+      transporter_pincode?: string;
+      transporter_GSTIN?: string;
+      transporter_PAN?: string;
+      transporter_partner?: string;
+      transporter_partner_PAN?: string;
+      transporter_partner_address?: string;
+      transporter_bank_acno?: string;
+      transporter_ac_type?: string;
+      transporter_bank_name?: string;
+      transporter_bank_branch?: string;
+      transporter_bank_ifsc?: string;
+      transporter_address_file?: string;
+      transporter_gst_file?: string;
+      transporter_pan_card?: string;
+      transporter_permit_card?: string;
+      transporter_license_card?: string;
+      transporter_other_card?: string;
+      transporter_is_active: boolean;
+      transporter_is_verify: boolean;
+      created_by: number;
+      created_on: Date;
+      modified_by?: number;
+      modified_on?: Date;
+}
