@@ -9,7 +9,7 @@ import { CfsrateService } from '../services/cfsrate.service';
 import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
-
+import { ContianerService } from '../services/contianer.service';
 
 @Component({
   selector: 'app-cfsrate-form',
@@ -23,11 +23,13 @@ export class CfsrateFormComponent implements OnInit {
   public cfsMasters: Array<any> = [];
   public portMasters: Array<any> = [];
   public weightMasters: Array<any> = [];
+  public containerMaster: Array<any> = [];
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _cfsrateService: CfsrateService,
+    private _containerService: ContianerService,
     private _portService: PortService,
     private _weightService: WeightService,
     private _cfsService: CfsService,
@@ -40,6 +42,8 @@ export class CfsrateFormComponent implements OnInit {
         cfs_rate_syscode: [this.cfsrateData.cfs_rate_syscode ? this.cfsrateData.cfs_rate_syscode : ''],
         cfs_syscode: [this.cfsrateData.cfs_syscode ? this.cfsrateData.cfs_syscode : '', Validators.required],
         port_syscode: [this.cfsrateData.port_syscode ? this.cfsrateData.port_syscode : '', Validators.required],
+        container_syscode: [this.cfsrateData.container_syscode ?
+          this.cfsrateData.container_syscode : '', Validators.required],
         weight_syscode: [this.cfsrateData.weight_syscode ? this.cfsrateData.weight_syscode : '', Validators.required],
         rate: [this.cfsrateData.rate ? this.cfsrateData.rate : 0, Validators.required],
         is_active: [this.cfsrateData.is_active ? this.cfsrateData.is_active : '', Validators.required]
@@ -49,6 +53,7 @@ export class CfsrateFormComponent implements OnInit {
         cfs_rate_syscode: [''],
         cfs_syscode: ['', Validators.required],
         port_syscode: ['', Validators.required],
+        container_syscode: ['', Validators.required],
         weight_syscode: ['', Validators.required],
         rate: [0, Validators.required],
         is_active: ['', Validators.required]
@@ -57,8 +62,20 @@ export class CfsrateFormComponent implements OnInit {
     this.getAllPortMasters();
     this.getAllWeightMasters();
     this.getAllCfsMasters();
+    this.getAllContainerMasters();
   }
 
+
+  getAllContainerMasters() {
+    this._containerService.getAllContainerMasters().subscribe(
+      (containerMasters) => {
+        this.containerMaster = containerMasters;
+      },
+      (err) => {
+        console.log('could not fetch Container masters');
+      }
+    );
+  }
   getAllPortMasters() {
     this._portService.getAllPortMasters().subscribe(
       (portMasters) => {
