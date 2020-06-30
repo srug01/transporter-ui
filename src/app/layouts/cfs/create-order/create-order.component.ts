@@ -1,3 +1,5 @@
+import { NotificationService } from './../../../shared/services/notification.service';
+import { Notification } from './../../../shared/models/notification';
 import { Port } from './../../../shared/models/port';
 import { Yard } from 'src/app/shared/models/yard';
 import { Cfs } from './../../../shared/models/cfs';
@@ -76,7 +78,8 @@ export class CreateOrderComponent implements OnInit {
     private _masterTypeService: MasterTypeService,
     private _userService: UserService,
     private _yardService: YardService,
-    private _cfsService: CfsService
+    private _cfsService: CfsService,
+    private _notificationService: NotificationService
   ) { }
 
 
@@ -145,7 +148,6 @@ export class CreateOrderComponent implements OnInit {
     this._yardService.getAllYardMasters().subscribe(
       (yards) => {
         this.yardMasters = yards;
-        console.log(this.yardMasters);
       },
       (err) => {
         console.log(err);
@@ -168,6 +170,7 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
+        console.log(this.currentUser);
       }
     );
   }
@@ -212,8 +215,7 @@ export class CreateOrderComponent implements OnInit {
 
   resetOrderForm() {
     this.orderForm.reset();
-    this.orderForm.markAsPristine()
-    console.log(this.orderForm);
+    this.orderForm.markAsPristine();
   }
 
   saveOrderAsDraft(ev) {
@@ -303,12 +305,35 @@ export class CreateOrderComponent implements OnInit {
   saveOrder(order: Order) {
     this._orderService.saveOrder(order).subscribe(
       (res) => {
+        const notification: Notification = {
+          orderId: res.orderId,
+          assignToRole: 1,
+          assignToUser: null,
+          createdBy: this.currentUser.id,
+          createdOn: new Date(),
+          isRead: false,
+          notificationDesc: `${this.currentUser.name} placed a new Order!`,
+          notificationId: null,
+          notificationType: 'orders'
+        };
+        this.saveNotification(notification);
         this.openSnackBar('Success !', 'Order placed successfully');
         this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);
         this.openSnackBar('Failure !', 'could not place the order');
+      }
+    );
+  }
+
+  saveNotification(notification: Notification) {
+    this._notificationService.saveNotification(notification).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }
