@@ -312,7 +312,7 @@ export class CreateOrderComponent implements OnInit {
           createdBy: this.currentUser.id,
           createdOn: new Date(),
           isRead: false,
-          notificationDesc: `${this.currentUser.name} placed a new Order!`,
+          notificationDesc: `${this.currentUser.name} placed a new Order on ${new Date()}!`,
           notificationId: null,
           notificationType: 'orders'
         };
