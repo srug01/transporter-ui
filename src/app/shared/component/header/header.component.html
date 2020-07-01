@@ -7,17 +7,6 @@
 
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
-                <li *ngIf="notifications">
-                    <button mat-icon-button [matMenuTriggerFor]="menuNotifications">
-                        <mat-icon>notifications</mat-icon>
-                        <small class="notification-badge">{{notifications.length}}</small>
-                    </button>
-                    <mat-menu #menuNotifications="matMenu" class="notification-container">
-                        <div *ngFor="let notifyItem of notifications" class="notification notification-info">
-                            {{notifyItem.notificationDesc}}
-                        </div>
-                    </mat-menu>
-                </li>
                 <li>
                     <button mat-icon-button>
                         <mat-icon>settings </mat-icon>
@@ -37,6 +26,22 @@
                             <mat-icon>exit_to_app</mat-icon>
                             <span>Sign out</span>
                         </button>
+                    </mat-menu>
+                </li>
+                <li *ngIf="notifications.length>0">
+                    <button mat-icon-button [matMenuTriggerFor]="menuNotifications">
+                        <mat-icon>notifications</mat-icon>
+                        <small class="notification-badge">{{notifications.length}}</small>
+                    </button>
+                    <mat-menu #menuNotifications="matMenu" class="notification-container">
+                        <div style="text-align: right;">
+                            <a style="font-size: 14px;">Mark All as read</a>
+                        </div>
+                        <div *ngFor="let notifyItem of notifications" class="notification notification-info">
+                            <p>
+                                {{notifyItem.notificationDesc}}
+                            </p>
+                        </div>
                     </mat-menu>
                 </li>
             </ul>
