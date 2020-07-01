@@ -95,7 +95,7 @@ export class CreateOrderComponent implements OnInit {
     private _userService: UserService,
     private _yardService: YardService,
     private _cfsService: CfsService,
-    private _weightService: WeightService
+    private _weightService: WeightService,
     private _notificationService: NotificationService
   ) { }
 
