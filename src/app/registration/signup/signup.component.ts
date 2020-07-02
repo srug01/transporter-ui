@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
+  @Input() userType: string;
   public signupForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.userType);
     this.initializeSignupForm();
   }
 
@@ -32,7 +33,7 @@ export class SignupComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       mobileNumber: ['', Validators.required],
-      typeSyscode: [2]
+      typeSyscode: []
     });
   }
 
@@ -41,6 +42,7 @@ export class SignupComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.signupForm.valid) {
+      this.signupForm.get('typeSyscode').setValue(Number(this.userType));
       this._signupService.saveUser(this.signupForm.value).subscribe(
         (user) => {
           this.openSnackBar('Success !', 'User created successfully');

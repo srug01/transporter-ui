@@ -24,6 +24,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-order',
@@ -79,7 +80,8 @@ export class CreateOrderComponent implements OnInit {
     private _userService: UserService,
     private _yardService: YardService,
     private _cfsService: CfsService,
-    private _notificationService: NotificationService
+    private _notificationService: NotificationService,
+    private datePipe: DatePipe
   ) { }
 
 
@@ -170,7 +172,6 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-        console.log(this.currentUser);
       }
     );
   }
@@ -312,7 +313,7 @@ export class CreateOrderComponent implements OnInit {
           createdBy: this.currentUser.id,
           createdOn: new Date(),
           isRead: false,
-          notificationDesc: `${this.currentUser.name} placed a new Order on ${new Date()}!`,
+          notificationDesc: `${this.currentUser.name} placed a new Order on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
           notificationId: null,
           notificationType: 'orders'
         };
@@ -330,7 +331,7 @@ export class CreateOrderComponent implements OnInit {
   saveNotification(notification: Notification) {
     this._notificationService.saveNotification(notification).subscribe(
       (res) => {
-        console.log(res);
+        console.log('Saved Notification',res);
       },
       (err) => {
         console.log(err);

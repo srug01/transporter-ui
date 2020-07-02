@@ -18,7 +18,7 @@ list-style: none;
 	padding: 15px 20px;
 	line-height: 20px;
 	margin-bottom: 2px;
-	animation: grow 0.5s ease-in forwards;
+	cursor: pointer;
 }
 @keyframes grow{
 	from {

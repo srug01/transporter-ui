@@ -1,7 +1,7 @@
 import { Where } from './../shared/models/filter';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 
@@ -11,6 +11,11 @@ import { User } from '../shared/models/user';
 export class UserService {
 
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
 
   constructor(
