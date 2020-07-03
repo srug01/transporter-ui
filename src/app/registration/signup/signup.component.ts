@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
+  @Input() userType: string;
   public signupForm: FormGroup;
   public type: string;
   constructor(
@@ -26,8 +26,7 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.type = this.route.routeConfig.path;
-    //console.log(this.route.routeConfig.path);
+    console.log(this.userType);
     this.initializeSignupForm();
   }
 
@@ -38,7 +37,7 @@ export class SignupComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       mobileNumber: ['', Validators.required],
-      typeSyscode: [1]
+      typeSyscode: []
     });
   }
 
@@ -47,18 +46,7 @@ export class SignupComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.signupForm.valid) {
-      if(this.type === "customer")
-      {
-        this.signupForm.value.typeSyscode = 4;
-      }
-      else if(this.type === "transporter")
-      {
-        this.signupForm.value.typeSyscode = 5;
-      }
-      else if(this.type === "driver")
-      {
-        this.signupForm.value.typeSyscode = 6;
-      }
+      this.signupForm.get('typeSyscode').setValue(Number(this.userType));
       this._signupService.saveUser(this.signupForm.value).subscribe(
         (user) => {
           this.openSnackBar('Success !', 'User created successfully');

@@ -82,6 +82,7 @@ const routes: Routes = [
   ],
   providers:[
     MatDatepickerModule,
+    DatePipe,
     {
       provide: DateAdapter,useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
     },

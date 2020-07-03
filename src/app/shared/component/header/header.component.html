@@ -34,13 +34,14 @@
                         <small class="notification-badge">{{notifications.length}}</small>
                     </button>
                     <mat-menu #menuNotifications="matMenu" class="notification-container">
-                        <div style="text-align: right;">
+                        <div style="text-align: right;color: blue;">
                             <a style="font-size: 14px;">Mark All as read</a>
                         </div>
-                        <div *ngFor="let notifyItem of notifications" class="notification notification-info">
+                        <div *ngFor="let notifyItem of notifications" class="notification notification-info" (click)="markNotificationAsRead(notifyItem)">
                             <p>
                                 {{notifyItem.notificationDesc}}
                             </p>
+                            <a style="color: white;" [routerLink]="['/default/cfs',notifyItem.orderId,'order-details']">Show More</a>
                         </div>
                     </mat-menu>
                 </li>

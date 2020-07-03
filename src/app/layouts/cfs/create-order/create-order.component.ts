@@ -25,6 +25,8 @@ import { User } from 'src/app/shared/models/user';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { WeightService } from '../../masters/services/weight.service';
+import { ContianerService } from '../../masters/services/contianer.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-order',
@@ -52,6 +54,8 @@ export class CreateOrderComponent implements OnInit {
   public destination: string;
   public cfsLocation: Array<any> = [];
   public weights: Array<any> = [];
+  public containerTypes: Array<any> = [];
+
 
 
   types: any[] = [
@@ -95,8 +99,10 @@ export class CreateOrderComponent implements OnInit {
     private _userService: UserService,
     private _yardService: YardService,
     private _cfsService: CfsService,
+    private _notificationService: NotificationService,
+    private datePipe: DatePipe,
     private _weightService: WeightService,
-    private _notificationService: NotificationService
+    private _containerService: ContianerService
   ) { }
 
 
@@ -107,6 +113,7 @@ export class CreateOrderComponent implements OnInit {
     this.getCFSLocation();
     this.initialiseOrderForm();
     this.getAllWeightMasters();
+    this.getAllContainers();
   }
 
   initialiseOrderForm() {
@@ -151,6 +158,17 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
+  getAllContainers(){
+    this._containerService.getAllContainerMasters().subscribe(
+      (containerTypes) => {
+        this.containerTypes = containerTypes;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
 
   getAllPorts() {
     this._portService.getAllPortMasters().subscribe(
@@ -189,7 +207,6 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-        console.log(this.currentUser);
       }
     );
   }
@@ -344,7 +361,7 @@ export class CreateOrderComponent implements OnInit {
           createdBy: this.currentUser.id,
           createdOn: new Date(),
           isRead: false,
-          notificationDesc: `${this.currentUser.name} placed a new Order on ${new Date()}!`,
+          notificationDesc: `${this.currentUser.name} placed a new Order on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
           notificationId: null,
           notificationType: 'orders'
         };
@@ -362,7 +379,7 @@ export class CreateOrderComponent implements OnInit {
   saveNotification(notification: Notification) {
     this._notificationService.saveNotification(notification).subscribe(
       (res) => {
-        console.log(res);
+        console.log('Saved Notification',res);
       },
       (err) => {
         console.log(err);

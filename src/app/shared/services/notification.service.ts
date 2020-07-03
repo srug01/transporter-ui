@@ -1,3 +1,4 @@
+import { Where } from './../models/filter';
 import { Injectable } from '@angular/core';
 import { Notification } from './../models/notification';
 import { environment } from './../../../environments/environment';
@@ -31,8 +32,14 @@ export class NotificationService {
     );
   }
 
-  getAllNotificationss(): Observable<any> {
-    return this.http.get(this.baseUrl + 'notifications');
+  getAllNotificationss(userTypeCode: number): Observable<any> {
+    const filter = {
+      where: {
+        isRead: false,
+        assignToRole: userTypeCode
+      }
+    };
+    return this.http.get(this.baseUrl + 'notifications?filter=' + JSON.stringify(filter));
   }
 
   getNotificationsById(id: number): Observable<any> {
