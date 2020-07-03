@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-default',
@@ -9,13 +10,19 @@ export class DefaultComponent implements OnInit {
 
   sideBarOpened= true;
 
-  constructor() { }
+  constructor(
+    private _location: Location
+  ) { }
 
   ngOnInit(): void {
   }
 
   sideBarToggler(){
     this.sideBarOpened=!this.sideBarOpened;
+  }
+
+  backClicked() {
+    this._location.back();
   }
 
 }
