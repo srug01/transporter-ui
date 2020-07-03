@@ -23,6 +23,7 @@ export class UserRegistrationService {
   ) { }
 
 
+
   saveCfsUserRegistration(userregistration: Cfsuserregistration): Observable<any> {
     console.log(userregistration);
     delete userregistration.cfs_user_registration_syscode;
@@ -48,6 +49,10 @@ export class UserRegistrationService {
 
   getCfsUserRegistrationById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'cfs-user-registrations/' + id, this.HttpUploadOptions);
+  }
+
+  getCfsUserData(userid: number,roleid: number): Observable<any> {
+    return this.http.get(this.baseUrl + '/MultipleTables/' + userid + "/" + roleid);
   }
 
   deleteCfsUserRegistrationById(id: number): Observable<any> {

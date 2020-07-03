@@ -40,8 +40,8 @@
                                     <mat-label>CFS</mat-label>
                                     <mat-select matNativeControl formControlName="source"
                                         [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfs_syscode">
-                                            {{cfs.cfs_name}}
+                                        <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
+                                            {{cfs.cfs_name +  cfs.locationName}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
@@ -96,8 +96,8 @@
                                     <mat-label>CFS</mat-label>
                                     <mat-select matNativeControl formControlName="destination"
                                         [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfs_syscode">
-                                            {{cfs.cfs_name}}
+                                        <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
+                                            {{cfs.cfs_name +  cfs.locationName}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
@@ -153,8 +153,8 @@
                                         <mat-label>Type</mat-label>
                                         <mat-select matNativeControl formControlName="type"
                                             [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let type of types" [value]="type.value">
-                                                {{type.viewValue}}
+                                            <mat-option *ngFor="let type of containerTypes" [value]="type.container_syscode">
+                                                {{type.container_name}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -164,8 +164,8 @@
                                         <mat-label>Weight</mat-label>
                                         <mat-select matNativeControl formControlName="weight"
                                             [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let weight of weights" [value]="weight.value">
-                                                {{weight.viewValue}}
+                                            <mat-option *ngFor="let weight of weights" [value]="weight.weight_syscode">
+                                                {{weight.weight_description}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>

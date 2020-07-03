@@ -31,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateFormatPipe } from 'src/app/shared/pipe/date-format.pipe';
 
 
+
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
 const routes: Routes = [
@@ -57,6 +58,7 @@ const routes: Routes = [
     UserRegistrationListComponent,
     PendingOrderListComponent,
     DateFormatPipe
+  
   ],
   imports: [
     CommonModule,

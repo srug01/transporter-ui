@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SignupService } from 'src/app/services/signup.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,12 +14,15 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class SignupComponent implements OnInit {
   @Input() userType: string;
   public signupForm: FormGroup;
+  public type: string;
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
+    private route: ActivatedRoute,
     private _router: Router,
     private _signupService: SignupService,
-    private _authService: AuthenticationService
+    private _authService: AuthenticationService,
+
   ) { }
 
   ngOnInit(): void {
