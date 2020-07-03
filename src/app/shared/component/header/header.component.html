@@ -26,6 +26,10 @@
                             <mat-icon>exit_to_app</mat-icon>
                             <span>Sign out</span>
                         </button>
+                        <button mat-menu-item>
+                            <mat-icon>person_outline</mat-icon>
+                            <span routerLink="/default/profile/my-profile">My Profile</span>
+                        </button>
                     </mat-menu>
                 </li>
                 <li *ngIf="notifications.length>0">
@@ -37,11 +41,13 @@
                         <div style="text-align: right;color: blue;">
                             <a style="font-size: 14px;">Mark All as read</a>
                         </div>
-                        <div *ngFor="let notifyItem of notifications" class="notification notification-info" (click)="markNotificationAsRead(notifyItem)">
+                        <div *ngFor="let notifyItem of notifications" class="notification notification-info"
+                            (click)="markNotificationAsRead(notifyItem)">
                             <p>
                                 {{notifyItem.notificationDesc}}
                             </p>
-                            <a style="color: white;" [routerLink]="['/default/cfs',notifyItem.orderId,'order-details']">Show More</a>
+                            <a style="color: white;"
+                                [routerLink]="['/default/cfs',notifyItem.orderId,'order-details']">Show More</a>
                         </div>
                     </mat-menu>
                 </li>

@@ -1,0 +1,45 @@
+.user-card {
+    overflow: hidden;
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    .card-image{
+        height: 250px;
+        overflow: hidden;
+        img {
+            display: block;
+            border-radius: 2px 2px 0 0;
+            position: relative;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    }
+}
+
+.card-profile-image{
+    width: 110px;
+    position: absolute;
+    top: 190px;
+    z-index: 1;
+    left: 40px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.responsive-img{
+    max-width: 100%;
+    height: auto;
+}
+
+.circle{
+    border-radius: 50%;
+}
+
+.z-depth-2 {
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
