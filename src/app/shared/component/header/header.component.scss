@@ -7,6 +7,7 @@ list-style: none;
 	right: 15px;
 	width: 500px;
 	max-width: calc(100% - 30px);
+	overflow: scroll;
 }
 
 .notification{
@@ -63,6 +64,10 @@ list-style: none;
 	background-color: #f55145;
 }
 
-.mat-menu-panel{
-    min-width: 0px;
+::ng-deep .mat-menu-panel {
+		min-width: 0px;
+		height: 373px;
+		width: 280px;
+		overflow: scroll;
 }
+

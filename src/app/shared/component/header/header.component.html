@@ -26,18 +26,18 @@
                             <mat-icon>exit_to_app</mat-icon>
                             <span>Sign out</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item routerLink="/default/profile/my-profile">
                             <mat-icon>person_outline</mat-icon>
-                            <span routerLink="/default/profile/my-profile">My Profile</span>
+                            <span >My Profile</span>
                         </button>
                     </mat-menu>
                 </li>
-                <li *ngIf="notifications.length>0">
+                <li *ngIf="notifications.length>0" class="notification-box">
                     <button mat-icon-button [matMenuTriggerFor]="menuNotifications">
                         <mat-icon>notifications</mat-icon>
                         <small class="notification-badge">{{notifications.length}}</small>
                     </button>
-                    <mat-menu #menuNotifications="matMenu" class="notification-container">
+                    <mat-menu #menuNotifications="matMenu">
                         <div style="text-align: right;color: blue;">
                             <a style="font-size: 14px;">Mark All as read</a>
                         </div>
