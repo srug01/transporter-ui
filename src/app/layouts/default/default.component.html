@@ -5,7 +5,12 @@
         <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>
-        <router-outlet></router-outlet>
+        <div class="navigation-box">
+            <a><i class="fa fa-arrow-left" aria-hidden="true" (click)="backClicked()"></i></a>
+        </div>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
 

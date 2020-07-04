@@ -1,0 +1,22 @@
+<div class="user-card">
+    <div class="card-image">
+        <img class="activator" src="assets/images/user-profile-bg.jpg" alt="user background">
+    </div>
+    <figure class="card-profile-image">
+        <img src="assets/images/avatar.jpg" alt="profile image" class="circle z-depth-2 responsive-img activator">
+    </figure>
+    <mat-card-content>
+        <div fxLayout="row" fxFlexOffset="20%" fxLayoutGap="20%" *ngIf="currentUser">
+            <div>
+                <h4 class="card-title grey-text text-darken-4">{{currentUser.name}}</h4>
+                <p class="medium-small grey-text">
+                    <span *ngIf="currentUser.typeSyscode===1">Admin</span>
+                </p>
+            </div>
+            <div>
+                <h4 class="card-title grey-text text-darken-4">{{currentUser.email}}</h4>
+                <p class="medium-small grey-text">More to be added....</p>
+            </div>
+        </div>
+    </mat-card-content>
+</div>

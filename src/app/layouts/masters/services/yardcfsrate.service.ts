@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { YardCFSRate } from './../../../shared/models/YardCFSRate';
@@ -10,6 +10,11 @@ import { environment } from './../../../../environments/environment';
 })
 export class YardCFSRateService {
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
   constructor(
     private http: HttpClient
   ) { }
@@ -18,13 +23,13 @@ export class YardCFSRateService {
     console.log(yardcfsrate);
     delete yardcfsrate.yard_cfs_rate_syscode;
     console.log(yardcfsrate);
-    return this.http.post<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters', 
-    JSON.stringify(yardcfsrate));
+    return this.http.post<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters',
+      JSON.stringify(yardcfsrate), this.HttpUploadOptions);
   }
 
   updateYardcfsrateMaster(yardcfsrate: YardCFSRate): Observable<any> {
-    return this.http.put<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters/'+
-     yardcfsrate.yard_cfs_rate_syscode, JSON.stringify(yardcfsrate));
+    return this.http.put<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters/' +
+      yardcfsrate.yard_cfs_rate_syscode, JSON.stringify(yardcfsrate),this.HttpUploadOptions);
   }
 
   getAllYardcfsrateMasters(): Observable<any> {

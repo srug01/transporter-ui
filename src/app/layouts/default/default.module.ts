@@ -29,10 +29,18 @@ import { AuthGuardService } from 'src/app/services/auth.guard.service';
         children: [
           { path: '', component: DashboardComponent },
           { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule), canActivate: [AuthGuardService] },
-          { path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')
-            .then(m => m.TransporterModule), canActivate: [AuthGuardService] },
-          { path: 'masters', loadChildren: () => import('./../masters/master.module')
-            .then(m => m.MasterModule), canActivate: [AuthGuardService] },
+          {
+            path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')
+              .then(m => m.TransporterModule), canActivate: [AuthGuardService]
+          },
+          {
+            path: 'masters', loadChildren: () => import('./../masters/master.module')
+              .then(m => m.MasterModule), canActivate: [AuthGuardService]
+          },
+          {
+            path: 'profile', loadChildren: () => import('./../profile/profile.module')
+              .then(m => m.ProfileModule), canActivate: [AuthGuardService]
+          },
         ]
       }
     ]),

@@ -138,11 +138,37 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div fxLayout="row">
+                <div fxLayout="row" fxLayoutGap="15px">
                     <div fxFlex="50%">
                         <mat-form-field appearance="outline">
                             <mat-label>PAN Card</mat-label>
-                            <ngx-mat-file-input formControlName="transporter_pan_card" placeholder="Pan Card">
+                            <ngx-mat-file-input formControlName="transporter_pan_card_file" placeholder="Pan Card">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field appearance="outline">
+                            <mat-label>License</mat-label>
+                            <ngx-mat-file-input formControlName="transporter_license_card_file" placeholder="License">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="15px">
+                    <div fxFlex="50%">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Permit Card</mat-label>
+                            <ngx-mat-file-input formControlName="transporter_permit_card_file" placeholder="Permit Card">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Others</mat-label>
+                            <ngx-mat-file-input formControlName="transporter_other_card_file" placeholder="Others">
                             </ngx-mat-file-input>
                             <mat-icon matSuffix>folder</mat-icon>
                         </mat-form-field>

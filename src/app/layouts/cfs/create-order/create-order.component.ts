@@ -1,3 +1,5 @@
+import { NotificationService } from './../../../shared/services/notification.service';
+import { Notification } from './../../../shared/models/notification';
 import { Port } from './../../../shared/models/port';
 import { Yard } from 'src/app/shared/models/yard';
 import { Cfs } from './../../../shared/models/cfs';
@@ -23,6 +25,8 @@ import { User } from 'src/app/shared/models/user';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { WeightService } from '../../masters/services/weight.service';
+import { ContianerService } from '../../masters/services/contianer.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-order',
@@ -50,6 +54,8 @@ export class CreateOrderComponent implements OnInit {
   public destination: string;
   public cfsLocation: Array<any> = [];
   public weights: Array<any> = [];
+  public containerTypes: Array<any> = [];
+
 
 
   types: any[] = [
@@ -93,7 +99,10 @@ export class CreateOrderComponent implements OnInit {
     private _userService: UserService,
     private _yardService: YardService,
     private _cfsService: CfsService,
-    private _weightService: WeightService
+    private _notificationService: NotificationService,
+    private datePipe: DatePipe,
+    private _weightService: WeightService,
+    private _containerService: ContianerService
   ) { }
 
 
@@ -104,6 +113,7 @@ export class CreateOrderComponent implements OnInit {
     this.getCFSLocation();
     this.initialiseOrderForm();
     this.getAllWeightMasters();
+    this.getAllContainers();
   }
 
   initialiseOrderForm() {
@@ -148,6 +158,17 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
+  getAllContainers(){
+    this._containerService.getAllContainerMasters().subscribe(
+      (containerTypes) => {
+        this.containerTypes = containerTypes;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
 
   getAllPorts() {
     this._portService.getAllPortMasters().subscribe(
@@ -164,7 +185,6 @@ export class CreateOrderComponent implements OnInit {
     this._yardService.getAllYardMasters().subscribe(
       (yards) => {
         this.yardMasters = yards;
-        console.log(this.yardMasters);
       },
       (err) => {
         console.log(err);
@@ -244,8 +264,7 @@ export class CreateOrderComponent implements OnInit {
 
   resetOrderForm() {
     this.orderForm.reset();
-    this.orderForm.markAsPristine()
-    console.log(this.orderForm);
+    this.orderForm.markAsPristine();
   }
 
   saveOrderAsDraft(ev) {
@@ -335,12 +354,35 @@ export class CreateOrderComponent implements OnInit {
   saveOrder(order: Order) {
     this._orderService.saveOrder(order).subscribe(
       (res) => {
+        const notification: Notification = {
+          orderId: res.orderId,
+          assignToRole: 1,
+          assignToUser: null,
+          createdBy: this.currentUser.id,
+          createdOn: new Date(),
+          isRead: false,
+          notificationDesc: `${this.currentUser.name} placed a new Order on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
+          notificationId: null,
+          notificationType: 'orders'
+        };
+        this.saveNotification(notification);
         this.openSnackBar('Success !', 'Order placed successfully');
         this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);
         this.openSnackBar('Failure !', 'could not place the order');
+      }
+    );
+  }
+
+  saveNotification(notification: Notification) {
+    this._notificationService.saveNotification(notification).subscribe(
+      (res) => {
+        console.log('Saved Notification',res);
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }

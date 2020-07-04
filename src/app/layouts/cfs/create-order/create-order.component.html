@@ -153,8 +153,8 @@
                                         <mat-label>Type</mat-label>
                                         <mat-select matNativeControl formControlName="type"
                                             [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let type of types" [value]="type.value">
-                                                {{type.viewValue}}
+                                            <mat-option *ngFor="let type of containerTypes" [value]="type.container_syscode">
+                                                {{type.container_name}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>

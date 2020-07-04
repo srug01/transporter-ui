@@ -6,4 +6,5 @@ export class User {
     mobileNumber: string;
     permissions: any;
     typeSyscode: number;
+    name?: string;
 }
