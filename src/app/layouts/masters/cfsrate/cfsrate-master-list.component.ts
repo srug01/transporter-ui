@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
+import { ContianerService } from '../services/contianer.service';
 
 
 @Component({
@@ -19,14 +20,17 @@ import { CfsService } from '../services/cfs.service';
 })
 export class CfsrateMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'cfs_rate_syscode', 'cfs_syscode', 'port_syscode', 'weight_syscode', 'rate', 'is_active', 'action'
+    'cfs_rate_syscode', 'cfs_syscode', 'port_syscode', 'weight_syscode',
+    'container_syscode', 'rate', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  public containerMasters: Array<any> = [];
   public cfsrateMasters: Array<any> = [];
   public Port: Array<any> = [];
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
   constructor(
+    private _containerService: ContianerService,
     private _cfsrateService: CfsrateService,
     private _snackBar: MatSnackBar,
     private _router: Router,
@@ -41,8 +45,31 @@ export class CfsrateMasterListComponent implements OnInit {
     this.getAllPortMasters();
     this.getAllWeightMasters();
     this.getAllCFSMasters();
+    this. getAllContainerMasters() ;
 
   }
+  getAllContainerMasters() {
+    this._containerService.getAllContainerMasters().subscribe(
+      (containerMasters) => {
+        console.log(containerMasters);
+        this.containerMasters = containerMasters;
+      },
+      (err) => {
+        console.log('could not fetch container masters');
+      }
+    );
+  }
+
+  getContainerbyId(id): string {
+    for (let i = 0; i < this.containerMasters.length; i++) {
+      if (this.containerMasters[i].container_syscode === id) {
+        return this.containerMasters[i].container_name;
+      }
+    }
+  }
+
+ 
+
 
   openDialog(ev, portId: number) {
     if (ev) {
