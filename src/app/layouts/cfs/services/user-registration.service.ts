@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import {SignupService} from './../../../services/signup.service';
 
 import { Cfsuserregistration } from '../../../shared/models/user-registration.model';
+import {User} from '../../../shared/models/user';
 import { environment } from './../../../../environments/environment';
 
 
@@ -19,7 +21,10 @@ export class UserRegistrationService {
   }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public user: any,
+    public createdUser: User,
+    public _signupService : SignupService,
   ) { }
 
 

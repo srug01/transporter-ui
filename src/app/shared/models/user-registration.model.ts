@@ -9,6 +9,7 @@ export interface Cfsuserregistration {
   cfs_user_email: string;
   cfs_user_password: string;
   cfs_user_confirm_password: string;
+  userId: number;
   cfs_user_is_active: boolean;
   cfs_user_is_verify: boolean;
 }
