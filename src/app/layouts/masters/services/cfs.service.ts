@@ -29,14 +29,14 @@ export class CfsService {
   }
 
   updateCfsMaster(cfs: Cfs): Observable<any> {
-    return this.http.put<Cfs>(this.baseUrl + 'cfs-masters/' + cfs.cfs_syscode,
+    return this.http.put<Cfs>(this.baseUrl + 'cfs-masters/' + cfs.cfsMasterId,
       JSON.stringify(cfs), this.HttpUploadOptions);
   }
 
   getAllCfsMasters(): Observable<any> {
     const filter = {
       fields: {
-        cfs_syscode: true,
+        cfsMasterId: true,
         cfs_name: true,
         contact_no: true,
         email_id: true,
