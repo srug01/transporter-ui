@@ -16,10 +16,10 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 })
 export class CfsMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'cfs_syscode', 'cfs_name', 'contact_no', 'email_id',
-    'address','pincode','cfs_code_no','gstn','pan',
-    'tan','primary_contact_name','primary_mobile_no',
-    'additional_contact_name','additional_mobile_no','port_syscode',
+    'cfsMasterId', 'cfs_name', 'contact_no', 'email_id',
+    'address',//'pincode','cfs_code_no','gstn','pan',
+   // 'tan','primary_contact_name','primary_mobile_no',
+   // 'additional_contact_name','additional_mobile_no','port_syscode',
     'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;

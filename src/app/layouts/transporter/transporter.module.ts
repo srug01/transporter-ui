@@ -22,7 +22,7 @@ import { VehicleService } from './services/vehicle.service';
 import { TransporterRegistrationComponent } from './transporter-registration/transporter-registration.component';
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { TransporterListComponent } from './transporter-list/transporter-list.component';
-import { MaterialFileInputModule, FileInputConfig, NGX_MAT_FILE_INPUT_CONFIG } from 'ngx-material-file-input';
+//import { MaterialFileInputModule, FileInputConfig, NGX_MAT_FILE_INPUT_CONFIG } from 'ngx-material-file-input';
 
 
 const routes: Routes = [
@@ -40,9 +40,9 @@ const toasterConfig : MatSnackBarConfig = {
   duration : 2500
 };
 
-export const config: FileInputConfig = {
-  sizeUnit: 'Octet'
-};
+//export const config: FileInputConfig = {
+  //sizeUnit: 'Octet'
+//};
 
 
 @NgModule({
@@ -70,13 +70,13 @@ export const config: FileInputConfig = {
     MatSlideToggleModule,
     MatSnackBarModule,
     MatIconModule,
-    RouterModule.forChild(routes),
-    MaterialFileInputModule
+    RouterModule.forChild(routes)//,
+  //  MaterialFileInputModule
   ],
   providers: [
     VehicleService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
-    { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config }
+    //{ provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config }
   ]
 })
 export class TransporterModule { }

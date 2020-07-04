@@ -16,13 +16,13 @@ export class CfsService {
 
   saveCfsMaster(cfs: Cfs): Observable<any> {
     console.log(cfs);
-    delete cfs.cfs_syscode;
+    delete cfs.cfsMasterId;
     console.log(cfs);
     return this.http.post<Cfs>(this.baseUrl + 'cfs-masters', JSON.stringify(cfs));
   }
 
   updateCfsMaster(cfs: Cfs): Observable<any> {
-    return this.http.put<Cfs>(this.baseUrl + 'cfs-masters/'+ cfs.cfs_syscode,
+    return this.http.put<Cfs>(this.baseUrl + 'cfs-masters/'+ cfs.cfsMasterId,
      JSON.stringify(cfs));
   }
 

@@ -3,8 +3,8 @@ import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angula
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from './../../../environments/environment';
-import * as AWS from 'aws-sdk/global';
-import * as S3 from 'aws-sdk/clients/s3';
+//import * as AWS from 'aws-sdk/global';
+//import * as S3 from 'aws-sdk/clients/s3';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +25,12 @@ export class ImageUploadService {
 
   uploadFile(file, folderName: string) {
     const contentType = file.type;
-    const bucket = new S3(
-      {
-        accessKeyId: 'AKIAJXYEMQUEZQIC3TYQ',
-        secretAccessKey: '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'
-      }
-    );
+    // const bucket = new S3(
+    //   {
+    //     accessKeyId: 'AKIAJXYEMQUEZQIC3TYQ',
+    //     secretAccessKey: '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'
+    //   }
+    // );
     const params = {
       Bucket: 'srug-images',
       Key: folderName + '/' + file.name,
@@ -38,14 +38,14 @@ export class ImageUploadService {
       ACL: 'public-read',
       ContentType: contentType
     };
-    bucket.upload(params, (err, data) => {
-      if (err) {
-        console.log('There was an error uploading your file: ', err);
-        return false;
-      }
-      console.log('Successfully uploaded file.', data);
-      return true;
-    });
+    // bucket.upload(params, (err, data) => {
+    //   if (err) {
+    //     console.log('There was an error uploading your file: ', err);
+    //     return false;
+    //   }
+    //   console.log('Successfully uploaded file.', data);
+    //   return true;
+    // });
     //for upload progress   
     /*bucket.upload(params).on('httpUploadProgress', function (evt) {
               console.log(evt.loaded + ' of ' + evt.total + ' Bytes');

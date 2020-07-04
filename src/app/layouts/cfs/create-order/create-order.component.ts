@@ -192,7 +192,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getCFSLocation() {
-    this._orderService.getCfsLocation(2).subscribe(
+    this._orderService.getCfsLocation(5).subscribe(
       (cfsLocation) => {
         this.cfsLocation = cfsLocation;
 
