@@ -15,17 +15,15 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-placed-bids',
-  templateUrl: './placed-bids.component.html',
-  styleUrls: ['./placed-bids.component.scss']
+  selector: 'app-bids',
+  templateUrl: './bids.component.html',
+  styleUrls: ['./bids.component.scss']
 })
-export class PlacedBidsComponent implements OnInit {
+export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid ID', 'Bid Name', 'Source', 'Destination', 'Container Type',
-    'Container Weight', 'Bid Rate', 'Margin %', 'Bid Value', 'Transport Date',
-    'Created By', 'Action'
+    'Bid Mapping ID', 'Bid Name', 'Bid Status', 'Bid Value', 'Confirmed By', 'Action'
   ];
-  bids: Bid[] = [];
+  bids: BidUserMapping[] = [];
   public currentUser: User;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
@@ -42,7 +40,7 @@ export class PlacedBidsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserInfo();
-    this.getAllPlacedBids();
+    this.getAllConfirmedBids();
   }
 
   getUserInfo() {
@@ -53,10 +51,11 @@ export class PlacedBidsComponent implements OnInit {
     );
   }
 
-  getAllPlacedBids() {
-    this._bidService.getAllPlacedBids().subscribe(
-      (bids: Bid[]) => {
+  getAllConfirmedBids() {
+    this._bidMappingService.getAllConfirmedBids().subscribe(
+      (bids: BidUserMapping[]) => {
         this.bids = bids;
+        console.log(this.bids);
       },
       (err) => {
         console.log(err);
@@ -67,7 +66,7 @@ export class PlacedBidsComponent implements OnInit {
   saveNotification(notification: Notification) {
     this._notificationService.saveNotification(notification).subscribe(
       (res) => {
-        console.log('Saved Notification',res);
+        console.log('Saved Notification', res);
       },
       (err) => {
         console.log(err);
@@ -76,42 +75,9 @@ export class PlacedBidsComponent implements OnInit {
   }
 
   confirmBid(bid: any) {
-    const bidMapping: BidUserMapping = this.transformBidObj(bid, 'confirmed');
-    this._bidMappingService.saveBid(bidMapping).subscribe(
-      (res) => {        
-        console.log(res);
-        const notification: Notification = {
-          orderId: 1,
-          assignToRole: 1,
-          assignToUser: null,
-          createdBy: this.currentUser.id,
-          createdOn: new Date(),
-          isRead: false,
-          notificationDesc: `${this.currentUser.name} confirmed a bid on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
-          notificationId: null,
-          notificationType: 'orders'
-        };
-        this.saveNotification(notification);
-        this.openSnackBar('Success !', 'Order placed successfully');
-        this._router.navigate(['/default']);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    console.log(bid);
   }
-  rejectBid(bid: any) {
-    const bidMapping: BidUserMapping = this.transformBidObj(bid, 'rejected');
-    this._bidMappingService.saveBid(bidMapping).subscribe(
-      (res) => {
-        console.log(res);
-        this._router.navigate(['/default']);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+
 
   transformBidObj(bid: Bid, action: string): BidUserMapping {
     return {
@@ -134,5 +100,4 @@ export class PlacedBidsComponent implements OnInit {
       duration: 2000,
     });
   }
-
 }

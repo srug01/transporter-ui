@@ -30,6 +30,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatNativeDateModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter } from 'src/app/shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
+import { BidsComponent } from './bids/bids.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,8 @@ const routes: Routes = [
   { path: 'register-transporter', component: TransporterRegistrationComponent },
   { path: 'register-driver', component: DriverRegistrationComponent },
   { path: 'transporter-list', component: TransporterListComponent },
-  { path: 'placed-bids', component: PlacedBidsComponent }
+  { path: 'placed-bids', component: PlacedBidsComponent },
+  { path: 'bids', component: BidsComponent }
 ];
 
 const toasterConfig: MatSnackBarConfig = {
@@ -61,7 +63,8 @@ export const config: FileInputConfig = {
     TransporterRegistrationComponent,
     DriverRegistrationComponent,
     TransporterListComponent,
-    PlacedBidsComponent
+    PlacedBidsComponent,
+    BidsComponent
   ],
   imports: [
     CommonModule,

@@ -5,11 +5,10 @@
     <mat-card-subtitle>Placed Bids</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content *ngIf="bids">
-
     <table mat-table [dataSource]="bids" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
+          The actual rendered columns are set as a property on the row definition" -->
 
       <!-- Position Column -->
       <ng-container matColumnDef="Bid ID">
@@ -58,16 +57,30 @@
 
       <ng-container matColumnDef="Bid Rate">
         <th mat-header-cell *matHeaderCellDef> Bid Rate </th>
+        <td mat-cell *matCellDef="let element"> {{element.bid_rate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Margin %">
+        <th mat-header-cell *matHeaderCellDef>Margin % </th>
+        <td mat-cell *matCellDef="let element"> {{element.margin_percent}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Bid Value">
+        <th mat-header-cell *matHeaderCellDef> Bid Value </th>
         <td mat-cell *matCellDef="let element">
           <mat-form-field>
-            <input matInput type="text" [ngModel]="element.bid_rate" placeholder="BidRate">
+            <input matInput type="number" [(ngModel)]="element.bid_value" placeholder="Bid Value" required>
           </mat-form-field>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let element"><i class="material-icons md-24 p5">shopping_cart</i></td>
+        <td mat-cell *matCellDef="let element">
+          <div fxLayout="row" fxLayoutGap="10px">
+            <button mat-raised-button color="primary" (click)="confirmBid(element)">Confirm</button>
+            <button mat-raised-button color="warn" (click)="rejectBid(element)">Reject</button>
+          </div>
+
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
