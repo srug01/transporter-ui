@@ -1,4 +1,5 @@
 export interface Cfs {
+  cfsMasterId: number;
   cfs_syscode: number;
   cfs_name: string;
   contact_no: string;

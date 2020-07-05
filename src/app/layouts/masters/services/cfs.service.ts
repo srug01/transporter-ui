@@ -58,7 +58,8 @@ export class CfsService {
         modified_on: true,
         locationId: true,
         roleId: true,
-        userId: true
+        userId: true,
+        cfsMasterId: true
       }
     }
     return this.http.get(this.baseUrl + 'cfs-masters?filter=' + JSON.stringify(filter));

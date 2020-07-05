@@ -22,25 +22,7 @@ export class OrderService {
       {
         relation: 'containers'
       }
-    ],
-    fields: {
-      order_type_syscode: true,
-      orderId: true,
-      order_date: true,
-      source_syscode: true,
-      destination_syscode: true,
-      destination_type_syscode: true,
-      source_type_syscode: true,
-      order_remarks: true,
-      order_address: true,
-      is_delete: true,
-      created_by: true,
-      created_on: true,
-      modify_by: true,
-      modify_on: true,
-      status: true,
-      is_verified: true
-    }
+    ]
   };
   constructor(
     private http: HttpClient
@@ -55,6 +37,10 @@ export class OrderService {
       status: 'submitted'
     };
     return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+  }
+
+  getOrderById(orderId: number): Observable<Order> {
+    return this.http.get<Order>(this.baseUrl + 'orders/' + orderId + '?filter=' + JSON.stringify(this.filter));
   }
 
   getCfsLocation(userId: number): Observable<any> {
