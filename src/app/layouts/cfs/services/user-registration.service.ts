@@ -22,8 +22,7 @@ export class UserRegistrationService {
 
   constructor(
     private http: HttpClient,
-    public user: any,
-    public createdUser: User,
+
     public _signupService : SignupService,
   ) { }
 

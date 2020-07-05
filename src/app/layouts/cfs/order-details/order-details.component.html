@@ -1,1 +1,105 @@
-<p>order-details works!</p>
+<mat-card class="example-card" fxFlex="50%" *ngIf="order">
+    <mat-card-header>
+        <mat-card-title>Order Details</mat-card-title>
+        <mat-card-subtitle>Current Order</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxLayout="column" fxLayoutGap="20px" class="field-title">
+        <div fxLayout="row">
+            <div fxFlex="50%">
+                <div fxFlex="50%">
+                    Order Date
+                </div>
+                <div fxFlex="50%">
+                    {{order.order_date | dateFormat}}
+                </div>
+            </div>
+            <div fxFlex="50%">
+                <div fxFlex="50%">
+                    Created By
+                </div>
+                <div fxFlex="50%">
+                    {{order.created_by}}
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="50%" fxFlexOffset="20%" class="card" fxLayout="row">
+                <div fxFlex="50%" fxLayout="column" fxLayoutGap="20px">
+                    <div fxFlex="100%">
+                        <p><strong>From</strong></p>
+                    </div>
+                    <div fxFlex="100%">
+                        {{order.source_type}}
+                    </div>
+                    <div fxFlex="100%">
+                        <span [ngSwitch]="order.source_type">
+                            <span *ngSwitchCase="'cfs'">
+                                <a class="link">{{this.searchCfsById(order.source_syscode)}}</a>
+                            </span>
+                            <span *ngSwitchCase="'yard'">
+                                <a class="link"
+                                    [routerLink]="['/default/masters/yard/edit',order.source_syscode]">{{this.searchYardById(order.source_syscode)}}</a>
+                            </span>
+                            <span *ngSwitchCase="'port'">
+                                <a class="link"
+                                    [routerLink]="['/default/masters/port/edit',order.source_syscode]">{{this.searchPortById(order.source_syscode)}}</a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div fxFlex="50%" fxLayout="column" fxLayoutGap="20px">
+                    <div fxFlex="100%">
+                        <p><strong>To</strong></p>
+                    </div>
+                    <div fxFlex="100%">
+                        {{order.destination_type}}
+                    </div>
+                    <div fxFlex="100%">
+                        <span [ngSwitch]="order.destination_type">
+                            <span *ngSwitchCase="'cfs'">
+                                <a class="link">{{this.searchCfsById(order.destination_syscode)}}</a>
+                            </span>
+                            <span *ngSwitchCase="'yard'">
+                                <a class="link"
+                                    [routerLink]="['/default/masters/yard/edit',order.destination_type]">{{this.searchYardById(order.destination_syscode)}}</a>
+                            </span>
+                            <span *ngSwitchCase="'port'">
+                                <a class="link"
+                                    [routerLink]="['/default/masters/port/edit',order.destination_type]">{{this.searchPortById(order.destination_syscode)}}</a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" *ngIf="order.containers">
+            <table mat-table [dataSource]="order.containers" class="mat-elevation-z8">
+                <ng-container matColumnDef="Container Name">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Container Name </th>
+                    <td mat-cell *matCellDef="let element" class="table-row"> {{element.container_type}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Weight">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Weight </th>
+                    <td mat-cell *matCellDef="let element" class="table-row"> {{element.weight_type}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="No. Of Trucks">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> No. Of Trucks </th>
+                    <td mat-cell *matCellDef="let element" class="table-row"> {{element.no_of_trucks}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="containerColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: containerColumns;"></tr>
+            </table>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="50%">
+                <div fxFlex="50%">
+                    Remarks
+                </div>
+                <div fxFlex="50%">
+                    {{order.order_remarks}}
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
