@@ -28,6 +28,7 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['default']);
         },
         (error) => {
+          console.log(error);
           alert("Invalid credentials");
         });
     // if (this.username == 'admin' && this.password == 'admin') {

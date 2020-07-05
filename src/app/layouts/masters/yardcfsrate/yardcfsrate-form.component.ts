@@ -67,6 +67,9 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
+  
+
+
   getAllYardMasters() {
     this._yardService.getAllYardMasters().subscribe(
       (yardMasters) => {
@@ -78,7 +81,7 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
-
+ 
 
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
@@ -96,23 +99,23 @@ export class YardcfsrateFormComponent implements OnInit {
     if (this.yardcfsrateData) {
       this.yardcfsrateForm = this.fb.group({
         yard_cfs_rate_syscode: [this.yardcfsrateData.yard_cfs_rate_syscode ?
-          this.yardcfsrateData.yard_cfs_rate_syscode : ''],
-
-        cfs_syscode: [this.yardcfsrateData.cfsMasterId ?
+           this.yardcfsrateData.yard_cfs_rate_syscode : ''],
+   
+        cfs_syscode: [this.yardcfsrateData.cfsMasterId ? 
           this.yardcfsrateData.cfsMasterId : ''],
-        yard_syscode: [this.yardcfsrateData.yard_syscode ?
-          this.yardcfsrateData.yard_syscode : '', Validators.required],
-        container_syscode: [this.yardcfsrateData.container_syscode ?
-          this.yardcfsrateData.container_syscode : '', Validators.required],
-        weight_syscode: [this.yardcfsrateData.weight_syscode ? this.yardcfsrateData.weight_syscode :
+        yard_syscode: [this.yardcfsrateData.yard_syscode ? 
+            this.yardcfsrateData.yard_syscode : '', Validators.required],
+        container_syscode: [this.yardcfsrateData.container_syscode ? 
+           this.yardcfsrateData.container_syscode : '', Validators.required],
+        weight_syscode: [this.yardcfsrateData.weight_syscode ? this.yardcfsrateData.weight_syscode : 
           '', Validators.required],
         rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '',
         Validators.required],
         is_active: [this.yardcfsrateData.is_active ? this.yardcfsrateData.is_active : '',
-        Validators.required],
+         Validators.required],
 
-        created_by: [this.yardcfsrateData.created_by ? this.yardcfsrateData.created_by : 0]
-
+         created_by: [this.yardcfsrateData.created_by ? this.yardcfsrateData.created_by : 0]
+   
       });
     } else {
       this.yardcfsrateForm = this.fb.group({
@@ -151,18 +154,18 @@ export class YardcfsrateFormComponent implements OnInit {
     const invalid = [];
     const controls = this.yardcfsrateForm.controls;
     for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
     }
     return invalid;
-  }
+}
 
   submitYardCFSRateForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
-    //  this.findInvalidControls();
+  //  this.findInvalidControls();
     if (this.yardcfsrateForm.valid) {
       if (!this.yardcfsrateData) {
         this.saveYardCFSRateMaster(this.yardcfsrateForm);

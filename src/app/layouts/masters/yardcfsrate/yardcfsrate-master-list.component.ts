@@ -51,7 +51,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
   }
   getCFSbyId(id): string {
     for (let i = 0; i < this.cfsMasters.length; i++) {
-      if (this.cfsMasters[i].cfs_syscode === id) {
+      if (this.cfsMasters[i].cfsMasterId === id) {
         return this.cfsMasters[i].cfs_name;
       }
     }

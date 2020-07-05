@@ -34,14 +34,14 @@
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
                 <mat-label>Container</mat-label>
-                <mat-select formControlName="container_syscode">
+                <mat-select formControlName="container_syscode" [errorStateMatcher]="matcher">
                   <mat-option *ngFor="let container of containerMaster"
                   [value]="container.container_syscode">
                     {{ container.container_name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-            </div>
+            </div >
             <div fxFlex="50" fxFlex.lt-sm="100">
               <mat-form-field>
                 <mat-label>Weight</mat-label>

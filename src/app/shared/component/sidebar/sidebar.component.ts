@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import {LocalStorageService} from './../../../services/storage.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +11,8 @@ export class SidebarComponent implements OnInit {
   public currentUser: any;
 
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
+    private _localstorageService: LocalStorageService,
   ) { }
 
   ngOnInit(): void {
@@ -21,6 +23,15 @@ export class SidebarComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (res) => {
         this.currentUser = res;
+        const userId = localStorage.getItem('userID');
+        if(userId === null){
+          localStorage.setItem('userID', JSON.stringify(this.currentUser.id));
+        }
+        const roleId = localStorage.getItem('roleID');
+        if(roleId === null){
+          localStorage.setItem('roleID', JSON.stringify(this.currentUser.typeSyscode));
+        }
+
       },
       (err) => {
         console.log(err);

@@ -1,6 +1,6 @@
 export interface YardCFSRate {
     yard_cfs_rate_syscode: number;
-    cfs_syscode : number;
+    cfsMasterId : number;
     yard_syscode : number;
     container_syscode : number;
     weight_syscode : number;

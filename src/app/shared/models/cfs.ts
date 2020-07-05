@@ -1,6 +1,5 @@
 export interface Cfs {
   cfsMasterId: number;
-  cfs_syscode: number;
   cfs_name: string;
   contact_no: string;
   email_id: string;
@@ -17,4 +16,5 @@ export interface Cfs {
   port_syscode: number;
   locationId: number;
   is_active: boolean;
+  created_by: boolean;
 }

@@ -36,21 +36,15 @@ export class DieselFormComponent implements OnInit {
         diesel_rate: [this.dieselData.diesel_rate ? this.dieselData.diesel_rate : '', 
                Validators.required],
         date: [this.dieselData.date ? this.dieselData.date : '', Validators.required],
-        created_by: [this.dieselData.created_by ? this.dieselData.created_by : '',
-               Validators.required],
-        created_on: [this.dieselData.created_on ? this.dieselData.created_on : '', 
-               Validators.required],
-     
-        is_active: [this.dieselData.is_active ? this.dieselData.is_active : '', 
-               Validators.required]
+      
+        is_active: [this.dieselData.is_active ? this.dieselData.is_active : '', Validators.required]
       });
     } else {
       this.dieselForm = this.fb.group({
         diesel_rate_syscode: [''],
         diesel_rate: ['', Validators.required],
         date: ['', Validators.required],
-        created_by: ['', Validators.required],
-        created_on: ['', Validators.required],
+      
         is_active: ['', Validators.required]
       });
     }
@@ -69,7 +63,21 @@ export class DieselFormComponent implements OnInit {
     );
   }
 
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.dieselForm.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    return invalid;
+}
+
+
+
   submitDieselForm(ev) {
+    this.findInvalidControls();
     if (ev) {
       ev.preventDefault();
     }

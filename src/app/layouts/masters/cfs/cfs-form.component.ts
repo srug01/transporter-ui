@@ -35,7 +35,7 @@ export class CfsFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.cfsData) {
       this.cfsForm = this.fb.group({
-        cfs_syscode: [this.cfsData.cfs_syscode ? this.cfsData.cfs_syscode : ''],
+        cfsMasterId: [this.cfsData.cfsMasterId ? this.cfsData.cfsMasterId : ''],
         cfs_name: [this.cfsData.cfs_name ? this.cfsData.cfs_name : '', Validators.required],
         contact_no: [this.cfsData.contact_no ? this.cfsData.contact_no : '', Validators.required],
         email_id: [this.cfsData.email_id ? this.cfsData.email_id : '', Validators.required],
@@ -55,7 +55,7 @@ export class CfsFormComponent implements OnInit {
       });
     } else {
       this.cfsForm = this.fb.group({
-        cfs_syscode: [''],
+        cfsMasterId: [''],
         cfs_name: ['', Validators.required],
         contact_no: ['', Validators.required],
         email_id: ['', Validators.required],

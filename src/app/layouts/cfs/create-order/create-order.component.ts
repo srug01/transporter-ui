@@ -212,11 +212,11 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getCFSLocation() {
-    this._orderService.getCfsLocation(2).subscribe(
+    const userId = localStorage.getItem('userID');
+    this._orderService.getCfsLocation(Number(userId)).subscribe(
       (cfsLocation) => {
         this.cfsLocation = cfsLocation;
 
-        console.log(this.cfsLocation);
       },
       (err) => {
         console.log(err);
