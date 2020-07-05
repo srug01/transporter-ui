@@ -1,5 +1,6 @@
+import { AppDateFormats } from './../../shared/date-formats';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TransporterComponent } from './transporter.component';
 
 import { Routes, RouterModule } from '@angular/router';
@@ -15,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
 import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
 import { VehicleService } from './services/vehicle.service';
@@ -23,6 +24,12 @@ import { TransporterRegistrationComponent } from './transporter-registration/tra
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { TransporterListComponent } from './transporter-list/transporter-list.component';
 import { MaterialFileInputModule, FileInputConfig, NGX_MAT_FILE_INPUT_CONFIG } from 'ngx-material-file-input';
+import { PlacedBidsComponent } from './placed-bids/placed-bids.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatNativeDateModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { AppDateAdapter } from 'src/app/shared/date-formats';
+import { Platform } from '@angular/cdk/platform';
 
 
 const routes: Routes = [
@@ -31,13 +38,14 @@ const routes: Routes = [
   { path: 'vehicle-list', component: VehicleListComponent },
   { path: 'register-transporter', component: TransporterRegistrationComponent },
   { path: 'register-driver', component: DriverRegistrationComponent },
-  { path: 'transporter-list', component: TransporterListComponent }
+  { path: 'transporter-list', component: TransporterListComponent },
+  { path: 'placed-bids', component: PlacedBidsComponent }
 ];
 
-const toasterConfig : MatSnackBarConfig = {
+const toasterConfig: MatSnackBarConfig = {
   horizontalPosition: 'right',
   verticalPosition: 'top',
-  duration : 2500
+  duration: 2500
 };
 
 export const config: FileInputConfig = {
@@ -52,31 +60,43 @@ export const config: FileInputConfig = {
     VehicleListComponent,
     TransporterRegistrationComponent,
     DriverRegistrationComponent,
-    TransporterListComponent
+    TransporterListComponent,
+    PlacedBidsComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
+    MatSnackBarModule,
+    MaterialFileInputModule,
     MatCardModule,
     MatTableModule,
     MatFormFieldModule,
     MatSelectModule,
     MatGridListModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    FormsModule,
     MatIconModule,
+    MatTooltipModule,
     RouterModule.forChild(routes),
-    MaterialFileInputModule
   ],
   providers: [
     VehicleService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
-    { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config }
+    { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config },
+    MatDatepickerModule,
+    DatePipe,
+    {
+      provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: AppDateFormats
+    }
   ]
 })
 export class TransporterModule { }

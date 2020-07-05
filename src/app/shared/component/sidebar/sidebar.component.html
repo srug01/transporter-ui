@@ -18,7 +18,6 @@
             <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
             <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
             <button mat-menu-item routerLink='/default/cfs/saved-orders'>Saved Orders</button>
-            <button mat-menu-item routerLink='/default/cfs/placed-bids'>Placed Bids</button>
             <button mat-menu-item routerLink='/default/cfs/register-user'>User Registration</button>
             <button mat-menu-item routerLink='/default/cfs/user-list'>User List</button>
         </mat-menu>
@@ -29,6 +28,7 @@
                 class="fas transporter-icon fa fa-truck fa-lg md-24 p5" aria-hidden="true"></i><span
                 class="menu-text">Transporter</span></a>
         <mat-menu #menu2="matMenu">
+            <button mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</button>
             <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
             <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
             <button mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter
