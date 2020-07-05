@@ -57,19 +57,6 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
-  // public containerMaster: Array<any> = [
-  //   { container_syscode: 1, container_name: '8*8' },
-  //   { container_syscode: 2, container_name: '9*9' },
-  //   { container_syscode: 3, container_name: '10*10' },
-  //   { container_syscode: 4, container_name: '11*11' },
-  // ];
-
-  // public cfsMaster: Array<any> = [
-  //   { cfs_syscode: 1, cfs_name: 'P' },
-  //   { cfs_syscode: 2, cfs_name: 'Q' },
-  //   { cfs_syscode: 3, cfs_name: 'R' },
-  //   { cfs_syscode: 4, cfs_name: 'S' },
-  // ];
 
   getAllCFSMasters() {
     this._cfsService.getAllCfsMasters().subscribe(
@@ -83,12 +70,7 @@ export class YardcfsrateFormComponent implements OnInit {
   }
 
   
-  // public yardMaster: Array<any> = [
-  //   { yard_syscode: 1, yard_name: 'A' },
-  //   { yard_syscode: 2, yard_name: 'B' },
-  //   { yard_syscode: 3, yard_name: 'C' },
-  //   { yard_syscode: 4, yard_name: 'D' },
-  // ];
+
 
   getAllYardMasters() {
     this._yardService.getAllYardMasters().subscribe(
@@ -101,12 +83,7 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
-  // public weightMaster: Array<any> = [
-  //   { weight_syscode: 1, weight_description: '10 ton' },
-  //   { weight_syscode: 2, weight_description: '20 ton' },
-  //   { weight_syscode: 3, weight_description: '30 ton' },
-  //   { weight_syscode: 4, weight_description: '40 ton' },
-  // ];
+ 
 
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
@@ -126,8 +103,8 @@ export class YardcfsrateFormComponent implements OnInit {
         yard_cfs_rate_syscode: [this.yardcfsrateData.yard_cfs_rate_syscode ?
            this.yardcfsrateData.yard_cfs_rate_syscode : ''],
    
-        cfs_syscode: [this.yardcfsrateData.cfs_syscode ? 
-          this.yardcfsrateData.cfs_syscode : ''],
+        cfs_syscode: [this.yardcfsrateData.cfsMasterId ? 
+          this.yardcfsrateData.cfsMasterId : ''],
         yard_syscode: [this.yardcfsrateData.yard_syscode ? 
             this.yardcfsrateData.yard_syscode : '', Validators.required],
         container_syscode: [this.yardcfsrateData.container_syscode ? 
@@ -136,7 +113,11 @@ export class YardcfsrateFormComponent implements OnInit {
           '', Validators.required],
           rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '', 
         Validators.required],
-        is_active: [this.yardcfsrateData.is_active ? this.yardcfsrateData.is_active : '', Validators.required]
+        is_active: [this.yardcfsrateData.is_active ? this.yardcfsrateData.is_active : '',
+         Validators.required],
+
+         created_by: [this.yardcfsrateData.created_by ? this.yardcfsrateData.created_by : 0]
+   
       });
     } else {
       this.yardcfsrateForm = this.fb.group({
@@ -146,7 +127,8 @@ export class YardcfsrateFormComponent implements OnInit {
         container_syscode: ['', Validators.required],
         weight_syscode: ['', Validators.required],
         rate: ['', Validators.required],
-        is_active: ['', Validators.required]
+        is_active: ['', Validators.required],
+        created_by: [0]
       });
     }
     this.getAllYardCFSRateMasters();
@@ -169,11 +151,23 @@ export class YardcfsrateFormComponent implements OnInit {
       }
     );
   }
+  // This Control For Finding Invalid Control
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.yardcfsrateForm.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    return invalid;
+}
 
   submitYardCFSRateForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
+  //  this.findInvalidControls();
     if (this.yardcfsrateForm.valid) {
       if (!this.yardcfsrateData) {
         this.saveYardCFSRateMaster(this.yardcfsrateForm);
