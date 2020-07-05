@@ -31,6 +31,7 @@ import { MatNativeDateModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } f
 import { AppDateAdapter } from 'src/app/shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { BidsComponent } from './bids/bids.component';
+import { config } from 'rxjs';
 
 
 const routes: Routes = [
