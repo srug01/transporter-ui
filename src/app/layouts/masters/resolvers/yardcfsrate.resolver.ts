@@ -1,4 +1,4 @@
-import { YardCFSRate } from './../../../shared/models/YardCFSRate';
+import { YardCFSRate } from './../../../shared/models/yardcfsrate';
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
