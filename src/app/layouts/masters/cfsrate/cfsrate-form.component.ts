@@ -113,6 +113,8 @@ export class CfsrateFormComponent implements OnInit {
     if (ev) {
       ev.preventDefault();
     }
+    console.log(this.cfsrateForm);
+    
     if (this.cfsrateForm.valid) {
       if (!this.cfsrateData) {
         this.saveCfsrateMaster(this.cfsrateForm);

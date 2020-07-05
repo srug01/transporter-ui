@@ -5,6 +5,8 @@ export interface YardCFSRate {
     container_syscode : number;
     weight_syscode : number;
     rate : number;
+    created_on: Date;
     created_by : number; 
     is_active: boolean;
+    cfsMasterId: number;
   }

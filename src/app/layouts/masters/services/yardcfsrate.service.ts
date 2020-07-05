@@ -22,6 +22,7 @@ export class YardCFSRateService {
   saveYardcfsrateMaster(yardcfsrate: YardCFSRate): Observable<any> {
     console.log(yardcfsrate);
     delete yardcfsrate.yard_cfs_rate_syscode;
+    yardcfsrate.created_on = new Date();
     console.log(yardcfsrate);
     return this.http.post<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters',
       JSON.stringify(yardcfsrate), this.HttpUploadOptions);
