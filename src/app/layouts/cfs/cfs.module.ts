@@ -14,7 +14,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateOrderComponent } from './create-order/create-order.component';
-import { PlacedBidsComponent } from './placed-bids/placed-bids.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -37,7 +36,6 @@ import { DateFormatPipe } from 'src/app/shared/pipe/date-format.pipe';
 const routes: Routes = [
   { path: '', component: CfsComponent },
   { path: 'create-order', component: CreateOrderComponent },
-  { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'register-user', component: UserRegistrationComponent },
   { path: 'user-list', component: UserRegistrationListComponent },
   { path: 'order-list', component: OrderListComponent },
@@ -51,7 +49,6 @@ const routes: Routes = [
   declarations: [
     CfsComponent,
     CreateOrderComponent,
-    PlacedBidsComponent,
     UserRegistrationComponent,
     OrderListComponent,
     OrderDetailsComponent,

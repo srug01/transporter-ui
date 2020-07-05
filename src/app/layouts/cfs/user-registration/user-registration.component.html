@@ -11,7 +11,7 @@
                         <mat-form-field class="demo-full-width">
                             <mat-label>CFS Type</mat-label>
                             <mat-select matNativeControl formControlName="cfs_syscode" [errorStateMatcher]="cfsTypeErrormatcher">
-                                <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfs_syscode">
+                                <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfsMasterId">
                                     {{cfs.cfs_name}}
                                 </mat-option>
                             </mat-select>
@@ -23,7 +23,7 @@
                         <mat-form-field class="demo-full-width">
                             <mat-label>User Type</mat-label>
                             <mat-select matNativeControl formControlName="user_type_syscode" [errorStateMatcher]="userTypeErrormatcher">
-                                <mat-option *ngFor="let user of userTypes" [value]="user.value">
+                                <mat-option *ngFor="let user of userTypes" [value]="4">
                                     {{user.viewValue}}
                                 </mat-option>
                             </mat-select>
