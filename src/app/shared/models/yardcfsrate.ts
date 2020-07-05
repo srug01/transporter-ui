@@ -8,5 +8,4 @@ export interface YardCFSRate {
     created_on: Date;
     created_by : number; 
     is_active: boolean;
-    cfsMasterId: number;
   }
