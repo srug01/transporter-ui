@@ -149,6 +149,7 @@ import { SettingListComponent } from './setting/setting-list.component';
 import { SettingDetailsComponent } from './setting/setting-details.component';
 import { SettingNewComponent } from './setting/setting-new.component';
 import { SettingComponent } from './setting/setting.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
 const toasterConfig: MatSnackBarConfig = {
@@ -447,6 +448,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    NgSelectModule,
     FormsModule,
     MatCardModule,
     MatTableModule,
@@ -476,7 +478,6 @@ const routes: Routes = [
     YardCFSRatesResolver,
     CfsResolver,
     CfsrateResolver,
-
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })

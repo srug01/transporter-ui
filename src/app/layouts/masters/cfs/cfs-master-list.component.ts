@@ -18,12 +18,15 @@ export class CfsMasterListComponent implements OnInit {
   displayedColumns: string[] = [
     'cfsMasterId', 'cfs_name', 'contact_no', 'email_id',
     'address',//'pincode','cfs_code_no','gstn','pan',
-   // 'tan','primary_contact_name','primary_mobile_no',
-   // 'additional_contact_name','additional_mobile_no','port_syscode',
+    // 'tan','primary_contact_name','primary_mobile_no',
+    // 'additional_contact_name','additional_mobile_no','port_syscode',
     'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public cfsMasters: Array<any> = [];
+  searchList: any = [
+    { cfsMasterId: 1, cfs_name: 'value' }
+  ];
 
   constructor(
     private _cfsService: CfsService,
@@ -36,6 +39,9 @@ export class CfsMasterListComponent implements OnInit {
     this.getAllCfsMasters();
   }
 
+  demo(ev) {
+    console.log(ev);
+  }
   openDialog(ev, cfsId: number) {
     if (ev) {
       ev.preventDefault();
@@ -74,6 +80,16 @@ export class CfsMasterListComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  searchCfsMasters(term: string, item: any) {
+    if(term.length === 0) {
+      return false;
+    }
+    console.log(item);
+    // term = term.toLocaleLowerCase();
+    return true;
+    // return item.code.toLocaleLowerCase().indexOf(term) > -1 || item.countryName.toLocaleLowerCase() === term;
   }
 
 }
