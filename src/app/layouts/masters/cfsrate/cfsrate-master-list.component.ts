@@ -51,11 +51,9 @@ export class CfsrateMasterListComponent implements OnInit {
   getAllContainerMasters() {
     this._containerService.getAllContainerMasters().subscribe(
       (containerMasters) => {
-        console.log(containerMasters);
         this.containerMasters = containerMasters;
       },
       (err) => {
-        console.log('could not fetch container masters');
       }
     );
   }
@@ -87,11 +85,9 @@ export class CfsrateMasterListComponent implements OnInit {
   getAllCFSMasters() {
     this._cfsService.getAllCfsMasters().subscribe(
       (cfs) => {
-        console.log(cfs);
         this.CFS = cfs;
       },
       (err) => {
-        console.log('could not fetch CFS');
       }
     );
   }
@@ -108,11 +104,9 @@ export class CfsrateMasterListComponent implements OnInit {
   getAllPortMasters() {
     this._portservice.getAllPortMasters().subscribe(
       (port) => {
-        console.log(port);
         this.Port = port;
       },
       (err) => {
-        console.log('could not fetch Port');
       }
     );
   }
@@ -127,11 +121,9 @@ export class CfsrateMasterListComponent implements OnInit {
   getAllWeightMasters() {
     this._weightservice.getAllWeightMasters().subscribe(
       (weight) => {
-        console.log(weight);
         this.Weight = weight;
       },
       (err) => {
-        console.log('could not fetch Weight');
       }
     );
   }
@@ -148,11 +140,9 @@ export class CfsrateMasterListComponent implements OnInit {
   getAllCfsRateMasters() {
     this._cfsrateService.getAllCfsRateMasters().subscribe(
       (cfsrateMasters) => {
-        console.log(cfsrateMasters);
         this.cfsrateMasters = cfsrateMasters;
       },
       (err) => {
-        console.log('could not fetch cfs rate masters');
       }
     );
   }

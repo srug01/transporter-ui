@@ -24,7 +24,7 @@ export class DieselFormComponent implements OnInit {
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
-  
+
     private _dieselService: DieselService,
     private _router: Router
   ) { }
@@ -32,24 +32,22 @@ export class DieselFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.dieselData) {
       this.dieselForm = this.fb.group({
-        diesel_rate_syscode: [this.dieselData.diesel_rate_syscode ? this.dieselData.diesel_rate_syscode : ''],
-        diesel_rate: [this.dieselData.diesel_rate ? this.dieselData.diesel_rate : '', 
-               Validators.required],
-        date: [this.dieselData.date ? this.dieselData.date : '', Validators.required],
-      
-        is_active: [this.dieselData.is_active ? this.dieselData.is_active : '', Validators.required]
+        dieselRateId: [this.dieselData.dieselRateId ? this.dieselData.dieselRateId : ''],
+        dieselRate: [this.dieselData.dieselRate ? this.dieselData.dieselRate : '',
+        Validators.required],
+        dieselRateDate: [this.dieselData.dieselRateDate ? this.dieselData.dieselRateDate : '', Validators.required],
+        isActive: [this.dieselData.isActive ? this.dieselData.isActive : '', Validators.required]
       });
     } else {
       this.dieselForm = this.fb.group({
-        diesel_rate_syscode: [''],
-        diesel_rate: ['', Validators.required],
-        date: ['', Validators.required],
-      
-        is_active: ['', Validators.required]
+        dieselRateId: [''],
+        dieselRate: ['', Validators.required],
+        dieselRateDate: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
     //this.getAllStateMasters();
-  //}
+    //}
   }
 
   getAllDieselMasters() {
@@ -58,7 +56,6 @@ export class DieselFormComponent implements OnInit {
         this.dieselMasters = dieselMasters;
       },
       (err) => {
-        console.log('could not fetch Diesel masters');
       }
     );
   }
@@ -67,12 +64,12 @@ export class DieselFormComponent implements OnInit {
     const invalid = [];
     const controls = this.dieselForm.controls;
     for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-        }
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
     }
     return invalid;
-}
+  }
 
 
 

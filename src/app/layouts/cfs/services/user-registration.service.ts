@@ -28,10 +28,8 @@ export class UserRegistrationService {
 
 
 
-  saveCfsUserRegistration(userregistration: Cfsuserregistration): Observable<any> {
-    console.log(userregistration);
+  saveCfsUserRegistration(userregistration: Cfsuserregistration): Observable<any> {    
     delete userregistration.cfs_user_registration_syscode;
-    console.log(userregistration);
     return this.http.post<Cfsuserregistration>(
       this.baseUrl + 'cfs-user-registrations',
       JSON.stringify(userregistration),

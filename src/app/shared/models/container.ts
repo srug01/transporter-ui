@@ -1,5 +1,11 @@
 export interface Container {
-  container_syscode: number;
-  container_name: string;
-  is_active: boolean;
+    containerId?: number;
+    orderId?: number;
+    weightType?: number;
+    numberOfTrucks?: number;
+    isDeleted?: boolean;
+    createdBy?: number;
+    createdOn?: string;
+    modifiedBy?: number;
+    modifiedOn?: string;
 }

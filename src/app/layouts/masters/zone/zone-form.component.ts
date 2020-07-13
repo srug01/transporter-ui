@@ -30,19 +30,19 @@ export class ZoneFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.zoneData) {
       this.zoneForm = this.fb.group({
-        zone_syscode: [this.zoneData.zone_syscode ? this.zoneData.zone_syscode : ''],
-        zone_name: [this.zoneData.zone_name ? this.zoneData.zone_name : '',Validators.required],
-         zone_description: [this.zoneData.zone_description ? this.zoneData.zone_description : '', Validators.required],
-         pincode: [this.zoneData.pincode ? this.zoneData.pincode : ''],
-        is_active: [this.zoneData.is_active ? this.zoneData.is_active : '', Validators.required]
+        zoneMasterId: [this.zoneData.zoneMasterId ? this.zoneData.zoneMasterId : ''],
+        zoneName: [this.zoneData.zoneName ? this.zoneData.zoneName : '', Validators.required],
+        zoneDesc: [this.zoneData.zoneDesc ? this.zoneData.zoneDesc : '', Validators.required],
+        pincode: [this.zoneData.pincode ? this.zoneData.pincode : ''],
+        isActive: [this.zoneData.isActive ? this.zoneData.isActive : '', Validators.required]
       });
     } else {
       this.zoneForm = this.fb.group({
-        zone_syscode: [''],
-        zone_name: ['', Validators.required],
-        zone_description: ['', Validators.required],
-         pincode:[''],
-        is_active: ['', Validators.required]
+        zoneMasterId: [''],
+        zoneName: ['', Validators.required],
+        zoneDesc: ['', Validators.required],
+        pincode: [''],
+        isActive: ['', Validators.required]
       });
     }
 

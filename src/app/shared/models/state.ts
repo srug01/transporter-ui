@@ -1,5 +1,9 @@
 export interface State {
-    state_syscode: number;
-    state: string;
-    is_active: Boolean;
+    stateMasterId?: number;
+    stateName?: string;
+    isActive?: boolean;
+    createdBy?: number;
+    createdOn?: string;
+    modifiedBy?: number;
+    modifiedOn?: string;
 }

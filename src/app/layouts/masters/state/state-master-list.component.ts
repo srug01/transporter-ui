@@ -1,3 +1,4 @@
+import { State } from 'src/app/shared/models/state';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -15,10 +16,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StateMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'state_syscode', 'state', 'is_active', 'action'
+    'stateMasterId', 'state', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public stateMasters: Array<any> = [];
+  public stateMasters: Array<State> = [];
 
   constructor(
     private _stateService: StateMasterService,
@@ -45,8 +46,7 @@ export class StateMasterListComponent implements OnInit {
 
   getAllStateMasters() {
     this._stateService.getAllStateMasters().subscribe(
-      (stateMasters) => {
-        console.log(stateMasters);
+      (stateMasters: Array<State>) => {
         this.stateMasters = stateMasters;
       },
       (err) => {

@@ -14,6 +14,5 @@ export class DieselrateComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    console.log(form);
   }
 }

@@ -99,7 +99,6 @@ export class DriverFormComponent implements OnInit {
         this.stateMasters = stateMasters;
       },
       (err) => {
-        console.log('could not fetch state masters');
       }
     );
   }

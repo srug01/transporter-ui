@@ -36,42 +36,40 @@ export class CfsFormComponent implements OnInit {
     if (this.cfsData) {
       this.cfsForm = this.fb.group({
         cfsMasterId: [this.cfsData.cfsMasterId ? this.cfsData.cfsMasterId : ''],
-        cfs_name: [this.cfsData.cfs_name ? this.cfsData.cfs_name : '', Validators.required],
-        contact_no: [this.cfsData.contact_no ? this.cfsData.contact_no : '', Validators.required],
-        email_id: [this.cfsData.email_id ? this.cfsData.email_id : '', Validators.required],
+        cfsName: [this.cfsData.cfsName ? this.cfsData.cfsName : '', Validators.required],
+        contactNumber: [this.cfsData.contactNumber ? this.cfsData.contactNumber : '', Validators.required],
+        email: [this.cfsData.email ? this.cfsData.email : '', Validators.required],
         address: [this.cfsData.address ? this.cfsData.address : '', Validators.required],
         pincode: [this.cfsData.pincode ? this.cfsData.pincode : '', Validators.required],
-        cfs_code_no: [this.cfsData.cfs_code_no ? this.cfsData.cfs_code_no : '', Validators.required],
-        gstn: [this.cfsData.gstn ? this.cfsData.gstn : '', Validators.required],
+        cfsCodeNumber: [this.cfsData.cfsCodeNumber ? this.cfsData.cfsCodeNumber : '', Validators.required],
+        gstin: [this.cfsData.gstin ? this.cfsData.gstin : '', Validators.required],
         pan: [this.cfsData.pan ? this.cfsData.pan : '', Validators.required],
         tan: [this.cfsData.tan ? this.cfsData.tan : '', Validators.required],
-        primary_contact_name: [this.cfsData.primary_contact_name ? this.cfsData.primary_contact_name : '', Validators.required],
-        primary_mobile_no: [this.cfsData.primary_mobile_no ? this.cfsData.primary_mobile_no : '', Validators.required],
-        additional_contact_name: [this.cfsData.additional_contact_name ? this.cfsData.additional_contact_name : '', Validators.required],
-        additional_mobile_no: [this.cfsData.additional_mobile_no ? this.cfsData.additional_mobile_no : '', Validators.required],
-        port_syscode: [this.cfsData.port_syscode ? this.cfsData.port_syscode : '', Validators.required],
-        locationId: [this.cfsData.locationId ? this.cfsData.locationId : '', Validators.required],
-        is_active: [this.cfsData.is_active ? this.cfsData.is_active : '', Validators.required]
+        primaryContactName: [this.cfsData.primaryContactName ? this.cfsData.primaryContactName : '', Validators.required],
+        primaryContactNumber: [this.cfsData.primaryContactNumber ? this.cfsData.primaryContactNumber : '', Validators.required],
+        additionalContactName: [this.cfsData.additionalContactName ? this.cfsData.additionalContactName : '', Validators.required],
+        additionalContactNumber: [this.cfsData.additionalContactNumber ? this.cfsData.additionalContactNumber : '', Validators.required],
+        portId: [this.cfsData.portId ? this.cfsData.portId : '', Validators.required],
+        isActive: [this.cfsData.isActive ? this.cfsData.isActive : '', Validators.required]
       });
     } else {
       this.cfsForm = this.fb.group({
         cfsMasterId: [''],
-        cfs_name: ['', Validators.required],
-        contact_no: ['', Validators.required],
-        email_id: ['', Validators.required],
+        cfsName: ['', Validators.required],
+        contactNumber: ['', Validators.required],
+        email: ['', Validators.required],
         address: ['', Validators.required],
         pincode: ['', Validators.required],
-        cfs_code_no: ['', Validators.required],
-        gstn: ['', Validators.required],
+        cfsCodeNumber: ['', Validators.required],
+        gstin: ['', Validators.required],
         pan: ['', Validators.required],
         tan: ['', Validators.required],
-        primary_contact_name: ['', Validators.required],
-        primary_mobile_no: ['', Validators.required],
-        additional_contact_name: ['', Validators.required],
-        additional_mobile_no: ['', Validators.required],
-        port_syscode: ['', Validators.required],
-        locationId: ['', Validators.required],
-        is_active: ['', Validators.required]
+        primaryContactName: ['', Validators.required],
+        primaryContactNumber: ['', Validators.required],
+        additionalContactName: ['', Validators.required],
+        additionalContactNumber: ['', Validators.required],
+        portId: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
     this.getAllPortMasters();
@@ -95,7 +93,6 @@ export class CfsFormComponent implements OnInit {
         this.portMasters = portMasters;
       },
       (err) => {
-        console.log('could not fetch port masters');
       }
     );
   }

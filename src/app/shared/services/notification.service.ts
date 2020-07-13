@@ -20,7 +20,7 @@ export class NotificationService {
 
   saveNotification(notification: Notification): Observable<any> {
     delete notification.notificationId;
-    delete notification.assignToUser;
+    delete notification.assignedToUser;
     return this.http.post<Notification>(this.baseUrl + 'notifications', JSON.stringify(notification), this.HttpUploadOptions);
   }
 

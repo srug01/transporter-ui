@@ -356,8 +356,8 @@ export class CreateOrderComponent implements OnInit {
       (res) => {
         const notification: Notification = {
           orderId: res.orderId,
-          assignToRole: 1,
-          assignToUser: null,
+          assignedToRole: 1,
+          assignedToUser: null,
           createdBy: this.currentUser.id,
           createdOn: new Date(),
           isRead: false,
@@ -379,7 +379,6 @@ export class CreateOrderComponent implements OnInit {
   saveNotification(notification: Notification) {
     this._notificationService.saveNotification(notification).subscribe(
       (res) => {
-        console.log('Saved Notification',res);
       },
       (err) => {
         console.log(err);

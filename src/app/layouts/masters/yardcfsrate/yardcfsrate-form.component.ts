@@ -67,7 +67,7 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
-  
+
 
 
   getAllYardMasters() {
@@ -81,7 +81,7 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
- 
+
 
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
@@ -98,35 +98,25 @@ export class YardcfsrateFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.yardcfsrateData) {
       this.yardcfsrateForm = this.fb.group({
-        yard_cfs_rate_syscode: [this.yardcfsrateData.yard_cfs_rate_syscode ?
-           this.yardcfsrateData.yard_cfs_rate_syscode : ''],
-   
-        cfs_syscode: [this.yardcfsrateData.cfsMasterId ? 
-          this.yardcfsrateData.cfsMasterId : ''],
-        yard_syscode: [this.yardcfsrateData.yard_syscode ? 
-            this.yardcfsrateData.yard_syscode : '', Validators.required],
-        container_syscode: [this.yardcfsrateData.container_syscode ? 
-           this.yardcfsrateData.container_syscode : '', Validators.required],
-        weight_syscode: [this.yardcfsrateData.weight_syscode ? this.yardcfsrateData.weight_syscode : 
-          '', Validators.required],
-        rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '',
-        Validators.required],
-        is_active: [this.yardcfsrateData.is_active ? this.yardcfsrateData.is_active : '',
-         Validators.required],
-
-         created_by: [this.yardcfsrateData.created_by ? this.yardcfsrateData.created_by : 0]
-   
+        yardCfsRateMasterId: [this.yardcfsrateData.yardCfsRateMasterId ? this.yardcfsrateData.yardCfsRateMasterId : ''],
+        cfsId: [this.yardcfsrateData.cfsId ? this.yardcfsrateData.cfsId : ''],
+        yardId: [this.yardcfsrateData.yardId ? this.yardcfsrateData.yardId : '', Validators.required],
+        containerId: [this.yardcfsrateData.containerId ? this.yardcfsrateData.containerId : '', Validators.required],
+        weightId: [this.yardcfsrateData.weightId ? this.yardcfsrateData.weightId : '', Validators.required],
+        rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '', Validators.required],
+        isActive: [this.yardcfsrateData.isActive ? this.yardcfsrateData.isActive : '', Validators.required],
+        createdBy: [this.yardcfsrateData.createdBy ? this.yardcfsrateData.createdBy : 0]
       });
     } else {
       this.yardcfsrateForm = this.fb.group({
-        yard_cfs_rate_syscode: [''],
-        cfs_syscode: ['', Validators.required],
-        yard_syscode: ['', Validators.required],
-        container_syscode: ['', Validators.required],
-        weight_syscode: ['', Validators.required],
+        yardCfsRateMasterId: [''],
+        cfsId: ['', Validators.required],
+        yardId: ['', Validators.required],
+        containerId: ['', Validators.required],
+        weightId: ['', Validators.required],
         rate: ['', Validators.required],
-        is_active: ['', Validators.required],
-        created_by: [0]
+        isActive: ['', Validators.required],
+        createdBy: [0]
       });
     }
     this.getAllYardCFSRateMasters();
@@ -154,18 +144,18 @@ export class YardcfsrateFormComponent implements OnInit {
     const invalid = [];
     const controls = this.yardcfsrateForm.controls;
     for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-        }
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
     }
     return invalid;
-}
+  }
 
   submitYardCFSRateForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
-  //  this.findInvalidControls();
+    //  this.findInvalidControls();
     if (this.yardcfsrateForm.valid) {
       if (!this.yardcfsrateData) {
         this.saveYardCFSRateMaster(this.yardcfsrateForm);

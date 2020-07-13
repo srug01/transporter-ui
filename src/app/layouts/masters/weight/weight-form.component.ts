@@ -30,15 +30,15 @@ export class WeightFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.weightData) {
       this.weightForm = this.fb.group({
-        weight_syscode: [this.weightData.weight_syscode ? this.weightData.weight_syscode : ''],
-        weight_description: [this.weightData.weight_description ? this.weightData.weight_description : '', Validators.required],
-        is_active: [this.weightData.is_active ? this.weightData.is_active : '', Validators.required]
+        weightMasterId: [this.weightData.weightMasterId ? this.weightData.weightMasterId : ''],
+        weightDesc: [this.weightData.weightDesc ? this.weightData.weightDesc : '', Validators.required],
+        isActive: [this.weightData.isActive ? this.weightData.isActive : '', Validators.required]
       });
     } else {
       this.weightForm = this.fb.group({
-        weight_syscode: [''],
-        weight_description: ['', Validators.required],
-        is_active: ['', Validators.required]
+        weightMasterId: [''],
+        weightDesc: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
   }

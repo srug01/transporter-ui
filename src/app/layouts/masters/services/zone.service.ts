@@ -21,12 +21,12 @@ export class ZoneService {
   ) { }
 
   saveZoneMaster(zone: Zone): Observable<any> {
-    delete zone.zone_syscode;
+    delete zone.zoneMasterId;
     return this.http.post<Zone>(this.baseUrl + 'zone-masters', JSON.stringify(zone), this.HttpUploadOptions);
   }
 
   updateZoneMaster(zone: Zone): Observable<any> {
-    return this.http.put<Zone>(this.baseUrl + 'zone-masters/'+ zone.zone_syscode,
+    return this.http.put<Zone>(this.baseUrl + 'zone-masters/'+ zone.zoneMasterId,
      JSON.stringify(zone), this.HttpUploadOptions);
   }
 

@@ -21,9 +21,7 @@ export class DriverService {
   ) { }
 
   saveDriverMaster(driver: Driver): Observable<any> {
-    console.log(driver);
     delete driver.driversyscode;
-    console.log(driver);
     return this.http.post<Driver>(this.baseUrl + 'drivers', JSON.stringify(driver), this.HttpUploadOptions);
   }
 

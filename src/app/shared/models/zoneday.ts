@@ -1,12 +1,15 @@
 export interface ZoneDay {
-    zone_day_syscode: number;
-    zone_name: string;
-    import : string;
-    export : string;
-    created_by : number;
-    port_syscode: number;
-    is_active: boolean;
-  }
-  
+  zoneDayMasterId?: number;
+  zoneName?: string;
+  portId?: number;
+  import?: string;
+  export?: string;
+  isActive?: boolean;
+  createdBy?: number;
+  modifiedBy?: number;
+  createdOn?: string;
+  modifiedOn?: string;
+}
+
 
 

@@ -56,11 +56,9 @@ export class MileageMasterListComponent implements OnInit {
   getAllContainerMasters() {
     this._containerService.getAllContainerMasters().subscribe(
       (container) => {
-        console.log(container);
         this.Container = container;
       },
       (err) => {
-        console.log('could not fetch Container masters');
       }
     );
   }
@@ -75,11 +73,9 @@ export class MileageMasterListComponent implements OnInit {
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
       (weight) => {
-        console.log(weight);
         this.Weight = weight;
       },
       (err) => {
-        console.log('could not fetch Weight');
       }
     );
   }
@@ -94,11 +90,9 @@ export class MileageMasterListComponent implements OnInit {
   getAllMileageMasters() {
     this._mileageService.getAllMileageMasters().subscribe(
       (mileageMasters) => {
-        console.log(mileageMasters);
         this.mileageMasters = mileageMasters;
       },
       (err) => {
-        console.log('could not fetch Mileage masters');
       }
     );
   }

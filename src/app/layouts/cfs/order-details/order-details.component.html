@@ -10,7 +10,7 @@
                     Order Date
                 </div>
                 <div fxFlex="50%">
-                    {{order.order_date | dateFormat}}
+                    {{order.orderDate | dateFormat}}
                 </div>
             </div>
             <div fxFlex="50%">
@@ -18,7 +18,7 @@
                     Created By
                 </div>
                 <div fxFlex="50%">
-                    {{order.created_by}}
+                    {{order.createdBy}}
                 </div>
             </div>
         </div>
@@ -29,20 +29,20 @@
                         <p><strong>From</strong></p>
                     </div>
                     <div fxFlex="100%">
-                        {{order.source_type}}
+                        {{order.sourceType}}
                     </div>
                     <div fxFlex="100%">
-                        <span [ngSwitch]="order.source_type">
+                        <span [ngSwitch]="order.sourceType">
                             <span *ngSwitchCase="'cfs'">
-                                <a class="link">{{this.searchCfsById(order.source_syscode)}}</a>
+                                <a class="link">{{this.searchCfsById(order.sourceId)}}</a>
                             </span>
-                            <span *ngSwitchCase="'yard'">
+                        <span *ngSwitchCase="'yard'">
                                 <a class="link"
-                                    [routerLink]="['/default/masters/yard/edit',order.source_syscode]">{{this.searchYardById(order.source_syscode)}}</a>
+                                    [routerLink]="['/default/masters/yard/edit',order.sourceId]">{{this.searchYardById(order.sourceId)}}</a>
                             </span>
-                            <span *ngSwitchCase="'port'">
+                        <span *ngSwitchCase="'port'">
                                 <a class="link"
-                                    [routerLink]="['/default/masters/port/edit',order.source_syscode]">{{this.searchPortById(order.source_syscode)}}</a>
+                                    [routerLink]="['/default/masters/port/edit',order.sourceId]">{{this.searchPortById(order.sourceId)}}</a>
                             </span>
                         </span>
                     </div>
@@ -52,20 +52,20 @@
                         <p><strong>To</strong></p>
                     </div>
                     <div fxFlex="100%">
-                        {{order.destination_type}}
+                        {{order.destinationType}}
                     </div>
                     <div fxFlex="100%">
-                        <span [ngSwitch]="order.destination_type">
+                        <span [ngSwitch]="order.destinationType">
                             <span *ngSwitchCase="'cfs'">
-                                <a class="link">{{this.searchCfsById(order.destination_syscode)}}</a>
+                                <a class="link">{{this.searchCfsById(order.destinationId)}}</a>
                             </span>
-                            <span *ngSwitchCase="'yard'">
+                        <span *ngSwitchCase="'yard'">
                                 <a class="link"
-                                    [routerLink]="['/default/masters/yard/edit',order.destination_type]">{{this.searchYardById(order.destination_syscode)}}</a>
+                                    [routerLink]="['/default/masters/yard/edit',order.destinationId]">{{this.searchYardById(order.destinationId)}}</a>
                             </span>
-                            <span *ngSwitchCase="'port'">
+                        <span *ngSwitchCase="'port'">
                                 <a class="link"
-                                    [routerLink]="['/default/masters/port/edit',order.destination_type]">{{this.searchPortById(order.destination_syscode)}}</a>
+                                    [routerLink]="['/default/masters/port/edit',order.destinationId]">{{this.searchPortById(order.destinationId)}}</a>
                             </span>
                         </span>
                     </div>
@@ -97,7 +97,7 @@
                     Remarks
                 </div>
                 <div fxFlex="50%">
-                    {{order.order_remarks}}
+                    {{order.orderRemarks}}
                 </div>
             </div>
         </div>

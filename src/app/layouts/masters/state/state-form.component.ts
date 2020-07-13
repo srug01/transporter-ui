@@ -18,7 +18,7 @@ import { StateMasterService } from '../services/state-master.service';
 export class StateFormComponent implements OnInit {
   @Input('stateData') stateData: State;
   matcher = new FormErrorStateMatcher();
- 
+
   public stateForm: FormGroup;
   public stateMasters: Array<any> = [];
 
@@ -33,17 +33,17 @@ export class StateFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.stateData) {
       this.stateForm = this.fb.group({
-        state_syscode: [this.stateData.state_syscode ? this.stateData.state_syscode : ''],
-        state: [this.stateData.state ? this.stateData.state : '', Validators.required],
-         is_active: [this.stateData.is_active ? this.stateData.is_active : '', Validators.required]
+        stateMasterId: [this.stateData.stateMasterId ? this.stateData.stateMasterId : ''],
+        stateName: [this.stateData.stateName ? this.stateData.stateName : '', Validators.required],
+        isActive: [this.stateData.isActive ? this.stateData.isActive : '', Validators.required]
       });
     } else {
       this.stateForm = this.fb.group({
-        state_syscode: [''],
-        state: ['', Validators.required],     
-        is_active: ['', Validators.required]
+        stateMasterId: [''],
+        stateName: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
-  }
+    }
   }
   getAllStateMasters() {
     this._stateService.getAllStateMasters().subscribe(

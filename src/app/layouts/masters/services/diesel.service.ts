@@ -20,14 +20,12 @@ export class DieselService {
   ) { }
 
   saveDieselMaster(diesel: Diesel): Observable<any> {
-    console.log(diesel);
-    delete diesel.diesel_rate_syscode;
-    console.log(diesel);
+    delete diesel.dieselRateId;
     return this.http.post<Diesel>(this.baseUrl + 'diesel-rate-masters', JSON.stringify(diesel), this.HttpUploadOptions);
   }
 
   updateDieselMaster(diesel: Diesel): Observable<any> {
-    return this.http.put<Diesel>(this.baseUrl + 'diesel-rate-masters/'+ diesel.diesel_rate_syscode, JSON.stringify(diesel), this.HttpUploadOptions);
+    return this.http.put<Diesel>(this.baseUrl + 'diesel-rate-masters/'+ diesel.dieselRateId, JSON.stringify(diesel), this.HttpUploadOptions);
   }
 
   getAllDieselMasters(): Observable<any> {

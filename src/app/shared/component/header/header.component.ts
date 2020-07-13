@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
 
   markNotificationAsRead(notification: Notification) {
     notification.isRead = true;
-    delete notification.assignToUser;
+    delete notification.assignedToUser;
     this._notificationService.updateNotifications(notification).subscribe(
       (res) => {
         console.log(res);

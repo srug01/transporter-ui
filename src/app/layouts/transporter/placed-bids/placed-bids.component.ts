@@ -82,8 +82,8 @@ export class PlacedBidsComponent implements OnInit {
         console.log(res);
         const notification: Notification = {
           orderId: 1,
-          assignToRole: 1,
-          assignToUser: null,
+          assignedToRole: 1,
+          assignedToUser: null,
           createdBy: this.currentUser.id,
           createdOn: new Date(),
           isRead: false,
@@ -118,7 +118,7 @@ export class PlacedBidsComponent implements OnInit {
       bidId: bid.bidId,
       bidName: bid.bidName,
       bidStatus: action,
-      bidValue: bid.bid_value,
+      bidValue: bid.bidRate,
       userId: this.currentUser.id
     } as BidUserMapping;
   }

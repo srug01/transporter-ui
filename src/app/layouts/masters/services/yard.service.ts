@@ -22,13 +22,13 @@ export class YardService {
 
   saveYardMaster(yard: Yard): Observable<any> {
     console.log(yard);
-    delete yard.yard_syscode;
+    delete yard.yardMasterId;
     console.log(yard);
     return this.http.post<Yard>(this.baseUrl + 'yard-masters', JSON.stringify(yard), this.HttpUploadOptions);
   }
 
   updateYardMaster(yard: Yard): Observable<any> {
-    return this.http.put<Yard>(this.baseUrl + 'yard-masters/'+ yard.yard_syscode, JSON.stringify(yard), this.HttpUploadOptions);
+    return this.http.put<Yard>(this.baseUrl + 'yard-masters/'+ yard.yardMasterId, JSON.stringify(yard), this.HttpUploadOptions);
   }
 
   getAllYardMasters(): Observable<any> {

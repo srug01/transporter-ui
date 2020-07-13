@@ -21,14 +21,12 @@ export class MileageService {
   ) { }
 
   saveMileageMaster(mileage: Mileage): Observable<any> {
-    console.log(mileage);
-    delete mileage.mileage_syscode;
-    console.log(mileage);
+    delete mileage.mileageId;
     return this.http.post<Mileage>(this.baseUrl + 'mileage-masters', JSON.stringify(mileage), this.HttpUploadOptions);
   }
 
   updateMileageMaster(mileage: Mileage): Observable<any> {
-    return this.http.put<Mileage>(this.baseUrl + 'mileage-masters/'+ mileage.mileage_syscode,
+    return this.http.put<Mileage>(this.baseUrl + 'mileage-masters/'+ mileage.mileageId,
      JSON.stringify(mileage), this.HttpUploadOptions);
   }
 

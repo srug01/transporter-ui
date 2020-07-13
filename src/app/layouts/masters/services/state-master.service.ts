@@ -21,11 +21,11 @@ export class StateMasterService {
   ) { }
 
   saveStateMaster(state: State): Observable<any> {
-    delete state.state_syscode;
+    delete state.stateMasterId;
     return this.http.post<State>(this.baseUrl + 'state-masters', JSON.stringify(state), this.HttpUploadOptions);
   }
   updateStateMaster(state: State): Observable<any> {
-    return this.http.put<State>(this.baseUrl + 'state-masters/'+ state.state_syscode,
+    return this.http.put<State>(this.baseUrl + 'state-masters/'+ state.stateMasterId,
      JSON.stringify(state), this.HttpUploadOptions);
   }
 

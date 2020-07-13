@@ -20,17 +20,15 @@ export class YardCFSRateService {
   ) { }
 
   saveYardcfsrateMaster(yardcfsrate: YardCFSRate): Observable<any> {
-    console.log(yardcfsrate);
-    delete yardcfsrate.yard_cfs_rate_syscode;
-    yardcfsrate.created_on = new Date();
-    console.log(yardcfsrate);
+    delete yardcfsrate.yardCfsRateMasterId;
+    yardcfsrate.createdOn = new Date();
     return this.http.post<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters',
       JSON.stringify(yardcfsrate), this.HttpUploadOptions);
   }
 
   updateYardcfsrateMaster(yardcfsrate: YardCFSRate): Observable<any> {
     return this.http.put<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters/' +
-      yardcfsrate.yard_cfs_rate_syscode, JSON.stringify(yardcfsrate),this.HttpUploadOptions);
+      yardcfsrate.yardCfsRateMasterId, JSON.stringify(yardcfsrate), this.HttpUploadOptions);
   }
 
   getAllYardcfsrateMasters(): Observable<any> {

@@ -1,6 +1,6 @@
 export interface MasterType {
-    masterTypeId: number;
-    masterType: string;
-    sourceType: string;
-    destinationType: string;
+    masterTypeId?: number;
+    masterType?: string;
+    sourceType?: string;
+    destinationType?: string;
 }

@@ -18,7 +18,7 @@ import { PortService } from 'src/app/layouts/masters/services/port.service';
 })
 export class ZonedayMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'zone_day_syscode', 'zone_name', 'port_syscode', 'import','export', 'is_active', 'action'
+    'zone_day_syscode', 'zone_name', 'port_syscode', 'import', 'export', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public port: Array<Port> = [];
@@ -74,8 +74,8 @@ export class ZonedayMasterListComponent implements OnInit {
 
   getPortbyId(id): string {
     for (let i = 0; i < this.port.length; i++) {
-      if (this.port[i].port_syscode === id) {
-        return this.port[i].port_name;
+      if (this.port[i].portMasterId === id) {
+        return this.port[i].portName;
       }
     }
   }

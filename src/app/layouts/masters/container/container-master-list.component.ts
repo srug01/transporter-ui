@@ -45,11 +45,9 @@ export class ContainerMasterListComponent implements OnInit {
   getAllContainerMasters() {
     this._containerService.getAllContainerMasters().subscribe(
       (containerMasters) => {
-        console.log(containerMasters);
         this.containerMasters = containerMasters;
       },
       (err) => {
-        console.log('could not fetch container masters');
       }
     );
   }

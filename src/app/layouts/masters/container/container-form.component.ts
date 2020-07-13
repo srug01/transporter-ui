@@ -1,4 +1,4 @@
-import { Container } from './../../../shared/models/container';
+import { ContainerMaster } from '../../../shared/models/containerMaster';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
 import { NgZone, ViewChild } from '@angular/core';
@@ -15,7 +15,7 @@ import { ContianerService } from '../services/contianer.service';
   styleUrls: ['./container-form.component.scss']
 })
 export class ContainerFormComponent implements OnInit {
-  @Input('containerData') containerData: Container;
+  @Input('containerData') containerData: ContainerMaster;
   matcher = new FormErrorStateMatcher();
   public containerForm: FormGroup;
   constructor(
@@ -29,15 +29,15 @@ export class ContainerFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.containerData) {
       this.containerForm = this.fb.group({
-        container_syscode: [this.containerData.container_syscode ? this.containerData.container_syscode : ''],
-        container_name: [this.containerData.container_name ? this.containerData.container_name : '', Validators.required],
-        is_active: [this.containerData.is_active ? this.containerData.is_active : '', Validators.required]
+        containerMasterId: [this.containerData.containerMasterId ? this.containerData.containerMasterId : ''],
+        containerMasterName: [this.containerData.containerMasterName ? this.containerData.containerMasterName : '', Validators.required],
+        isActive: [this.containerData.isActive ? this.containerData.isActive : '', Validators.required]
       });
     } else {
       this.containerForm = this.fb.group({
-        container_syscode: [''],
-        container_name: ['', Validators.required],
-        is_active: ['', Validators.required]
+        containerMasterId: [''],
+        containerMasterName: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
 

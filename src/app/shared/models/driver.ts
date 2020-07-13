@@ -7,10 +7,10 @@ export interface Driver {
     citysyscode: number;
     statesyscode: number;
     countrysyscode: number;
-     pincode:number;
-     address:string;
-     is_active:boolean;
-     identitytypesyscode:number;
-     identitynumber:string;
+    pincode: number;
+    address: string;
+    is_active: boolean;
+    identitytypesyscode: number;
+    identitynumber: string;
 
 }

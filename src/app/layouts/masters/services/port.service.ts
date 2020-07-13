@@ -21,14 +21,12 @@ export class PortService {
   ) { }
 
   savePortMaster(port: Port): Observable<any> {
-    console.log(port);
-    delete port.port_syscode;
-    console.log(port);
+    delete port.portMasterId;
     return this.http.post<Port>(this.baseUrl + 'port-masters', JSON.stringify(port), this.HttpUploadOptions);
   }
 
   updatePortMaster(port: Port): Observable<any> {
-    return this.http.put<Port>(this.baseUrl + 'port-masters/'+ port.port_syscode, JSON.stringify(port), this.HttpUploadOptions);
+    return this.http.put<Port>(this.baseUrl + 'port-masters/'+ port.portMasterId, JSON.stringify(port), this.HttpUploadOptions);
   }
 
   getAllPortMasters(): Observable<any> {

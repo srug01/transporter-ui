@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Container } from './../../../shared/models/container';
+import { ContainerMaster } from '../../../shared/models/containerMaster';
 import { environment } from './../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -19,16 +19,14 @@ export class ContianerService {
     private http: HttpClient
   ) { }
 
-  saveContainerMaster(container: Container): Observable<any> {
-    console.log(container);
-    delete container.container_syscode;
-    console.log(container);
-    return this.http.post<Container>(this.baseUrl + 'container-masters', JSON.stringify(container), this.HttpUploadOptions);
+  saveContainerMaster(container: ContainerMaster): Observable<ContainerMaster> {
+    delete container.containerMasterId;
+    return this.http.post<ContainerMaster>(this.baseUrl + 'container-masters', JSON.stringify(container), this.HttpUploadOptions);
   }
 
-  updateContainerMaster(container: Container): Observable<any> {
-    return this.http.put<Container>(
-      this.baseUrl + 'container-masters/'+ container.container_syscode, JSON.stringify(container), 
+  updateContainerMaster(container: ContainerMaster): Observable<ContainerMaster> {
+    return this.http.put<ContainerMaster>(
+      this.baseUrl + 'container-masters/' + container.containerMasterId, JSON.stringify(container),
       this.HttpUploadOptions
     );
   }

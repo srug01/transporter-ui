@@ -1,4 +1,4 @@
-import { Container } from './../../../shared/models/container';
+import { ContainerMaster } from '../../../shared/models/containerMaster';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./container-edit.component.scss']
 })
 export class ContainerEditComponent implements OnInit {
-  public container: Container;
+  public container: ContainerMaster;
   constructor(
     private router: Router,
     private route: ActivatedRoute

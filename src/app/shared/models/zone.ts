@@ -1,7 +1,11 @@
 export interface Zone {
-    zone_syscode: number;
-    zone_name: string;
-    zone_description: string;
-    pincode: string;
-    is_active: boolean;
+    zoneMasterId?: number;
+    zoneName?: string;
+    pincode?: string;
+    isActive?: boolean;
+    createdBy?: number;
+    createdOn?: string;
+    modifiedBy?: number;
+    modifiedOn?: string;
+    zoneDesc?: string;
 }

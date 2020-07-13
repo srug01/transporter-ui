@@ -46,11 +46,9 @@ export class LocationListComponent implements OnInit {
   getAllLocationMasters() {
     this._locationService.getAllLocationMasters().subscribe(
       (locationMasters) => {
-        console.log(locationMasters);
         this.locationMasters = locationMasters;
       },
       (err) => {
-        console.log('could not fetch location masters');
       }
     );
   }

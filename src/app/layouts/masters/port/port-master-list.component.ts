@@ -72,19 +72,17 @@ export class PortMasterListComponent implements OnInit {
   getAllPortMasters() {
     this._portService.getAllPortMasters().subscribe(
       (portMasters) => {
-        console.log(portMasters);
         this.portMasters = portMasters;
       },
       (err) => {
-        console.log('could not fetch port masters');
       }
     );
   }
 
   getStatebyId(id): string {
     for (let i = 0; i < this.states.length; i++) {
-      if (this.states[i].state_syscode === id) {
-        return this.states[i].state;
+      if (this.states[i].stateMasterId === id) {
+        return this.states[i].stateName;
       }
     }
   }

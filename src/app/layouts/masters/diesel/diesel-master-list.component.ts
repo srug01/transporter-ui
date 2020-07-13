@@ -47,11 +47,9 @@ export class DieselMasterListComponent implements OnInit {
   getAllDieselMasters() {
     this._dieselService.getAllDieselMasters().subscribe(
       (dieselMasters) => {
-        console.log(dieselMasters);
         this.dieselMasters = dieselMasters;
       },
       (err) => {
-        console.log('could not fetch diesel masters');
       }
     );
   }

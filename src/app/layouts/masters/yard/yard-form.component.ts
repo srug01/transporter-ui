@@ -36,17 +36,17 @@ export class YardFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.yardData) {
       this.yardForm = this.fb.group({
-        yard_syscode: [this.yardData.yard_syscode ? this.yardData.yard_syscode : ''],
-        yard_name: [this.yardData.yard_name ? this.yardData.yard_name : '', Validators.required],
-        port_syscode: [this.yardData.port_syscode ? this.yardData.port_syscode : '', Validators.required],
-        is_active: [this.yardData.is_active ? this.yardData.is_active : '', Validators.required]
+        yardMasterId: [this.yardData.yardMasterId ? this.yardData.yardMasterId : ''],
+        yardName: [this.yardData.yardName ? this.yardData.yardName : '', Validators.required],
+        portId: [this.yardData.portId ? this.yardData.portId : '', Validators.required],
+        isActive: [this.yardData.isActive ? this.yardData.isActive : '', Validators.required]
       });
     } else {
       this.yardForm = this.fb.group({
-        yard_syscode: [''],
-        yard_name: ['', Validators.required],
-        port_syscode: ['', Validators.required],
-        is_active: ['', Validators.required]
+        yardMasterId: [''],
+        yardName: ['', Validators.required],
+        portId: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
     this.getAllPortMasters();

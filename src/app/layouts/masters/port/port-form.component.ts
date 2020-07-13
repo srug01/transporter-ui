@@ -47,19 +47,19 @@ export class PortFormComponent implements OnInit {
     this.getLocations();
     if (this.portData) {
       this.portForm = this.fb.group({
-        port_syscode: [this.portData.port_syscode ? this.portData.port_syscode : ''],
-        port_name: [this.portData.port_name ? this.portData.port_name : '', Validators.required],
-        state_syscode: [this.portData.state_syscode ? this.portData.state_syscode : '', Validators.required],
-        location_syscode: [this.portData.location_syscode ? this.portData.location_syscode : '', Validators.required],
-        is_active: [this.portData.is_active ? this.portData.is_active : '', Validators.required]
+        portMasterId: [this.portData.portMasterId ? this.portData.portMasterId : ''],
+        portName: [this.portData.portName ? this.portData.portName : '', Validators.required],
+        stateMasterId: [this.portData.stateMasterId ? this.portData.stateMasterId : '', Validators.required],
+        location: [this.portData.location ? this.portData.location : '', Validators.required],
+        isActive: [this.portData.isActive ? this.portData.isActive : '', Validators.required]
       });
     } else {
       this.portForm = this.fb.group({
-        port_syscode: [''],
-        port_name: ['', Validators.required],
-        state_syscode: ['', Validators.required],
-        location_syscode: ['', Validators.required],
-        is_active: ['', Validators.required]
+        portMasterId: [''],
+        portName: ['', Validators.required],
+        stateMasterId: ['', Validators.required],
+        location: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
     this.getAllStateMasters();
@@ -72,7 +72,6 @@ export class PortFormComponent implements OnInit {
         this.stateMasters = stateMasters;
       },
       (err) => {
-        console.log('could not fetch state masters');
       }
     );
   }

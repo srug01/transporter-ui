@@ -63,7 +63,6 @@ export class UserRegistrationComponent implements OnInit {
         this.cfsTypes = cfsTypes;
       },
       (err) => {
-        console.log('could not fetch cfs masters');
       }
     );
   }
@@ -73,7 +72,7 @@ export class UserRegistrationComponent implements OnInit {
     }
     if (this.userForm.valid) {
       this.saveUser(this.userForm);
-    } else {console.log(this.userForm);
+    } else {
       this.openSnackBar('Invalid Form !', 'Please Review All Fields');
     }
   }
@@ -81,7 +80,6 @@ export class UserRegistrationComponent implements OnInit {
   checkPasswords(group: FormGroup) {
     const password = group.get('cfs_user_password').value;
     const confirmpassword = group.get('cfs_user_confirm_password').value;
-    console.log(password === confirmpassword);
     return password === confirmpassword ? null : { notSame: true };
   }
 
@@ -92,24 +90,10 @@ export class UserRegistrationComponent implements OnInit {
         this._router.navigate(['/default/cfs/user-list']);
       },
       (err) => {
-        console.log('err');
         this.openSnackBar('Failure !', 'Could not create CFS User');
       }
     );
   }
-
-  /* getCfsData() {
-    this._userRegistrationService.getCfsUserData(2,4).subscribe(
-      (cfsData) => {
-        this.cfsData = cfsData;
-        console.log(this.cfsData);
-      },
-      (err) => {
-        console.log('could not fetch cfs masters');
-      }
-    );
-  } */
-
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

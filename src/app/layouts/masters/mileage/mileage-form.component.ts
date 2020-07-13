@@ -48,35 +48,23 @@ export class MileageFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.mileageData) {
       this.mileageForm = this.fb.group({
-        mileage_syscode: [this.mileageData.mileage_syscode ? this.mileageData.mileage_syscode : ''],
+        mileageId: [this.mileageData.mileageId ? this.mileageData.mileageId : ''],
         mileage: [this.mileageData.mileage ? this.mileageData.mileage : '', Validators.required],
-        weight_syscode: [this.mileageData.weight_syscode ? this.mileageData.weight_syscode : '', Validators.required],
-        container_syscode: [this.mileageData.container_syscode ? this.mileageData.container_syscode : '', Validators.required],
-        is_active: [this.mileageData.is_active ? this.mileageData.is_active : '', Validators.required]
+        weightId: [this.mileageData.weightId ? this.mileageData.weightId : '', Validators.required],
+        containerId: [this.mileageData.containerId ? this.mileageData.containerId : '', Validators.required],
+        isActive: [this.mileageData.isActive ? this.mileageData.isActive : '', Validators.required]
       });
     } else {
       this.mileageForm = this.fb.group({
-        mileage_syscode: [''],
+        mileageId: [''],
         mileage: ['', Validators.required],
-        weight_syscode: ['', Validators.required],
-        container_syscode: ['', Validators.required],
-        is_active: ['', Validators.required]
+        weightId: ['', Validators.required],
+        containerId: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
   //  this.getAllMileageMasters();
   }
-
-  // getAllMileageMasters() {
-  //   this._mileageService.getAllMileageMasters().subscribe(
-  //     (mileageMasters) => {
-  //       this.mileageMasters = mileageMasters;
-  //     },
-  //     (err) => {
-  //       console.log('could not fetch state masters');
-  //     }
-  //   );
-  // }
-
 
   submitMileageForm(ev) {
     if (ev) {

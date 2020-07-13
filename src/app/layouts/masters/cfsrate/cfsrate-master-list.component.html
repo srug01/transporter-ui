@@ -1,58 +1,77 @@
-<mat-card-content>
-  <table mat-table [dataSource]="cfsrateMasters" class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>CFS Rate</mat-card-title>
+        <mat-card-subtitle>List</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div fxFill="100%" fxLayout="row" class="action-wrapper">
+            <div>
+                <a routerLink='/default/masters/cfs-rate/new' mat-raised-button color="primary">Add New CFS Rate</a>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Search CFS Rate</mat-label>
+                    <input matInput placeholder="Search CFS Rate">
+                </mat-form-field>
+                <a><i class="fa fa-search" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <table mat-table [dataSource]="cfsrateMasters" class="mat-elevation-z8">
+            <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="cfs_rate_syscode">
-      <th mat-header-cell *matHeaderCellDef> # </th>
-      <td mat-cell *matCellDef="let element"> {{element.cfs_rate_syscode}} </td>
-    </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="cfs_rate_syscode">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let element"> {{element.cfs_rate_syscode}} </td>
+            </ng-container>
 
-    <!-- Name Column -->
+            <!-- Name Column -->
 
-    <ng-container matColumnDef="cfs_syscode">
-      <th mat-header-cell *matHeaderCellDef> CFS Code </th>
-      <td mat-cell *matCellDef="let element"> {{getCFSbyId(element.cfsMasterId)}} </td>
-    </ng-container>
+            <ng-container matColumnDef="cfs_syscode">
+                <th mat-header-cell *matHeaderCellDef> CFS Code </th>
+                <td mat-cell *matCellDef="let element"> {{getCFSbyId(element.cfsMasterId)}} </td>
+            </ng-container>
 
-    <ng-container matColumnDef="port_syscode">
-      <th mat-header-cell *matHeaderCellDef> Port  </th>
-      <td mat-cell *matCellDef="let element"> {{getPortbyId(element.port_syscode)}} </td>
-    </ng-container>
+            <ng-container matColumnDef="port_syscode">
+                <th mat-header-cell *matHeaderCellDef> Port </th>
+                <td mat-cell *matCellDef="let element"> {{getPortbyId(element.port_syscode)}} </td>
+            </ng-container>
 
-    <ng-container matColumnDef="weight_syscode">
-      <th mat-header-cell *matHeaderCellDef> Weight Code </th>
-      <td mat-cell *matCellDef="let element"> {{getWeightbyId(element.weight_syscode)}} </td>
-    </ng-container>
+            <ng-container matColumnDef="weight_syscode">
+                <th mat-header-cell *matHeaderCellDef> Weight Code </th>
+                <td mat-cell *matCellDef="let element"> {{getWeightbyId(element.weight_syscode)}} </td>
+            </ng-container>
 
-    <ng-container matColumnDef="container_syscode">
-      <th mat-header-cell *matHeaderCellDef> Container </th>
-      <td mat-cell *matCellDef="let element"> {{getContainerbyId(element.container_syscode)}} </td>
-    </ng-container>
+            <ng-container matColumnDef="container_syscode">
+                <th mat-header-cell *matHeaderCellDef> Container </th>
+                <td mat-cell *matCellDef="let element"> {{getContainerbyId(element.container_syscode)}} </td>
+            </ng-container>
 
 
-    <ng-container matColumnDef="rate">
-      <th mat-header-cell *matHeaderCellDef> Rate </th>
-      <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
-    </ng-container>
+            <ng-container matColumnDef="rate">
+                <th mat-header-cell *matHeaderCellDef> Rate </th>
+                <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+            </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="is_active">
-      <th mat-header-cell *matHeaderCellDef> Active </th>
-      <td mat-cell *matCellDef="let element"> {{element.is_active}} </td>
-    </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="is_active">
+                <th mat-header-cell *matHeaderCellDef> Active </th>
+                <td mat-cell *matCellDef="let element"> {{element.is_active}} </td>
+            </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <a><i class="material-icons md-24 p5"
-            [routerLink]="['/default/masters/cfs-rate/edit/',element.cfs_rate_syscode]">create</i></a>
-        <a><i class="material-icons md-24 p5" (click)="openDialog($event,element.cfs_rate_syscode)">delete_sweep</i></a>
-      </td>
-    </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <a><i class="material-icons md-24 p5"
+              [routerLink]="['/default/masters/cfs-rate/edit/',element.cfs_rate_syscode]">create</i></a>
+                    <a><i class="material-icons md-24 p5"
+              (click)="openDialog($event,element.cfs_rate_syscode)">delete_sweep</i></a>
+                </td>
+            </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</mat-card-content>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>

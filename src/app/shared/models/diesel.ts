@@ -1,10 +1,10 @@
 export interface Diesel {
-    diesel_rate_syscode: number;
-    diesel_rate: number;
-    date:Date;
-    created_by: number;
-    created_on: string;
-     is_active:boolean;
-
-
+    dieselRateId?: number;
+    dieselRate?: number;
+    dieselRateDate?: string;
+    isActive?: boolean;
+    createdBy?: number;
+    createdOn?: string;
+    modifiedBy?: number;
+    modifiedOn?: string;
 }

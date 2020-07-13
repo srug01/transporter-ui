@@ -280,9 +280,22 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: CfsrateMasterListComponent },
       { path: 'new', component: CfsrateNewComponent },
-      { path: 'edit/:id', component: CfsrateEditComponent, 
-      resolve: { cfsrateResolver: CfsrateResolver } },
+      {
+        path: 'edit/:id', component: CfsrateEditComponent,
+        resolve: { cfsrateResolver: CfsrateResolver }
+      },
       { path: 'details/:id', component: CfsrateDetailsComponent }
+
+    ]
+  },
+  {
+    path: 'settings', component: SettingComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: SettingListComponent },
+      { path: 'new', component: SettingNewComponent },
+      { path: 'edit/:id', component: SettingEditComponent },
+      { path: 'details/:id', component: SettingDetailsComponent }
 
     ]
   },
@@ -333,7 +346,8 @@ const routes: Routes = [
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
   { path: 'mileage-master-list', component: MileageMasterListComponent },
   { path: 'zone-master-list', component: ZoneMasterListComponent },
-  { path: 'zone-day-master-list', component: ZonedayMasterListComponent,
+  {
+    path: 'zone-day-master-list', component: ZonedayMasterListComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: ZonedayMasterListComponent },

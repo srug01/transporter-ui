@@ -63,7 +63,7 @@ export class OrderListComponent implements OnInit {
       (orders: Order[]) => {
         this.orders = orders;
         this.orderUserIds = this.orders.map((order) => {
-          return { id: order.created_by };
+          return { id: order.createdBy };
         });
         this.orderUserIds = this.orderUserIds.reduce((accumulator, currentValue) => {
           const indx = accumulator.findIndex((val) => val.id === currentValue.id);

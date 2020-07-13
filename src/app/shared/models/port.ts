@@ -1,8 +1,13 @@
 export interface Port {
-    port_syscode: number;
-    port_name: string;
-    port: string;
-    state_syscode: number;
-    location_syscode: number;
-    is_active: boolean;
+    portMasterId?: number;
+    portName?: string;
+    stateMasterId?: number;
+    location?: string;
+    isActive?: boolean;
+    createdBy?: number;
+    createdOn?: string;
+    modifiedBy?: number;
+    modifiedOn?: string;
+    latitude?: string;
+    longitude?: string;
 }

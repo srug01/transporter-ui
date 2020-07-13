@@ -1,10 +1,13 @@
 export class User {
-    id: number;
+    name?: string;
+    userId?: number;
     email: string;
+    password: string;
     firstName: string;
     lastName: string;
     mobileNumber: string;
-    permissions: any;
     typeSyscode: number;
-    name?: string;
+    roles: any[];
+    id: number;
+    permissions: any;
 }

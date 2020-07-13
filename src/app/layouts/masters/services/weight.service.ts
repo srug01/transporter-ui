@@ -23,13 +23,13 @@ export class WeightService {
 
   saveWeightMaster(weight: Weight): Observable<any> {
     console.log(weight);
-    delete weight.weight_syscode;
+    delete weight.weightMasterId;
     console.log(weight);
     return this.http.post<Weight>(this.baseUrl + 'weight-masters', JSON.stringify(weight), this.HttpUploadOptions);
   }
 
   updateWeightMaster(weight: Weight): Observable<any> {
-    return this.http.put<Weight>(this.baseUrl + 'weight-masters/'+ weight.weight_syscode, JSON.stringify(weight), this.HttpUploadOptions);
+    return this.http.put<Weight>(this.baseUrl + 'weight-masters/'+ weight.weightMasterId, JSON.stringify(weight), this.HttpUploadOptions);
   }
 
   getAllWeightMasters(): Observable<any> {

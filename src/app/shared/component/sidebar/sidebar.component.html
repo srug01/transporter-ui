@@ -11,7 +11,7 @@
     <a mat-list-item class="menu-item" routerLinkActive="list-item-active" routerLink='/default'><i
             class="fas dashboard-icon fa-tachometer-alt fa-lg md-24 p5"></i><span class="menu-text">Dashboard</span></a>
     <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 4 || currentUser.typeSyscode === 0">
-        <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1"><i
+        <a mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1"><i
                 class="fas fa fa-cubes fa-lg md-24 p5 cfs-icon" aria-hidden="true"></i><span
                 class="menu-text">CFS</span></a>
         <mat-menu #menu1="matMenu">
@@ -24,7 +24,7 @@
     </div>
 
     <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5 || currentUser.typeSyscode === 0">
-        <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2"><i
+        <a mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2"><i
                 class="fas transporter-icon fa fa-truck fa-lg md-24 p5" aria-hidden="true"></i><span
                 class="menu-text">Transporter</span></a>
         <mat-menu #menu2="matMenu">
@@ -38,8 +38,8 @@
             <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
         </mat-menu>
     </div>
-    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 0">        
-        <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
+    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 0">
+        <a mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
             <i class="fas fa fa-briefcase fa-lg md-24 p5 masters-icon" aria-hidden="true"></i><span class="menu-text">Masters</span></a>
         <mat-menu #menu4="matMenu">
             <button mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</button>
@@ -51,11 +51,11 @@
             <button mat-menu-item routerLink='/default/masters/port/list'>Port Master</button>
             <button mat-menu-item routerLink='/default/masters/state-master-list'>State Master</button>
             <button mat-menu-item routerLink='/default/masters/weight/list'>Weight Master</button>
-            <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>        
-            <button mat-menu-item routerLink='/default/masters/yard-port-map/list'>Yard Port Mapping</button>            
-            <button mat-menu-item routerLink='/default/masters/yardcfsrate/list'>Yard CFS Rate Master</button>  
+            <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>
+            <button mat-menu-item routerLink='/default/masters/yard-port-map/list'>Yard Port Mapping</button>
+            <button mat-menu-item routerLink='/default/masters/yardcfsrate/list'>Yard CFS Rate Master</button>
             <button mat-menu-item routerLink='/default/masters/zone/list'>Zone Master</button>
-            <button mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</button>       
+            <button mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</button>
         </mat-menu>
     </div>
     <mat-divider></mat-divider>

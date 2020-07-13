@@ -92,8 +92,8 @@ export class OrderDetailsComponent implements OnInit {
 
   searchPortById(id): string {
     for (let i = 0; i < this.portMasters.length; i++) {
-      if (this.portMasters[i].port_syscode === id) {
-        return this.portMasters[i].port_name;
+      if (this.portMasters[i].portMasterId === id) {
+        return this.portMasters[i].portName;
       }
     }
   }
@@ -101,15 +101,15 @@ export class OrderDetailsComponent implements OnInit {
   searchCfsById(id): string {
     for (let i = 0; i < this.cfsMasters.length; i++) {
       if (this.cfsMasters[i].cfsMasterId === id) {
-        return this.cfsMasters[i].cfs_name;
+        return this.cfsMasters[i].cfsName;
       }
     }
   }
 
   searchYardById(id): string {
     for (let i = 0; i < this.yardMasters.length; i++) {
-      if (this.yardMasters[i].yard_syscode === id) {
-        return this.yardMasters[i].yard_name;
+      if (this.yardMasters[i].yardMasterId === id) {
+        return this.yardMasters[i].yardName;
       }
     }
   }

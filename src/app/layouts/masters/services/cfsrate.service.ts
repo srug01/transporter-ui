@@ -20,15 +20,13 @@ export class CfsrateService {
   ) { }
 
   saveCfsRateMaster(cfsrate: Cfsrate): Observable<any> {
-    console.log(cfsrate);
-    delete cfsrate.cfs_rate_syscode;
-    console.log(cfsrate);
+    delete cfsrate.cfsRateId;
     return this.http.post<Cfsrate>(this.baseUrl + 'cfs-rate-masters', JSON.stringify(cfsrate), this.HttpUploadOptions);
   }
 
   updateCfsRateMaster(cfsrate: Cfsrate): Observable<any> {
     return this.http.put<Cfsrate>(
-      this.baseUrl + 'cfs-rate-masters/' + cfsrate.cfs_rate_syscode,
+      this.baseUrl + 'cfs-rate-masters/' + cfsrate.cfsRateId,
       JSON.stringify(cfsrate), this.HttpUploadOptions
     );
   }

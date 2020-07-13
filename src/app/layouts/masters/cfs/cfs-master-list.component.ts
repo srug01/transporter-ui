@@ -40,7 +40,6 @@ export class CfsMasterListComponent implements OnInit {
   }
 
   demo(ev) {
-    console.log(ev);
   }
   openDialog(ev, cfsId: number) {
     if (ev) {
@@ -58,11 +57,9 @@ export class CfsMasterListComponent implements OnInit {
   getAllCfsMasters() {
     this._cfsService.getAllCfsMasters().subscribe(
       (cfsMasters) => {
-        console.log(cfsMasters);
         this.cfsMasters = cfsMasters;
       },
       (err) => {
-        console.log('could not fetch cfs masters');
       }
     );
   }
@@ -86,7 +83,6 @@ export class CfsMasterListComponent implements OnInit {
     if(term.length === 0) {
       return false;
     }
-    console.log(item);
     // term = term.toLocaleLowerCase();
     return true;
     // return item.code.toLocaleLowerCase().indexOf(term) > -1 || item.countryName.toLocaleLowerCase() === term;

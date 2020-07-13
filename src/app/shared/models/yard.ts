@@ -1,6 +1,14 @@
 export interface Yard {
-  yard_syscode: number;
-  yard_name: string;
-  port_syscode: number;
-  is_active: boolean;
+  yardMasterId?: number;
+  yardName?: string;
+  portId?: number;
+  isActive?: boolean;
+  address?: string;
+  pincode?: string;
+  latitude?: string;
+  longitude?: string;
+  createdBy?: number;
+  modifiedBy?: number;
+  createdOn?: string;
+  modifiedOn?: string;
 }

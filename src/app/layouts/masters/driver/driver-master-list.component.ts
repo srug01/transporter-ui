@@ -31,11 +31,9 @@ export class DriverMasterListComponent implements OnInit {
   getAllDriverMasters() {
     this._driverService.getAllDriverMasters().subscribe(
       (driverMasters) => {
-        console.log(driverMasters);
         this.driverMasters = driverMasters;
       },
       (err) => {
-        console.log('could not fetch Driver masters');
       }
     );
   }

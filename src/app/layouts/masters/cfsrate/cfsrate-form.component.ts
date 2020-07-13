@@ -39,24 +39,23 @@ export class CfsrateFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.cfsrateData) {
       this.cfsrateForm = this.fb.group({
-        cfs_rate_syscode: [this.cfsrateData.cfs_rate_syscode ? this.cfsrateData.cfs_rate_syscode : ''],
-        cfs_syscode: [this.cfsrateData.cfs_syscode ? this.cfsrateData.cfs_syscode : '', Validators.required],
-        port_syscode: [this.cfsrateData.port_syscode ? this.cfsrateData.port_syscode : '', Validators.required],
-        container_syscode: [this.cfsrateData.container_syscode ?
-          this.cfsrateData.container_syscode : '', Validators.required],
-        weight_syscode: [this.cfsrateData.weight_syscode ? this.cfsrateData.weight_syscode : '', Validators.required],
+        cfsRateId: [this.cfsrateData.cfsRateId ? this.cfsrateData.cfsRateId : ''],
+        cfsId: [this.cfsrateData.cfsId ? this.cfsrateData.cfsId : '', Validators.required],
+        portId: [this.cfsrateData.portId ? this.cfsrateData.portId : '', Validators.required],
+        cotainerId: [this.cfsrateData.cotainerId ? this.cfsrateData.cotainerId : '', Validators.required],
+        weightId: [this.cfsrateData.weightId ? this.cfsrateData.weightId : '', Validators.required],
         rate: [this.cfsrateData.rate ? this.cfsrateData.rate : 0, Validators.required],
-        is_active: [this.cfsrateData.is_active ? this.cfsrateData.is_active : '', Validators.required]
+        isActive: [this.cfsrateData.isActive ? this.cfsrateData.isActive : '', Validators.required]
       });
     } else {
       this.cfsrateForm = this.fb.group({
-        cfs_rate_syscode: [''],
-        cfs_syscode: ['', Validators.required],
-        port_syscode: ['', Validators.required],
-        container_syscode: ['', Validators.required],
-        weight_syscode: ['', Validators.required],
+        cfsRateId: [''],
+        cfsId: ['', Validators.required],
+        portId: ['', Validators.required],
+        cotainerId: ['', Validators.required],
+        weightId: ['', Validators.required],
         rate: [0, Validators.required],
-        is_active: ['', Validators.required]
+        isActive: ['', Validators.required]
       });
     }
     this.getAllPortMasters();
@@ -73,7 +72,6 @@ export class CfsrateFormComponent implements OnInit {
         this.containerMaster = containerMasters;
       },
       (err) => {
-        console.log('could not fetch Container masters');
       }
     );
   }
@@ -83,7 +81,6 @@ export class CfsrateFormComponent implements OnInit {
         this.portMasters = portMasters;
       },
       (err) => {
-        console.log('could not fetch port masters');
       }
     );
   }
@@ -94,7 +91,6 @@ export class CfsrateFormComponent implements OnInit {
         this.weightMasters = weightMasters;
       },
       (err) => {
-        console.log('could not fetch weight masters');
       }
     );
   }
@@ -105,7 +101,6 @@ export class CfsrateFormComponent implements OnInit {
         this.cfsMasters = cfsMasters;
       },
       (err) => {
-        console.log('could not fetch cfs masters');
       }
     );
   }
@@ -114,8 +109,6 @@ export class CfsrateFormComponent implements OnInit {
     if (ev) {
       ev.preventDefault();
     }
-    console.log(this.cfsrateForm);
-    
     if (this.cfsrateForm.valid) {
       if (!this.cfsrateData) {
         this.saveCfsrateMaster(this.cfsrateForm);
@@ -135,7 +128,6 @@ export class CfsrateFormComponent implements OnInit {
         this._router.navigate(['/default/masters/cfs-rate/list']);
       },
       (err) => {
-        console.log('err');
         this.openSnackBar('Failure !', 'Could not create CFS Rate Master!');
       }
     );
@@ -148,7 +140,6 @@ export class CfsrateFormComponent implements OnInit {
         this._router.navigate(['/default/masters/cfs-rate/list']);
       },
       (err) => {
-        console.log('err');
         this.openSnackBar('Failure !', 'Could not update CFS Rate Master!');
       }
     );

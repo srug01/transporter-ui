@@ -1,9 +1,13 @@
 export interface Cfsrate {
-  cfs_rate_syscode: number;
-  cfs_syscode: number;
-  port_syscode: number;
-  container_syscode: number;
-  weight_syscode: number;
-  rate: number;
-  is_active: boolean;
+  cfsRateId?: number;
+  cfsId?: number;
+  portId?: number;
+  weightId?: number;
+  rate?: number;
+  isActive?: boolean;
+  createdBy?: number;
+  createdOn?: string;
+  modifiedBy?: number;
+  modifiedOn?: string;
+  cotainerId?: number;
 }

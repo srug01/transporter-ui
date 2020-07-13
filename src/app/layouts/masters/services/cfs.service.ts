@@ -22,9 +22,7 @@ export class CfsService {
   ) { }
 
   saveCfsMaster(cfs: Cfs): Observable<any> {
-    console.log(cfs);
     delete cfs.cfsMasterId;
-    console.log(cfs);
     return this.http.post<Cfs>(this.baseUrl + 'cfs-masters', JSON.stringify(cfs), this.HttpUploadOptions);
   }
 
@@ -36,30 +34,7 @@ export class CfsService {
   getAllCfsMasters(): Observable<any> {
     const filter = {
       fields: {
-        cfsMasterId: true,
-        cfs_name: true,
-        contact_no: true,
-        email_id: true,
-        address: true,
-        pincode: true,
-        cfs_code_no: true,
-        gstn: true,
-        pan: true,
-        tan: true,
-        primary_contact_name: true,
-        primary_mobile_no: true,
-        additional_contact_name: true,
-        additional_mobile_no: true,
-        port_syscode: true,
-        is_active: true,
-        created_by: true,
-        created_on: true,
-        modified_by: true,
-        modified_on: true,
-        locationId: true,
-        roleId: true,
-        userId: true,
-
+        cfsMasterId: true
       }
     }
     return this.http.get(this.baseUrl + 'cfs-masters?filter=' + JSON.stringify(filter));
