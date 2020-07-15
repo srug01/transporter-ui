@@ -32,12 +32,7 @@ export class CfsService {
   }
 
   getAllCfsMasters(): Observable<any> {
-    const filter = {
-      fields: {
-        cfsMasterId: true
-      }
-    }
-    return this.http.get(this.baseUrl + 'cfs-masters?filter=' + JSON.stringify(filter));
+    return this.http.get(this.baseUrl + 'cfs-masters', this.HttpUploadOptions);
   }
 
   getCfsMasterById(id: number): Observable<any> {

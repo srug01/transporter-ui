@@ -1,3 +1,4 @@
+import { LocationMaster } from './../../../shared/models/location';
 import { State } from './../../../shared/models/state';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -25,12 +26,16 @@ export class StateMasterService {
     return this.http.post<State>(this.baseUrl + 'state-masters', JSON.stringify(state), this.HttpUploadOptions);
   }
   updateStateMaster(state: State): Observable<any> {
-    return this.http.put<State>(this.baseUrl + 'state-masters/'+ state.stateMasterId,
-     JSON.stringify(state), this.HttpUploadOptions);
+    return this.http.put<State>(this.baseUrl + 'state-masters/' + state.stateMasterId,
+      JSON.stringify(state), this.HttpUploadOptions);
   }
 
   getAllStateMasters(): Observable<any> {
     return this.http.get(this.baseUrl + 'state-masters');
+  }
+
+  getAllLocationMastersByStateId(stateMasterId: number): Observable<Array<LocationMaster>> {
+    return this.http.get<Array<LocationMaster>>(`${this.baseUrl}state-masters/${stateMasterId}/location-masters`);
   }
 
   getStateMastersById(id: number): Observable<any> {

@@ -69,16 +69,7 @@ export class CreateOrderComponent implements OnInit {
   //   { value: '3', viewValue: '3 TON' }
   // ];
 
-  getAllWeightMasters() {
-    this._weightService.getAllWeightMasters().subscribe(
-      (weightMasters) => {
-        this.weights = weightMasters;
-      },
-      (err) => {
-        console.log('could not fetch weight masters');
-      }
-    );
-  }
+
 
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
@@ -134,6 +125,17 @@ export class CreateOrderComponent implements OnInit {
     this.getAllYards();
   }
 
+  getAllWeightMasters() {
+    this._weightService.getAllWeightMasters().subscribe(
+      (weightMasters) => {
+        this.weights = weightMasters;
+      },
+      (err) => {
+        console.log('could not fetch weight masters');
+      }
+    );
+  }
+
   masterTypeSelected(masterTypeId) {
     this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
       (masterType: MasterType) => {
@@ -158,7 +160,7 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
-  getAllContainers(){
+  getAllContainers() {
     this._containerService.getAllContainerMasters().subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
@@ -295,9 +297,9 @@ export class CreateOrderComponent implements OnInit {
       destination_syscode: Number(order.destination),
       source_syscode: Number(order.source),
       is_delete: false,
-      created_by: this.currentUser.id,
+      created_by: this.currentUser.userId,
       created_on: new Date(),
-      modify_by: this.currentUser.id,
+      modify_by: this.currentUser.userId,
       modify_on: new Date(),
       source_type: this.getMasterTypeSource(order.masterType),
       destination_type: this.getMasterTypeDestination(order.masterType),
@@ -358,7 +360,7 @@ export class CreateOrderComponent implements OnInit {
           orderId: res.orderId,
           assignedToRole: 1,
           assignedToUser: null,
-          createdBy: this.currentUser.id,
+          createdBy: this.currentUser.userId,
           createdOn: new Date(),
           isRead: false,
           notificationDesc: `${this.currentUser.name} placed a new Order on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,

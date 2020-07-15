@@ -2,12 +2,12 @@ export interface Port {
     portMasterId?: number;
     portName?: string;
     stateMasterId?: number;
-    location?: string;
+    locationMasterId?: string;
     isActive?: boolean;
     createdBy?: number;
-    createdOn?: string;
+    createdOn?: Date;
     modifiedBy?: number;
-    modifiedOn?: string;
+    modifiedOn?: Date;
     latitude?: string;
     longitude?: string;
 }

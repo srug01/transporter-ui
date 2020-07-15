@@ -84,7 +84,7 @@ export class PlacedBidsComponent implements OnInit {
           orderId: 1,
           assignedToRole: 1,
           assignedToUser: null,
-          createdBy: this.currentUser.id,
+          createdBy: this.currentUser.userId,
           createdOn: new Date(),
           isRead: false,
           notificationDesc: `${this.currentUser.name} confirmed a bid on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
@@ -119,7 +119,7 @@ export class PlacedBidsComponent implements OnInit {
       bidName: bid.bidName,
       bidStatus: action,
       bidValue: bid.bidRate,
-      userId: this.currentUser.id
+      userId: this.currentUser.userId
     } as BidUserMapping;
   }
 

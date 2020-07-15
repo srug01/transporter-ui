@@ -1,3 +1,4 @@
+import { Port } from './../../../shared/models/port';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -7,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
-import { StateMasterService} from './../services/state-master.service';
-import {  LocationService } from './../services/location.service';
+import { StateMasterService } from './../services/state-master.service';
+import { LocationService } from './../services/location.service';
 import { State } from 'src/app/shared/models/state';
 import { LocationMaster } from 'src/app/shared/models/location';
 
@@ -19,20 +20,20 @@ import { LocationMaster } from 'src/app/shared/models/location';
 })
 export class PortMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'port_syscode', 'port_name', 'state_syscode', 'location_syscode', 'is_active', 'action'
+    'portMasterId', 'portName', 'stateMasterId', 'locationMasterId', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public portMasters: Array<any> = [];
+  public portMasters: Array<Port> = [];
   public states: Array<State> = [];
   public locations: Array<LocationMaster> = [];
 
   constructor(
-      private _portService: PortService,
-      private _stateService: StateMasterService,
-      private _locationService: LocationService,
-      private _snackBar: MatSnackBar,
-      private _router: Router,
-      public dialog: MatDialog
+    private _portService: PortService,
+    private _stateService: StateMasterService,
+    private _locationService: LocationService,
+    private _snackBar: MatSnackBar,
+    private _router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -71,7 +72,7 @@ export class PortMasterListComponent implements OnInit {
 
   getAllPortMasters() {
     this._portService.getAllPortMasters().subscribe(
-      (portMasters) => {
+      (portMasters: Port[]) => {
         this.portMasters = portMasters;
       },
       (err) => {
@@ -87,8 +88,7 @@ export class PortMasterListComponent implements OnInit {
     }
   }
 
-  getLocationbyId(id): string
-  {
+  getLocationbyId(id): string {
 
     for (let i = 0; i < this.locations.length; i++) {
       if (this.locations[i].locationId === id) {
