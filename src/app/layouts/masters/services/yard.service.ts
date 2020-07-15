@@ -21,9 +21,7 @@ export class YardService {
   ) { }
 
   saveYardMaster(yard: Yard): Observable<any> {
-    console.log(yard);
     delete yard.yardMasterId;
-    console.log(yard);
     return this.http.post<Yard>(this.baseUrl + 'yard-masters', JSON.stringify(yard), this.HttpUploadOptions);
   }
 

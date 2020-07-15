@@ -9,7 +9,7 @@ import { CfsrateService } from '../services/cfsrate.service';
 import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
 
 @Component({
   selector: 'app-cfsrate-form',
@@ -29,7 +29,7 @@ export class CfsrateFormComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _cfsrateService: CfsrateService,
-    private _containerService: ContianerService,
+    private _containerService: ContainerService,
     private _portService: PortService,
     private _weightService: WeightService,
     private _cfsService: CfsService,

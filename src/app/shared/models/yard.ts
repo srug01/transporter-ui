@@ -1,7 +1,7 @@
 export interface Yard {
   yardMasterId?: number;
   yardName?: string;
-  portId?: number;
+  portMasterId?: number;
   isActive?: boolean;
   address?: string;
   pincode?: string;
@@ -9,6 +9,6 @@ export interface Yard {
   longitude?: string;
   createdBy?: number;
   modifiedBy?: number;
-  createdOn?: string;
-  modifiedOn?: string;
+  createdOn?: Date;
+  modifiedOn?: Date;
 }

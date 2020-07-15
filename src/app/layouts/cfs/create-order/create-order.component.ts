@@ -25,7 +25,7 @@ import { User } from 'src/app/shared/models/user';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { WeightService } from '../../masters/services/weight.service';
-import { ContianerService } from '../../masters/services/contianer.service';
+import { ContainerService } from '../../masters/services/container.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -93,7 +93,7 @@ export class CreateOrderComponent implements OnInit {
     private _notificationService: NotificationService,
     private datePipe: DatePipe,
     private _weightService: WeightService,
-    private _containerService: ContianerService
+    private _containerService: ContainerService
   ) { }
 
 
@@ -101,7 +101,6 @@ export class CreateOrderComponent implements OnInit {
     this.getUserInfo();
     this.getMasterTypes();
     this.getLocations();
-    this.getCFSLocation();
     this.initialiseOrderForm();
     this.getAllWeightMasters();
     this.getAllContainers();
@@ -209,19 +208,6 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-      }
-    );
-  }
-
-  getCFSLocation() {
-    const userId = localStorage.getItem('userID');
-    this._orderService.getCfsLocation(Number(userId)).subscribe(
-      (cfsLocation) => {
-        this.cfsLocation = cfsLocation;
-
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }

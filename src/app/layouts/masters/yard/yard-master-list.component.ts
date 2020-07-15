@@ -17,8 +17,8 @@ import { PortService } from '../services/port.service';
 })
 export class YardMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'yard_syscode', 'yard_name',
-    'port','is_active', 'action'
+    'yardMasterId', 'yardName',
+    'port','isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public yardMasters: Array<any> = [];
@@ -73,8 +73,8 @@ export class YardMasterListComponent implements OnInit {
   }
   getPortbyId(id): string {
     for (let i = 0; i < this.portMasters.length; i++) {
-      if (this.portMasters[i].port_syscode === id) {
-        return this.portMasters[i].port_name;
+      if (this.portMasters[i].portMasterId === id) {
+        return this.portMasters[i].portName;
       }
     }
   }

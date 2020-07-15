@@ -1,3 +1,4 @@
+import { Weight } from './../../../shared/models/weight';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -16,11 +17,11 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 })
 export class WeightMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'weight_syscode', 'weight_description',
-    'is_active', 'action'
+    'weightMasterId', 'weightDesc','container',
+    'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public weightMasters: Array<any> = [];
+  public weightMasters: Array<Weight> = [];
   constructor(
     private _weightService: WeightService,
     private _snackBar: MatSnackBar,
@@ -46,8 +47,7 @@ export class WeightMasterListComponent implements OnInit {
 
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
-      (weightMasters) => {
-        console.log(weightMasters);
+      (weightMasters: Weight[]) => {
         this.weightMasters = weightMasters;
       },
       (err) => {

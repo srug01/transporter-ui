@@ -13,10 +13,10 @@ export interface Cfs {
   primaryContactNumber?: string;
   additionalContactName?: string;
   additionalContactNumber?: string;
-  portId?: number;
+  portMasterId?: number;
   createdBy?: number;
-  createdOn?: string;
+  createdOn?: Date;
   modifiedBy?: number;
-  modifiedOn?: string;
+  modifiedOn?: Date;
   isActive?: boolean;
 }

@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class CfsrateMasterListComponent implements OnInit {
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
   constructor(
-    private _containerService: ContianerService,
+    private _containerService: ContainerService,
     private _cfsrateService: CfsrateService,
     private _snackBar: MatSnackBar,
     private _router: Router,

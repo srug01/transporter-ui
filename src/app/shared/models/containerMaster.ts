@@ -3,7 +3,7 @@ export interface ContainerMaster {
   containerMasterName?: string;
   isActive?: boolean;
   createdBy?: number;
-  createdOn?: string;
+  createdOn?: Date;
   modifiedBy?: number;
-  modifiedOn?: string;
+  modifiedOn?: Date;
 }

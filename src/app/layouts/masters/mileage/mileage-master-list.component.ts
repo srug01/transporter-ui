@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { WeightService } from '../services/weight.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
 
 @Component({
   selector: 'app-mileage-master-list',
@@ -31,7 +31,7 @@ export class MileageMasterListComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _router: Router,
     private _weightService:WeightService,
-    private _containerService:ContianerService,
+    private _containerService:ContainerService,
 
     public dialog: MatDialog) { }
 

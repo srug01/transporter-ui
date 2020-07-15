@@ -16,11 +16,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 })
 export class CfsMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'cfsMasterId', 'cfs_name', 'contact_no', 'email_id',
-    'address',//'pincode','cfs_code_no','gstn','pan',
-    // 'tan','primary_contact_name','primary_mobile_no',
-    // 'additional_contact_name','additional_mobile_no','port_syscode',
-    'is_active', 'action'
+    'cfsMasterId', 'cfsName', 'contactNumber', 'email',
+    'address', 'isActive', 'created By', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public cfsMasters: Array<any> = [];
@@ -46,7 +43,6 @@ export class CfsMasterListComponent implements OnInit {
       ev.preventDefault();
     }
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteCfsById(cfsId);
@@ -58,6 +54,7 @@ export class CfsMasterListComponent implements OnInit {
     this._cfsService.getAllCfsMasters().subscribe(
       (cfsMasters) => {
         this.cfsMasters = cfsMasters;
+        console.log(this.cfsMasters);
       },
       (err) => {
       }
@@ -80,7 +77,7 @@ export class CfsMasterListComponent implements OnInit {
   }
 
   searchCfsMasters(term: string, item: any) {
-    if(term.length === 0) {
+    if (term.length === 0) {
       return false;
     }
     // term = term.toLocaleLowerCase();

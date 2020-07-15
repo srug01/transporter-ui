@@ -1,201 +1,96 @@
-
 <div fxLayout="row wrap" class="matero-row">
-  <div class="matero-col">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>CFS Master</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form
-          fxLayout="row"
-          fxLayoutGap="15px"
-          [formGroup]="cfsForm" (ngSubmit)="submitCfsForm($event)"
-        >
-          <div fxLayout="row wrap" fxLayoutGap="8px grid">
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Cfs Name"
-                  formControlName="cfs_name"
-                  name="name"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  NumbersOnly
-                  [allowDecimals]="false"
-                  [allowSign]="true"
-                  placeholder="Contact No"
-                  formControlName="contact_no"
-                  name="Contact No"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Email ID"
-                  formControlName="email_id"
-                  name="Email ID"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Address"
-                  formControlName="address"
-                  name="Address"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  NumbersOnly
-                  [allowDecimals]="false"
-                  [allowSign]="true"
-                  placeholder="PinCode"
-                  formControlName="pincode"
-                  name="PinCode"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="CFS Code"
-                  formControlName="cfs_code_no"
-                  name="CFS Code"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="GSTIN"
-                  formControlName="gstn"
-                  name="GSTIN"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="PAN No"
-                  formControlName="pan"
-                  name="PAN No"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="TAN No"
-                  formControlName="tan"
-                  name="TAN No"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Primary Cotact Name"
-                  formControlName="primary_contact_name"
-                  name="Primary Cotact Name"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  NumbersOnly
-                  [allowDecimals]="false"
-                  [allowSign]="true"
-                  placeholder="Primary Mobile No"
-                  formControlName="primary_mobile_no"
-                  name="Primary Mobile No"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Additional Contact Name"
-                  formControlName="additional_contact_name"
-                  name="Additional Contact Name"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  NumbersOnly
-                  [allowDecimals]="false"
-                  [allowSign]="true"
-                  placeholder="Additional Mobile Number"
-                  formControlName="additional_mobile_no"
-                  name="Additional Mobile Number"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Port</mat-label>
-                <mat-select formControlName="port_syscode" [errorStateMatcher]="matcher">
-                  <mat-option *ngFor="let port of portMasters" [value]="port.port_syscode">
-                    {{ port.port_name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Location</mat-label>
-                <mat-select formControlName="locationId" [errorStateMatcher]="matcher">
-                  <mat-option *ngFor="let location of locations" [value]="location.locationId">
-                    {{ location.locationName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="100" fxFlex.lt-sm="100">
-              <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
-            </div>
-            <div fxFlex="100" fxFlex.lt-sm="100">
-              <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>
-            </div>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    <div class="matero-col">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>CFS Master</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="row" fxLayoutGap="15px" [formGroup]="cfsForm" (ngSubmit)="submitCfsForm($event)">
+                    <div fxLayout="row wrap" fxLayoutGap="8px grid">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Cfs Name" formControlName="cfsName" name="name" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="Contact No" formControlName="contactNumber" name="Contact No" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Email ID" formControlName="email" name="Email ID" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Address" formControlName="address" name="Address" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="PinCode" formControlName="pincode" name="PinCode" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="CFS Code" formControlName="cfsCodeNumber" name="CFS Code" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="GSTIN" formControlName="gstin" name="GSTIN" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="PAN No" formControlName="pan" name="PAN No" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="TAN No" formControlName="tan" name="TAN No" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Primary Cotact Name" formControlName="primaryContactName" name="Primary Cotact Name" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="Primary Mobile No" formControlName="primaryContactNumber" name="Primary Mobile No" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Additional Contact Name" formControlName="additionalContactName" name="Additional Contact Name" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="Additional Mobile Number" formControlName="additionalContactNumber" name="Additional Mobile Number" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <mat-label>Port</mat-label>
+                                <mat-select formControlName="portMasterId" [errorStateMatcher]="matcher">
+                                    <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
+                                        {{ port.portName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.lt-sm="100">
+                            <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+                        </div>
+                        <div fxFlex="100" fxFlex.lt-sm="100">
+                            <button type="submit" mat-raised-button color="primary" class="m-t-8">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
