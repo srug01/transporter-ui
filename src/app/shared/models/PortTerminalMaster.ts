@@ -4,6 +4,7 @@ export interface PortTerminalMaster {
     terminal?: string;
     longitude?: string;
     latitude?: string;
+    isActive:boolean;
     createdBy?: number;
     CreatedOn?: string;
     modifiedBy?: number;

@@ -150,6 +150,15 @@ import { SettingDetailsComponent } from './setting/setting-details.component';
 import { SettingNewComponent } from './setting/setting-new.component';
 import { SettingComponent } from './setting/setting.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PortterminalmasterComponent } from './portterminalmaster/portterminalmaster.component';
+import { PortterminalmasterDetailsComponent } from './portterminalmaster/portterminalmaster-details.component';
+import { PortterminalmasterEditComponent } from './portterminalmaster/portterminalmaster-edit.component';
+import { PortterminalmasterFormComponent } from './portterminalmaster/portterminalmaster-form.component';
+import { PortterminalmasterNewComponent } from './portterminalmaster/portterminalmaster-new.component';
+import { PortterminalmasterListComponent } from './portterminalmaster/portterminalmaster-list.component';
+import { portTerminalMasterResolver } from './resolvers/portTermianlaMasterResolver.resolver';
+
+
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 
 const toasterConfig: MatSnackBarConfig = {
@@ -169,6 +178,21 @@ const routes: Routes = [
       { path: 'details/:id', component: CfsDetailsComponent }
     ]
   },
+
+  {
+    path: 'portterminalmaster', component: PortterminalmasterComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: PortterminalmasterListComponent },
+      { path: 'new', component: PortterminalmasterNewComponent },
+      { path: 'edit/:id', component: PortterminalmasterEditComponent,
+       resolve: { PortterminalmasterResolver:  portTerminalMasterResolver} },
+      { path: 'details/:id', component: PortterminalmasterDetailsComponent }
+    ]
+  },
+
+
+
   {
     path: 'port', component: PortComponent,
     children: [
@@ -455,7 +479,13 @@ const routes: Routes = [
     SettingListComponent,
     SettingDetailsComponent,
     SettingNewComponent,
-    SettingComponent
+    SettingComponent,
+    PortterminalmasterComponent,
+    PortterminalmasterDetailsComponent,
+    PortterminalmasterEditComponent,
+    PortterminalmasterFormComponent,
+    PortterminalmasterNewComponent,
+    PortterminalmasterListComponent
 
   ],
   imports: [
@@ -492,6 +522,7 @@ const routes: Routes = [
     YardCFSRatesResolver,
     CfsResolver,
     CfsrateResolver,
+    portTerminalMasterResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
