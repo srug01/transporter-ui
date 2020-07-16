@@ -9,6 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CfsService } from './../../masters/services/cfs.service';
 import { User } from 'src/app/shared/models/user';
+import { Userrole} from 'src/app/shared/models/userrole';
+import { UserroleService} from './../../../services/userrole.service';
+
 
 @Component({
   selector: 'app-user-registration',
@@ -24,15 +27,13 @@ export class UserRegistrationComponent implements OnInit {
 
   public cfsTypes: Array<Cfs> = [];
   public cfsData: Array<any> = [];
-  public userTypes: Array<any> = [
-    { value: 5, viewValue: 'Cfs Super Admin' },
-    { value: 6, viewValue: 'Cfs Admin' },
-    { value: 4, viewValue: 'Cfs Viewer' }
-  ];
+  public cfsRoles: Array<any> = [];
+
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _userRegistrationService: UserRegistrationService,
+    private _userRoleService: UserroleService,
     private _cfsService: CfsService,
     private _router: Router,
     private _userService: UserService
@@ -63,12 +64,13 @@ export class UserRegistrationComponent implements OnInit {
       validator: this.checkPasswords
     });
     this.getAllCfsMasters();
+    this.getAllcfsRoles();
     // this.getCfsData();
   }
 
   /**
    *  Getters
-   * @param ev 
+   * @param ev
    */
   getAllCfsMasters() {
     this._cfsService.getAllCfsMasters().subscribe(
@@ -88,10 +90,17 @@ export class UserRegistrationComponent implements OnInit {
     );
   }
 
+  getAllcfsRoles() {
+    this._userRoleService.getAllCFSUserroles(4).subscribe(
+      (cfsRoles: Userrole[]) => {
+        this.cfsRoles = cfsRoles;
+      }
+    );
+  }
 
   /**
    *  Form Methods
-   * @param ev 
+   * @param ev
    */
   submitUserForm(ev) {
     if (ev) {
@@ -140,7 +149,7 @@ export class UserRegistrationComponent implements OnInit {
 
   /**
    *  Misc Methods
-   * @param group 
+   * @param group
    */
 
   checkPasswords(group: FormGroup) {

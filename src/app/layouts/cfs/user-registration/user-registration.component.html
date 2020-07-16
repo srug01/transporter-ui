@@ -23,8 +23,8 @@
                         <mat-form-field class="demo-full-width">
                             <mat-label>User Type</mat-label>
                             <mat-select matNativeControl formControlName="userTypeId" [errorStateMatcher]="userTypeErrormatcher">
-                                <mat-option *ngFor="let user of userTypes" [value]="user.value">
-                                    {{user.viewValue}}
+                                <mat-option *ngFor="let role of cfsRoles" [value]="role.value">
+                                    {{role.roleName}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="userForm.controls['userTypeId'].hasError('required')">You must make a selection
