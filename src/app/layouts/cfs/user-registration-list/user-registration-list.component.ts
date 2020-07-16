@@ -1,5 +1,7 @@
+import { Cfs } from './../../../shared/models/cfs';
 import { UserRegistrationService } from './../services/user-registration.service';
 import { Component, OnInit } from '@angular/core';
+import { CfsService } from '../../masters/services/cfs.service';
 
 @Component({
   selector: 'app-user-registration-list',
@@ -8,27 +10,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserRegistrationListComponent implements OnInit {
   displayedColumns: string[] = [
-    'cfs_user_registration_syscode', 'cfs_syscode', 'user_type_syscode', 'cfs_user_name',
-    'cfs_user_designation', 'cfs_user_department',
-     'cfs_user_mobile_no','cfs_user_email','cfs_user_password',
-     'cfs_user_confirm_password','cfs_user_is_active',
-     'cfs_user_is_verify','action'
+    'cfsUserRegistrationId', 'cfsMasterId', 'userTypeId', 'cfsUserName',
+    'cfsUserDesignation', 'cfsUserDepartment', 'isActive',
+    'isVerified', 'action'
   ];
   public users: [];
+  public cfsMasters: Cfs[] = [];
   constructor(
-    private _userregistrationService: UserRegistrationService
+    private _userregistrationService: UserRegistrationService,
+    private _cfsService: CfsService
   ) { }
 
   ngOnInit(): void {
+    this.getAllCFS();
     this._userregistrationService.getAllCfsUserRegistration().subscribe(
       (users) => {
         this.users = users;
+        console.log(this.users);
       },
       (err) => {
         console.log(err);
-
       }
     );
+  }
+
+  getAllCFS() {
+    this._cfsService.getAllCfsMasters().subscribe(
+      (cfsMasters) => {
+        this.cfsMasters = cfsMasters;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  searchCfsById(id): string {
+    for (let i = 0; i < this.cfsMasters.length; i++) {
+      if (this.cfsMasters[i].cfsMasterId === id) {
+        return this.cfsMasters[i].cfsName;
+      }
+    }
   }
 
 }

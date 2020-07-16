@@ -1,11 +1,9 @@
+import { CfsUserRegistration } from './../../../shared/models/cfsUserRegistration';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import {SignupService} from './../../../services/signup.service';
-
-import { Cfsuserregistration } from '../../../shared/models/user-registration.model';
-import {User} from '../../../shared/models/user';
+import { SignupService } from './../../../services/signup.service';
+import { User } from '../../../shared/models/user';
 import { environment } from './../../../../environments/environment';
 
 
@@ -23,24 +21,24 @@ export class UserRegistrationService {
   constructor(
     private http: HttpClient,
 
-    public _signupService : SignupService,
+    public _signupService: SignupService,
   ) { }
 
 
 
-  saveCfsUserRegistration(userregistration: Cfsuserregistration): Observable<any> {    
-    delete userregistration.cfs_user_registration_syscode;
-    return this.http.post<Cfsuserregistration>(
+  saveCfsUserRegistration(cfsUserRegistration: CfsUserRegistration): Observable<any> {
+    delete cfsUserRegistration.cfsUserRegistrationId;
+    return this.http.post<CfsUserRegistration>(
       this.baseUrl + 'cfs-user-registrations',
-      JSON.stringify(userregistration),
+      JSON.stringify(cfsUserRegistration),
       this.HttpUploadOptions
     );
   }
 
-  updateCfsUserRegistration(userregistration: Cfsuserregistration): Observable<any> {
-    return this.http.put<Cfsuserregistration>(
-      this.baseUrl + 'cfs-user-registrations/' + userregistration.cfs_user_registration_syscode,
-      JSON.stringify(userregistration),
+  updateCfsUserRegistration(cfsUserRegistration: CfsUserRegistration): Observable<any> {
+    return this.http.put<CfsUserRegistration>(
+      this.baseUrl + 'cfs-user-registrations/' + cfsUserRegistration.cfsUserRegistrationId,
+      JSON.stringify(cfsUserRegistration),
       this.HttpUploadOptions
     );
   }
@@ -53,7 +51,7 @@ export class UserRegistrationService {
     return this.http.get(this.baseUrl + 'cfs-user-registrations/' + id, this.HttpUploadOptions);
   }
 
-  getCfsUserData(userid: number,roleid: number): Observable<any> {
+  getCfsUserData(userid: number, roleid: number): Observable<any> {
     return this.http.get(this.baseUrl + '/MultipleTables/' + userid + "/" + roleid);
   }
 
