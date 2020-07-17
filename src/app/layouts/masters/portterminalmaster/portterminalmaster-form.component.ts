@@ -30,9 +30,6 @@ export class PortterminalmasterFormComponent implements OnInit {
     private _router: Router
   ) { }
 
-
-
-
   ngOnInit(): void {
     if (this.portterminalmasterData) {
       this.portterminalmasterForm = this.fb.group({

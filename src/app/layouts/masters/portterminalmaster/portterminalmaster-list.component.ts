@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
-import { PortterminalmasterService} from './../services/portterminalmaster.service';
+import { PortterminalmasterService } from './../services/portterminalmaster.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { PortterminalmasterService} from './../services/portterminalmaster.servi
 })
 export class PortterminalmasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'portTerminalId', 'portMasterId', 'terminal', 'longitude','latitude', 'is_active', 'action'
+    'portTerminalId', 'portMasterId', 'terminal', 'longitude', 'latitude', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public portMasters: Array<any> = [];
@@ -25,7 +25,7 @@ export class PortterminalmasterListComponent implements OnInit {
 
   constructor(
     private _portService: PortService,
-    private _portterminalService:PortterminalmasterService,
+    private _portterminalService: PortterminalmasterService,
     private _snackBar: MatSnackBar,
     private _router: Router,
     public dialog: MatDialog
@@ -47,7 +47,7 @@ export class PortterminalmasterListComponent implements OnInit {
         this.deletePortMasterById(porMastertId);
       }
     });
-    
+
   }
   deletePortMasterById(porMastertId: number) {
     this._portterminalService.deletePortTerminalMasterById(porMastertId).subscribe(
@@ -61,6 +61,7 @@ export class PortterminalmasterListComponent implements OnInit {
     this._portterminalService.getAllPortTerminalMaster().subscribe(
       (portterminalMasters) => {
         this.portterminalMasters = portterminalMasters;
+        console.log(this.portterminalMasters);        
       },
       (err) => {
       }
