@@ -35,6 +35,10 @@ export class CfsService {
     return this.http.get(this.baseUrl + 'cfs-masters', this.HttpUploadOptions);
   }
 
+  getAllCfsMastersByUserId(filter:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'cfs-masters?filter=' + JSON.stringify(filter), this.HttpUploadOptions);
+  }
+
   getCfsMasterById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'cfs-masters/' + id);
   }

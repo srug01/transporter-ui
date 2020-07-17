@@ -1,3 +1,4 @@
+import { Container } from './../../../shared/models/container';
 import { NotificationService } from './../../../shared/services/notification.service';
 import { Notification } from './../../../shared/models/notification';
 import { Port } from './../../../shared/models/port';
@@ -8,7 +9,6 @@ import { PortService } from './../../masters/services/port.service';
 import { LocationService } from './../../masters/services/location.service';
 import { MasterType } from './../../../shared/models/masterType';
 import { Truck } from './../../../shared/models/truck';
-import { OrderContainer } from './../../../shared/models/order-container';
 import { Order } from './../../../shared/models/order';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -163,6 +163,7 @@ export class CreateOrderComponent implements OnInit {
     this._containerService.getAllContainerMasters().subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
+        console.log(this.containerTypes);
       },
       (err) => {
         console.log(err);
@@ -226,17 +227,15 @@ export class CreateOrderComponent implements OnInit {
     const containersArray = this.orderForm.controls.containers as FormArray;
     const arraylen = containersArray.length;
     const containerRow: FormGroup = this.fb.group({
-      type: ['', Validators.required],
-      weight: ['', Validators.required],
-      number_of_trucks: ['', Validators.required],
-      container_numbers: [null]
+      containerMasterId: ['', Validators.required],
+      weightType: ['', Validators.required],
+      numberOfTrucks: ['', Validators.required],
+      trucks: [null]
     });
     containersArray.insert(arraylen, containerRow);
   }
 
   addCustomContainer = (term) => ({ id: term, value: term });
-
-
 
   submitOrderForm(ev) {
     if (ev) {
@@ -244,7 +243,8 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
-      this.saveOrder(order);
+      console.log(order);
+      // this.saveOrderDraft(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
@@ -261,36 +261,37 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'pending');
-      this.saveOrderDraft(order);
+      console.log(order);
+      // this.saveOrderDraft(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
   }
 
-  transformOrderObj(order: any, status: string): Order {
-    const containers: Array<OrderContainer> = [];
+  transformOrderObj(order: Order, status: string): Order {
+    const containers: Array<Container> = [];
     if (order.containers.length > 0) {
       order.containers.forEach(container => {
         containers.push(this.transformOrderContainerObj(container));
       });
     }
     return {
-      master_type_syscode: order.masterType,
-      order_date: order.date,
-      order_remarks: order.remarks,
-      order_type_syscode: 1,
-      order_address: '',
-      destination_syscode: Number(order.destination),
-      source_syscode: Number(order.source),
-      is_delete: false,
-      created_by: this.currentUser.userId,
-      created_on: new Date(),
-      modify_by: this.currentUser.userId,
-      modify_on: new Date(),
-      source_type: this.getMasterTypeSource(order.masterType),
-      destination_type: this.getMasterTypeDestination(order.masterType),
+      masterTypeId: order.masterTypeId,
+      orderDate:order.orderDate,
+      orderRemarks:order.orderRemarks,
+      orderTypeId:order.orderTypeId,
+      orderAddress: order.orderAddress,
+      destinationId:order.destinationId,
+      sourceId:order.sourceId,
+      isDeleted:order.isDeleted,
+      createdBy: 1,
+      createdOn: new Date(),
+      modifiedBy:1,
+      modifiedOn:new Date(),
+      sourceType:order.sourceType,
+      destinationType: order.destinationType,
       status,
-      containers,
+      containers
     } as Order;
   }
 
@@ -308,16 +309,16 @@ export class CreateOrderComponent implements OnInit {
     return {
       truckId: null,
       containerId: null,
-      created_by: 1,
-      modify_by: 1,
-      is_delete: false,
-      truck_no: truck.text,
-      created_on: new Date(),
-      modify_on: new Date()
+      createdBy: 1,
+      modifiedBy: 1,
+      isDeleted: false,
+      truckNumber: truck.text,
+      createdOn: new Date(),
+      modifiedOn: new Date()
     } as Truck;
   }
 
-  transformOrderContainerObj(container: any): OrderContainer {
+  transformOrderContainerObj(container: any): Container {
     const trucks: Array<Truck> = [];
     if (container.container_numbers.length > 0) {
       container.container_numbers.forEach(truck => {
@@ -325,17 +326,18 @@ export class CreateOrderComponent implements OnInit {
       });
     }
     return {
-      container_type: container.type,
-      no_of_trucks: container.number_of_trucks,
-      weight_type: container.weight,
-      is_delete: false,
-      created_by: 1,
-      created_on: new Date(),
-      modify_by: 1,
-      modify_on: new Date(),
+      containerId: null,
+      containerMasterId: container.containerMasterId,
       orderId: null,
+      numberOfTrucks: container.numberOfTrucks,
+      weightType: container.weightType,
+      isDeleted: false,
+      createdBy: 1,
+      createdOn: new Date(),
+      modifiedBy: 1,
+      modifiedOn: new Date(),
       trucks
-    } as OrderContainer;
+    } as Container;
   }
 
 

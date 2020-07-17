@@ -1,10 +1,10 @@
 export interface Truck {
     truckId?: number;
     containerId?: number;
-    truckNumbers?: string;
+    truckNumber?: string;
     isDeleted?: boolean;
     createdBy?: number;
-    createdOn?: string;
+    createdOn?: Date;
     modifiedBy?: number;
-    modifiedOn?: string;
+    modifiedOn?: Date;
 }

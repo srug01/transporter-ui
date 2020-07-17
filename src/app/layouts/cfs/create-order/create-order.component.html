@@ -144,9 +144,9 @@
                                 <div fxFlex="25%">
                                     <mat-form-field>
                                         <mat-label>Type</mat-label>
-                                        <mat-select matNativeControl formControlName="type" [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let type of containerTypes" [value]="type.container_syscode">
-                                                {{type.container_name}}
+                                        <mat-select matNativeControl formControlName="containerMasterId" [errorStateMatcher]="errorStateMatcher">
+                                            <mat-option *ngFor="let type of containerTypes" [value]="type.containerMasterId">
+                                                {{type.containerMasterName}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -154,9 +154,9 @@
                                 <div fxFlex="25%">
                                     <mat-form-field>
                                         <mat-label>Weight</mat-label>
-                                        <mat-select matNativeControl formControlName="weight" [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let weight of weights" [value]="weight.weight_syscode">
-                                                {{weight.weight_description}}
+                                        <mat-select matNativeControl formControlName="weightType" [errorStateMatcher]="errorStateMatcher">
+                                            <mat-option *ngFor="let weight of weights" [value]="weight.weightMasterId">
+                                                {{weight.weightDesc}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -164,7 +164,7 @@
                                 <div fxFlex="20%">
                                     <mat-form-field>
                                         <mat-label>No. of Trucks</mat-label>
-                                        <input matInput type="text" formControlName="number_of_trucks" placeholder="No. of Trucks">
+                                        <input matInput type="text" formControlName="numberOfTrucks" placeholder="No. of Trucks">
                                     </mat-form-field>
                                 </div>
                                 <div fxFlex="20%">

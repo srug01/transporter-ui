@@ -13,9 +13,9 @@ export interface Order {
     isVerified?: boolean;
     status?: string;
     createdBy?: number;
-    createdOn?: string;
+    createdOn?: Date;
     modifiedBy?: number;
-    modifiedOn?: string;
+    modifiedOn?: Date;
     totalRate?: number;
     profitRate?: number;
     profitMarginPercentage?: number;
