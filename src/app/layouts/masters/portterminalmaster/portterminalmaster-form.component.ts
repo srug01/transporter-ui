@@ -39,9 +39,10 @@ export class PortterminalmasterFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.portterminalmasterData) {
       this.portterminalmasterForm = this.fb.group({
-        portMasterId: [this.portterminalmasterData.portTerminalId ? 
+        portTerminalId: [this.portterminalmasterData.portTerminalId ? 
           this.portterminalmasterData.portTerminalId : ''],
-          portId: [this.portterminalmasterData.portId ? this.portterminalmasterData.portId : '',
+          portMasterId: [this.portterminalmasterData.portMasterId ? 
+            this.portterminalmasterData.portMasterId : '',
            Validators.required],
         latitude: [this.portterminalmasterData.latitude],
         longitude: [this.portterminalmasterData.longitude],
@@ -51,8 +52,8 @@ export class PortterminalmasterFormComponent implements OnInit {
       });
     } else {
       this.portterminalmasterForm = this.fb.group({
-        portMasterId: [''],
-        portId: ['', Validators.required],
+        portTerminalId: [''],
+        portMasterId: ['', Validators.required],
         latitude: [''],
         longitude: [''], 
         terminal: [''], 

@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Ports</mat-card-title>
+        <mat-card-title>Ports Terminal Master</mat-card-title>
         <mat-card-subtitle>List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -23,14 +23,14 @@
             <!-- Position Column -->
             <ng-container matColumnDef="portTerminalId">
                 <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element"> {{element.portTerminalId}} </td>
+                <td mat-cell *matCellDef="let element">  {{element.portTerminalId}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="port_name">
                 <th mat-header-cell *matHeaderCellDef> Port </th>
-                <td mat-cell *matCellDef="let element"><a [routerLink]="['/default/masters/portterminalmaster/details/',element.portId]">{{element.portId}}</a>
-                </td>
+                <!-- <td mat-cell *matCellDef="let element">{{element.portMasterId}}
+                </td> -->
             </ng-container>
 
             <ng-container matColumnDef="terminal">

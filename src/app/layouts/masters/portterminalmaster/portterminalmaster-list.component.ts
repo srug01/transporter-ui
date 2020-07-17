@@ -17,7 +17,7 @@ import { PortterminalmasterService} from './../services/portterminalmaster.servi
 })
 export class PortterminalmasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'portTerminalId', 'portId', 'terminal', 'longitude','latitude', 'is_active', 'action'
+    'portTerminalId', 'portMasterId', 'terminal', 'longitude','latitude', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public portMasters: Array<any> = [];
@@ -84,7 +84,7 @@ export class PortterminalmasterListComponent implements OnInit {
   }
   getPortMasterbyId(id): string {
     for (let i = 0; i < this.portMasters.length; i++) {
-      if (this.portMasters[i].portId === id) {
+      if (this.portMasters[i].portMasterId === id) {
         return this.portMasters[i].portName;
       }
     }

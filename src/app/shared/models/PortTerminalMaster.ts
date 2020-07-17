@@ -1,6 +1,6 @@
 export interface PortTerminalMaster {
     portTerminalId?: number;
-    portId?: number;
+    portMasterId?: number;
     terminal?: string;
     longitude?: string;
     latitude?: string;
