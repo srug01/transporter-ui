@@ -98,12 +98,12 @@ export class TransporterRegistrationComponent implements OnInit {
 
   transformTransporterObj(transporter: any): Transporter {
     return {
-      created_by: this.currentUser.id,
+      created_by: this.currentUser.userId,
       created_on: new Date(),
       transporter_is_active: transporter.transporter_is_active,
       transporter_is_verify: transporter.transporter_is_verify,
       transporter_mobile_no: transporter.transporter_mobile_no,
-      modified_by: this.currentUser.id,
+      modified_by: this.currentUser.userId,
       modified_on: new Date(),
       transporter_GSTIN: transporter.transporter_GSTIN,
       transporter_PAN: transporter.transporter_PAN,

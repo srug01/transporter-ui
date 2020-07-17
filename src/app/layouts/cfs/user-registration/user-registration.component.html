@@ -10,45 +10,45 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>CFS Type</mat-label>
-                            <mat-select matNativeControl formControlName="cfs_syscode" [errorStateMatcher]="cfsTypeErrormatcher">
+                            <mat-select matNativeControl formControlName="cfsMasterId" [errorStateMatcher]="cfsTypeErrormatcher">
                                 <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfsMasterId">
-                                    {{cfs.cfs_name}}
+                                    {{cfs.cfsName}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="userForm.controls['cfs_syscode'].hasError('required')">You must make a
-                                selection</mat-error>
+                            <mat-error *ngIf="userForm.controls['cfsMasterId'].hasError('required')">You must make a selection
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>User Type</mat-label>
-                            <mat-select matNativeControl formControlName="user_type_syscode" [errorStateMatcher]="userTypeErrormatcher">
-                                <mat-option *ngFor="let user of userTypes" [value]="4">
-                                    {{user.viewValue}}
+                            <mat-select matNativeControl formControlName="userTypeId" [errorStateMatcher]="userTypeErrormatcher">
+                                <mat-option *ngFor="let role of cfsRoles" [value]="role.value">
+                                    {{role.roleName}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="userForm.controls['user_type_syscode'].hasError('required')">You must make a
-                                selection</mat-error>
+                            <mat-error *ngIf="userForm.controls['userTypeId'].hasError('required')">You must make a selection
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div fxLayout='row'>
                     <mat-form-field class="demo-full-width">
                         <mat-label>Name</mat-label>
-                        <input matInput type="text" formControlName="cfs_user_name" placeholder="Enter Name">
+                        <input matInput type="text" formControlName="cfsUserName" placeholder="Enter Name">
                     </mat-form-field>
                 </div>
                 <div fxLayout='row' fxLayoutGap="10px">
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Designation</mat-label>
-                            <input matInput formControlName="cfs_user_designation" placeholder="Designation">
+                            <input matInput formControlName="cfsUserDesignation" placeholder="Designation">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Department</mat-label>
-                            <input matInput formControlName="cfs_user_department" placeholder="Department">
+                            <input matInput formControlName="cfsUserDepartment" placeholder="Department">
                         </mat-form-field>
                     </div>
                 </div>
@@ -56,14 +56,13 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Mobile Number</mat-label>
-                            <input matInput
-                             formControlName="cfs_user_mobile_no" placeholder="Mobile Number">
+                            <input matInput formControlName="cfsUserMobileNumber" placeholder="Mobile Number">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="cfs_user_email" placeholder="Email">
+                            <input matInput formControlName="cfsUserEmail" placeholder="Email">
                         </mat-form-field>
                     </div>
                 </div>
@@ -71,26 +70,25 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Password</mat-label>
-                            <input matInput type="password" formControlName="cfs_user_password" placeholder="Password">
+                            <input matInput type="password" formControlName="cfsUserPassword" placeholder="Password">
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Confirm Password</mat-label>
-                            <input matInput type="password"
-                            formControlName="cfs_user_confirm_password"
-                            placeholder="Confirm Password"
-                            [errorStateMatcher]="confirmPasswordmatcher">
+                            <input matInput type="password" formControlName="cfsUserConfirmPassword" placeholder="Confirm Password" [errorStateMatcher]="confirmPasswordmatcher">
                         </mat-form-field>
-                        <div *ngIf="userForm.errors"><mat-error *ngIf="userForm.controls['cfs_user_confirm_password'].dirty && userForm.errors['notSame']">Passwords must match</mat-error></div>
+                        <div *ngIf="userForm.errors">
+                            <mat-error *ngIf="userForm.controls['cfsUserConfirmPassword'].dirty && userForm.errors['notSame']">Passwords must match</mat-error>
+                        </div>
                     </div>
                 </div>
                 <div fxLayout="row">
                     <div fxFlex="20%">
-                        <mat-slide-toggle formControlName="cfs_user_is_active">Active</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
                     </div>
                     <div fxFlex="20%">
-                        <mat-slide-toggle formControlName="cfs_user_is_verify">Verify</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="isVerified">Verify</mat-slide-toggle>
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutGap="10px">

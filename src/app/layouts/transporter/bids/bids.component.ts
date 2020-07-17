@@ -85,7 +85,7 @@ export class BidsComponent implements OnInit {
       bidName: bid.bidName,
       bidStatus: action,
       bidValue: bid.bidRate,
-      userId: this.currentUser.id
+      userId: this.currentUser.userId
     } as BidUserMapping;
   }
 

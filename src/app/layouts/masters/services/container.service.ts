@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ContianerService {
+export class ContainerService {
   baseUrl = environment.baseUri;
   public HttpUploadOptions = {
     headers: new HttpHeaders({

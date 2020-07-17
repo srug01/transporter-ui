@@ -9,7 +9,9 @@ import { CfsrateService } from '../services/cfsrate.service';
 import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-cfsrate-form',
@@ -24,44 +26,47 @@ export class CfsrateFormComponent implements OnInit {
   public portMasters: Array<any> = [];
   public weightMasters: Array<any> = [];
   public containerMaster: Array<any> = [];
+  public currentUser: User;
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _cfsrateService: CfsrateService,
-    private _containerService: ContianerService,
+    private _containerService: ContainerService,
     private _portService: PortService,
     private _weightService: WeightService,
     private _cfsService: CfsService,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.getAllPortMasters();
+    this.getAllWeightMasters();
+    this.getAllCfsMasters();
+    this.getAllContainerMasters();
+    this.getUserInfo();
     if (this.cfsrateData) {
       this.cfsrateForm = this.fb.group({
         cfsRateId: [this.cfsrateData.cfsRateId ? this.cfsrateData.cfsRateId : ''],
-        cfsId: [this.cfsrateData.cfsId ? this.cfsrateData.cfsId : '', Validators.required],
-        portId: [this.cfsrateData.portId ? this.cfsrateData.portId : '', Validators.required],
-        cotainerId: [this.cfsrateData.cotainerId ? this.cfsrateData.cotainerId : '', Validators.required],
-        weightId: [this.cfsrateData.weightId ? this.cfsrateData.weightId : '', Validators.required],
+        cfsMasterId: [this.cfsrateData.cfsMasterId ? this.cfsrateData.cfsMasterId : '', Validators.required],
+        portMasterId: [this.cfsrateData.portMasterId ? this.cfsrateData.portMasterId : '', Validators.required],
+        containerMasterId: [this.cfsrateData.containerMasterId ? this.cfsrateData.containerMasterId : '', Validators.required],
+        weightMasterId: [this.cfsrateData.weightMasterId ? this.cfsrateData.weightMasterId : '', Validators.required],
         rate: [this.cfsrateData.rate ? this.cfsrateData.rate : 0, Validators.required],
         isActive: [this.cfsrateData.isActive ? this.cfsrateData.isActive : '', Validators.required]
       });
     } else {
       this.cfsrateForm = this.fb.group({
         cfsRateId: [''],
-        cfsId: ['', Validators.required],
-        portId: ['', Validators.required],
-        cotainerId: ['', Validators.required],
-        weightId: ['', Validators.required],
+        cfsMasterId: ['', Validators.required],
+        portMasterId: ['', Validators.required],
+        containerMasterId: ['', Validators.required],
+        weightMasterId: ['', Validators.required],
         rate: [0, Validators.required],
         isActive: ['', Validators.required]
       });
     }
-    this.getAllPortMasters();
-    this.getAllWeightMasters();
-    this.getAllCfsMasters();
-    this.getAllContainerMasters();
   }
 
 
@@ -105,24 +110,48 @@ export class CfsrateFormComponent implements OnInit {
     );
   }
 
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
+      }
+    );
+  }
+
+  transformCfsRateObj(cfsRate: Cfsrate): Cfsrate {
+    return {
+      cfsRateId: cfsRate.cfsRateId ? cfsRate.cfsRateId : 0,
+      cfsMasterId: cfsRate.cfsMasterId,
+      portMasterId: cfsRate.portMasterId,
+      weightMasterId: cfsRate.weightMasterId,
+      containerMasterId: cfsRate.containerMasterId,
+      rate: cfsRate.rate,
+      createdBy: this.currentUser.userId,
+      modifiedBy: this.currentUser.userId,
+      createdOn: new Date(),
+      modifiedOn: new Date(),
+      isActive: cfsRate.isActive
+    } as Cfsrate;
+  }
+
   submitcfsrateForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
     if (this.cfsrateForm.valid) {
+      const cfsRate = this.transformCfsRateObj(this.cfsrateForm.value);
       if (!this.cfsrateData) {
-        this.saveCfsrateMaster(this.cfsrateForm);
+        this.saveCfsrateMaster(cfsRate);
       } else {
-        this.updateCfsrateMaster(this.cfsrateForm);
+        this.updateCfsrateMaster(cfsRate);
       }
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }
   }
 
-  saveCfsrateMaster(cfsrateForm: any) {
-
-    this._cfsrateService.saveCfsRateMaster(cfsrateForm.value).subscribe(
+  saveCfsrateMaster(cfsRate: Cfsrate) {
+    this._cfsrateService.saveCfsRateMaster(cfsRate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Rate Master Created Successfully');
         this._router.navigate(['/default/masters/cfs-rate/list']);
@@ -133,8 +162,8 @@ export class CfsrateFormComponent implements OnInit {
     );
   }
 
-  updateCfsrateMaster(cfsrateForm: any) {
-    this._cfsrateService.updateCfsRateMaster(cfsrateForm.value).subscribe(
+  updateCfsrateMaster(cfsRate: Cfsrate) {
+    this._cfsrateService.updateCfsRateMaster(cfsRate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Rate Master Updated Successfully');
         this._router.navigate(['/default/masters/cfs-rate/list']);

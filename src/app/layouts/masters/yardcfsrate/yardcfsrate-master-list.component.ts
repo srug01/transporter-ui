@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { YardService } from '../services/yard.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
 @Component({
@@ -31,7 +31,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
 
   constructor(
     private _yardcfsrateService: YardCFSRateService,
-    private _containerservice: ContianerService,
+    private _containerservice: ContainerService,
     private _weightService: WeightService,
     private _yardService: YardService,
     private _cfsService: CfsService,

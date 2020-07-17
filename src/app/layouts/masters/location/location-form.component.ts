@@ -1,3 +1,5 @@
+import { State } from 'src/app/shared/models/state';
+import { StateMasterService } from './../services/state-master.service';
 import { UserService } from './../../../services/user.service';
 import { LocationMaster } from './../../../shared/models/location';
 import { Component, OnInit, NgZone, Input } from '@angular/core';
@@ -19,6 +21,7 @@ export class LocationFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public locationForm: FormGroup;
   public currentUser: User;
+  public states: State[];
 
   constructor(
     private _ngZone: NgZone,
@@ -26,32 +29,44 @@ export class LocationFormComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _router: Router,
     private _locationService: LocationService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _stateService: StateMasterService
   ) { }
 
   ngOnInit(): void {
     this.getUserInfo();
+    this.getAllStates();
     if (this.locationData) {
       this.locationForm = this.fb.group({
         locationId: [this.locationData.locationId ? this.locationData.locationId : ''],
         locationName: [this.locationData.locationName ? this.locationData.locationName : '', Validators.required],
+        stateMasterId: [this.locationData.stateMasterId ? this.locationData.stateMasterId : '', Validators.required],
         isActive: [this.locationData.isActive ? this.locationData.isActive : '', Validators.required]
       });
     } else {
       this.locationForm = this.fb.group({
         locationId: [''],
         locationName: ['', Validators.required],
+        stateMasterId: ['', Validators.required],
         isActive: ['', Validators.required]
       });
     }
+  }
+
+  getAllStates() {
+    this._stateService.getAllStateMasters().subscribe(
+      (states) => {
+        this.states = states;
+      },
+      (err) => {
+      }
+    );
   }
 
   getUserInfo() {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-        console.log(this.currentUser);
-        
       }
     );
   }
@@ -61,7 +76,8 @@ export class LocationFormComponent implements OnInit {
       locationId: location.locationId,
       locationName: location.locationName,
       isActive: location.isActive,
-      createdBy: this.currentUser.id,
+      stateMasterId: location.stateMasterId,
+      createdBy: this.currentUser.userId,
       createdOn: new Date()
     } as LocationMaster;
   }
@@ -72,7 +88,6 @@ export class LocationFormComponent implements OnInit {
     }
     if (this.locationForm.valid) {
       const location: LocationMaster = this.transformLocationObj(this.locationForm.value);
-      console.log(location);
       if (!this.locationData) {
         this.saveLocationMaster(location);
       } else {
@@ -83,27 +98,25 @@ export class LocationFormComponent implements OnInit {
     }
   }
 
-  saveLocationMaster(locationForm: any) {
-    this._locationService.saveLocationMaster(locationForm.value).subscribe(
+  saveLocationMaster(location: LocationMaster) {
+    this._locationService.saveLocationMaster(location).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Created Successfully');
         this._router.navigate(['/default/masters/location/list']);
       },
       (err) => {
-        console.log('err');
         this.openSnackBar('Failure !', 'Could not create Location!');
       }
     );
   }
 
-  updateLocationMaster(locationForm: any) {
-    this._locationService.updateLocationMaster(locationForm.value).subscribe(
+  updateLocationMaster(location: LocationMaster) {
+    this._locationService.updateLocationMaster(location).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Updated Successfully');
         this._router.navigate(['/default/masters/location/list']);
       },
       (err) => {
-        console.log('err');
         this.openSnackBar('Failure !', 'Could not update Location!');
       }
     );

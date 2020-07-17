@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user.service';
 import { Cfs } from './../../../shared/models/cfs';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 import { CfsService } from '../services/cfs.service';
 import { PortService } from '../services/port.service';
 import { LocationService } from '../services/location.service';
+import { User } from 'src/app/shared/models/user';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class CfsFormComponent implements OnInit {
   public cfsForm: FormGroup;
   public portMasters: Array<any> = [];
   public locations: Array<any> = [];
+  public currentUser: User;
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -29,10 +32,14 @@ export class CfsFormComponent implements OnInit {
     private _cfsService: CfsService,
     private _portService: PortService,
     private _router: Router,
-    private _locationService: LocationService
+    private _locationService: LocationService,
+    private _userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
+    this.getAllPortMasters();
+    this.getLocations();
     if (this.cfsData) {
       this.cfsForm = this.fb.group({
         cfsMasterId: [this.cfsData.cfsMasterId ? this.cfsData.cfsMasterId : ''],
@@ -49,7 +56,7 @@ export class CfsFormComponent implements OnInit {
         primaryContactNumber: [this.cfsData.primaryContactNumber ? this.cfsData.primaryContactNumber : '', Validators.required],
         additionalContactName: [this.cfsData.additionalContactName ? this.cfsData.additionalContactName : '', Validators.required],
         additionalContactNumber: [this.cfsData.additionalContactNumber ? this.cfsData.additionalContactNumber : '', Validators.required],
-        portId: [this.cfsData.portId ? this.cfsData.portId : '', Validators.required],
+        portMasterId: [this.cfsData.portMasterId ? this.cfsData.portMasterId : '', Validators.required],
         isActive: [this.cfsData.isActive ? this.cfsData.isActive : '', Validators.required]
       });
     } else {
@@ -68,12 +75,18 @@ export class CfsFormComponent implements OnInit {
         primaryContactNumber: ['', Validators.required],
         additionalContactName: ['', Validators.required],
         additionalContactNumber: ['', Validators.required],
-        portId: ['', Validators.required],
+        portMasterId: ['', Validators.required],
         isActive: ['', Validators.required]
       });
     }
-    this.getAllPortMasters();
-    this.getLocations();
+  }
+
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
+      }
+    );
   }
 
   getLocations() {
@@ -97,23 +110,49 @@ export class CfsFormComponent implements OnInit {
     );
   }
 
+  transformCfsObj(cfs: Cfs): Cfs {
+    return {
+      cfsMasterId: cfs.cfsMasterId ? cfs.cfsMasterId : 0,
+      cfsCodeNumber: cfs.cfsCodeNumber,
+      address: cfs.address,
+      cfsName: cfs.cfsName,
+      contactNumber: cfs.contactNumber,
+      createdBy: this.currentUser.userId,
+      createdOn: new Date(),
+      additionalContactName: cfs.additionalContactName,
+      additionalContactNumber: cfs.additionalContactNumber,
+      email: cfs.email,
+      gstin: cfs.gstin,
+      isActive: cfs.isActive,
+      modifiedBy: this.currentUser.userId,
+      modifiedOn: new Date(),
+      pan: cfs.pan,
+      pincode: cfs.pincode,
+      portMasterId: cfs.portMasterId,
+      primaryContactName: cfs.primaryContactName,
+      primaryContactNumber: cfs.primaryContactNumber,
+      tan: cfs.tan
+    } as Cfs;
+  }
+
   submitCfsForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
     if (this.cfsForm.valid) {
+      const cfsMaster: Cfs = this.transformCfsObj(this.cfsForm.value);
       if (!this.cfsData) {
-        this.saveCfsMaster(this.cfsForm);
+        this.saveCfsMaster(cfsMaster);
       } else {
-        this.updateCfsMaster(this.cfsForm);
+        this.updateCfsMaster(cfsMaster);
       }
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }
   }
 
-  saveCfsMaster(cfsForm: any) {
-    this._cfsService.saveCfsMaster(cfsForm.value).subscribe(
+  saveCfsMaster(cfsMaster: Cfs) {
+    this._cfsService.saveCfsMaster(cfsMaster).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Cfs Master Created Successfully');
         this._router.navigate(['/default/masters/cfs/list']);
@@ -125,8 +164,8 @@ export class CfsFormComponent implements OnInit {
     );
   }
 
-  updateCfsMaster(cfsForm: any) {
-    this._cfsService.updateCfsMaster(cfsForm.value).subscribe(
+  updateCfsMaster(cfsMaster: Cfs) {
+    this._cfsService.updateCfsMaster(cfsMaster).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Cfs Master Updated Successfully');
         this._router.navigate(['/default/masters/cfs/list']);

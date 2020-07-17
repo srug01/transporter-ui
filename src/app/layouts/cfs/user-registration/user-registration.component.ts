@@ -1,11 +1,17 @@
-import { Cfsuserregistration} from '../../../shared/models/user-registration.model';
+import { UserService } from './../../../services/user.service';
+import { CfsUserRegistration } from './../../../shared/models/cfsUserRegistration';
+import { Cfs } from './../../../shared/models/cfs';
 import { UserRegistrationService } from './../services/user-registration.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import {CfsService} from './../../masters/services/cfs.service';
+import { CfsService } from './../../masters/services/cfs.service';
+import { User } from 'src/app/shared/models/user';
+import { Userrole} from 'src/app/shared/models/userrole';
+import { UserroleService} from './../../../services/userrole.service';
+
 
 @Component({
   selector: 'app-user-registration',
@@ -17,46 +23,55 @@ export class UserRegistrationComponent implements OnInit {
   confirmPasswordmatcher = new FormErrorStateMatcher();
   cfsTypeErrormatcher = new FormErrorStateMatcher();
   userTypeErrormatcher = new FormErrorStateMatcher();
+  public currentUser: User;
 
-  public cfsTypes: Array<any> = [];
+  public cfsTypes: Array<Cfs> = [];
   public cfsData: Array<any> = [];
-  public userTypes: Array<any> = [
-    { value: 5, viewValue: 'Super Admin' },
-    { value: 6, viewValue: 'Admin' },
-    { value: 4, viewValue: 'Viewer' }
-  ];
+  public cfsRoles: Array<any> = [];
+
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _userRegistrationService: UserRegistrationService,
+    private _userRoleService: UserroleService,
     private _cfsService: CfsService,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
 
   ) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
     this.userForm = this.fb.group({
-      cfs_user_registration_syscode: [''],
-      cfs_syscode: ['', Validators.required],
-      user_type_syscode: ['', Validators.required],
-      cfs_user_name: ['', Validators.required],
-      cfs_user_designation: ['', Validators.required],
-      cfs_user_department: ['', Validators.required],
-      cfs_user_mobile_no: ['', Validators.required],
-      cfs_user_email: ['', Validators.required],
-      cfs_user_password: ['', Validators.required],
-      cfs_user_confirm_password: ['', Validators.required],
-      cfs_user_is_active: ['', Validators.required],
-      cfs_user_is_verify: ['', Validators.required]
-    },
-    {
-        validator: this.checkPasswords
+      cfsUserRegistrationId: [''],
+      cfsMasterId: ['', Validators.required],
+      userTypeId: ['', Validators.required],
+      cfsUserName: ['', Validators.required],
+      cfsUserDesignation: ['', Validators.required],
+      cfsUserDepartment: ['', Validators.required],
+      cfsUserMobileNumber: ['', Validators.required],
+      cfsUserEmail: ['', Validators.required],
+      cfsUserPassword: ['', Validators.required],
+      cfsUserConfirmPassword: ['', Validators.required],
+      userId: [''],
+      isActive: ['', Validators.required],
+      isVerified: ['', Validators.required],
+      createdBy: [''],
+      createdOn: [''],
+      modifiedBy: [''],
+      modifiedOn: [''],
+    }, {
+      validator: this.checkPasswords
     });
     this.getAllCfsMasters();
+    this.getAllcfsRoles();
     // this.getCfsData();
   }
 
-
+  /**
+   *  Getters
+   * @param ev
+   */
   getAllCfsMasters() {
     this._cfsService.getAllCfsMasters().subscribe(
       (cfsTypes) => {
@@ -66,25 +81,62 @@ export class UserRegistrationComponent implements OnInit {
       }
     );
   }
+
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
+      }
+    );
+  }
+
+  getAllcfsRoles() {
+    this._userRoleService.getAllCFSUserroles(4).subscribe(
+      (cfsRoles: Userrole[]) => {
+        this.cfsRoles = cfsRoles;
+      }
+    );
+  }
+
+  /**
+   *  Form Methods
+   * @param ev
+   */
   submitUserForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
     if (this.userForm.valid) {
-      this.saveUser(this.userForm);
+      const userRegistration: CfsUserRegistration = this.transformCfsUserObj(this.userForm.value);
+      this.saveUser(userRegistration);
     } else {
       this.openSnackBar('Invalid Form !', 'Please Review All Fields');
     }
   }
 
-  checkPasswords(group: FormGroup) {
-    const password = group.get('cfs_user_password').value;
-    const confirmpassword = group.get('cfs_user_confirm_password').value;
-    return password === confirmpassword ? null : { notSame: true };
+  transformCfsUserObj(cfsUserRegistration: CfsUserRegistration): CfsUserRegistration {
+    return {
+      cfsUserRegistrationId: cfsUserRegistration.cfsUserRegistrationId,
+      cfsMasterId: cfsUserRegistration.cfsMasterId,
+      userTypeId: cfsUserRegistration.userTypeId,
+      cfsUserName: cfsUserRegistration.cfsUserName,
+      cfsUserDesignation: cfsUserRegistration.cfsUserDesignation,
+      cfsUserDepartment: cfsUserRegistration.cfsUserDepartment,
+      cfsUserMobileNumber: cfsUserRegistration.cfsUserMobileNumber,
+      cfsUserEmail: cfsUserRegistration.cfsUserEmail,
+      cfsUserPassword: cfsUserRegistration.cfsUserPassword,
+      userId: 0,
+      isActive: cfsUserRegistration.isActive,
+      isVerified: cfsUserRegistration.isVerified,
+      createdBy: this.currentUser.userId,
+      createdOn: new Date(),
+      modifiedBy: this.currentUser.userId,
+      modifiedOn: new Date(),
+    } as CfsUserRegistration;
   }
 
-  saveUser(userForm: any) {
-    this._userRegistrationService.saveCfsUserRegistration(userForm.value).subscribe(
+  saveUser(userRegistration: CfsUserRegistration) {
+    this._userRegistrationService.saveCfsUserRegistration(userRegistration).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS User Created Successfully');
         this._router.navigate(['/default/cfs/user-list']);
@@ -95,6 +147,16 @@ export class UserRegistrationComponent implements OnInit {
     );
   }
 
+  /**
+   *  Misc Methods
+   * @param group
+   */
+
+  checkPasswords(group: FormGroup) {
+    const password = group.get('cfsUserPassword').value;
+    const confirmpassword = group.get('cfsUserConfirmPassword').value;
+    return password === confirmpassword ? null : { notSame: true };
+  }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,

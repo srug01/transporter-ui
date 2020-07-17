@@ -1,6 +1,6 @@
 export interface CfsUserRegistration {
     cfsUserRegistrationId?: number;
-    cfsId?: number;
+    cfsMasterId?: number;
     userTypeId?: number;
     cfsUserName?: string;
     cfsUserDesignation?: string;
@@ -12,7 +12,7 @@ export interface CfsUserRegistration {
     isActive?: boolean;
     isVerified?: boolean;
     createdBy?: number;
-    createdOn?: string;
+    createdOn?: Date;
     modifiedBy?: number;
-    modifiedOn?: string;
+    modifiedOn?: Date;
 }

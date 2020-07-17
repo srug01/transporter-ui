@@ -1,13 +1,13 @@
 export interface Cfsrate {
   cfsRateId?: number;
-  cfsId?: number;
-  portId?: number;
-  weightId?: number;
+  cfsMasterId?: number;
+  portMasterId?: number;
+  weightMasterId?: number;
   rate?: number;
   isActive?: boolean;
   createdBy?: number;
-  createdOn?: string;
+  createdOn?: Date;
   modifiedBy?: number;
-  modifiedOn?: string;
-  cotainerId?: number;
+  modifiedOn?: Date;
+  containerMasterId?: number;
 }

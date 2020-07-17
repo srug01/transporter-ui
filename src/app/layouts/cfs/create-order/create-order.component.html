@@ -10,14 +10,13 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Select Source & Destination Types</mat-label>
-                            <mat-select matNativeControl formControlName="masterType"
-                                (valueChange)="masterTypeSelected($event)" [errorStateMatcher]="errorStateMatcher">
+                            <mat-select matNativeControl formControlName="masterType" (valueChange)="masterTypeSelected($event)" [errorStateMatcher]="errorStateMatcher">
                                 <mat-option *ngFor="let masterType of masterTypes" [value]="masterType.masterTypeId">
                                     {{masterType.masterType}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="orderForm.controls['masterType'].hasError('required')">You must make a
-                                selection</mat-error>
+                            <mat-error *ngIf="orderForm.controls['masterType'].hasError('required')">You must make a selection
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%" fxFlexOffset="10px">
@@ -31,113 +30,107 @@
                 </div>
                 <div fxLayout='row' fxFlex="100%">
                     <div [ngSwitch]="source" fxFlex="50%">
-                        <div *ngSwitchCase="'cfs'" fxFlex="100%">
+                        <div *ngSwitchCase="'CFS'" fxFlex="100%">
                             <div fxFlex="6%">
                                 <i class="material-icons md-24 p5">location_on</i>
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>CFS</mat-label>
-                                    <mat-select matNativeControl formControlName="source"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
-                                            {{cfs.cfs_name +  cfs.locationName}}
+                                    <mat-select matNativeControl formControlName="source" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
+                                            {{cfs.cfsName}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                                        selection</mat-error>
+                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngSwitchCase="'port'" fxFlex="100%">
+                        <div *ngSwitchCase="'PORT'" fxFlex="100%">
                             <div fxFlex="6%">
                                 <i class="material-icons md-24 p5">location_on</i>
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>Port</mat-label>
-                                    <mat-select matNativeControl formControlName="source"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let port of portMasters" [value]="port.port_syscode">
-                                            {{port.port_name}}
+                                    <mat-select matNativeControl formControlName="source" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
+                                            {{port.portName}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                                        selection</mat-error>
+                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngSwitchCase="'yard'" fxFlex="100%">
+                        <div *ngSwitchCase="'YARD'" fxFlex="100%">
                             <div fxFlex="6%">
                                 <i class="material-icons md-24 p5">location_on</i>
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>Yard</mat-label>
-                                    <mat-select matNativeControl formControlName="source"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let yard of yardMasters" [value]="yard.yard_syscode">
-                                            {{yard.yard_name}}
+                                    <mat-select matNativeControl formControlName="source" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
+                                            {{yard.yardName}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                                        selection</mat-error>
+                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
                     <div [ngSwitch]="destination" fxFlex="50%">
-                        <div *ngSwitchCase="'cfs'" fxFlex="100%">
+                        <div *ngSwitchCase="'CFS'" fxFlex="100%">
                             <div fxFlex="6%">
                                 <i class="material-icons md-24 p5">location_on</i>
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>CFS</mat-label>
-                                    <mat-select matNativeControl formControlName="destination"
-                                        [errorStateMatcher]="errorStateMatcher">
+                                    <mat-select matNativeControl formControlName="destination" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
-                                            {{cfs.cfs_name +  cfs.locationName}}
+                                            {{cfs.cfsName + cfs.location}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                                        selection</mat-error>
+                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngSwitchCase="'port'" fxFlex="100%">
+                        <div *ngSwitchCase="'PORT'" fxFlex="100%">
                             <div fxFlex="6%">
                                 <i class="material-icons md-24 p5">location_on</i>
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>Port</mat-label>
-                                    <mat-select matNativeControl formControlName="destination"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let port of portMasters" [value]="port.port_syscode">
-                                            {{port.port_name}}
+                                    <mat-select matNativeControl formControlName="destination" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
+                                            {{port.portName}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                                        selection</mat-error>
+                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngSwitchCase="'yard'" fxFlex="100%">
+                        <div *ngSwitchCase="'YARD'" fxFlex="100%">
                             <div fxFlex="6%">
                                 <i class="material-icons md-24 p5">location_on</i>
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>Yard</mat-label>
-                                    <mat-select matNativeControl formControlName="destination"
-                                        [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let yard of yardMasters" [value]="yard.yard_syscode">
-                                            {{yard.yard_name}}
+                                    <mat-select matNativeControl formControlName="destination" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
+                                            {{yard.yardName}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a
-                                        selection</mat-error>
+                                    <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -151,8 +144,7 @@
                                 <div fxFlex="25%">
                                     <mat-form-field>
                                         <mat-label>Type</mat-label>
-                                        <mat-select matNativeControl formControlName="type"
-                                            [errorStateMatcher]="errorStateMatcher">
+                                        <mat-select matNativeControl formControlName="type" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let type of containerTypes" [value]="type.container_syscode">
                                                 {{type.container_name}}
                                             </mat-option>
@@ -162,8 +154,7 @@
                                 <div fxFlex="25%">
                                     <mat-form-field>
                                         <mat-label>Weight</mat-label>
-                                        <mat-select matNativeControl formControlName="weight"
-                                            [errorStateMatcher]="errorStateMatcher">
+                                        <mat-select matNativeControl formControlName="weight" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let weight of weights" [value]="weight.weight_syscode">
                                                 {{weight.weight_description}}
                                             </mat-option>
@@ -173,14 +164,11 @@
                                 <div fxFlex="20%">
                                     <mat-form-field>
                                         <mat-label>No. of Trucks</mat-label>
-                                        <input matInput type="text" formControlName="number_of_trucks"
-                                            placeholder="No. of Trucks">
+                                        <input matInput type="text" formControlName="number_of_trucks" placeholder="No. of Trucks">
                                     </mat-form-field>
                                 </div>
                                 <div fxFlex="20%">
-                                    <ng-select [items]="containerNumbers" bindLabel="text" bindValue="id"
-                                        [addTag]="true" (change)="changeContainerNumbers($event, i)" [multiple]="true"
-                                        placeholder="add container number & press enter">
+                                    <ng-select [items]="containerNumbers" bindLabel="text" bindValue="id" [addTag]="true" (change)="changeContainerNumbers($event, i)" [multiple]="true" placeholder="add container number & press enter">
                                     </ng-select>
                                 </div>
                                 <div fxFlex="10%">

@@ -45,17 +45,12 @@ import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.compon
 
 import { YardcfsrateMasterListComponent } from './yardcfsrate/yardcfsrate-master-list.component';
 import { MileageMasterListComponent } from './mileage/mileage-master-list.component';
-
 import { ZonedayMasterListComponent } from './zoneday/zoneday-master-list.component';
-
-
 import { StateMasterListComponent } from './state/state-master-list.component';
-
 import { PortEditComponent } from './port/port-edit.component';
 import { PortNewComponent } from './port/port-new.component';
 import { PortDetailsComponent } from './port/port-details.component';
 import { PortFormComponent } from './port/port-form.component';
-
 import { YardDetailsComponent } from './yard/yard-details.component';
 import { YardEditComponent } from './yard/yard-edit.component';
 import { YardFormComponent } from './yard/yard-form.component';
@@ -63,14 +58,12 @@ import { YardNewComponent } from './yard/yard-new.component';
 import { YardMasterListComponent } from './yard/yard-master-list.component';
 import { YardsResolver } from './resolvers/yard.resolver';
 import { YardComponent } from './yard/yard.component';
-
 import { ContainerDetailsComponent } from './container/container-details.component';
 import { ContainerEditComponent } from './container/container-edit.component';
 import { ContainerFormComponent } from './container/container-form.component';
 import { ContainerNewComponent } from './container/container-new.component';
 import { ContainerMasterListComponent } from './container/container-master-list.component';
 import { ContainerResolver } from './resolvers/container.resolver';
-
 import { YardportmapDetailsComponent } from './yardportmap/yardportmap-details.component';
 import { YardportmapEditComponent } from './yardportmap/yardportmap-edit.component';
 import { YardportmapFormComponent } from './yardportmap/yardportmap-form.component';
@@ -78,9 +71,7 @@ import { YardportmapNewComponent } from './yardportmap/yardportmap-new.component
 import { YardportmapComponent } from './yardportmap/yardportmap.component';
 import { YardportmapMasterListComponent } from './yardportmap/yardportmap-master-list.component';
 import { YardPortMapResolver } from './resolvers/yardportmap.resolver';
-
 import { MileagesResolver } from './resolvers/mileage.resolver';
-
 import { WeightDetailsComponent } from './weight/weight-details.component';
 import { WeightEditComponent } from './weight/weight-edit.component';
 import { WeightFormComponent } from './weight/weight-form.component';
@@ -110,7 +101,6 @@ import { DieselFormComponent } from './diesel/diesel-form.component';
 import { DieselMasterListComponent } from './diesel/diesel-master-list.component';
 import { DieselNewComponent } from './diesel/diesel-new.component';
 import { DieselComponent } from './diesel/diesel.component';
-
 import { CfsrateDetailsComponent } from './cfsrate/cfsrate-details.component';
 import { CfsrateEditComponent } from './cfsrate/cfsrate-edit.component';
 import { CfsrateFormComponent } from './cfsrate/cfsrate-form.component';
@@ -125,7 +115,6 @@ import { YardcfsrateEditComponent } from './yardcfsrate/yardcfsrate-edit.compone
 import { YardcfsrateFormComponent } from './yardcfsrate/yardcfsrate-form.component';
 import { YardcfsrateNewComponent } from './yardcfsrate/yardcfsrate-new.component';
 import { YardCFSRatesResolver } from './resolvers/yardcfsrate.resolver';
-
 import { CfsComponent } from './cfs/cfs.component';
 import { CfsDetailsComponent } from './cfs/cfs-details.component';
 import { CfsEditComponent } from './cfs/cfs-edit.component';
@@ -134,7 +123,6 @@ import { CfsMasterListComponent } from './cfs/cfs-master-list.component';
 import { CfsNewComponent } from './cfs/cfs-new.component';
 import { CfsResolver } from './resolvers/cfs.resolver';
 import { CfsrateResolver } from './resolvers/cfsrate.resolver';
-
 import { NumbersOnly } from './../../shared/directives/numbersonly.directive';
 import { LocationComponent } from './location/location.component';
 import { LocationNewComponent } from './location/location-new.component';

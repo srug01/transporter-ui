@@ -13,7 +13,7 @@ import { YardCFSRateService } from '../services/yardcfsrate.service';
 import { WeightService } from '../services/weight.service';
 import { YardService } from '../services/yard.service';
 import { CfsService } from '../services/cfs.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
 
 
 
@@ -37,7 +37,7 @@ export class YardcfsrateFormComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _yardcfsrateService: YardCFSRateService,
     private _yardService: YardService,
-    private _containerService: ContianerService,
+    private _containerService: ContainerService,
     private _cfsService: CfsService,
     private _weightService: WeightService,
     private _router: Router

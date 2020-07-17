@@ -8,6 +8,5 @@ export class User {
     mobileNumber: string;
     typeSyscode: number;
     roles: any[];
-    id: number;
     permissions: any;
 }

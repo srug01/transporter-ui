@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
-import { ContianerService } from '../services/contianer.service';
+import { ContainerService } from '../services/container.service';
 
 
 @Component({
@@ -20,8 +20,8 @@ import { ContianerService } from '../services/contianer.service';
 })
 export class CfsrateMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'cfs_rate_syscode', 'cfs_syscode', 'port_syscode', 'weight_syscode',
-    'container_syscode', 'rate', 'is_active', 'action'
+    'cfsRateId', 'cfsMasterId', 'portMasterId', 'weightMasterId',
+    'containerMasterId', 'rate', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public containerMasters: Array<any> = [];
@@ -30,7 +30,7 @@ export class CfsrateMasterListComponent implements OnInit {
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
   constructor(
-    private _containerService: ContianerService,
+    private _containerService: ContainerService,
     private _cfsrateService: CfsrateService,
     private _snackBar: MatSnackBar,
     private _router: Router,
@@ -60,8 +60,8 @@ export class CfsrateMasterListComponent implements OnInit {
 
   getContainerbyId(id): string {
     for (let i = 0; i < this.containerMasters.length; i++) {
-      if (this.containerMasters[i].container_syscode === id) {
-        return this.containerMasters[i].container_name;
+      if (this.containerMasters[i].containerMasterId === id) {
+        return this.containerMasters[i].containerMasterName;
       }
     }
   }
@@ -93,8 +93,8 @@ export class CfsrateMasterListComponent implements OnInit {
   }
   getCFSbyId(id): string {
     for (let i = 0; i < this.CFS.length; i++) {
-      if (this.CFS[i].cfs_syscode === id) {
-        return this.CFS[i].cfs_name;
+      if (this.CFS[i].cfsMasterId === id) {
+        return this.CFS[i].cfsName;
       }
     }
   }
@@ -112,8 +112,8 @@ export class CfsrateMasterListComponent implements OnInit {
   }
   getPortbyId(id): string {
     for (let i = 0; i < this.Port.length; i++) {
-      if (this.Port[i].port_syscode === id) {
-        return this.Port[i].port_name;
+      if (this.Port[i].portMasterId === id) {
+        return this.Port[i].portName;
       }
     }
   }
@@ -129,8 +129,8 @@ export class CfsrateMasterListComponent implements OnInit {
   }
   getWeightbyId(id): string {
     for (let i = 0; i < this.Weight.length; i++) {
-      if (this.Weight[i].weight_syscode === id) {
-        return this.Weight[i].weight_description;
+      if (this.Weight[i].weightMasterId === id) {
+        return this.Weight[i].weightDesc;
       }
     }
   }

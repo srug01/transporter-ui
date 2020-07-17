@@ -7,7 +7,6 @@ import { take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
 import { PortService } from '../services/port.service';
 
 @Component({
@@ -28,8 +27,6 @@ export class PortterminalmasterFormComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _portterminalMasterService: PortterminalmasterService,
     private _portService: PortService,
-   
-
     private _router: Router
   ) { }
 
@@ -46,8 +43,8 @@ export class PortterminalmasterFormComponent implements OnInit {
            Validators.required],
         latitude: [this.portterminalmasterData.latitude],
         longitude: [this.portterminalmasterData.longitude],
-        terminal: [this.portterminalmasterData.terminal],       
-        isActive: [this.portterminalmasterData.isActive ? 
+        terminal: [this.portterminalmasterData.terminal],
+        isActive: [this.portterminalmasterData.isActive ?
           this.portterminalmasterData.isActive : '', Validators.required]
       });
     } else {
@@ -55,12 +52,12 @@ export class PortterminalmasterFormComponent implements OnInit {
         portTerminalId: [''],
         portMasterId: ['', Validators.required],
         latitude: [''],
-        longitude: [''], 
-        terminal: [''], 
+        longitude: [''],
+        terminal: [''],
         isActive: ['', Validators.required]
       });
-  }
-  this.getAllPortMasters();
+    }
+    this.getAllPortMasters();
   }
   getAllPortMasters() {
     this._portService.getAllPortMasters().subscribe(
@@ -71,7 +68,7 @@ export class PortterminalmasterFormComponent implements OnInit {
       }
     );
   }
-  
+
   submitPortTerminalForm(ev) {
     if (ev) {
       ev.preventDefault();
