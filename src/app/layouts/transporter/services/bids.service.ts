@@ -22,4 +22,8 @@ export class BidsService {
   getAllPlacedBids(): Observable<any> {
     return this.http.get(this.baseUrl + 'bids');
   }
+
+  getAllBidsbyUserId(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetBidsByUserId/' + id);
+  }
 }

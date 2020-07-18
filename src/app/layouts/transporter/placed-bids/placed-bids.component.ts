@@ -22,10 +22,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PlacedBidsComponent implements OnInit {
   displayedColumns: string[] = [
     'Bid ID', 'Bid Name', 'Source', 'Destination', 'Container Type',
-    'Container Weight', 'Bid Rate', 'Margin %', 'Bid Value', 'Transport Date',
+    'Container Weight', 'Bid Rate', 'Bid Value', 'Transport Date',
     'Created By', 'Action'
   ];
-  bids: Bid[] = [];
+  bids: Array<any>[] = [];
   public currentUser: User;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
@@ -42,7 +42,8 @@ export class PlacedBidsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserInfo();
-    this.getAllPlacedBids();
+    //this.getAllPlacedBids();
+    this.getAllPlacedBidsbyUserId();
   }
 
   getUserInfo() {
@@ -53,10 +54,22 @@ export class PlacedBidsComponent implements OnInit {
     );
   }
 
-  getAllPlacedBids() {
-    this._bidService.getAllPlacedBids().subscribe(
-      (bids: Bid[]) => {
+  // getAllPlacedBids() {
+  //   this._bidService.getAllPlacedBids().subscribe(
+  //     (bids: Bid[]) => {
+  //       this.bids = bids;
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
+  getAllPlacedBidsbyUserId() {
+    this._bidService.getAllBidsbyUserId(1).subscribe(
+      (bids: Array<any>[]) => {
         this.bids = bids;
+        console.log(bids);
       },
       (err) => {
         console.log(err);
@@ -78,7 +91,7 @@ export class PlacedBidsComponent implements OnInit {
   confirmBid(bid: any) {
     const bidMapping: BidUserMapping = this.transformBidObj(bid, 'confirmed');
     this._bidMappingService.saveBid(bidMapping).subscribe(
-      (res) => {        
+      (res) => {
         console.log(res);
         const notification: Notification = {
           orderId: 1,
@@ -113,12 +126,12 @@ export class PlacedBidsComponent implements OnInit {
     );
   }
 
-  transformBidObj(bid: Bid, action: string): BidUserMapping {
+  transformBidObj(bid: any, action: string): BidUserMapping {
     return {
       bidId: bid.bidId,
       bidName: bid.bidName,
       bidStatus: action,
-      bidValue: bid.bidRate,
+      bidValue: bid.bidValue,
       userId: this.currentUser.userId
     } as BidUserMapping;
   }
