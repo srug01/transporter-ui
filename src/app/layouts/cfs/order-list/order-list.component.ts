@@ -1,3 +1,6 @@
+import { Yard } from 'src/app/shared/models/yard';
+import { Port } from './../../../shared/models/port';
+import { Cfs } from './../../../shared/models/cfs';
 import { LocationMaster } from './../../../shared/models/location';
 import { LocationService } from './../../masters/services/location.service';
 import { Order } from './../../../shared/models/order';
@@ -9,6 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { DateFormatPipe } from './../../../shared/pipe/date-format.pipe';
+import { PortService } from '../../masters/services/port.service';
+import { CfsService } from '../../masters/services/cfs.service';
+import { YardService } from '../../masters/services/yard.service';
 
 @Component({
   selector: 'app-order-list',
@@ -26,6 +32,9 @@ export class OrderListComponent implements OnInit {
   public currentUser: User;
   public users: User[] = [];
   public orderUserIds: Array<{ id: number }> = null;
+  public cfsMasters: Cfs[] = [];
+  public portMasters: Port[] = [];
+  public yardMasters: Yard[];
 
 
   constructor(
@@ -33,12 +42,48 @@ export class OrderListComponent implements OnInit {
     private _locationService: LocationService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private _userService: UserService
+    private _userService: UserService,
+    private _yardService: YardService,
+    private _cfsService: CfsService,
+    private _portService: PortService
   ) { }
 
   ngOnInit(): void {
     this.getStates();
+    this.getAllCfs();
+    this.getAllPorts();
+    this.getAllYards();
     this.getAllOrders();
+  }
+
+  getAllCfs() {
+    this._cfsService.getAllCfsMasters().subscribe(
+      (cfsMasters: Cfs[]) => {
+        this.cfsMasters = cfsMasters;
+      },
+      (err) => {
+        console.log(err);
+
+      }
+    );
+  }
+  getAllPorts() {
+    this._portService.getAllPortMasters().subscribe(
+      (portMasters: Port[]) => {
+        this.portMasters = portMasters;
+      },
+      (err) => {
+        console.log(err);
+
+      }
+    );
+  }
+  getAllYards() {
+    this._yardService.getAllYardMasters().subscribe(
+      (yardMasters: Yard[]) => {
+        this.yardMasters = yardMasters;
+      }
+    );
   }
 
   getStates() {
@@ -113,20 +158,61 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  searchLocationById(id): string {
-    for (let i = 0; i < this.locations.length; i++) {
-      if (this.locations[i].locationId === id) {
-        return this.locations[i].locationName;
-      }
-    }
-  }
-
-
   searchSourceById(sourceType: string, sourceId: number): string {
+    switch (sourceType) {
+      case 'CFS':
+        for (let i = 0; i < this.cfsMasters.length; i++) {
+          if (this.cfsMasters[i].cfsMasterId === sourceId) {
+            return `${this.cfsMasters[i].cfsName} - (${sourceType})`;
+          }
+        }
+        break;
+      case 'PORT':
+        for (let i = 0; i < this.portMasters.length; i++) {
+          if (this.portMasters[i].portMasterId === sourceId) {
+            return `${this.portMasters[i].portName} - (${sourceType})`;
+          }
+        }
+        break;
+      case 'YARD':
+        for (let i = 0; i < this.yardMasters.length; i++) {
+          if (this.yardMasters[i].yardMasterId === sourceId) {
+            return `${this.yardMasters[i].yardName} - (${sourceType})`;
+          }
+        }
+        break;
+      default:
+        break;
+    }
     return '';
   }
 
   searchDestinationById(destinationType: string, destinationId: number): string {
+    switch (destinationType) {
+      case 'CFS':
+        for (let i = 0; i < this.cfsMasters.length; i++) {
+          if (this.cfsMasters[i].cfsMasterId === destinationId) {
+            return `${this.cfsMasters[i].cfsName} - (${destinationType})`;
+          }
+        }
+        break;
+      case 'PORT':
+        for (let i = 0; i < this.portMasters.length; i++) {
+          if (this.portMasters[i].portMasterId === destinationId) {
+            return `${this.portMasters[i].portName} - (${destinationType})`;
+          }
+        }
+        break;
+      case 'YARD':
+        for (let i = 0; i < this.yardMasters.length; i++) {
+          if (this.yardMasters[i].yardMasterId === destinationId) {
+            return `${this.yardMasters[i].yardName} - (${destinationType})`;
+          }
+        }
+        break;
+      default:
+        break;
+    }
     return '';
   }
 
