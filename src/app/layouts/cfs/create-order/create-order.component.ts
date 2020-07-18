@@ -106,6 +106,69 @@ export class CreateOrderComponent implements OnInit {
     this.getAllContainers();
   }
 
+  getCfsMasterByUserId(masterType: string) {
+    const filter = {
+      where: {
+        or: [
+          {
+            userId: this.currentUser.userId
+          }
+        ]
+      }
+    };
+    this._cfsService.getAllCfsMastersByUserId(filter).subscribe(
+      (cfsMasters: Array<Cfs>) => {
+        this.orderForm.get(masterType).setValue(cfsMasters[0].cfsMasterId);
+        this.orderForm.get(masterType).disable();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getPortMasterByUserId(masterType: string) {
+    const filter = {
+      where: {
+        or: [
+          {
+            userId: this.currentUser.userId
+          }
+        ]
+      }
+    };
+    this._portService.getAllPortMastersByUserId(filter).subscribe(
+      (portMasters: Array<Port>) => {
+        this.orderForm.get(masterType).setValue(portMasters[0].portMasterId);
+        this.orderForm.get(masterType).disable();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getYardMasterByUserId(masterType: string) {
+    const filter = {
+      where: {
+        or: [
+          {
+            userId: this.currentUser.userId
+          }
+        ]
+      }
+    };
+    this._yardService.getAllYardMastersByUserId(filter).subscribe(
+      (yardMasters: Array<Yard>) => {
+        this.orderForm.get(masterType).setValue(yardMasters[0].yardMasterId);
+        this.orderForm.get(masterType).disable();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
       masterType: ['', Validators.required],
@@ -141,6 +204,35 @@ export class CreateOrderComponent implements OnInit {
         this.selectedMasterType = masterType;
         this.source = this.selectedMasterType.sourceType;
         this.destination = this.selectedMasterType.destinationType;
+        switch (this.source) {
+          case 'CFS':
+            this.getCfsMasterByUserId('source');
+            break;
+          case 'PORT':
+            this.getPortMasterByUserId('source');
+            break;
+          case 'YARD':
+            this.getYardMasterByUserId('source');
+            break;
+
+          default:
+            break;
+        }
+        switch (this.destination) {
+          case 'CFS':
+            this.getCfsMasterByUserId('destination');
+            break;
+          case 'PORT':
+            this.getPortMasterByUserId('destination');
+            break;
+          case 'YARD':
+            this.getYardMasterByUserId('destination');
+            break;
+
+          default:
+            break;
+        }
+        console.log(this.orderForm);
       },
       (err) => {
         console.log(err);
@@ -163,7 +255,6 @@ export class CreateOrderComponent implements OnInit {
     this._containerService.getAllContainerMasters().subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
-        console.log(this.containerTypes);
       },
       (err) => {
         console.log(err);
@@ -243,8 +334,7 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
-      console.log(order);
-      // this.saveOrderDraft(order);
+      this.saveOrder(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
@@ -262,7 +352,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'pending');
       console.log(order);
-      // this.saveOrderDraft(order);
+      this.saveOrderDraft(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
@@ -277,18 +367,18 @@ export class CreateOrderComponent implements OnInit {
     }
     return {
       masterTypeId: order.masterTypeId,
-      orderDate:order.orderDate,
-      orderRemarks:order.orderRemarks,
-      orderTypeId:order.orderTypeId,
+      orderDate: order.orderDate,
+      orderRemarks: order.orderRemarks,
+      orderTypeId: order.orderTypeId,
       orderAddress: order.orderAddress,
-      destinationId:order.destinationId,
-      sourceId:order.sourceId,
-      isDeleted:order.isDeleted,
+      destinationId: order.destinationId,
+      sourceId: order.sourceId,
+      isDeleted: order.isDeleted,
       createdBy: 1,
       createdOn: new Date(),
-      modifiedBy:1,
-      modifiedOn:new Date(),
-      sourceType:order.sourceType,
+      modifiedBy: 1,
+      modifiedOn: new Date(),
+      sourceType: order.sourceType,
       destinationType: order.destinationType,
       status,
       containers

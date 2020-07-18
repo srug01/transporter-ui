@@ -33,6 +33,10 @@ export class PortService {
     return this.http.get(this.baseUrl + 'port-masters');
   }
 
+  getAllPortMastersByUserId(filter:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'port-masters?filter=' + JSON.stringify(filter), this.HttpUploadOptions);
+  }
+
   getPortMastersById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'port-masters/' + id);
   }

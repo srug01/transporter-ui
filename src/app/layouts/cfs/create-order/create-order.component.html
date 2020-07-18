@@ -91,8 +91,8 @@
                                 <mat-form-field class="demo-full-width">
                                     <mat-label>CFS</mat-label>
                                     <mat-select matNativeControl formControlName="destination" [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let cfs of cfsLocation" [value]="cfs.cfsMasterId">
-                                            {{cfs.cfsName + cfs.location}}
+                                        <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
+                                            {{cfs.cfsName}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['source'].hasError('required')">You must make a selection

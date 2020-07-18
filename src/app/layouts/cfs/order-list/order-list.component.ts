@@ -39,7 +39,6 @@ export class OrderListComponent implements OnInit {
   ngOnInit(): void {
     this.getStates();
     this.getAllOrders();
-
   }
 
   getStates() {
@@ -62,6 +61,7 @@ export class OrderListComponent implements OnInit {
     this._orderService.getAllOrders().subscribe(
       (orders: Order[]) => {
         this.orders = orders;
+        console.log(this.orders);
         this.orderUserIds = this.orders.map((order) => {
           return { id: order.createdBy };
         });
@@ -124,7 +124,7 @@ export class OrderListComponent implements OnInit {
   searchUserById(userId): string {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].userId === userId) {
-        return `${ this.users[i].firstName } ${ this.users[i].lastName }`;
+        return `${this.users[i].firstName} ${this.users[i].lastName}`;
       }
     }
   }

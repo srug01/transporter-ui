@@ -33,6 +33,10 @@ export class YardService {
     return this.http.get(this.baseUrl + 'yard-masters');
   }
 
+  getAllYardMastersByUserId(filter:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'yard-masters?filter=' + JSON.stringify(filter), this.HttpUploadOptions);
+  }
+
   getYardMasterById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'yard-masters/' + id);
   }
