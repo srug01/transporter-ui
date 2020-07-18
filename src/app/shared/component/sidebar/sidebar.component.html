@@ -1,19 +1,30 @@
-<mat-nav-list *ngIf="currentUser">
+<mat-nav-list *ngIf="currentUser" class="sidebar">
 
-    <div class="profile-card">
+    <!-- <div class="profile-card">
         <div class="header" *ngIf="currentUser">
             <h1><strong></strong>{{currentUser.name}}</h1>
             <h3>{{currentUser.email}}</h3>
         </div>
-    </div>
+    </div> -->
 
     <mat-divider></mat-divider>
-    <a mat-list-item class="menu-item" routerLinkActive="list-item-active" routerLink='/default'><i
-            class="fas dashboard-icon fa-tachometer-alt fa-lg md-24 p5"></i><span class="menu-text">Dashboard</span></a>
+    <div mat-list-item class="menu-item" routerLinkActive="list-item-active" routerLink='/default'>
+        <div class="icon">
+            <i class="fas dashboard-icon fa-tachometer-alt md-24"></i>
+        </div>
+        <div class="link">
+            <p class="menu-text">Dashboard</p>
+        </div>
+    </div>
     <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 4 || currentUser.typeSyscode === 0">
-        <a mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1"><i
-                class="fas fa fa-cubes fa-lg md-24 p5 cfs-icon" aria-hidden="true"></i><span
-                class="menu-text">CFS</span></a>
+        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1">
+            <div class="icon">
+                <i class="fas fa fa-cubes md-24" aria-hidden="true"></i>
+            </div>
+            <div class="link">
+                <p class="menu-text">CFS</p>
+            </div>
+        </div>
         <mat-menu #menu1="matMenu">
             <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
             <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
@@ -24,9 +35,14 @@
     </div>
 
     <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5 || currentUser.typeSyscode === 0">
-        <a mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2"><i
-                class="fas transporter-icon fa fa-truck fa-lg md-24 p5" aria-hidden="true"></i><span
-                class="menu-text">Transporter</span></a>
+        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2">
+            <div class="icon">
+                <i class="fas fa fa-truck md-24 p5" aria-hidden="true"></i>
+            </div>
+            <div class="link">
+                <p class="menu-text">Transporter</p>
+            </div>
+        </div>
         <mat-menu #menu2="matMenu">
             <button mat-menu-item routerLink='/default/transporter/bids'>Bids</button>
             <button mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</button>
@@ -39,8 +55,14 @@
         </mat-menu>
     </div>
     <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 0">
-        <a mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
-            <i class="fas fa fa-briefcase fa-lg md-24 p5 masters-icon" aria-hidden="true"></i><span class="menu-text">Masters</span></a>
+        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
+            <div class="icon">
+                <i class="fas fa fa-briefcase md-24" aria-hidden="true"></i>
+            </div>
+            <div class="link">
+                <p class="menu-text">Masters</p>
+            </div>
+        </div>
         <mat-menu #menu4="matMenu">
             <button mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</button>
             <button mat-menu-item routerLink='/default/masters/container/list'>Container Master</button>

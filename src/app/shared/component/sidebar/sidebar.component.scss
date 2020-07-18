@@ -16,33 +16,37 @@
     }
 }
 
+.sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
 .menu-item {
-    font-size: $font-size-large;
+    font-size: 18px;
     transition: 0.3s;
+    flex-direction: column !important;
+    height: 70px;
+    padding: 2px;
+    width: 100px;
+    margin-top: 20px;
+    outline: none;
+    .icon {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-size: 1.4em;
+    }
+    .link {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .menu-item:hover {
     letter-spacing: 2px;
-}
-
-.cfs-icon {
-    font-size: 2.4444em;
-}
-
-.dashboard-icon {
-    font-size: 1.8888em;
-}
-
-.transporter-icon {
-    font-size: 1.9999em;
-}
-
-.masters-icon {
-    font-size: 2.5555em;
-}
-
-.master-list-icon {
-    font-size: 2.4444em;
 }
 
 .menu-text {
