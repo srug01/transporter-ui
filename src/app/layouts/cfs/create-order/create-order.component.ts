@@ -119,7 +119,6 @@ export class CreateOrderComponent implements OnInit {
     this._cfsService.getAllCfsMastersByUserId(filter).subscribe(
       (cfsMasters: Array<Cfs>) => {
         this.orderForm.get(masterType).setValue(cfsMasters[0].cfsMasterId);
-        this.orderForm.get(masterType).disable();
       },
       (err) => {
         console.log(err);
@@ -140,7 +139,6 @@ export class CreateOrderComponent implements OnInit {
     this._portService.getAllPortMastersByUserId(filter).subscribe(
       (portMasters: Array<Port>) => {
         this.orderForm.get(masterType).setValue(portMasters[0].portMasterId);
-        this.orderForm.get(masterType).disable();
       },
       (err) => {
         console.log(err);
@@ -161,7 +159,6 @@ export class CreateOrderComponent implements OnInit {
     this._yardService.getAllYardMastersByUserId(filter).subscribe(
       (yardMasters: Array<Yard>) => {
         this.orderForm.get(masterType).setValue(yardMasters[0].yardMasterId);
-        this.orderForm.get(masterType).disable();
       },
       (err) => {
         console.log(err);
@@ -171,14 +168,63 @@ export class CreateOrderComponent implements OnInit {
 
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
-      masterType: ['', Validators.required],
-      date: ['', Validators.required],
-      source: ['', Validators.required],
-      destination: ['', Validators.required],
+      orderId: [''],
+      ordeorderTypeId: [''],
+      orderDate: ['', Validators.required],
+      masterTypeId: ['', Validators.required],
+      sourceId: ['', Validators.required],
+      destinationId: ['', Validators.required],
+      sourceType: [''],
+      destinationType: [''],
+      orderRemarks: ['', Validators.required],
+      orderAddress: [''],
+      isDeleted: [false, ''],
+      isVerified: [false, ''],
+      status: [''],
+      createdBy: [''],
+      createdOn: [''],
+      modifiedBy: [''],
+      modifiedOn: [''],
+      totalRate: [''],
+      profitRate: [''],
+      profitMarginPercentage: [''],
+      rateExcludingProfit: [''],
       containers: this.fb.array([]),
-      remarks: ['', Validators.required]
     });
     this.addFormControl();
+  }
+
+  transformOrderObj(order: any, status: string): Order {
+    const containers: Array<Container> = [];
+    if (order.containers.length > 0) {
+      order.containers.forEach(container => {
+        containers.push(this.transformOrderContainerObj(container));
+      });
+    }
+    return {
+      orderId: null,
+      masterTypeId: order.masterTypeId,
+      orderDate: order.orderDate,
+      orderRemarks: order.orderRemarks,
+      orderTypeId: order.orderTypeId,
+      orderAddress: order.orderAddress,
+      destinationId: order.destinationId,
+      sourceId: order.sourceId,
+      sourceType: order.sourceType,      
+      destinationType: order.destinationType,
+      isDeleted: order.isDeleted,
+      isVerified: order.isVerified,
+      createdBy: 1,
+      createdOn: new Date(),
+      modifiedBy: 1,
+      modifiedOn: new Date(),
+      status,
+      containers,
+      totalRate: 0,
+      profitRate: 0,
+      profitMarginPercentage: 0,
+      rateExcludingProfit: 0
+    } as Order;
   }
 
   getLocations() {
@@ -203,16 +249,18 @@ export class CreateOrderComponent implements OnInit {
       (masterType: MasterType) => {
         this.selectedMasterType = masterType;
         this.source = this.selectedMasterType.sourceType;
+        this.orderForm.get('sourceType').setValue(this.source);
         this.destination = this.selectedMasterType.destinationType;
+        this.orderForm.get('destinationType').setValue(this.destination);
         switch (this.source) {
           case 'CFS':
-            this.getCfsMasterByUserId('source');
+            this.getCfsMasterByUserId('sourceId');
             break;
           case 'PORT':
-            this.getPortMasterByUserId('source');
+            this.getPortMasterByUserId('sourceId');
             break;
           case 'YARD':
-            this.getYardMasterByUserId('source');
+            this.getYardMasterByUserId('sourceId');
             break;
 
           default:
@@ -220,19 +268,18 @@ export class CreateOrderComponent implements OnInit {
         }
         switch (this.destination) {
           case 'CFS':
-            this.getCfsMasterByUserId('destination');
+            this.getCfsMasterByUserId('destinationId');
             break;
           case 'PORT':
-            this.getPortMasterByUserId('destination');
+            this.getPortMasterByUserId('destinationId');
             break;
           case 'YARD':
-            this.getYardMasterByUserId('destination');
+            this.getYardMasterByUserId('destinationId');
             break;
 
           default:
             break;
         }
-        console.log(this.orderForm);
       },
       (err) => {
         console.log(err);
@@ -350,6 +397,7 @@ export class CreateOrderComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.orderForm.valid) {
+      console.log(this.orderForm.value);
       const order = this.transformOrderObj(this.orderForm.value, 'pending');
       console.log(order);
       this.saveOrderDraft(order);
@@ -358,32 +406,7 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  transformOrderObj(order: Order, status: string): Order {
-    const containers: Array<Container> = [];
-    if (order.containers.length > 0) {
-      order.containers.forEach(container => {
-        containers.push(this.transformOrderContainerObj(container));
-      });
-    }
-    return {
-      masterTypeId: order.masterTypeId,
-      orderDate: order.orderDate,
-      orderRemarks: order.orderRemarks,
-      orderTypeId: order.orderTypeId,
-      orderAddress: order.orderAddress,
-      destinationId: order.destinationId,
-      sourceId: order.sourceId,
-      isDeleted: order.isDeleted,
-      createdBy: 1,
-      createdOn: new Date(),
-      modifiedBy: 1,
-      modifiedOn: new Date(),
-      sourceType: order.sourceType,
-      destinationType: order.destinationType,
-      status,
-      containers
-    } as Order;
-  }
+  
 
   getMasterTypeSource(masterTypeId): string {
     const masterType = this.masterTypes.find(m => m.masterTypeId === masterTypeId);

@@ -29,6 +29,7 @@ export class OrderService {
   ) { }
 
   saveOrder(order: Order): Observable<any> {
+    delete order.orderId;
     return this.http.post<Order>(this.baseUrl + 'orders', JSON.stringify(order), this.HttpUploadOptions);
   }
 
