@@ -1,4 +1,9 @@
 import { MasterType } from './../../../shared/models/masterType';
+import { Cfs } from './../../../shared/models/cfs';
+import { Port } from './../../../shared/models/port';
+import { Yard } from './../../../shared/models/yard';
+import { ContainerMaster } from './../../../shared/models/containerMaster';
+import { Weight } from './../../../shared/models/weight';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -30,5 +35,26 @@ export class MasterTypeService {
   getMasterTypeById(masterTypeId): Observable<MasterType> {
     return this.http.get<MasterType>(this.baseUrl + 'master-types/' + masterTypeId);
   }
+
+  getAllCFSbyUserId(userId): Observable<Cfs[]> {
+    return this.http.get<Cfs[]>(this.baseUrl + 'GetAllCFSbyUserId/' + userId);
+  }
+
+  getAllCFSPortsbyUserId(userId): Observable<Port[]> {
+    return this.http.get<Port[]>(this.baseUrl + 'GetAllCFSPortsbyUserId/' + userId);
+  }
+
+  getAllCFSYardsbyUserId(userId): Observable<Yard[]> {
+    return this.http.get<Yard[]>(this.baseUrl + 'GetAllCFSYardsbyUserId/' + userId);
+  }
+
+  getAllCFSContainersbyUserId(userId, typeId): Observable<ContainerMaster[]> {
+    return this.http.get<ContainerMaster[]>(this.baseUrl + 'getAllCFSContainersbyUserId/' + userId + '/' + typeId);
+  }
+
+  getAllCFSWeightsbyUserId(userId, typeId): Observable<Weight[]> {
+    return this.http.get<Weight[]>(this.baseUrl + 'GetAllCFSWeightsbyUserId/' + userId + '/' + typeId);
+  }
+
 }
 
