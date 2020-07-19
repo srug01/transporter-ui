@@ -25,3 +25,12 @@ mat-drawer-content {
     background-color: #e8eaf6;
     padding: 10px;
 }
+
+.sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    background-color: #3F51B5;
+    color: white;
+}
