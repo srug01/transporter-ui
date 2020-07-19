@@ -22,7 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PlacedBidsComponent implements OnInit {
   displayedColumns: string[] = [
     'Bid ID', 'Bid Name', 'Source', 'Destination', 'Container Type',
-    'Container Weight', 'Bid Rate', 'Bid Value', 'Transport Date',
+    'Container Weight', 'Bid Rate','Bid Lower Limit', 'Bid Value', 'Transport Date',
     'Created By', 'Action'
   ];
   bids: Array<any>[] = [];
@@ -106,7 +106,6 @@ export class PlacedBidsComponent implements OnInit {
         };
         this.saveNotification(notification);
         this.openSnackBar('Success !', 'Order placed successfully');
-        this._router.navigate(['/default']);
       },
       (err) => {
         console.log(err);

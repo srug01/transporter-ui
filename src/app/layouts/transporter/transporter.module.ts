@@ -32,6 +32,7 @@ import { AppDateAdapter } from 'src/app/shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { BidsComponent } from './bids/bids.component';
 import { config } from 'rxjs';
+import { MyTripsComponent } from './my-trips/my-trips.component';
 
 
 const routes: Routes = [
@@ -42,7 +43,16 @@ const routes: Routes = [
   { path: 'register-driver', component: DriverRegistrationComponent },
   { path: 'transporter-list', component: TransporterListComponent },
   { path: 'placed-bids', component: PlacedBidsComponent },
-  { path: 'bids', component: BidsComponent }
+  { path: 'bids', component: BidsComponent },
+  {
+    path: 'my-trips', component: MyTripsComponent,
+    children: [
+      // { path: '', redirectTo: 'list', pathMatch: 'full' },
+      // { path: 'list', component: PortMasterListComponent },
+      // { path: 'new', component: PortNewComponent },
+      // { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
+    ]
+  }
 ];
 
 const toasterConfig: MatSnackBarConfig = {
@@ -52,7 +62,7 @@ const toasterConfig: MatSnackBarConfig = {
 };
 
 //export const config: FileInputConfig = {
-  //sizeUnit: 'Octet'
+//sizeUnit: 'Octet'
 //};
 
 

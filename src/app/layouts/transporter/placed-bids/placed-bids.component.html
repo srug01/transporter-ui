@@ -1,87 +1,92 @@
 <mat-card>
 
-  <mat-card-header>
-    <mat-card-title>Transporter Management</mat-card-title>
-    <mat-card-subtitle>Placed Bids</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content *ngIf="bids">
-    <table mat-table [dataSource]="bids" class="mat-elevation-z8">
+    <mat-card-header>
+        <mat-card-title>Transporter Management</mat-card-title>
+        <mat-card-subtitle>Placed Bids</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content *ngIf="bids">
+        <table mat-table [dataSource]="bids" class="mat-elevation-z8">
 
-      <!--- Note that these columns can be defined in any order.
+            <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="Bid ID">
-        <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let element"> {{element.bidId}} </td>
-      </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="Bid ID">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let element"> {{element.bidId}} </td>
+            </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="Bid Name">
-        <th mat-header-cell *matHeaderCellDef> Bid Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.bidName}} </td>
-      </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="Bid Name">
+                <th mat-header-cell *matHeaderCellDef> Bid Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.bidName}} </td>
+            </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="Source">
-        <th mat-header-cell *matHeaderCellDef> Source </th>
-        <td mat-cell *matCellDef="let element"> ( {{element.SorurceName}} ) - {{element.source_name}}</td>
-      </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Source">
+                <th mat-header-cell *matHeaderCellDef> Source </th>
+                <td mat-cell *matCellDef="let element"> ( {{element.SorurceName}} ) - {{element.source_name}}</td>
+            </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="Destination">
-        <th mat-header-cell *matHeaderCellDef> Destination </th>
-        <td mat-cell *matCellDef="let element"> ( {{element.destinationName}} ) - {{element.destination_name}} </td>
-      </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Destination">
+                <th mat-header-cell *matHeaderCellDef> Destination </th>
+                <td mat-cell *matCellDef="let element"> ( {{element.destinationName}} ) - {{element.destination_name}} </td>
+            </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="Container Type">
-        <th mat-header-cell *matHeaderCellDef> Container Type </th>
-        <td mat-cell *matCellDef="let element"> {{element.containerMasterName}} </td>
-      </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Container Type">
+                <th mat-header-cell *matHeaderCellDef> Container Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.containerMasterName}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="Container Weight">
-        <th mat-header-cell *matHeaderCellDef> Container Weight</th>
-        <td mat-cell *matCellDef="let element"> {{element.weightDesc}} </td>
-      </ng-container>
+            <ng-container matColumnDef="Container Weight">
+                <th mat-header-cell *matHeaderCellDef> Container Weight</th>
+                <td mat-cell *matCellDef="let element"> {{element.weightDesc}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="Transport Date">
-        <th mat-header-cell *matHeaderCellDef> Transport Date</th>
-        <td mat-cell *matCellDef="let element"> {{element.exhibition_date}} </td>
-      </ng-container>
+            <ng-container matColumnDef="Transport Date">
+                <th mat-header-cell *matHeaderCellDef> Transport Date</th>
+                <td mat-cell *matCellDef="let element"> {{element.exhibition_date}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="Created By">
-        <th mat-header-cell *matHeaderCellDef>Created By</th>
-        <td mat-cell *matCellDef="let element"> {{element.created_by}} </td>
-      </ng-container>
+            <ng-container matColumnDef="Created By">
+                <th mat-header-cell *matHeaderCellDef>Created By</th>
+                <td mat-cell *matCellDef="let element"> {{element.created_by}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="Bid Rate">
-        <th mat-header-cell *matHeaderCellDef> Bid Rate </th>
-        <td mat-cell *matCellDef="let element"> {{element.originalRate}} </td>
-      </ng-container>
+            <ng-container matColumnDef="Bid Rate">
+                <th mat-header-cell *matHeaderCellDef> Bid Rate </th>
+                <td mat-cell *matCellDef="let element"> {{element.originalRate}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="Bid Value">
-        <th mat-header-cell *matHeaderCellDef> Bid Value </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-form-field>
-            <input matInput type="number" [(ngModel)]="element.bidValue" placeholder="Bid Value" required>
-          </mat-form-field>
-        </td>
-      </ng-container>
+            <ng-container matColumnDef="Bid Lower Limit">
+                <th mat-header-cell *matHeaderCellDef> Bid Lower Limit </th>
+                <td mat-cell *matCellDef="let element"> {{element.bidLowerLimit}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="Action">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let element">
-          <div fxLayout="row" fxLayoutGap="10px">
-            <button mat-raised-button color="primary" (click)="confirmBid(element)">Confirm</button>
-            <button mat-raised-button color="warn" (click)="rejectBid(element)">Reject</button>
-          </div>
+            <ng-container matColumnDef="Bid Value">
+                <th mat-header-cell *matHeaderCellDef> Bid Value </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <input matInput type="number" [(ngModel)]="element.bidValue" placeholder="Bid Value" required>
+                    </mat-form-field>
+                </td>
+            </ng-container>
 
-        </td>
-      </ng-container>
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <button mat-raised-button color="primary" *ngIf="element.bidValue>element.bidLowerLimit" (click)="confirmBid(element)">Confirm</button>
+                        <button mat-raised-button color="warn" (click)="rejectBid(element)">Reject</button>
+                    </div>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </mat-card-content>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
 </mat-card>

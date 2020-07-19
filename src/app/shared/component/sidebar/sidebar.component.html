@@ -81,5 +81,19 @@
             <button mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</button>
         </mat-menu>
     </div>
+    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5">
+        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
+            <div class="icon">
+                <i class="fas fa fa-road md-24" aria-hidden="true"></i>
+            </div>
+            <div class="link">
+                <p class="menu-text">Trips</p>
+            </div>
+        </div>
+        <mat-menu #menu4="matMenu">
+            <button *ngIf="currentUser.typeSyscode === 5" mat-menu-item routerLink='/default'>My Trips</button>
+            <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item routerLink='/default/transporter/my-trips'>Trips</button>
+        </mat-menu>
+    </div>
     <mat-divider></mat-divider>
 </mat-nav-list>
