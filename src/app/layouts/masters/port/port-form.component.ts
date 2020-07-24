@@ -13,12 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { PortService } from '../services/port.service';
-
-
 @Component({
   selector: 'app-port-form',
   templateUrl: './port-form.component.html',
   styleUrls: ['./port-form.component.scss']
+
 })
 export class PortFormComponent implements OnInit {
   @Input('portData') portData: Port;

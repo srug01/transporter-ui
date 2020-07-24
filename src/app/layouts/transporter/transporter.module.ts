@@ -34,6 +34,11 @@ import { BidsComponent } from './bids/bids.component';
 import { config } from 'rxjs';
 import { MyTripsComponent } from './my-trips/my-trips.component';
 
+import { MyTripsListComponent } from './my-trips/my-trips-list.component';
+import { MyTripsNewComponent } from './my-trips/my-trips-new.component';
+import { MyTripsEditComponent } from './my-trips/my-trips-edit.component';
+import { MyTripsFormComponent } from './my-trips/my-trips-form.component';
+
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -47,10 +52,11 @@ const routes: Routes = [
   {
     path: 'my-trips', component: MyTripsComponent,
     children: [
-      // { path: '', redirectTo: 'list', pathMatch: 'full' },
-      // { path: 'list', component: PortMasterListComponent },
-      // { path: 'new', component: PortNewComponent },
-      // { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: MyTripsListComponent },
+      { path: 'new', component: MyTripsNewComponent },
+     { path: 'edit/:id', component: MyTripsEditComponent}, 
+    //resolve: { portsResolver: PortsResolver } },
     ]
   }
 ];
@@ -75,7 +81,12 @@ const toasterConfig: MatSnackBarConfig = {
     DriverRegistrationComponent,
     TransporterListComponent,
     PlacedBidsComponent,
-    BidsComponent
+    BidsComponent,
+  
+    MyTripsListComponent,
+    MyTripsNewComponent,
+    MyTripsEditComponent,
+    MyTripsFormComponent
   ],
   imports: [
     CommonModule,
