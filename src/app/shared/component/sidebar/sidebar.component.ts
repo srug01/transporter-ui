@@ -23,6 +23,7 @@ export class SidebarComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (res) => {
         this.currentUser = res;
+        
         const userId = localStorage.getItem('userID');
         if(userId === null){
           localStorage.setItem('userID', JSON.stringify(this.currentUser.id));
