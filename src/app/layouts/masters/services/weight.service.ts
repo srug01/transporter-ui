@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Weight } from './../../../shared/models/weight';
 import { environment } from './../../../../environments/environment';
+import { AnyARecord } from 'dns';
 
 
 @Injectable({
@@ -43,4 +44,14 @@ export class WeightService {
   deleteWeightMasterById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'weight-masters/' + id);
   }
+
+  getAllWeightMastersbyContainerID(id: number): Observable<Weight[]> {
+    const inFilter: any = {
+      where: {
+        containerMasterId : id
+      }
+    };
+    return this.http.get<Weight[]>(this.baseUrl + 'weight-masters?filter=' + JSON.stringify(inFilter));
+  }
+
 }

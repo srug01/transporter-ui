@@ -23,15 +23,17 @@ export class SidebarComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (res) => {
         this.currentUser = res;
-        
+
         const userId = localStorage.getItem('userID');
-        if(userId === null){
-          localStorage.setItem('userID', JSON.stringify(this.currentUser.id));
+        if(userId === null || userId === 'undefined'){
+          localStorage.setItem('userID', JSON.stringify(this.currentUser.userId));
         }
         const roleId = localStorage.getItem('roleID');
-        if(roleId === null){
+        if(roleId === null || roleId === 'undefined'){
           localStorage.setItem('roleID', JSON.stringify(this.currentUser.typeSyscode));
         }
+        //console.log(localStorage.getItem('userID'));
+        //console.log(localStorage.getItem('roleID'));
 
       },
       (err) => {

@@ -14,6 +14,7 @@ import { WeightService } from '../services/weight.service';
 import { YardService } from '../services/yard.service';
 import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
+import { PortService } from '../services/port.service';
 
 
 
@@ -31,6 +32,7 @@ export class YardcfsrateFormComponent implements OnInit {
   public cfsMaster: Array<any> = [];
   public yardMaster: Array<any> = [];
   public weightMaster: Array<any> = [];
+  public portMasters: Array<any> = [];
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -38,6 +40,7 @@ export class YardcfsrateFormComponent implements OnInit {
     private _yardcfsrateService: YardCFSRateService,
     private _yardService: YardService,
     private _containerService: ContainerService,
+    private _portService: PortService,
     private _cfsService: CfsService,
     private _weightService: WeightService,
     private _router: Router
@@ -83,7 +86,7 @@ export class YardcfsrateFormComponent implements OnInit {
 
 
 
-  getAllWeightMasters() {
+  /* getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
       (weightMasters) => {
         this.weightMaster = weightMasters;
@@ -92,6 +95,26 @@ export class YardcfsrateFormComponent implements OnInit {
         console.log('could not fetch weight masters');
       }
     );
+  } */
+
+  getAllWeightMastersbyContainerID(id: number){
+    this.weightMaster = [];
+    this.weightMaster.length = 0;
+
+    this._weightService.getAllWeightMastersbyContainerID(id).subscribe(
+      (weightMasters) => {
+        this.weightMaster = weightMasters;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  containerTypeSelected(containerTypeId)
+  {
+    console.log(containerTypeId);
+    this.getAllWeightMastersbyContainerID(containerTypeId);
   }
 
 
@@ -99,10 +122,11 @@ export class YardcfsrateFormComponent implements OnInit {
     if (this.yardcfsrateData) {
       this.yardcfsrateForm = this.fb.group({
         yardCfsRateMasterId: [this.yardcfsrateData.yardCfsRateMasterId ? this.yardcfsrateData.yardCfsRateMasterId : ''],
-        cfsId: [this.yardcfsrateData.cfsId ? this.yardcfsrateData.cfsId : ''],
-        yardId: [this.yardcfsrateData.yardId ? this.yardcfsrateData.yardId : '', Validators.required],
-        containerId: [this.yardcfsrateData.containerId ? this.yardcfsrateData.containerId : '', Validators.required],
-        weightId: [this.yardcfsrateData.weightId ? this.yardcfsrateData.weightId : '', Validators.required],
+        cfsMasterId: [this.yardcfsrateData.cfsMasterId ? this.yardcfsrateData.cfsMasterId : ''],
+        yardMasterId: [this.yardcfsrateData.yardMasterId ? this.yardcfsrateData.yardMasterId : '', Validators.required],
+        containerMasterId: [this.yardcfsrateData.containerMasterId ? this.yardcfsrateData.containerMasterId : '', Validators.required],
+        weightMasterId: [this.yardcfsrateData.weightMasterId ? this.yardcfsrateData.weightMasterId : '', Validators.required],
+        portMasterId: [this.yardcfsrateData.portMasterId ? this.yardcfsrateData.portMasterId : '', Validators.required],
         rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '', Validators.required],
         isActive: [this.yardcfsrateData.isActive ? this.yardcfsrateData.isActive : '', Validators.required],
         createdBy: [this.yardcfsrateData.createdBy ? this.yardcfsrateData.createdBy : 0]
@@ -110,10 +134,11 @@ export class YardcfsrateFormComponent implements OnInit {
     } else {
       this.yardcfsrateForm = this.fb.group({
         yardCfsRateMasterId: [''],
-        cfsId: ['', Validators.required],
-        yardId: ['', Validators.required],
-        containerId: ['', Validators.required],
-        weightId: ['', Validators.required],
+        cfsMasterId: ['', Validators.required],
+        yardMasterId: ['', Validators.required],
+        containerMasterId: ['', Validators.required],
+        weightMasterId: ['', Validators.required],
+        portMasterId: ['', Validators.required],
         rate: ['', Validators.required],
         isActive: ['', Validators.required],
         createdBy: [0]
@@ -123,9 +148,10 @@ export class YardcfsrateFormComponent implements OnInit {
 
     this.getAllCFSMasters();
     this.getAllContainerMasters();
-    this.getAllWeightMasters();
+    //this.getAllWeightMasters();
     this.getAllContainerMasters();
     this.getAllYardMasters();
+    this.getAllPortMasters();
 
   }
 
@@ -136,6 +162,16 @@ export class YardcfsrateFormComponent implements OnInit {
       },
       (err) => {
         console.log('could not fetch Yard CFS Rate masters');
+      }
+    );
+  }
+
+  getAllPortMasters() {
+    this._portService.getAllPortMasters().subscribe(
+      (portMasters) => {
+        this.portMasters = portMasters;
+      },
+      (err) => {
       }
     );
   }

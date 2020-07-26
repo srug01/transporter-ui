@@ -42,7 +42,7 @@ export class CfsrateFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPortMasters();
-    this.getAllWeightMasters();
+    //this.getAllWeightMasters();
     this.getAllCfsMasters();
     this.getAllContainerMasters();
     this.getUserInfo();
@@ -90,12 +90,26 @@ export class CfsrateFormComponent implements OnInit {
     );
   }
 
-  getAllWeightMasters() {
+ /*  getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
       (weightMasters) => {
         this.weightMasters = weightMasters;
       },
       (err) => {
+      }
+    );
+  } */
+
+  getAllWeightMastersbyContainerID(id: number){
+    this.weightMasters = [];
+    this.weightMasters.length = 0;
+
+    this._weightService.getAllWeightMastersbyContainerID(id).subscribe(
+      (weightMasters) => {
+        this.weightMasters = weightMasters;
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }
@@ -172,6 +186,12 @@ export class CfsrateFormComponent implements OnInit {
         this.openSnackBar('Failure !', 'Could not update CFS Rate Master!');
       }
     );
+  }
+
+  containerTypeSelected(containerTypeId)
+  {
+    console.log(containerTypeId);
+    this.getAllWeightMastersbyContainerID(containerTypeId);
   }
 
   openSnackBar(message: string, action: string) {
