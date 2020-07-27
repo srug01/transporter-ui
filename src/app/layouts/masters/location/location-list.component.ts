@@ -30,7 +30,7 @@ export class LocationListComponent implements OnInit {
     this.getAllLocationMasters();
   }
 
-  openDialog(ev, locationId: number) {
+  openDialog(ev, locationMasterId: number) {
     if (ev) {
       ev.preventDefault();
     }
@@ -38,7 +38,7 @@ export class LocationListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteLocationById(locationId);
+        this.deleteLocationById(locationMasterId);
       }
     });
   }
@@ -53,8 +53,8 @@ export class LocationListComponent implements OnInit {
     );
   }
 
-  deleteLocationById(locationId: number) {
-    this._locationService.deleteLocationMastersById(locationId).subscribe(
+  deleteLocationById(locationMasterId: number) {
+    this._locationService.deleteLocationMastersById(locationMasterId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Deleted Successfully');
         this.getAllLocationMasters();

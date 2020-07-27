@@ -5,21 +5,21 @@
                 <mat-card-title>Trip Master</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <form fxLayout="row" fxLayoutGap="10px" [formGroup]="tripForm" 
+                <form fxLayout="row" fxLayoutGap="10px" [formGroup]="tripForm"
                                                 (ngSubmit)="submittripForm($event)">
                     <div fxLayout="row wrap" fxLayoutGap="8px grid">
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Sub Order ID" 
+                                <input matInput placeholder="Sub Order ID"
                                     formControlName="subOrderId" name="name" required />
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <mat-label>Source</mat-label>
-                                <mat-select formControlName="sourceId" 
+                                <mat-select formControlName="sourceId"
                                     [errorStateMatcher]="matcher" >
-                                    <!-- <mat-option *ngFor="let state of stateMasters" 
+                                    <!-- <mat-option *ngFor="let state of stateMasters"
                                                 [value]="state.stateMasterId">
                                         {{ }}
                                     </mat-option> -->
@@ -30,7 +30,7 @@
                             <mat-form-field>
                                 <mat-label>Destination</mat-label>
                                 <mat-select formControlName="destinationId">
-                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationId">
+                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationMasterId">
                                         {{ locationMaster.locationName }}
                                     </mat-option> -->
                                 </mat-select>
@@ -41,7 +41,7 @@
                             <mat-form-field>
                                 <mat-label>Assigned Vehicle</mat-label>
                                 <mat-select formControlName="assignedvehicle">
-                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationId">
+                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationMasterId">
                                         {{ locationMaster.locationName }}
                                     </mat-option> -->
                                 </mat-select>
@@ -52,7 +52,7 @@
                             <mat-form-field>
                                 <mat-label>Assigned Driver</mat-label>
                                 <mat-select formControlName="assignedDriver">
-                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationId">
+                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationMasterId">
                                         {{ locationMaster.locationName }}
                                     </mat-option> -->
                                 </mat-select>

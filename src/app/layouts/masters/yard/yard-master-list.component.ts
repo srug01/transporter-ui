@@ -18,7 +18,7 @@ import { PortService } from '../services/port.service';
 export class YardMasterListComponent implements OnInit {
   displayedColumns: string[] = [
     'yardMasterId', 'yardName',
-    'port','isActive', 'action'
+    'port','address1','address2','isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public yardMasters: Array<any> = [];

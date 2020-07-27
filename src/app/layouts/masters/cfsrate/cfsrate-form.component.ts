@@ -155,7 +155,7 @@ export class CfsrateFormComponent implements OnInit {
     if (this.cfsrateForm.valid) {
       const cfsRate = this.transformCfsRateObj(this.cfsrateForm.value);
       if (!this.cfsrateData) {
-        this.saveCfsrateMaster(cfsRate);
+         this.saveCfsrateMaster(cfsRate);
       } else {
         this.updateCfsrateMaster(cfsRate);
       }
@@ -190,7 +190,8 @@ export class CfsrateFormComponent implements OnInit {
 
   containerTypeSelected(containerTypeId)
   {
-    console.log(containerTypeId);
+
+    this.cfsrateForm.get("weightMasterId").reset();
     this.getAllWeightMastersbyContainerID(containerTypeId);
   }
 

@@ -113,7 +113,7 @@ export class YardcfsrateFormComponent implements OnInit {
 
   containerTypeSelected(containerTypeId)
   {
-    console.log(containerTypeId);
+    this.yardcfsrateForm.get("weightMasterId").reset();
     this.getAllWeightMastersbyContainerID(containerTypeId);
   }
 

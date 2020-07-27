@@ -21,13 +21,13 @@ export class LocationService {
   ) { }
 
   saveLocationMaster(location: LocationMaster): Observable<any> {
-    delete location.locationId;
+    delete location.locationMasterId;
     return this.http.post<LocationMaster>(this.baseUrl + 'location-masters', JSON.stringify(location), this.HttpUploadOptions);
   }
 
   updateLocationMaster(location: LocationMaster): Observable<any> {
     return this.http.put<LocationMaster>(
-      this.baseUrl + 'location-masters/' + location.locationId,
+      this.baseUrl + 'location-masters/' + location.locationMasterId,
       JSON.stringify(location),
       this.HttpUploadOptions
     );
