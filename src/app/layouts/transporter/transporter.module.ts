@@ -49,7 +49,6 @@ const routes: Routes = [
     children: [
       // { path: '', redirectTo: 'list', pathMatch: 'full' },
       // { path: 'list', component: PortMasterListComponent },
-      // { path: 'new', component: PortNewComponent },
       // { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
     ]
   }

@@ -1,12 +1,19 @@
-mat-form-field{
+mat-form-field {
     width: 100%;
     margin-right: 12px;
 }
+
 table {
     width: 100%;
     transition: none !important;
     box-shadow: none !important;
 }
+
 .mat-cell {
     padding: 8px 8px 8px 0;
+}
+
+.saveDraftBtn {
+    background-color: #2793db;
+    color: white;
 }
