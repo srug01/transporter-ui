@@ -12,7 +12,8 @@ export class PortterminalmasterService {
   public HttpUploadOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
-    })}
+    })
+  }
 
   constructor(
     private http: HttpClient
@@ -20,13 +21,13 @@ export class PortterminalmasterService {
 
   savePortTerminalMaster(portterminalmaster: PortTerminalMaster): Observable<any> {
     delete portterminalmaster.portTerminalId;
-    return this.http.post<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters', JSON.stringify(portterminalmaster), 
-    this.HttpUploadOptions);
+    return this.http.post<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters', JSON.stringify(portterminalmaster),
+      this.HttpUploadOptions);
   }
 
   updatePortTerminalMaster(portterminalmaster: PortTerminalMaster): Observable<any> {
-    return this.http.put<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters/'+ portterminalmaster.portTerminalId, 
-    JSON.stringify(portterminalmaster), this.HttpUploadOptions);
+    return this.http.put<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters/' + portterminalmaster.portTerminalId,
+      JSON.stringify(portterminalmaster), this.HttpUploadOptions);
   }
 
   getAllPortTerminalMaster(): Observable<any> {
@@ -35,6 +36,17 @@ export class PortterminalmasterService {
 
   getPortTerminalMasterById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'port-terminal-masters/' + id);
+  }
+
+  getPortTerminalMasterByPortMasterId(id: number): Observable<any> {
+    const filter = {
+      where: {
+        or: [
+          { portMasterId: id }
+        ]
+      }
+    };
+    return this.http.get(this.baseUrl + 'port-terminal-masters?filter=' + JSON.stringify(filter), this.HttpUploadOptions);
   }
 
   deletePortTerminalMasterById(id: number): Observable<any> {
