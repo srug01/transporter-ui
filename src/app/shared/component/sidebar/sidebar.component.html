@@ -91,8 +91,8 @@
             </div>
         </div>
         <mat-menu #menu4="matMenu">
-            <button *ngIf="currentUser.typeSyscode === 5" mat-menu-item routerLink='/default'>My Trips</button>
-            <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item routerLink='/default/transporter/my-trips'>Trips</button>
+            <button *ngIf="currentUser.typeSyscode === 5" mat-menu-item routerLink='/default/transporter/my-trips'>My Trips</button>
+            <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item>Trips</button>
         </mat-menu>
     </div>
     <mat-divider></mat-divider>

@@ -39,7 +39,6 @@ export class OrderListComponent implements OnInit {
 
   constructor(
     private _orderService: OrderService,
-    private _locationService: LocationService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _userService: UserService,
@@ -49,7 +48,6 @@ export class OrderListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getStates();
     this.getAllCfs();
     this.getAllPorts();
     this.getAllYards();
@@ -82,14 +80,6 @@ export class OrderListComponent implements OnInit {
     this._yardService.getAllYardMasters().subscribe(
       (yardMasters: Yard[]) => {
         this.yardMasters = yardMasters;
-      }
-    );
-  }
-
-  getStates() {
-    this._locationService.getAllLocationMasters().subscribe(
-      (locations) => {
-        this.locations = locations;
       }
     );
   }
