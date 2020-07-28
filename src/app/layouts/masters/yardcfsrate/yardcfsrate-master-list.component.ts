@@ -11,6 +11,8 @@ import { YardService } from '../services/yard.service';
 import { ContainerService } from '../services/container.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
+import { PortService} from '../services/port.service';
+
 @Component({
   selector: 'app-yardcfsrate-master-list',
   templateUrl: './yardcfsrate-master-list.component.html',
@@ -18,8 +20,8 @@ import { CfsService } from '../services/cfs.service';
 })
 export class YardcfsrateMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'yard_cfs_rate_syscode','cfs_syscode' ,'rate', 'yard_syscode', 'container_syscode',
-    'weight_syscode', 'is_active', 'action'
+    'yardCfsRateMasterId','cfsMasterId' , 'portMasterId', 'rate', 'yardMasterId', 'containerMasterId',
+    'weightMasterId', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public yardcfsrateMasters: Array<any> = [];
@@ -27,6 +29,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
   public yardMasters: Array<any> = [];
   public containerMasters: Array<any> = [];
   public weightMasters: Array<any> = [];
+  public portMasters: Array<any> = [];
 
 
   constructor(
@@ -35,6 +38,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
     private _weightService: WeightService,
     private _yardService: YardService,
     private _cfsService: CfsService,
+    private _portService: PortService,
 
 
     private _snackBar: MatSnackBar,
@@ -52,7 +56,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
   getCFSbyId(id): string {
     for (let i = 0; i < this.cfsMasters.length; i++) {
       if (this.cfsMasters[i].cfsMasterId === id) {
-        return this.cfsMasters[i].cfs_name;
+        return this.cfsMasters[i].cfsName;
       }
     }
   }
@@ -66,8 +70,8 @@ export class YardcfsrateMasterListComponent implements OnInit {
   }
   getYardbyId(id): string {
     for (let i = 0; i < this.yardMasters.length; i++) {
-      if (this.yardMasters[i].yard_syscode === id) {
-        return this.yardMasters[i].yard_name;
+      if (this.yardMasters[i].yardMasterId === id) {
+        return this.yardMasters[i].yardName;
       }
     }
   }
@@ -81,8 +85,8 @@ export class YardcfsrateMasterListComponent implements OnInit {
 
   getWeightbyId(id): string {
     for (let i = 0; i < this.weightMasters.length; i++) {
-      if (this.weightMasters[i].weight_syscode === id) {
-        return this.weightMasters[i].weight_description;
+      if (this.weightMasters[i].weightMasterId === id) {
+        return this.weightMasters[i].weightDesc;
       }
     }
   }
@@ -95,8 +99,24 @@ export class YardcfsrateMasterListComponent implements OnInit {
   }
   getContainerbyId(id): string {
     for (let i = 0; i < this.containerMasters.length; i++) {
-      if (this.containerMasters[i].container_syscode === id) {
-        return this.containerMasters[i].container_name;
+      if (this.containerMasters[i].containerMasterId === id) {
+        return this.containerMasters[i].containerMasterName;
+      }
+    }
+  }
+
+
+  getAllPortMasters() {
+    this._portService.getAllPortMasters().subscribe(
+      (ports) => {
+        this.portMasters = ports;
+      }
+    );
+  }
+  getPortbyId(id): string {
+    for (let i = 0; i < this.portMasters.length; i++) {
+      if (this.portMasters[i].portMasterId === id) {
+        return this.portMasters[i].portName;
       }
     }
   }
@@ -107,9 +127,10 @@ export class YardcfsrateMasterListComponent implements OnInit {
    this.getAllCFSMasters();
     this.getAllContainerMasters();
     this.getAllYardMasters();
+    this.getAllPortMasters();
   }
 
-  openDialog(ev, yard_cfs_rate_syscode: number) {
+  openDialog(ev, yardCfsRateMasterId: number) {
     if (ev) {
       ev.preventDefault();
     }
@@ -117,7 +138,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteYardCFSRateById(yard_cfs_rate_syscode);
+        this.deleteYardCFSRateById(yardCfsRateMasterId);
       }
     });
   }
@@ -134,8 +155,8 @@ export class YardcfsrateMasterListComponent implements OnInit {
     );
   }
 
-  deleteYardCFSRateById(yard_cfs_rate_syscode: number) {
-    this._yardcfsrateService.deleteYardcfsrateMasterById(yard_cfs_rate_syscode).subscribe(
+  deleteYardCFSRateById(yardCfsRateMasterId: number) {
+    this._yardcfsrateService.deleteYardcfsrateMasterById(yardCfsRateMasterId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard CFS Rate Master Deleted Successfully');
         this.getAllYardCFSRateMasters();

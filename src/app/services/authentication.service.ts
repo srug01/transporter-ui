@@ -44,7 +44,6 @@ export class AuthenticationService {
                 localStorage.setItem('userID', JSON.stringify(user.userId));
                 localStorage.setItem('roleID', JSON.stringify(user.typeSyscode));
                 this.currentUserSubject.next(user);
-
                 return user;
             }));
     }

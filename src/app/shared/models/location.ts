@@ -1,5 +1,5 @@
 export interface LocationMaster {
-    locationId?: number;
+    locationMasterId?: number;
     locationName?: string;
     isActive?: boolean;
     stateMasterId: number;

@@ -3,8 +3,14 @@ export interface Cfs {
   cfsName?: string;
   contactNumber?: string;
   email?: string;
-  address?: string;
+  address1?: string;
+  address2?: string;
+  landmark?: string;
   pincode?: string;
+  stateMasterId?: number;
+  locationMasterId?: number;
+  latitude?: string;
+  longitude?: string;
   cfsCodeNumber?: string;
   gstin?: string;
   pan?: string;

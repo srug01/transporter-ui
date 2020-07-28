@@ -13,12 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { PortService } from '../services/port.service';
-
-
 @Component({
   selector: 'app-port-form',
   templateUrl: './port-form.component.html',
   styleUrls: ['./port-form.component.scss']
+
 })
 export class PortFormComponent implements OnInit {
   @Input('portData') portData: Port;
@@ -56,17 +55,35 @@ export class PortFormComponent implements OnInit {
       this.portForm = this.fb.group({
         portMasterId: [this.portData.portMasterId ? this.portData.portMasterId : ''],
         portName: [this.portData.portName ? this.portData.portName : '', Validators.required],
+        address1: [this.portData.address1 ? this.portData.address1 : '', Validators.required],
+        address2: [this.portData.address2 ? this.portData.address2 : '', Validators.required],
+        landmark: [this.portData.landmark ? this.portData.landmark : '', Validators.required],
+        pincode: [this.portData.pincode ? this.portData.pincode : '', Validators.required],
+        latitude: [this.portData.latitude ? this.portData.latitude : '', Validators.required],
+        longitude: [this.portData.longitude ? this.portData.longitude : '', Validators.required],
         stateMasterId: [this.portData.stateMasterId ? this.portData.stateMasterId : '', Validators.required],
         locationMasterId: [this.portData.locationMasterId ? this.portData.locationMasterId : '', Validators.required],
-        isActive: [this.portData.isActive ? this.portData.isActive : '', Validators.required]
+        isActive: [this.portData.isActive ? this.portData.isActive : '', Validators.required],
+        primarycontactperson: [this.portData.primarycontactperson ? this.portData.primarycontactperson : '', Validators.required],
+        primarycontactnumber: [this.portData.primarycontactnumber ? this.portData.primarycontactnumber : '', Validators.required],
+
       });
     } else {
       this.portForm = this.fb.group({
         portMasterId: [''],
         portName: ['', Validators.required],
+        address1: ['', Validators.required],
+        address2: ['', Validators.required],
+        landmark: ['', Validators.required],
+        pincode: ['', Validators.required],
+        latitude: ['', Validators.required],
+        longitude: ['', Validators.required],
         stateMasterId: ['', Validators.required],
         locationMasterId: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: ['', Validators.required],
+        primarycontactperson: ['', Validators.required],
+        primarycontactnumber: ['', Validators.required],
+
       });
     }
 
@@ -117,7 +134,13 @@ export class PortFormComponent implements OnInit {
       modifiedBy: this.currentUser.userId,
       modifiedOn: new Date(),
       portName: port.portName,
-      stateMasterId: port.stateMasterId
+      address1:port.address1 ,
+      address2: port.address2 ,
+      landmark: port.landmark ,
+      pincode: port.pincode,
+      stateMasterId: port.stateMasterId,
+      primarycontactperson: port.primarycontactperson,
+      primarycontactnumber: port.primarycontactnumber
     } as Port;
   }
 

@@ -43,13 +43,14 @@ export class PlacedBidsComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     //this.getAllPlacedBids();
-    this.getAllPlacedBidsbyUserId();
+    
   }
 
   getUserInfo() {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
+        this.getAllPlacedBidsbyUserId();
       }
     );
   }
@@ -66,7 +67,8 @@ export class PlacedBidsComponent implements OnInit {
   // }
 
   getAllPlacedBidsbyUserId() {
-    this._bidService.getAllBidsbyUserId(1).subscribe(
+   
+    this._bidService.getAllBidsbyUserId(this.currentUser.userId).subscribe(
       (bids: Array<any>[]) => {
         this.bids = bids;
         console.log(bids);

@@ -85,7 +85,7 @@ export class CreateOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserInfo();
-    this.getMasterTypes();
+    this.getMasterTypes();    
     this.initialiseOrderForm();
     //this.getAllWeightMasters();
     //this.getAllContainers();
@@ -218,10 +218,10 @@ export class CreateOrderComponent implements OnInit {
     /* this.getAllCFS();
     this.getAllPorts();
     this.getAllYards(); */
-
-    this.getAllCFSbyUserId();
+    
+     this.getAllCFSbyUserId();
     this.getAllCFSPortsbyUserId();
-    this.getAllCFSYardsbyUserId();
+    this.getAllCFSYardsbyUserId(); 
   }
 
   getAllWeightMasters() {
@@ -305,6 +305,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getAllCFSbyUserId() {
+    
+
     this._masterTypeService.getAllCFSbyUserId(this.currentUser.userId).subscribe(
       (cfsMasters) => {
         this.cfsMasters = cfsMasters;
@@ -388,6 +390,7 @@ export class CreateOrderComponent implements OnInit {
     this._masterTypeService.getAllMasterTypes().subscribe(
       (masterTypes) => {
         this.masterTypes = masterTypes;
+        this.getLocations();
       },
       (err) => {
         console.log(err);

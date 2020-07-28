@@ -1,14 +1,14 @@
 export interface YardCFSRate {
   yardCfsRateMasterId?: number;
-  cfsId?: number;
-  yardId?: number;
-  containerId?: number;
-  weightId?: number;
+  cfsMasterId?: number;
+  yardMasterId?: number;
+  containerMasterId?: number;
+  weightMasterId?: number;
   rate?: number;
   isActive?: boolean;
   createdBy?: number;
   modifiedBy?: number;
   createdOn?: Date;
   modifiedOn?: string;
-  portId?: number;
+  portMasterId?: number;
 }
