@@ -93,10 +93,11 @@ export class CreateOrderComponent implements OnInit {
 
   masterTypeSelected(masterTypeId) {
     this.orderForm.get('portTerminalId').setValue(null);
+
     this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
       (masterType: MasterType) => {
         this.selectedMasterType = masterType;
-        this.getAllWeightsForCFS(masterTypeId);
+        //this.getAllWeightsForCFS(masterTypeId);
         this.getAllCFSContainersbyUserId(masterTypeId);
         this.source = this.selectedMasterType.sourceType;
         this.orderForm.get('sourceType').setValue(this.source);
@@ -133,6 +134,19 @@ export class CreateOrderComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  containerTypeSelected(containerId,i)
+  {
+
+    /* console.log(i);
+    const containersArray = this.orderForm.controls.containers as FormArray;
+    const data = containersArray.value[i];
+    console.log(data);
+    if(data.get("weightType") != null)
+      data.get("weightType").reset(); */
+    const typeId = this.selectedMasterType.masterTypeId;
+    this.getAllWeightsForCFS(containerId,typeId);
   }
 
   getCfsMasterByUserId(masterType: string) {
@@ -189,7 +203,7 @@ export class CreateOrderComponent implements OnInit {
     };
     this._yardService.getAllYardMastersByUserId(filter).subscribe(
       (yardMasters: Array<Yard>) => {
-        this.yardMasters = yardMasters;    
+        this.yardMasters = yardMasters;
         this.orderForm.get(masterType).setValue(yardMasters[0].yardMasterId);
         this.getPortMasterByPortMasterId(yardMasters[0].portMasterId);
       },
@@ -301,8 +315,10 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  getAllWeightsForCFS(type: number) {
-    this._masterTypeService.getAllCFSWeightsbyUserId(this.currentUser.userId, type).subscribe(
+
+  // try to fetch from cache Need to ask Bhushan
+  getAllWeightsForCFS(type: number, containerId: number ) {
+    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type,containerId).subscribe(
       (weightMasters) => {
         this.weights = weightMasters;
       },
@@ -333,7 +349,7 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
-  
+
   getAllCFSContainersbyUserId(type: number) {
     this._masterTypeService.getAllCFSContainersbyUserId(this.currentUser.userId, type).subscribe(
       (containerTypes) => {
