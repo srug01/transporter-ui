@@ -55,7 +55,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MyTripsListComponent },
       { path: 'new', component: MyTripsNewComponent },
-     { path: 'edit/:id', component: MyTripsEditComponent}, 
+     { path: 'edit/:id', component: MyTripsEditComponent},
     //resolve: { portsResolver: PortsResolver } },
     ]
   }
@@ -82,7 +82,8 @@ const toasterConfig: MatSnackBarConfig = {
     TransporterListComponent,
     PlacedBidsComponent,
     BidsComponent,
-  
+
+    MyTripsComponent,
     MyTripsListComponent,
     MyTripsNewComponent,
     MyTripsEditComponent,
