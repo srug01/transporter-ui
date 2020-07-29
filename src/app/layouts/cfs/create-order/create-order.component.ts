@@ -136,17 +136,10 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  containerTypeSelected(containerId,i)
-  {
-
-    /* console.log(i);
-    const containersArray = this.orderForm.controls.containers as FormArray;
-    const data = containersArray.value[i];
-    console.log(data);
-    if(data.get("weightType") != null)
-      data.get("weightType").reset(); */
+  containerTypeSelected(containerRow) {
+    containerRow.controls['weightType'].reset();
     const typeId = this.selectedMasterType.masterTypeId;
-    this.getAllWeightsForCFS(containerId,typeId);
+    this.getAllWeightsForCFS(containerRow.controls['containerMasterId'].value, typeId);
   }
 
   getCfsMasterByUserId(masterType: string) {
@@ -317,8 +310,8 @@ export class CreateOrderComponent implements OnInit {
 
 
   // try to fetch from cache Need to ask Bhushan
-  getAllWeightsForCFS(type: number, containerId: number ) {
-    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type,containerId).subscribe(
+  getAllWeightsForCFS(type: number, containerId: number) {
+    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type, containerId).subscribe(
       (weightMasters) => {
         this.weights = weightMasters;
       },
