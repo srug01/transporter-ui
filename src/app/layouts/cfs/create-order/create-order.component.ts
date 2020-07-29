@@ -136,10 +136,11 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  containerTypeSelected(containerRow) {
+  containerTypeSelected(containerRow, containerId) {
     containerRow.controls['weightType'].reset();
+    console.log(containerId);
     const typeId = this.selectedMasterType.masterTypeId;
-    this.getAllWeightsForCFS(containerRow.controls['containerMasterId'].value, typeId);
+    this.getAllWeightsForCFS(typeId,containerId);
   }
 
   getCfsMasterByUserId(masterType: string) {

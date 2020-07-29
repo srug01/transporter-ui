@@ -171,7 +171,8 @@ export class CfsrateFormComponent implements OnInit {
         this._router.navigate(['/default/masters/cfs-rate/list']);
       },
       (err) => {
-        this.openSnackBar('Failure !', 'Could not create CFS Rate Master!');
+        console.log(err);
+        this.openSnackBar('Failure !', err.error.error.message);
       }
     );
   }
