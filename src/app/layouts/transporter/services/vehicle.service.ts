@@ -18,6 +18,10 @@ export class VehicleService {
     return this.http.post<Vehicle>(this.baseUrl + 'vehicle-masters', JSON.stringify(vehicle));
   }
 
+  updateVehicleMaster(vehicle: Vehicle): Observable<any> {
+    return this.http.post<Vehicle>(this.baseUrl + 'vehicle-masters', JSON.stringify(vehicle));
+  }
+
   getAllVehicleMasters(): Observable<any> {
     return this.http.get(this.baseUrl + 'vehicle-masters');
   }

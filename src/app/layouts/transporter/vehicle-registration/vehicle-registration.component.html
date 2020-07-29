@@ -9,19 +9,21 @@
                 <div fxFlex="50%">
                     <mat-form-field class="example-full-width">
                         <mat-label>Vehicle No.</mat-label>
-                        <input matInput formControlName="vehicle_no" placeholder="vehicle number">
+                        <input matInput formControlName="vehicleNumber" placeholder="vehicle number">
                     </mat-form-field>
                 </div>
                 <div fxFlex="50%" fxFlexOffset="10px">
                     <mat-form-field class="demo-full-width">
                         <mat-label>Select Vehicle Type</mat-label>
-                        <mat-select matNativeControl formControlName="vehicle_type" [errorStateMatcher]="matcher">
-                            <mat-option *ngFor="let vehicle of vehicleTypes" [value]="vehicle.value">
-                                {{vehicle.viewValue}}
+                        <mat-select matNativeControl formControlName="vehicleType"
+                         [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let cont of container"
+                             [value]="cont.containerMasterId">
+                                {{cont.containerMasterName}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="vehicleForm.controls['vehicle_type'].hasError('required')">You must make a
-                            selection</mat-error>
+                        <!-- <mat-error *ngIf="vehicleForm.controls['vehicle_type'].hasError('required')">You must make a
+                            selection</mat-error> -->
                     </mat-form-field>
                 </div>
             </div>
@@ -29,13 +31,14 @@
                 <div fxFlex="50%">
                     <mat-form-field class="demo-full-width">
                         <mat-label>Select Capacity</mat-label>
-                        <mat-select matNativeControl formControlName="vehicle_capacity" [errorStateMatcher]="matcher">
-                            <mat-option *ngFor="let capacity of vehicleCapacity" [value]="capacity.value">
-                                {{capacity.viewValue}}
+                        <mat-select matNativeControl formControlName="vehicleCapacity" 
+                        [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let wt of weight" [value]="wt.weightMasterId">
+                                {{wt.weightDesc}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="vehicleForm.controls['vehicle_capacity'].hasError('required')">You must make a
-                            selection</mat-error>
+                        <!-- <mat-error *ngIf="vehicleForm.controls['vehicle_capacity'].hasError('required')">You must make a
+                            selection</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div fxFlex="50%" fxFlexOffset="10px">
@@ -49,13 +52,21 @@
                 <div fxFlex="50%">
                     <mat-form-field class="example-full-width">
                         <mat-label>Year of Manufacture</mat-label>
-                        <input matInput formControlName="manufacture_year" placeholder="vehicle manufactureYear">
+                        <input matInput formControlName="manufactureYear" placeholder="vehicle manufactureYear">
                     </mat-form-field>
                 </div>
                 <div fxFlex="50%" fxFlexOffset="10px">
                     <mat-form-field class="example-full-width">
                         <mat-label>State of Vehicle Registration</mat-label>
-                        <input matInput type="number" formControlName="state_syscode" placeholder="vehicle state">
+                        <!-- <input matInput type="number" 
+                        formControlName="state_syscode"z placeholder="vehicle state"> -->
+                        <mat-select matNativeControl formControlName="stateId" 
+                        [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let st of states" [value]="st.stateMasterId">
+                                {{st.stateName}}
+                            </mat-option>
+                        </mat-select>
+
                     </mat-form-field>
                 </div>
             </div>

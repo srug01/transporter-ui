@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TransporterComponent } from './transporter.component';
 
+
 import { Routes, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -32,6 +33,7 @@ import { AppDateAdapter } from 'src/app/shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { BidsComponent } from './bids/bids.component';
 import { config } from 'rxjs';
+
 import { MyTripsComponent } from './my-trips/my-trips.component';
 
 import { MyTripsListComponent } from './my-trips/my-trips-list.component';
@@ -82,7 +84,7 @@ const toasterConfig: MatSnackBarConfig = {
     TransporterListComponent,
     PlacedBidsComponent,
     BidsComponent,
-  
+    MyTripsComponent,
     MyTripsListComponent,
     MyTripsNewComponent,
     MyTripsEditComponent,
