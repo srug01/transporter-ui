@@ -200,8 +200,8 @@
                                 <div fxFlex="25%">
                                     <mat-form-field>
                                         <mat-label>Type</mat-label>
-                                        <mat-select matNativeControl formControlName="containerMasterId" (valueChange)="containerTypeSelected($event,i)" [errorStateMatcher]="errorStateMatcher">
-                                            <mat-option *ngFor="let type of containerTypes"  [value]="type.containerMasterId">
+                                        <mat-select matNativeControl formControlName="containerMasterId" (valueChange)="containerTypeSelected(containerRow,$event)" [errorStateMatcher]="errorStateMatcher">
+                                            <mat-option *ngFor="let type of containerTypes" [value]="type.containerMasterId">
                                                 {{type.containerMasterName}}
                                             </mat-option>
                                         </mat-select>

@@ -211,7 +211,7 @@ export class YardcfsrateFormComponent implements OnInit {
       },
       (err) => {
         console.log('err');
-        this.openSnackBar('Failure !', 'Could not create YARD CFS Rate Master!');
+        this.openSnackBar('Failure !', err.error.error.message);
       }
     );
   }
