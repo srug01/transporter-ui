@@ -27,6 +27,8 @@ import { CfsService } from '../../masters/services/cfs.service';
 import { WeightService } from '../../masters/services/weight.service';
 import { ContainerService } from '../../masters/services/container.service';
 import { DatePipe } from '@angular/common';
+import { PortterminalmasterService } from '../../masters/services/portterminalmaster.service';
+import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
 
 @Component({
   selector: 'app-create-order',
@@ -55,11 +57,10 @@ export class CreateOrderComponent implements OnInit {
   public cfsLocation: Array<any> = [];
   public weights: Array<any> = [];
   public containerTypes: Array<any> = [];
-
-
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
   ];
+  terminals: PortTerminalMaster[] = [];
   public dataSource: any[];
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
@@ -79,17 +80,73 @@ export class CreateOrderComponent implements OnInit {
     private _notificationService: NotificationService,
     private datePipe: DatePipe,
     private _weightService: WeightService,
-    private _containerService: ContainerService
+    private _containerService: ContainerService,
+    private _portTerminalService: PortterminalmasterService
   ) { }
 
 
   ngOnInit(): void {
     this.getUserInfo();
     this.getMasterTypes();
-    
     this.initialiseOrderForm();
-    //this.getAllWeightMasters();
-    //this.getAllContainers();
+  }
+
+  masterTypeSelected(masterTypeId) {
+    this.orderForm.get('portTerminalId').setValue(null);
+
+    this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
+      (masterType: MasterType) => {
+        this.selectedMasterType = masterType;
+        //this.getAllWeightsForCFS(masterTypeId);
+        this.getAllCFSContainersbyUserId(masterTypeId);
+        this.source = this.selectedMasterType.sourceType;
+        this.orderForm.get('sourceType').setValue(this.source);
+        this.destination = this.selectedMasterType.destinationType;
+        this.orderForm.get('destinationType').setValue(this.destination);
+        switch (this.source) {
+          case 'CFS':
+            this.getCfsMasterByUserId('sourceId');
+            break;
+          case 'PORT':
+            this.getPortMasterByUserId('sourceId');
+            break;
+          case 'YARD':
+            this.getYardMasterByUserId('sourceId');
+            break;
+          default:
+            break;
+        }
+        switch (this.destination) {
+          case 'CFS':
+            this.getCfsMasterByUserId('destinationId');
+            break;
+          case 'PORT':
+            this.getPortMasterByUserId('destinationId');
+            break;
+          case 'YARD':
+            this.getYardMasterByUserId('destinationId');
+            break;
+          default:
+            break;
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  containerTypeSelected(containerId,i)
+  {
+
+    /* console.log(i);
+    const containersArray = this.orderForm.controls.containers as FormArray;
+    const data = containersArray.value[i];
+    console.log(data);
+    if(data.get("weightType") != null)
+      data.get("weightType").reset(); */
+    const typeId = this.selectedMasterType.masterTypeId;
+    this.getAllWeightsForCFS(containerId,typeId);
   }
 
   getCfsMasterByUserId(masterType: string) {
@@ -126,6 +183,7 @@ export class CreateOrderComponent implements OnInit {
     this._portService.getAllPortMastersByUserId(filter).subscribe(
       (portMasters: Array<Port>) => {
         this.orderForm.get(masterType).setValue(portMasters[0].portMasterId);
+        this.getTerminalsByPortMasterId(portMasters[0].portMasterId);
       },
       (err) => {
         console.log(err);
@@ -145,7 +203,31 @@ export class CreateOrderComponent implements OnInit {
     };
     this._yardService.getAllYardMastersByUserId(filter).subscribe(
       (yardMasters: Array<Yard>) => {
+        this.yardMasters = yardMasters;
         this.orderForm.get(masterType).setValue(yardMasters[0].yardMasterId);
+        this.getPortMasterByPortMasterId(yardMasters[0].portMasterId);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getTerminalsByPortMasterId(portMasterId: number) {
+    this._portTerminalService.getPortTerminalMasterByPortMasterId(portMasterId).subscribe(
+      (terminals: PortTerminalMaster[]) => {
+        this.terminals = terminals;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getPortMasterByPortMasterId(portMasterId: number) {
+    this._portService.getPortMastersById(portMasterId).subscribe(
+      (port: Port) => {
+        this.getTerminalsByPortMasterId(port.portMasterId);
       },
       (err) => {
         console.log(err);
@@ -164,6 +246,7 @@ export class CreateOrderComponent implements OnInit {
       sourceType: [''],
       destinationType: [''],
       orderRemarks: ['', Validators.required],
+      portTerminalId: [''],
       orderAddress: [''],
       isDeleted: [false, ''],
       isVerified: [false, ''],
@@ -210,18 +293,15 @@ export class CreateOrderComponent implements OnInit {
       totalRate: 0,
       profitRate: 0,
       profitMarginPercentage: 0,
-      rateExcludingProfit: 0
+      rateExcludingProfit: 0,
+      portTerminalId: order.portTerminalId
     } as Order;
   }
 
   getLocations() {
-    /* this.getAllCFS();
-    this.getAllPorts();
-    this.getAllYards(); */
-    
-     this.getAllCFSbyUserId();
+    this.getAllCFSbyUserId();
     this.getAllCFSPortsbyUserId();
-    this.getAllCFSYardsbyUserId(); 
+    this.getAllCFSYardsbyUserId();
   }
 
   getAllWeightMasters() {
@@ -235,8 +315,10 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  getAllWeightsForCFS(type: number) {
-    this._masterTypeService.getAllCFSWeightsbyUserId(this.currentUser.userId, type).subscribe(
+
+  // try to fetch from cache Need to ask Bhushan
+  getAllWeightsForCFS(type: number, containerId: number ) {
+    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type,containerId).subscribe(
       (weightMasters) => {
         this.weights = weightMasters;
       },
@@ -245,54 +327,6 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
-
-  masterTypeSelected(masterTypeId) {
-    this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
-      (masterType: MasterType) => {
-        this.selectedMasterType = masterType;
-
-        this.getAllWeightsForCFS(masterTypeId);
-        this.getAllCFSContainersbyUserId(masterTypeId);
-
-        this.source = this.selectedMasterType.sourceType;
-        this.orderForm.get('sourceType').setValue(this.source);
-        this.destination = this.selectedMasterType.destinationType;
-        this.orderForm.get('destinationType').setValue(this.destination);
-        switch (this.source) {
-          case 'CFS':
-            this.getCfsMasterByUserId('sourceId');
-            break;
-          case 'PORT':
-            this.getPortMasterByUserId('sourceId');
-            break;
-          case 'YARD':
-            this.getYardMasterByUserId('sourceId');
-            break;
-
-          default:
-            break;
-        }
-        switch (this.destination) {
-          case 'CFS':
-            this.getCfsMasterByUserId('destinationId');
-            break;
-          case 'PORT':
-            this.getPortMasterByUserId('destinationId');
-            break;
-          case 'YARD':
-            this.getYardMasterByUserId('destinationId');
-            break;
-
-          default:
-            break;
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
 
   getAllCFS() {
     this._cfsService.getAllCfsMasters().subscribe(
@@ -306,24 +340,9 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getAllCFSbyUserId() {
-    
-
     this._masterTypeService.getAllCFSbyUserId(this.currentUser.userId).subscribe(
       (cfsMasters) => {
         this.cfsMasters = cfsMasters;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
-
-
-  getAllContainers() {
-    this._containerService.getAllContainerMasters().subscribe(
-      (containerTypes) => {
-        this.containerTypes = containerTypes;
       },
       (err) => {
         console.log(err);
@@ -341,7 +360,6 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
-
 
   getAllPorts() {
     this._portService.getAllPortMasters().subscribe(
@@ -403,6 +421,7 @@ export class CreateOrderComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
+        this.getLocations();
       }
     );
   }
@@ -453,16 +472,13 @@ export class CreateOrderComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.orderForm.valid) {
-      console.log(this.orderForm.value);
       const order = this.transformOrderObj(this.orderForm.value, 'pending');
       console.log(order);
-      this.saveOrderDraft(order);
+      // this.saveOrderDraft(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
   }
-
-
 
   getMasterTypeSource(masterTypeId): string {
     const masterType = this.masterTypes.find(m => m.masterTypeId === masterTypeId);

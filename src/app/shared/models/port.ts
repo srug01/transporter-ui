@@ -10,4 +10,11 @@ export interface Port {
     modifiedOn?: Date;
     latitude?: string;
     longitude?: string;
+    address1?: string;
+    address2?: string;
+    landmark?: string;
+    pincode?: string;
+    primarycontactperson?: string;
+    primarycontactnumber?: string;
+
 }

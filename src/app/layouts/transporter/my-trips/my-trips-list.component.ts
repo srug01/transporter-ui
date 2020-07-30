@@ -8,10 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
-
-
-
-
 @Component({
   selector: 'app-my-trips-list',
   templateUrl: './my-trips-list.component.html',

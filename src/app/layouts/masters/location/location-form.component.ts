@@ -38,14 +38,14 @@ export class LocationFormComponent implements OnInit {
     this.getAllStates();
     if (this.locationData) {
       this.locationForm = this.fb.group({
-        locationId: [this.locationData.locationId ? this.locationData.locationId : ''],
+        locationMasterId: [this.locationData.locationMasterId ? this.locationData.locationMasterId : ''],
         locationName: [this.locationData.locationName ? this.locationData.locationName : '', Validators.required],
         stateMasterId: [this.locationData.stateMasterId ? this.locationData.stateMasterId : '', Validators.required],
         isActive: [this.locationData.isActive ? this.locationData.isActive : '', Validators.required]
       });
     } else {
       this.locationForm = this.fb.group({
-        locationId: [''],
+        locationMasterId: [''],
         locationName: ['', Validators.required],
         stateMasterId: ['', Validators.required],
         isActive: ['', Validators.required]
@@ -73,7 +73,7 @@ export class LocationFormComponent implements OnInit {
 
   transformLocationObj(location: any): LocationMaster {
     return {
-      locationId: location.locationId,
+      locationMasterId: location.locationMasterId,
       locationName: location.locationName,
       isActive: location.isActive,
       stateMasterId: location.stateMasterId,

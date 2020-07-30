@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { YardService } from '../services/yard.service';
 import { PortService } from '../services/port.service';
+import { StateMasterService } from '../services/state-master.service';
+import {  LocationService } from '../services/location.service';
 import { User } from 'src/app/shared/models/user';
 
 
@@ -24,6 +26,8 @@ export class YardFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public yardForm: FormGroup;
   public portMasters: Array<any> = [];
+  public stateMasters: Array<any> = [];
+  public locationMasters: Array<any> = [];
   public currentUser: User;
 
   constructor(
@@ -32,28 +36,38 @@ export class YardFormComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _yardService: YardService,
     private _portService: PortService,
+    private _stateService: StateMasterService,
+    private _locationService: LocationService,
     private _router: Router,
     private _userService: UserService
 
   ) { }
 
   ngOnInit(): void {
-    this.getAllPortMasters();
     this.getUserInfo();
+    this.getAllPortMasters();
+    this.getAllStateMasters();
+    this.getAllLocationMasters();
     if (this.yardData) {
       this.yardForm = this.fb.group({
         yardMasterId: [this.yardData.yardMasterId ? this.yardData.yardMasterId : ''],
         yardName: [this.yardData.yardName ? this.yardData.yardName : '', Validators.required],
         portMasterId: [this.yardData.portMasterId ? this.yardData.portMasterId : '', Validators.required],
         isActive: [this.yardData.isActive ? this.yardData.isActive : '', Validators.required],
-        address: [this.yardData.address ? this.yardData.address : ''],
+        address1: [this.yardData.address1 ? this.yardData.address1 : ''],
+        address2: [this.yardData.address2 ? this.yardData.address2 : ''],
+        landmark: [this.yardData.landmark ? this.yardData.landmark : ''],
+        locationMasterId: [this.yardData.locationMasterId ? this.yardData.locationMasterId : '',Validators.required],
+        stateMasterId: [this.yardData.stateMasterId ? this.yardData.stateMasterId : '', Validators.required],
         createdBy: [this.yardData.createdBy ? this.yardData.createdBy : ''],
         createdOn: [this.yardData.createdOn ? this.yardData.createdOn : ''],
         latitude: [this.yardData.latitude ? this.yardData.latitude : ''],
         longitude: [this.yardData.longitude ? this.yardData.longitude : ''],
         modifiedBy: [this.yardData.modifiedBy ? this.yardData.modifiedBy : ''],
         modifiedOn: [this.yardData.modifiedOn ? this.yardData.modifiedOn : ''],
-        pincode: [this.yardData.pincode ? this.yardData.pincode : '']
+        pincode: [this.yardData.pincode ? this.yardData.pincode : ''],
+        primarycontactperson: [this.yardData.primarycontactperson ? this.yardData.primarycontactperson : '', Validators.required],
+        primarycontactnumber: [this.yardData.primarycontactnumber ? this.yardData.primarycontactnumber : '', Validators.required],
       });
     } else {
       this.yardForm = this.fb.group({
@@ -61,14 +75,21 @@ export class YardFormComponent implements OnInit {
         yardName: ['', Validators.required],
         portMasterId: ['', Validators.required],
         isActive: ['', Validators.required],
-        address: [''],
+        address1: [''],
+        address2: [''],
+        landmark: [''],
+        locationMasterId: ['', Validators.required],
+        stateMasterId: ['', Validators.required],
         createdBy: [''],
         createdOn: [''],
         latitude: [''],
         longitude: [''],
         modifiedBy: [''],
         modifiedOn: [''],
-        pincode: ['']
+        pincode: [''],
+        primarycontactperson: ['', Validators.required],
+        primarycontactnumber: ['', Validators.required],
+
       });
     }
 
@@ -80,7 +101,28 @@ export class YardFormComponent implements OnInit {
         this.portMasters = portMasters;
       },
       (err) => {
+        console.log('could not fetch port masters');
+      }
+    );
+  }
+
+  getAllStateMasters(){
+    this._stateService.getAllStateMasters().subscribe(
+      (stateMasters) => {
+        this.stateMasters = stateMasters;
+      },
+      (err) => {
         console.log('could not fetch state masters');
+      }
+    );
+  }
+  getAllLocationMasters(){
+    this._locationService.getAllLocationMasters().subscribe(
+      (locationMasters) => {
+        this.locationMasters = locationMasters;
+      },
+      (err) => {
+        console.log('could not fetch location masters');
       }
     );
   }
@@ -95,7 +137,11 @@ export class YardFormComponent implements OnInit {
 
   transforYardObj(yard: Yard): Yard {
     return {
-      address: yard.address,
+      address1: yard.address1,
+      address2: yard.address2,
+      landmark: yard.landmark,
+      locationMasterId: yard.locationMasterId,
+      stateMasterId : yard.stateMasterId,
       createdBy: this.currentUser.userId,
       createdOn: new Date(),
       isActive: yard.isActive,
@@ -106,7 +152,9 @@ export class YardFormComponent implements OnInit {
       pincode: yard.pincode,
       portMasterId: yard.portMasterId,
       yardMasterId: yard.yardMasterId,
-      yardName: yard.yardName
+      yardName: yard.yardName,
+      primarycontactperson: yard.primarycontactperson,
+      primarycontactnumber: yard.primarycontactnumber
     } as Yard;
   }
 

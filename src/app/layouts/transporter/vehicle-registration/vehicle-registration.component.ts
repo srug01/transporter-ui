@@ -14,6 +14,8 @@ import { State } from 'src/app/shared/models/state';
 import { Container } from 'src/app/shared/models/container';
 import { Weight } from 'src/app/shared/models/weight';
 import { VehicleMaster } from 'src/app/shared/models/VehicleMaster';
+import { UserService } from './../../../services/user.service';
+import { User } from './../../../shared/models/user';
 
 @Component({
   selector: 'app-vehicle-registration',
@@ -46,6 +48,7 @@ export class VehicleRegistrationComponent implements OnInit {
  // public weight: Array<any> = [];
   public manufactureYear: Array<any> = [];
   public owned = false;
+  public currentUser: User;
 
   constructor(
     private _ngZone: NgZone,
@@ -55,13 +58,21 @@ export class VehicleRegistrationComponent implements OnInit {
     private _router: Router,
     private _stateService: StateMasterService,
     private _containerservice: ContainerService,
-    private _weightservice : WeightService
+    private _weightservice : WeightService,
+    private _userService: UserService,
   ) { }
-
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
+      }
+    );
+  }
   ngOnInit(): void {
     this.getAllStates();
     this.getAllContainer();
     this.getAllWeight();
+    this.getUserInfo() ;
 
     if(this.vehicleMasterData){
       this.vehicleForm= this.fb.group({
@@ -81,7 +92,8 @@ export class VehicleRegistrationComponent implements OnInit {
           Validators.required],
           owned: [this.vehicleMasterData.owned ? this.vehicleMasterData.owned : '', 
           Validators.required],    
-        is_active: ['', Validators.required]
+          isActive: ['', Validators.required],
+          createdBy:11
       });
     }
     else{
@@ -94,22 +106,12 @@ export class VehicleRegistrationComponent implements OnInit {
       manufactureYear: ['', Validators.required],
       stateId: ['', Validators.required],
       owned: [''],
-      is_active: ['', Validators.required]
+      isActive: ['', Validators.required],
+      createdBy:11
   
      });
     }
-    //}//
-
-  //   this.vehicleForm = this.fb.group({
-  //     vehicle_no: ['', Validators.required],
-  //     vehicle_type: ['', Validators.required],
-  //     vehicle_capacity: ['', Validators.required],
-  //     weight: ['', Validators.required],
-  //     manufacture_year: ['', Validators.required],
-  //     state_syscode: ['', Validators.required],
-  //     owned: [''],
-  //     is_active: ['', Validators.required]
-  //   });
+   
   }
 
   getAllWeight() {
@@ -121,6 +123,24 @@ export class VehicleRegistrationComponent implements OnInit {
       }
     );
   }
+  transformVehicleRegistrationObj(vehicle: VehicleMaster): VehicleMaster {
+    return {
+      vehicleMasterId: vehicle.vehicleMasterId ? vehicle.vehicleMasterId : 0,
+      vehicleNumber: vehicle.vehicleNumber,
+      vehicleType: vehicle.vehicleType,
+      vehicleCapacity: vehicle.vehicleCapacity,
+      weight: vehicle.weight,
+      manufactureYear: vehicle.manufactureYear,
+      stateId: vehicle.stateId,
+      owned: vehicle.owned,    
+      createdBy: this.currentUser.userId,
+      modifiedBy: this.currentUser.userId,
+      createdOn: new Date(),
+      modifiedOn: new Date(),
+      isActive: vehicle.isActive
+    } as VehicleMaster;
+  }
+
 
 
   getAllContainer() {
@@ -159,12 +179,20 @@ export class VehicleRegistrationComponent implements OnInit {
     return invalid;
 }
   submitVehicleForm(ev) {
-    this.findInvalidControls();
+   // this.findInvalidControls();
     if (ev) {
       ev.preventDefault();
     }
     if (this.vehicleForm.valid) {
-      this.saveVehicleMaster(this.vehicleForm);
+      const vehicle: VehicleMaster =
+       this.transformVehicleRegistrationObj(this.vehicleForm.value);
+       if (!this.vehicleMasterData) {
+        this.saveVehicleMaster(this.vehicleForm);
+       }
+       else{
+        this.updateVehicleMaster(vehicle);
+       }
+      
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
       console.log(this.vehicleForm);
@@ -176,6 +204,19 @@ export class VehicleRegistrationComponent implements OnInit {
     this._vehicleService.saveVehicleMaster(vehicleForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Vehicle Master Created Successfully');
+        this._router.navigate(['/default/transporter/vehicle-list']);
+      },
+      (err) => {
+        console.log('err');
+        this.openSnackBar('Failure !', 'Could not create vehicle');
+      }
+    );
+  }
+
+  updateVehicleMaster(vehicleForm: any) {
+    this._vehicleService.updateVehicleMaster(vehicleForm.value).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Vehicle Master Updated Successfully');
         this._router.navigate(['/default/transporter/vehicle-list']);
       },
       (err) => {

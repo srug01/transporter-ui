@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CfsService } from '../services/cfs.service';
 import { PortService } from '../services/port.service';
 import { LocationService } from '../services/location.service';
+import { StateMasterService } from '../services/state-master.service';
 import { User } from 'src/app/shared/models/user';
 
 
@@ -24,6 +25,7 @@ export class CfsFormComponent implements OnInit {
   public cfsForm: FormGroup;
   public portMasters: Array<any> = [];
   public locations: Array<any> = [];
+  public stateMasters: Array<any> = [];
   public currentUser: User;
   constructor(
     private _ngZone: NgZone,
@@ -33,6 +35,7 @@ export class CfsFormComponent implements OnInit {
     private _portService: PortService,
     private _router: Router,
     private _locationService: LocationService,
+    private _stateService: StateMasterService,
     private _userService: UserService
   ) { }
 
@@ -40,13 +43,18 @@ export class CfsFormComponent implements OnInit {
     this.getUserInfo();
     this.getAllPortMasters();
     this.getLocations();
+    this.getAllStateMasters();
     if (this.cfsData) {
       this.cfsForm = this.fb.group({
         cfsMasterId: [this.cfsData.cfsMasterId ? this.cfsData.cfsMasterId : ''],
         cfsName: [this.cfsData.cfsName ? this.cfsData.cfsName : '', Validators.required],
         contactNumber: [this.cfsData.contactNumber ? this.cfsData.contactNumber : '', Validators.required],
         email: [this.cfsData.email ? this.cfsData.email : '', Validators.required],
-        address: [this.cfsData.address ? this.cfsData.address : '', Validators.required],
+        address1: [this.cfsData.address1 ? this.cfsData.address1 : '', Validators.required],
+        address2: [this.cfsData.address2 ? this.cfsData.address2 : '', Validators.required],
+        landmark: [this.cfsData.landmark ? this.cfsData.landmark : '', Validators.required],
+        latitude: [this.cfsData.latitude ? this.cfsData.latitude : '', Validators.required],
+        longitude: [this.cfsData.longitude ? this.cfsData.longitude : '', Validators.required],
         pincode: [this.cfsData.pincode ? this.cfsData.pincode : '', Validators.required],
         cfsCodeNumber: [this.cfsData.cfsCodeNumber ? this.cfsData.cfsCodeNumber : '', Validators.required],
         gstin: [this.cfsData.gstin ? this.cfsData.gstin : '', Validators.required],
@@ -57,6 +65,8 @@ export class CfsFormComponent implements OnInit {
         additionalContactName: [this.cfsData.additionalContactName ? this.cfsData.additionalContactName : '', Validators.required],
         additionalContactNumber: [this.cfsData.additionalContactNumber ? this.cfsData.additionalContactNumber : '', Validators.required],
         portMasterId: [this.cfsData.portMasterId ? this.cfsData.portMasterId : '', Validators.required],
+        stateMasterId: [this.cfsData.stateMasterId ? this.cfsData.stateMasterId : '', Validators.required],
+        locationMasterId: [this.cfsData.locationMasterId ? this.cfsData.locationMasterId : '', Validators.required],
         isActive: [this.cfsData.isActive ? this.cfsData.isActive : '', Validators.required]
       });
     } else {
@@ -65,7 +75,11 @@ export class CfsFormComponent implements OnInit {
         cfsName: ['', Validators.required],
         contactNumber: ['', Validators.required],
         email: ['', Validators.required],
-        address: ['', Validators.required],
+        address1: ['', Validators.required],
+        address2: ['', Validators.required],
+        landmark: ['', Validators.required],
+        latitude: ['', Validators.required],
+        longitude: ['', Validators.required],
         pincode: ['', Validators.required],
         cfsCodeNumber: ['', Validators.required],
         gstin: ['', Validators.required],
@@ -76,6 +90,8 @@ export class CfsFormComponent implements OnInit {
         additionalContactName: ['', Validators.required],
         additionalContactNumber: ['', Validators.required],
         portMasterId: ['', Validators.required],
+        stateMasterId: ['', Validators.required],
+        locationMasterId: ['', Validators.required],
         isActive: ['', Validators.required]
       });
     }
@@ -110,11 +126,27 @@ export class CfsFormComponent implements OnInit {
     );
   }
 
+  getAllStateMasters() {
+    this._stateService.getAllStateMasters().subscribe(
+      (stateMasters) => {
+        this.stateMasters = stateMasters;
+      },
+      (err) => {
+      }
+    );
+  }
+
   transformCfsObj(cfs: Cfs): Cfs {
     return {
       cfsMasterId: cfs.cfsMasterId ? cfs.cfsMasterId : 0,
       cfsCodeNumber: cfs.cfsCodeNumber,
-      address: cfs.address,
+      address1: cfs.address1,
+      address2: cfs.address2,
+      landmark: cfs.landmark,
+      latitude: cfs.latitude,
+      longitude: cfs.longitude,
+      stateMasterId: cfs.stateMasterId,
+      locationMasterId: cfs.locationMasterId,
       cfsName: cfs.cfsName,
       contactNumber: cfs.contactNumber,
       createdBy: this.currentUser.userId,

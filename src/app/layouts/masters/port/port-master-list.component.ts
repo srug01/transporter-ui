@@ -91,7 +91,7 @@ export class PortMasterListComponent implements OnInit {
   getLocationbyId(id): string {
 
     for (let i = 0; i < this.locations.length; i++) {
-      if (this.locations[i].locationId === id) {
+      if (this.locations[i].locationMasterId === id) {
         return this.locations[i].locationName;
       }
     }

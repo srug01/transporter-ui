@@ -21,4 +21,5 @@ export interface Order {
     profitMarginPercentage?: number;
     rateExcludingProfit?: number;
     containers?: any;
+    portTerminalId?: number;
 }

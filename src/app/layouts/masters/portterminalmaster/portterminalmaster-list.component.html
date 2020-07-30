@@ -29,7 +29,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="portMasterId">
                 <th mat-header-cell *matHeaderCellDef> Port </th>
-                <td mat-cell *matCellDef="let element">{{element.portMasterId}}
+                <td mat-cell *matCellDef="let element">{{getPortMasterbyId(element.portMasterId)}}
                 </td>
             </ng-container>
 

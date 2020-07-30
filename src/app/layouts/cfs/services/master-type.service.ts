@@ -52,8 +52,8 @@ export class MasterTypeService {
     return this.http.get<ContainerMaster[]>(this.baseUrl + 'getAllCFSContainersbyUserId/' + userId + '/' + typeId);
   }
 
-  getAllCFSWeightsbyUserId(userId, typeId): Observable<Weight[]> {
-    return this.http.get<Weight[]>(this.baseUrl + 'GetAllCFSWeightsbyUserId/' + userId + '/' + typeId);
+  GetAllCFSWeightsbyUserandContainerId(userId, typeId, containerId): Observable<Weight[]> {
+    return this.http.get<Weight[]>(this.baseUrl + 'GetAllCFSWeightsbyUserandContainerId/' + userId + '/' + typeId + '/' + containerId);
   }
 
 }
