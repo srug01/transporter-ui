@@ -39,11 +39,22 @@ import { MyTripsListComponent } from './my-trips/my-trips-list.component';
 import { MyTripsNewComponent } from './my-trips/my-trips-new.component';
 import { MyTripsEditComponent } from './my-trips/my-trips-edit.component';
 import { MyTripsFormComponent } from './my-trips/my-trips-form.component';
-
+import { VehicleRegistrationNewComponent } from './vehicle-registration/vehicle-registration-new.component';
+import { VehicleRegistrationListComponent } from './vehicle-registration/vehicle-registration-list.component';
+import { VehicleRegistrationFormComponent } from './vehicle-registration/vehicle-registration-form.component';
+import { VehicleRegistrationEditComponent } from './vehicle-registration/vehicle-registration-edit.component';
+import { VehicleResolver} from './resolvers/vehicle.resolver';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
-  { path: 'register-vehicle', component: VehicleRegistrationComponent },
+  { path: 'register-vehicle', component: VehicleRegistrationComponent,
+  children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'list', component: VehicleRegistrationListComponent },
+    { path: 'new', component: VehicleRegistrationNewComponent },
+    { path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver } }
+  ]
+  },
   { path: 'vehicle-list', component: VehicleListComponent },
   { path: 'register-transporter', component: TransporterRegistrationComponent },
   { path: 'register-driver', component: DriverRegistrationComponent },
@@ -86,7 +97,11 @@ const toasterConfig: MatSnackBarConfig = {
     MyTripsListComponent,
     MyTripsNewComponent,
     MyTripsEditComponent,
-    MyTripsFormComponent
+    MyTripsFormComponent,
+    VehicleRegistrationNewComponent,
+    VehicleRegistrationListComponent,
+    VehicleRegistrationFormComponent,
+    VehicleRegistrationEditComponent
   ],
   imports: [
     CommonModule,
@@ -112,6 +127,7 @@ const toasterConfig: MatSnackBarConfig = {
   ],
   providers: [
     VehicleService,
+    VehicleResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
     { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config },
     MatDatepickerModule,
