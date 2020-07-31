@@ -34,10 +34,7 @@ export class OrderService {
   }
 
   getAllOrders(): Observable<Order[]> {
-    this.filter.where = {
-      status: 'submitted'
-    };
-    return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+    return this.http.get<Order[]>(this.baseUrl + 'orders');
   }
 
   getOrderById(orderId: number): Observable<Order> {

@@ -66,8 +66,7 @@ export class PlacedBidsComponent implements OnInit {
   //   );
   // }
 
-  getAllPlacedBidsbyUserId() {
-   
+  getAllPlacedBidsbyUserId() {   
     this._bidService.getAllBidsbyUserId(this.currentUser.userId).subscribe(
       (bids: Array<any>[]) => {
         this.bids = bids;
@@ -110,7 +109,10 @@ export class PlacedBidsComponent implements OnInit {
         this.openSnackBar('Success !', 'Order placed successfully');
       },
       (err) => {
-        console.log(err);
+        if(err.error.error.message){
+          this.openSnackBar('Failure !', `${err.error.error.message} for ${bidMapping.bidName}`);
+        }
+        console.log();
       }
     );
   }
