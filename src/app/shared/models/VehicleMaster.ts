@@ -9,7 +9,7 @@ export interface VehicleMaster {
     owned?: boolean;
     isActive?: boolean;
     createdBy?: number;
-    createdOn?: string;
+    createdOn?: Date;
     modifiedBy?: number;
-    modifiedOn?: string;
+    modifiedOn?: Date;
 }
