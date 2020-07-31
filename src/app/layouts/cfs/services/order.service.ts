@@ -34,7 +34,12 @@ export class OrderService {
   }
 
   getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.baseUrl + 'orders');
+    const include = {
+      include: [{
+          relation: 'containers'
+        }]
+    };
+    return this.http.get<Order[]>(this.baseUrl + 'orders?filter='+JSON.stringify(include));
   }
 
   getOrderById(orderId: number): Observable<Order> {

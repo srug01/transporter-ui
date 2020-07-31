@@ -28,6 +28,7 @@ import { Platform } from '@angular/cdk/platform';
 import { PendingOrderListComponent } from './pending-order-list/pending-order-list.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateFormatPipe } from 'src/app/shared/pipe/date-format.pipe';
+import { EditOrderComponent } from './edit-order/edit-order.component';
 
 
 
@@ -39,7 +40,7 @@ const routes: Routes = [
   { path: 'register-user', component: UserRegistrationComponent },
   { path: 'user-list', component: UserRegistrationListComponent },
   { path: 'order-list', component: OrderListComponent },
-  { path: 'saved-orders', component: PendingOrderListComponent },
+  { path: ':id/edit', component: EditOrderComponent },
   { path: ':id/order-details', component: OrderDetailsComponent },
   { path: 'user-list', component: UserRegistrationListComponent }
 ];
@@ -54,7 +55,8 @@ const routes: Routes = [
     OrderDetailsComponent,
     UserRegistrationListComponent,
     PendingOrderListComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    EditOrderComponent
   
   ],
   imports: [

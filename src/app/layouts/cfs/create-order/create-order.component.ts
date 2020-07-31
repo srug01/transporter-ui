@@ -466,9 +466,8 @@ export class CreateOrderComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.orderForm.valid) {
-      const order = this.transformOrderObj(this.orderForm.value, 'pending');
-      console.log(order);
-      // this.saveOrderDraft(order);
+      const order = this.transformOrderObj(this.orderForm.value, 'draft');
+      this.saveOrderDraft(order);
     } else {
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
@@ -559,6 +558,7 @@ export class CreateOrderComponent implements OnInit {
     this._orderService.saveOrder(order).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Order saved');
+        this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);

@@ -96,7 +96,6 @@ export class OrderListComponent implements OnInit {
     this._orderService.getAllOrders().subscribe(
       (orders: Order[]) => {
         this.orders = orders;
-        console.log(this.orders);
         this.orderUserIds = this.orders.map((order) => {
           return { id: order.createdBy };
         });
