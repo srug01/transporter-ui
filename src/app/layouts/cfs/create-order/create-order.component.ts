@@ -26,9 +26,10 @@ import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { WeightService } from '../../masters/services/weight.service';
 import { ContainerService } from '../../masters/services/container.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, AsyncPipe } from '@angular/common';
 import { PortterminalmasterService } from '../../masters/services/portterminalmaster.service';
 import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-create-order',
@@ -93,7 +94,6 @@ export class CreateOrderComponent implements OnInit {
 
   masterTypeSelected(masterTypeId) {
     this.orderForm.get('portTerminalId').setValue(null);
-
     this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
       (masterType: MasterType) => {
         this.selectedMasterType = masterType;
@@ -136,11 +136,12 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  containerTypeSelected(containerRow, containerId) {
+  containerTypeSelected(containerRow: FormGroup, i, containerMasterId) {
+    console.log(containerRow, i, containerMasterId);
+
     containerRow.controls['weightType'].reset();
-    console.log(containerId);
     const typeId = this.selectedMasterType.masterTypeId;
-    this.getAllWeightsForCFS(typeId,containerId);
+    this.getAllWeightsForCFS(typeId, containerMasterId, i);
   }
 
   getCfsMasterByUserId(masterType: string) {
@@ -311,10 +312,10 @@ export class CreateOrderComponent implements OnInit {
 
 
   // try to fetch from cache Need to ask Bhushan
-  getAllWeightsForCFS(type: number, containerId: number) {
+  getAllWeightsForCFS(type: number, containerId: any, i) {
     this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type, containerId).subscribe(
       (weightMasters) => {
-        this.weights = weightMasters;
+        this.weights[i] = weightMasters;
       },
       (err) => {
         console.log('could not fetch weight masters');
