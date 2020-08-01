@@ -45,8 +45,8 @@ export class TripService {
     return this.http.delete(this.baseUrl + 'trips/' + id);
   }
 
-  getAllTripsbyUserId(userId): Observable<Mytrip[]> {
-    return this.http.get<Mytrip[]>(this.baseUrl + 'GetTripsByUserId/' + userId);
+  getAllTripsbyUserId(userId): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetTripsByUserId/' + userId);
   }
 
 }
