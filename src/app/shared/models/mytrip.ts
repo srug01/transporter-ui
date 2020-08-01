@@ -3,15 +3,19 @@ export interface Trip {
     subOrderId?: number;
     sourceId: number;
     destinationId: number;
-    assignedVehicle:number;
-    assignedDriver:number;
-    status:string;  
+    assignedVehicle: number;
+    assignedDriver: number;
+    status: string;
     createdBy?: number;
     createdOn?: Date;
     modifiedBy?: number;
     modifiedOn?: Date;
-    startDate?:Date;
-    endDate?:Date;
-    billedAmount?:number;
-    isActive:boolean;
+    startDate?: Date;
+    endDate?: Date;
+    billedAmount?: number;
+    isActive: boolean;
+    DriverName?: string;
+    sourceName?: string;
+    destinationName?: string;
+    vehicleNumber?: string;
 }

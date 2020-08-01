@@ -45,13 +45,13 @@ import { VehicleRegistrationFormComponent } from './vehicle-registration/vehicle
 import { VehicleRegistrationEditComponent } from './vehicle-registration/vehicle-registration-edit.component';
 import { VehicleResolver } from './resolvers/vehicle.resolver';
 import { TripResolver } from './resolvers/trip.resolver';
-import { DriverDetailsComponent} from './driver-registration/driver-details.component';
-import { DriverEditComponent} from './driver-registration/driver-edit.component';
+import { DriverDetailsComponent } from './driver-registration/driver-details.component';
+import { DriverEditComponent } from './driver-registration/driver-edit.component';
 import { DriverFormRegisterComponent } from './driver-registration/driver-register-form.component';
-import { DriverMasterListComponent} from './driver-registration/driver-master-list.component';
-import { DriverNewComponent} from './driver-registration/driver-new.component';
-import { DriverComponent} from './driver-registration/driver.component';
-import { DriverResolver} from './resolvers/driver.resolver';
+import { DriverMasterListComponent } from './driver-registration/driver-master-list.component';
+import { DriverNewComponent } from './driver-registration/driver-new.component';
+import { DriverComponent } from './driver-registration/driver.component';
+import { DriverResolver } from './resolvers/driver.resolver';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -66,13 +66,14 @@ const routes: Routes = [
   },
 
   { path: 'register-transporter', component: TransporterRegistrationComponent },
-  { path: 'register-driver', component: DriverComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: DriverMasterListComponent },
-    { path: 'new', component: DriverNewComponent },
-    { path: 'edit/:id', component: DriverEditComponent, resolve: { driverResolver: DriverResolver } }
-  ]
+  {
+    path: 'register-driver', component: DriverComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: DriverMasterListComponent },
+      { path: 'new', component: DriverNewComponent },
+      { path: 'edit/:id', component: DriverEditComponent, resolve: { driverResolver: DriverResolver } }
+    ]
 
   },
   { path: 'transporter-list', component: TransporterListComponent },
@@ -104,9 +105,7 @@ const toasterConfig: MatSnackBarConfig = {
   declarations: [
     TransporterComponent,
     VehicleRegistrationComponent,
-
     TransporterRegistrationComponent,
-
     TransporterListComponent,
     PlacedBidsComponent,
     BidsComponent,
@@ -119,16 +118,12 @@ const toasterConfig: MatSnackBarConfig = {
     VehicleRegistrationListComponent,
     VehicleRegistrationFormComponent,
     VehicleRegistrationEditComponent,
-    DriverFormRegisterComponent,
-    DriverDetailsComponent,
-    DriverEditComponent,
-
-    DriverMasterListComponent,
-    DriverNewComponent,
     DriverComponent,
-
-
-
+    DriverMasterListComponent,
+    DriverEditComponent,
+    DriverDetailsComponent,
+    DriverFormRegisterComponent,
+    DriverNewComponent
   ],
   imports: [
     CommonModule,

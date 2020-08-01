@@ -1,6 +1,5 @@
-import { Vehicle } from './../../../shared/models/vehicle';
+import { VehicleMaster } from 'src/app/shared/models/VehicleMaster';
 import { Driver } from './../../../shared/models/driver';
-import { DriverService } from './../../masters/services/driver.service';
 import { VehicleService } from './../services/vehicle.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { TripService } from '../services/trip.service';
@@ -9,11 +8,11 @@ import { take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
 import { Trip } from 'src/app/shared/models/Mytrip';
 import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
+import { DriverService } from '../services/driver.service';
 
 @Component({
   selector: 'app-my-trips-form',
@@ -26,7 +25,7 @@ export class MyTripsFormComponent implements OnInit {
   public tripForm: FormGroup;
   public currentUser: User;
   public drivers: Driver[] = [];
-  public vehicles: Vehicle[] = [];
+  public vehicles: VehicleMaster[] = [];
 
 
   constructor(
@@ -44,50 +43,56 @@ export class MyTripsFormComponent implements OnInit {
     this.getUserInfo();
     this.getAllDrivers();
     this.getAllVehicles();
-    if (this.tripData) {
+    if (this.tripData[0]) {   
       this.tripForm = this.fb.group({
-        tripId: [this.tripData.tripId ? this.tripData.tripId : ''],
-        subOrderId: [this.tripData.subOrderId ? this.tripData.subOrderId : '', Validators.required],
-        sourceId: [this.tripData.sourceId ? this.tripData.sourceId : '', Validators.required],
-        destinationId: [this.tripData.destinationId ? this.tripData.destinationId : '', Validators.required],
-        assignedVehicle: [this.tripData.assignedVehicle ? this.tripData.assignedVehicle : ''],
-        assignedDriver: [this.tripData.assignedDriver ? this.tripData.assignedDriver : ''],
-        status: [this.tripData.status ? this.tripData.status : ''],
-        billedAmount: [this.tripData.billedAmount ? this.tripData.billedAmount : ''],
-        isActive: [this.tripData.isActive ? this.tripData.isActive : '', Validators.required],
-        createdBy: [this.tripData.createdBy ? this.tripData.createdBy : ''],
-        createdOn: [this.tripData.createdOn ? this.tripData.createdOn : ''],
-        modifiedBy: [this.tripData.modifiedBy ? this.tripData.modifiedBy : ''],
-        modifiedOn: [this.tripData.modifiedOn ? this.tripData.modifiedOn : ''],
-        startDate: [this.tripData.startDate ? this.tripData.startDate : ''],
-        endDate: [this.tripData.endDate ? this.tripData.endDate : ''],
+        tripId: [this.tripData[0].tripId ? this.tripData[0].tripId : ''],
+        subOrderId: [this.tripData[0].subOrderId ? this.tripData[0].subOrderId : '', Validators.required],
+        sourceId: [this.tripData[0].sourceId ? this.tripData[0].sourceId : ''],
+        destinationId: [this.tripData[0].destinationId ? this.tripData[0].destinationId : ''],
+        assignedVehicle: [this.tripData[0].assignedVehicle ? this.tripData[0].assignedVehicle : ''],
+        assignedDriver: [this.tripData[0].assignedDriver ? this.tripData[0].assignedDriver : ''],
+        status: [this.tripData[0].status ? this.tripData[0].status : ''],
+        billedAmount: [this.tripData[0].billedAmount ? this.tripData[0].billedAmount : ''],
+        isActive: [this.tripData[0].isActive ? this.tripData[0].isActive : ''],
+        createdBy: [this.tripData[0].createdBy ? this.tripData[0].createdBy : ''],
+        createdOn: [this.tripData[0].createdOn ? this.tripData[0].createdOn : ''],
+        modifiedBy: [this.tripData[0].modifiedBy ? this.tripData[0].modifiedBy : ''],
+        modifiedOn: [this.tripData[0].modifiedOn ? this.tripData[0].modifiedOn : ''],
+        startDate: [this.tripData[0].startDate ? this.tripData[0].startDate : ''],
+        endDate: [this.tripData[0].endDate ? this.tripData[0].endDate : ''],
+        sourceName: [this.tripData[0].sourceName ? this.tripData[0].sourceName : '', Validators.required],
+        destinationName: [this.tripData[0].destinationName ? this.tripData[0].destinationName : '', Validators.required],
+        vehicleNumber: [this.tripData[0].vehicleNumber ? this.tripData[0].vehicleNumber : '']
       });
     } else {
       this.tripForm = this.fb.group({
         tripId: [''],
         subOrderId: ['', Validators.required],
-        sourceId: ['', Validators.required],
-        destinationId: ['', Validators.required],
+        sourceId: [''],
+        destinationId: [''],
         assignedVehicle: [''],
         assignedDriver: [''],
         status: [''],
         billedAmount: [''],
-        isActive: ['', Validators.required],
+        isActive: [''],
         createdBy: [''],
         createdOn: [''],
         modifiedBy: [''],
         modifiedOn: [''],
         startDate: [''],
         endDate: [''],
+        sourceName: ['', Validators.required],
+        destinationName: ['', Validators.required],
+        vehicleNumber: ['']
       });
     }
+    console.log(this.tripForm);
   }
 
   getAllVehicles() {
     this._vehicleService.getAllVehicleMasters().subscribe(
-      (vehicles: Vehicle[]) => {
+      (vehicles: VehicleMaster[]) => {
         this.vehicles = vehicles;
-        console.log(this.vehicles);
       },
       (err) => {
         console.log(err);
@@ -99,7 +104,6 @@ export class MyTripsFormComponent implements OnInit {
     this._driverService.getAllDriverMasters().subscribe(
       (drivers: Driver[]) => {
         this.drivers = drivers;
-        console.log(this.drivers);
       },
       (err) => {
         console.log(err);
@@ -142,7 +146,7 @@ export class MyTripsFormComponent implements OnInit {
     if (this.tripForm.valid) {
       const trip: Trip = this.transformTripObj(this.tripForm.value);
       console.log(trip);
-      // this.updateTripMaster(this.tripForm);
+      //this.updateTripMaster(this.tripForm);
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }

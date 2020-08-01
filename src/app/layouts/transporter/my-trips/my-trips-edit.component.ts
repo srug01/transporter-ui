@@ -17,7 +17,7 @@ export class MyTripsEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tripData = this.route.snapshot.data['tripResolver'];
+    this.tripData = this.route.snapshot.data['tripResolver'];  
   }
 
 }

@@ -41,11 +41,4 @@ export class DriverService {
   deleteDriverMastersById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'drivers/' + id);
   }
-
-
-
-
-
-
-
 }
