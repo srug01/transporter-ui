@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
+import { StartDialogComponent } from 'src/app/shared/startDialog/start-dialog.component';
 @Component({
   selector: 'app-my-trips-list',
   templateUrl: './my-trips-list.component.html',
@@ -52,6 +53,31 @@ export class MyTripsListComponent implements OnInit {
     );
   }
 
+  openDialogForTripStart(ev, trip: Trip) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(StartDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.startTrip(trip);
+      }
+    });
+  }
+
+  startTrip(trip: Trip) {
+    console.log(trip);
+    // here make sure trip ID is correct and then hit the update method from trip service
+    // this._tripService.updateMytripMaster(trip).subscribe(
+    //   (res) => {
+    //     console.log('success');
+    //     this.openSnackBar('Success !', 'Trip Started Successfully');
+    //   },
+    //   (err) => {
+    //     console.log('err');
+    //     this.openSnackBar('Failure !', 'could not start the trip!');
+    //   });
+  }
 
   openDialog(ev, tripId: number) {
     if (ev) {
