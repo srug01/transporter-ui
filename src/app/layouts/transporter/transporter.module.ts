@@ -52,6 +52,7 @@ import { DriverMasterListComponent } from './driver-registration/driver-master-l
 import { DriverNewComponent } from './driver-registration/driver-new.component';
 import { DriverComponent } from './driver-registration/driver.component';
 import { DriverResolver } from './resolvers/driver.resolver';
+import { BiddetailsComponent } from './bids/biddetails.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -123,7 +124,8 @@ const toasterConfig: MatSnackBarConfig = {
     DriverEditComponent,
     DriverDetailsComponent,
     DriverFormRegisterComponent,
-    DriverNewComponent
+    DriverNewComponent,
+    BiddetailsComponent
   ],
   imports: [
     CommonModule,

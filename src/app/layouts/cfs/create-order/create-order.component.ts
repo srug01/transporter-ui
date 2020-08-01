@@ -43,8 +43,7 @@ export class CreateOrderComponent implements OnInit {
   public selectedSimpleItem;
   public containers: [] = [];
   public currentUser: User;
-  public containerNumbers: Array<any> = [
-  ];
+  public containerNumbers: Array<any> = [];
   public cfsMasters: Cfs[] = [];
   public yardMasters: Yard[] = [];
   public portMasters: Port[] = [];

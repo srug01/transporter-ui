@@ -13,6 +13,7 @@ import { User } from 'src/app/shared/models/user';
 import { BidUserMappingService } from '../services/bid-user-mapping.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginComponent } from 'src/app/default/welcome/login/login.component';
 
 @Component({
   selector: 'app-bids',
@@ -21,10 +22,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid Mapping ID', 'Bid Name', 'Bid Status', 'Bid Value', 'Confirmed By', 'Action'
+    'Bid Mapping ID', 'Bid Name', 'Bid Status', 'Bid Value', 
+    'SourceName','destinationName','containerMasterName', 'weightDesc',
+    'bidValue','originalRate', 'Details','Action'
   ];
   bids: BidUserMapping[] = [];
+  id:number;
   public currentUser: User;
+  public userid=localStorage.getItem('userID');
+
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(
@@ -40,7 +46,8 @@ export class BidsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserInfo();
-    this.getAllConfirmedBids();
+   //this.getAllConfirmedBids();
+   this.getAllBidsByUserID();
   }
 
   getUserInfo() {
@@ -62,6 +69,37 @@ export class BidsComponent implements OnInit {
       }
     );
   }
+
+  GetBidDetailsByBidId(id:number) {
+   
+    this._bidMappingService.GetBidDetailsByBidId(id).subscribe(
+      (bids: BidUserMapping[]) => {
+        this.bids = bids;
+        console.log(this.bids);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getAllBidsByUserID() {   
+    console.log(localStorage.getItem('userID'));
+
+    this._bidMappingService.GetBidsbyUserId(Number(this.userid)).subscribe(
+      (bids: BidUserMapping[]) => {
+        this.bids = bids;
+        console.log(this.bids);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
+
+
 
   saveNotification(notification: Notification) {
     this._notificationService.saveNotification(notification).subscribe(

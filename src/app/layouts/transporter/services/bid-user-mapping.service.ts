@@ -27,4 +27,15 @@ export class BidUserMappingService {
     delete bid.bidusermappingId;
     return this.http.post<any>(this.baseUrl + 'bidusermappings', JSON.stringify(bid), this.HttpUploadOptions);
   }
+
+  GetBidDetailsByBidId(id:number): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetBidsByUserId/'+id);
+  }
+
+  GetBidsbyUserId(id:number): Observable<any> {
+    return this.http.get<BidUserMapping[]>(this.baseUrl + 'GetBidsByUserId/' + id);
+  }
+
+
+  
 }
