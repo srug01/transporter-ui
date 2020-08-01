@@ -5,4 +5,5 @@ export interface BidUserMapping {
     bidName: string;
     bidValue: number;
     bidStatus: string;
+
 }

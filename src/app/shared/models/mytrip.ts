@@ -18,4 +18,5 @@ export interface Trip {
     sourceName?: string;
     destinationName?: string;
     vehicleNumber?: string;
+    BidValue?: number;
 }

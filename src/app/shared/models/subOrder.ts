@@ -11,4 +11,8 @@ export interface SubOrder {
     containerType?: number;
     containerWeightType?: number;
     subOrderTotalMargin?: number;
+    BidScheduleId?: number;
+    OrderDate?: Date;
+    CutOffTime?: Date;
+
 }
