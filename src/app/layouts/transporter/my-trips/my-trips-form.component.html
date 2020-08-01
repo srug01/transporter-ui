@@ -5,50 +5,44 @@
                 <mat-card-title>Trip Master</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <form fxLayout="row" fxLayoutGap="10px" [formGroup]="tripForm"
-                                                (ngSubmit)="submittripForm($event)">
-                    <div fxLayout="row wrap" fxLayoutGap="8px grid">
-                        <div fxFlex="50" fxFlex.lt-sm="100">
+                <form fxLayout="column" fxLayoutGap="10px" [formGroup]="tripForm" (ngSubmit)="submittripForm($event)">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Sub Order ID"
-                                    formControlName="subOrderId" name="name" required />
+                                <input matInput placeholder="Sub Order ID" formControlName="subOrderId" name="name" required />
                             </mat-form-field>
                         </div>
-                        <div fxFlex="50" fxFlex.lt-sm="100">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
+                            Order Id
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <mat-label>Source</mat-label>
-                                <mat-select formControlName="sourceId"
-                                    [errorStateMatcher]="matcher" >
-                                    <!-- <mat-option *ngFor="let state of stateMasters"
-                                                [value]="state.stateMasterId">
-                                        {{ }}
-                                    </mat-option> -->
-                                </mat-select>
+                                <input matInput type="text" formControlName="sourceId" placeholder="Source">
                             </mat-form-field>
                         </div>
-                        <div fxFlex="50" fxFlex.lt-sm="100">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <mat-label>Destination</mat-label>
-                                <mat-select formControlName="destinationId">
-                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationMasterId">
-                                        {{ locationMaster.locationName }}
-                                    </mat-option> -->
-                                </mat-select>
+                                <input matInput type="text" formControlName="destinationId" placeholder="Destination">
                             </mat-form-field>
                         </div>
+                    </div>
 
-                        <div fxFlex="50" fxFlex.lt-sm="100">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <mat-label>Assigned Vehicle</mat-label>
-                                <mat-select formControlName="assignedvehicle">
+                                <mat-select formControlName="assignedVehicle">
                                     <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationMasterId">
                                         {{ locationMaster.locationName }}
                                     </mat-option> -->
                                 </mat-select>
                             </mat-form-field>
                         </div>
-
-                        <div fxFlex="50" fxFlex.lt-sm="100">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <mat-label>Assigned Driver</mat-label>
                                 <mat-select formControlName="assignedDriver">
@@ -58,12 +52,14 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-
-
-                        <div fxFlex="50" fxFlex.lt-sm="100">
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
                         </div>
-                        <div fxFlex="100" fxFlex.lt-sm="100">
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <div fxFlex="100%" fxFlex.lt-sm="100">
                             <button type="submit" mat-raised-button color="primary" class="m-t-8">Save</button>
                         </div>
                     </div>

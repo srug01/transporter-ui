@@ -1,4 +1,4 @@
-import { Mytrip } from './../../../shared/models/mytrip';
+import { Trip } from './../../../shared/models/mytrip';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -15,12 +15,12 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 })
 export class MyTripsListComponent implements OnInit {
   displayedColumns: string[] = [
-    'tripId', 'subOrderId', 'sourceId', 'destinationId', 
+    'tripId', 'subOrderId', 'sourceId', 'destinationId',
     'assignedVehicle', 'assignedDriver', 'billedAmount',
-    'isActive', 'action'
+    'status', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public tripMasters: Array<Mytrip> = [];
+  public tripMasters: Array<Trip> = [];
   constructor(
     private _tripService: TripService,
     private _snackBar: MatSnackBar,
@@ -39,17 +39,17 @@ export class MyTripsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteTripById(tripId);
+        // this.deleteTripById(tripId);
       }
     });
   }
-  deleteTripById1(tripId:number) {
+  deleteTripById1(tripId: number) {
     this._tripService.getAllMytripMasters().subscribe(
       (mytrip) => {
         this.tripMasters = mytrip;
       }
     );
-    
+
   }
   deleteTripById(tripId: number) {
     this._tripService.deleteMytripMasterById(tripId).subscribe(
@@ -61,14 +61,14 @@ export class MyTripsListComponent implements OnInit {
   }
 
 
-  
+
   getAllMyTripMasters() {
     this._tripService.getAllMytripMasters().subscribe(
       (mytrip) => {
         this.tripMasters = mytrip;
       }
     );
-    
+
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

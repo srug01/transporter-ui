@@ -13,5 +13,6 @@ export interface Bid {
     modifiedOn?: string;
     bidLowerLimit?: number;
     bidRate?: number;
+    bidValue?: number;
     marginPercent?: number;
 }

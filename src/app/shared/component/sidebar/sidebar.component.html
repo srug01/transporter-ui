@@ -43,8 +43,8 @@
             </div>
         </div>
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item routerLink='/default/transporter/bids'>Bids</button>
-            <button mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</button>
+            <button mat-menu-item routerLink='/default/transporter/bids' *ngIf="currentUser.typeSyscode === 1">Bids</button>
+            <button mat-menu-item routerLink='/default/transporter/placed-bids' *ngIf="currentUser.typeSyscode === 5">Placed Bids</button>
             <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
             <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
             <button mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter

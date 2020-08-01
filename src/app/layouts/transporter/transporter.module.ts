@@ -43,17 +43,19 @@ import { VehicleRegistrationNewComponent } from './vehicle-registration/vehicle-
 import { VehicleRegistrationListComponent } from './vehicle-registration/vehicle-registration-list.component';
 import { VehicleRegistrationFormComponent } from './vehicle-registration/vehicle-registration-form.component';
 import { VehicleRegistrationEditComponent } from './vehicle-registration/vehicle-registration-edit.component';
-import { VehicleResolver} from './resolvers/vehicle.resolver';
+import { VehicleResolver } from './resolvers/vehicle.resolver';
+import { TripResolver } from './resolvers/trip.resolver';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
-  { path: 'register-vehicle', component: VehicleRegistrationComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: VehicleRegistrationListComponent },
-    { path: 'new', component: VehicleRegistrationNewComponent },
-    { path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver } }
-  ]
+  {
+    path: 'register-vehicle', component: VehicleRegistrationComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: VehicleRegistrationListComponent },
+      { path: 'new', component: VehicleRegistrationNewComponent },
+      { path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver } }
+    ]
   },
   { path: 'vehicle-list', component: VehicleListComponent },
   { path: 'register-transporter', component: TransporterRegistrationComponent },
@@ -67,7 +69,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MyTripsListComponent },
       { path: 'new', component: MyTripsNewComponent },
-      { path: 'edit/:id', component: MyTripsEditComponent }
+      { path: 'edit/:id', component: MyTripsEditComponent, resolve: { tripResolver: TripResolver } }
     ]
   }
 ];
@@ -123,11 +125,12 @@ const toasterConfig: MatSnackBarConfig = {
     FormsModule,
     MatIconModule,
     MatTooltipModule,
-    RouterModule.forChild(routes, ),
+    RouterModule.forChild(routes,),
   ],
   providers: [
     VehicleService,
     VehicleResolver,
+    TripResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
     { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config },
     MatDatepickerModule,

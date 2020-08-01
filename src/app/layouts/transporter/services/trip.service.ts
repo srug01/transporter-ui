@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Mytrip } from './../../../shared/models/mytrip';
+import { Trip } from './../../../shared/models/mytrip';
 import { environment } from './../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ export class TripService {
   baseUrl = environment.baseUri;
   public HttpUploadOptions = {
     headers: new HttpHeaders({
-      'Content-Type' : 'application/json'
+      'Content-Type': 'application/json'
     })
   }
 
@@ -20,14 +20,14 @@ export class TripService {
     private http: HttpClient
   ) { }
 
-  saveMytripMaster(trip: Mytrip): Observable<any> {
+  saveMytripMaster(trip: Trip): Observable<any> {
     delete trip.tripId;
-    return this.http.post<Mytrip>(this.baseUrl + 'trips', JSON.stringify(trip), 
-    this.HttpUploadOptions);
+    return this.http.post<Trip>(this.baseUrl + 'trips', JSON.stringify(trip),
+      this.HttpUploadOptions);
   }
 
-  updateMytripMaster(trip: Mytrip): Observable<any> {
-    return this.http.put<Mytrip>(this.baseUrl + 'trips/' + trip.tripId,
+  updateMytripMaster(trip: Trip): Observable<any> {
+    return this.http.put<Trip>(this.baseUrl + 'trips/' + trip.tripId,
       JSON.stringify(trip), this.HttpUploadOptions);
   }
 
@@ -35,7 +35,7 @@ export class TripService {
     return this.http.get(this.baseUrl + 'trips', this.HttpUploadOptions);
   }
 
- 
+
 
   getMytripMasterById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'trips/' + id);

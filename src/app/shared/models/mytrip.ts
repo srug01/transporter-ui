@@ -1,4 +1,4 @@
-export interface Mytrip {
+export interface Trip {
     tripId?: number;
     subOrderId?: number;
     sourceId: number;
@@ -14,5 +14,4 @@ export interface Mytrip {
     endDate?:Date;
     billedAmount?:number;
     isActive:boolean;
-   
 }
