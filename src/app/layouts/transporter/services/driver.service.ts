@@ -37,6 +37,10 @@ export class DriverService {
   getDriverMastersById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'drivers/' + id);
   }
+  getAllDriversbyUserId(userId): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetAllDriversbyUserId/' + userId);
+  }
+
 
   deleteDriverMastersById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'drivers/' + id);

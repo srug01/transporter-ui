@@ -65,6 +65,7 @@
                     <div fxLayout="row" fxLayoutGap="10px">
                         <button *ngIf="element.bidStatus!== 'confirmed' && currentUser.typeSyscode === 5" mat-raised-button color="primary" class="confirm-btn" (click)="confirmBid(element)">Confirm</button>
                         <button *ngIf="element.bidStatus==='confirmed' && currentUser.typeSyscode === 5" mat-raised-button color="primary" class="confirm-btn">Edit</button>
+                        <!-- <button *ngIf="element.bidValue > 0 && currentUser.typeSyscode === 5" mat-raised-button color="primary" class="confirm-btn">Edit</button> -->
                         <button *ngIf="currentUser.typeSyscode === 1" mat-raised-button color="primary" class="confirm-btn">Approve</button>
                     </div>
                 </td>

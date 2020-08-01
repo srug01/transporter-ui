@@ -15,5 +15,6 @@ export interface Driver {
     identitynumber: string;
     userPassword?: string;
     userConfirmPassword?: string;
+    userId?: number;
 
 }

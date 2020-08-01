@@ -46,9 +46,9 @@
                             <mat-form-field>
                                 <mat-label>Assigned Driver</mat-label>
                                 <mat-select formControlName="assignedDriver">
-                                    <!-- <mat-option *ngFor="let locationMaster of locationMasters" [value]="locationMaster.locationMasterId">
-                                        {{ locationMaster.locationName }}
-                                    </mat-option> -->
+                                  <mat-option *ngFor="let driver of drivers" [value]="driver.driverId">
+                                    {{ driver.firstname }} {{ driver.lastname }}
+                                </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>

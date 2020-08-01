@@ -22,4 +22,5 @@ export interface Order {
     rateExcludingProfit?: number;
     containers?: any;
     portTerminalId?: number;
+    timeslotMasterId?: number;
 }

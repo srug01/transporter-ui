@@ -26,7 +26,7 @@ export class MyTripsFormComponent implements OnInit {
   public currentUser: User;
   public drivers: Driver[] = [];
   public vehicles: VehicleMaster[] = [];
-
+  public userId = localStorage.getItem('userID');
 
   constructor(
     private _ngZone: NgZone,
@@ -43,7 +43,7 @@ export class MyTripsFormComponent implements OnInit {
     this.getUserInfo();
     this.getAllDrivers();
     this.getAllVehicles();
-    if (this.tripData[0]) {   
+    if (this.tripData[0]) {
       this.tripForm = this.fb.group({
         tripId: [this.tripData[0].tripId ? this.tripData[0].tripId : ''],
         subOrderId: [this.tripData[0].subOrderId ? this.tripData[0].subOrderId : '', Validators.required],
@@ -90,7 +90,7 @@ export class MyTripsFormComponent implements OnInit {
   }
 
   getAllVehicles() {
-    this._vehicleService.getAllVehicleMasters().subscribe(
+    this._vehicleService.getAllVehiclesbyUserId(this.userId).subscribe(
       (vehicles: VehicleMaster[]) => {
         this.vehicles = vehicles;
       },
@@ -101,7 +101,7 @@ export class MyTripsFormComponent implements OnInit {
   }
 
   getAllDrivers() {
-    this._driverService.getAllDriverMasters().subscribe(
+    this._driverService.getAllDriversbyUserId(this.userId).subscribe(
       (drivers: Driver[]) => {
         this.drivers = drivers;
       },
