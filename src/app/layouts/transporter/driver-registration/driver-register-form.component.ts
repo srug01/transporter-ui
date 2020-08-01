@@ -20,6 +20,7 @@ export class DriverFormRegisterComponent implements OnInit {
   @Input('driverData') driverData: Driver;
 
   matcher = new FormErrorStateMatcher();
+  confirmPasswordmatcher = new FormErrorStateMatcher();
   public driverForm: FormGroup;
   public stateMasters: Array<State> = [];
   public locationMasters: Array<LocationMaster> = [];
@@ -63,7 +64,8 @@ export class DriverFormRegisterComponent implements OnInit {
         landmark: [this.driverData.landmark ? this.driverData.landmark : ''],
         identitytype: [this.driverData.identitytype ? this.driverData.identitytype : ''],
         identitynumber: [this.driverData.identitynumber ? this.driverData.identitynumber : ''],
-        isActive: [this.driverData.isActive ? this.driverData.isActive : '', Validators.required]
+        isActive: [this.driverData.isActive ? this.driverData.isActive : '', Validators.required],
+        userPassword: [this.driverData.userPassword ? this.driverData.userPassword : '', Validators.required]
       });
     }
     else {
@@ -81,7 +83,12 @@ export class DriverFormRegisterComponent implements OnInit {
         landmark: [''],
         identitytype: [''],
         identitynumber: [''],
-        isActive: ['', Validators.required]
+        isActive: ['', Validators.required],
+        userPassword: ['', Validators.required],
+        userConfirmPassword: ['', Validators.required],
+
+      }, {
+        validator: this.checkPasswords
       });
     }
     this.getAllStateMasters();
@@ -89,7 +96,7 @@ export class DriverFormRegisterComponent implements OnInit {
 
   }
 
-  transformDriverObj(driver: any): Driver {
+  transformDriverObj(driver: Driver): Driver {
     return {
       driverId: driver.driverId ? driver.driverId : 0,
       createdBy: +this.userId,
@@ -109,6 +116,7 @@ export class DriverFormRegisterComponent implements OnInit {
       landmark: driver.landmark ,
       pincode: driver.pincode,
       stateMasterId: driver.stateMasterId,
+      userPassword: driver.userPassword
     } as Driver;
   }
 
@@ -132,6 +140,11 @@ export class DriverFormRegisterComponent implements OnInit {
     this.getAllLocationsByStateId(stateMasterId);
   }
 
+  checkPasswords(group: FormGroup) {
+    const password = group.get('userPassword').value;
+    const confirmpassword = group.get('userConfirmPassword').value;
+    return password === confirmpassword ? null : { notSame: true };
+  }
   getAllLocationsByStateId(stateMasterId: number) {
     this._stateService.getAllLocationMastersByStateId(stateMasterId).subscribe(
       (locationMasters: Array<LocationMaster>) => {

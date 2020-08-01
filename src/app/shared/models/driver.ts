@@ -13,5 +13,7 @@ export interface Driver {
     isActive: boolean;
     identitytype: number;
     identitynumber: string;
+    userPassword?: string;
+    userConfirmPassword?: string;
 
 }
