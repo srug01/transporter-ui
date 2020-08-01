@@ -1,16 +1,19 @@
 export interface Driver {
-    driversyscode: number;
-    name: string;
+    driverId: number;
     firstname: string;
     lastname: string;
-    emailid: string;
-    citysyscode: number;
-    statesyscode: number;
-    countrysyscode: number;
+    emailId: string;
+    mobileNumber: string;
+    locationMasterId: number;
+    stateMasterId: number;
     pincode: number;
-    address: string;
-    is_active: boolean;
-    identitytypesyscode: number;
+    address1: string;
+    address2: string;
+    landmark: string;
+    isActive: boolean;
+    identitytype: number;
     identitynumber: string;
+    userPassword?: string;
+    userConfirmPassword?: string;
 
 }

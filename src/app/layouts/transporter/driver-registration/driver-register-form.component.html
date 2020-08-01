@@ -1,0 +1,187 @@
+<div fxLayout="row wrap" class="matero-row">
+    <div fxFlex="66.67" class="matero-col">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Driver Master</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form
+            fxLayout="row"
+            fxLayoutGap="10px"
+            [formGroup]="driverForm" (ngSubmit)="submitDriverForm($event)"
+          >
+            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="First Name"
+                    formControlName="firstname"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Last Name"
+                    formControlName="lastname"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Email"
+                    formControlName="emailId"
+                    name="emailId"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Mobile Number"
+                    formControlName="mobileNumber"
+                    name="mobileNumber"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Address1"
+                    formControlName="address1"
+                    name="address1"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Address2"
+                    formControlName="address2"
+                    name="address2"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="LandMark"
+                    formControlName="landmark"
+                    name="landmak"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <mat-select
+                    formControlName="stateMasterId"
+                    [errorStateMatcher]="matcher"
+                    (valueChange)="stateSelected($event)"
+                  >
+                    <mat-option
+                      *ngFor="let state of stateMasters"
+                      [value]="state.stateMasterId"
+                    >
+                      {{ state.stateName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <mat-label>Location</mat-label>
+                  <mat-select formControlName="locationMasterId">
+                    <mat-option
+                      *ngFor="let locationMaster of locationMasters"
+                      [value]="locationMaster.locationMasterId"
+                    >
+                      {{ locationMaster.locationName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Pin Code"
+                    formControlName="pincode"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <mat-label>Identity Type</mat-label>
+                  <mat-select formControlName="identitytype"
+                  [errorStateMatcher]="matcher">
+                    <mat-option *ngFor="let identitytype of identitytypeMaster"
+                    [value]="identitytype.identitytype">
+                      {{ identitytype.identitytname }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="Identity Number"
+                    formControlName="identitynumber"
+                    name="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field class="demo-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="userPassword" placeholder="Password">
+                </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field class="demo-full-width">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput type="password" formControlName="userConfirmPassword" placeholder="Confirm Password" [errorStateMatcher]="confirmPasswordmatcher">
+                </mat-form-field>
+                <div *ngIf="driverForm.errors">
+                    <mat-error *ngIf="driverForm.controls['userConfirmPassword'].dirty && driverForm.errors['notSame']">Passwords must match</mat-error>
+                </div>
+            </div>
+
+
+              <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+              </div>
+              <div fxFlex="100" fxFlex.lt-sm="100">
+                <button type="submit" mat-raised-button color="primary" class="m-t-8" >Save</button>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

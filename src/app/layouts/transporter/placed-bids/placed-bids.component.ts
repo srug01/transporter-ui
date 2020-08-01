@@ -22,10 +22,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PlacedBidsComponent implements OnInit {
   displayedColumns: string[] = [
     'Bid ID', 'Bid Name', 'Source', 'Destination', 'Container Type',
-    'Container Weight', 'Bid Rate',  'Bid Value', 'Transport Date',
-    'Created By', 'Action'
+    'Container Weight', 'Bid Rate', 'Bid Value', 'Action'
   ];
-  bids: Array<any>[] = [];
+  bids: Bid[] = [];
   public currentUser: User;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
@@ -43,7 +42,7 @@ export class PlacedBidsComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     //this.getAllPlacedBids();
-    
+
   }
 
   getUserInfo() {
@@ -66,11 +65,15 @@ export class PlacedBidsComponent implements OnInit {
   //   );
   // }
 
-  getAllPlacedBidsbyUserId() {   
+  getAllPlacedBidsbyUserId() {
     this._bidService.getAllBidsbyUserId(this.currentUser.userId).subscribe(
-      (bids: Array<any>[]) => {
+      (bids: Bid[]) => {
         this.bids = bids;
-        console.log(bids);
+        this.bids.forEach((bid) => {
+          if (!bid.bidValue) {
+            bid.bidValue = bid.originalRate;
+          }
+        });
       },
       (err) => {
         console.log(err);
@@ -109,10 +112,13 @@ export class PlacedBidsComponent implements OnInit {
         this.openSnackBar('Success !', 'Order placed successfully');
       },
       (err) => {
-        if(err.error.error.message){
+        if (err.error.error.message) {
           this.openSnackBar('Failure !', `${err.error.error.message} for ${bidMapping.bidName}`);
         }
         console.log();
+      },
+      ()=>{
+        this.getAllPlacedBidsbyUserId();
       }
     );
   }

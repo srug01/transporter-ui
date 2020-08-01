@@ -19,10 +19,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { VehicleRegistrationComponent } from './vehicle-registration/vehicle-registration.component';
-import { VehicleListComponent } from './vehilcle-list/vehicle-list.component';
+
 import { VehicleService } from './services/vehicle.service';
 import { TransporterRegistrationComponent } from './transporter-registration/transporter-registration.component';
-import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
+
 import { TransporterListComponent } from './transporter-list/transporter-list.component';
 import { MaterialFileInputModule, FileInputConfig, NGX_MAT_FILE_INPUT_CONFIG } from 'ngx-material-file-input';
 import { PlacedBidsComponent } from './placed-bids/placed-bids.component';
@@ -43,21 +43,39 @@ import { VehicleRegistrationNewComponent } from './vehicle-registration/vehicle-
 import { VehicleRegistrationListComponent } from './vehicle-registration/vehicle-registration-list.component';
 import { VehicleRegistrationFormComponent } from './vehicle-registration/vehicle-registration-form.component';
 import { VehicleRegistrationEditComponent } from './vehicle-registration/vehicle-registration-edit.component';
-import { VehicleResolver} from './resolvers/vehicle.resolver';
+import { VehicleResolver } from './resolvers/vehicle.resolver';
+import { TripResolver } from './resolvers/trip.resolver';
+import { DriverDetailsComponent } from './driver-registration/driver-details.component';
+import { DriverEditComponent } from './driver-registration/driver-edit.component';
+import { DriverFormRegisterComponent } from './driver-registration/driver-register-form.component';
+import { DriverMasterListComponent } from './driver-registration/driver-master-list.component';
+import { DriverNewComponent } from './driver-registration/driver-new.component';
+import { DriverComponent } from './driver-registration/driver.component';
+import { DriverResolver } from './resolvers/driver.resolver';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
-  { path: 'register-vehicle', component: VehicleRegistrationComponent,
-  children: [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
-    { path: 'list', component: VehicleRegistrationListComponent },
-    { path: 'new', component: VehicleRegistrationNewComponent },
-    { path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver } }
-  ]
+  {
+    path: 'register-vehicle', component: VehicleRegistrationComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: VehicleRegistrationListComponent },
+      { path: 'new', component: VehicleRegistrationNewComponent },
+      { path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver } }
+    ]
   },
-  { path: 'vehicle-list', component: VehicleListComponent },
+
   { path: 'register-transporter', component: TransporterRegistrationComponent },
-  { path: 'register-driver', component: DriverRegistrationComponent },
+  {
+    path: 'register-driver', component: DriverComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: DriverMasterListComponent },
+      { path: 'new', component: DriverNewComponent },
+      { path: 'edit/:id', component: DriverEditComponent, resolve: { driverResolver: DriverResolver } }
+    ]
+
+  },
   { path: 'transporter-list', component: TransporterListComponent },
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'bids', component: BidsComponent },
@@ -67,7 +85,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MyTripsListComponent },
       { path: 'new', component: MyTripsNewComponent },
-      { path: 'edit/:id', component: MyTripsEditComponent }
+      { path: 'edit/:id', component: MyTripsEditComponent, resolve: { tripResolver: TripResolver } }
     ]
   }
 ];
@@ -87,9 +105,7 @@ const toasterConfig: MatSnackBarConfig = {
   declarations: [
     TransporterComponent,
     VehicleRegistrationComponent,
-    VehicleListComponent,
     TransporterRegistrationComponent,
-    DriverRegistrationComponent,
     TransporterListComponent,
     PlacedBidsComponent,
     BidsComponent,
@@ -101,7 +117,13 @@ const toasterConfig: MatSnackBarConfig = {
     VehicleRegistrationNewComponent,
     VehicleRegistrationListComponent,
     VehicleRegistrationFormComponent,
-    VehicleRegistrationEditComponent
+    VehicleRegistrationEditComponent,
+    DriverComponent,
+    DriverMasterListComponent,
+    DriverEditComponent,
+    DriverDetailsComponent,
+    DriverFormRegisterComponent,
+    DriverNewComponent
   ],
   imports: [
     CommonModule,
@@ -123,11 +145,13 @@ const toasterConfig: MatSnackBarConfig = {
     FormsModule,
     MatIconModule,
     MatTooltipModule,
-    RouterModule.forChild(routes, ),
+    RouterModule.forChild(routes,),
   ],
   providers: [
     VehicleService,
     VehicleResolver,
+    TripResolver,
+    DriverResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
     { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config },
     MatDatepickerModule,
