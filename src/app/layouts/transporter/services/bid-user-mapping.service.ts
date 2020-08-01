@@ -32,10 +32,8 @@ export class BidUserMappingService {
     return this.http.get(this.baseUrl + 'GetBidsByUserId/'+id);
   }
 
-
-
   GetBidsbyUserId(id:number): Observable<any> {
-    return this.http.get(this.baseUrl + 'GetBidsByUserId/' + id);
+    return this.http.get<BidUserMapping[]>(this.baseUrl + 'GetBidsByUserId/' + id);
   }
 
 

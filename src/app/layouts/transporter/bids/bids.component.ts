@@ -22,9 +22,9 @@ import { LoginComponent } from 'src/app/default/welcome/login/login.component';
 })
 export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid Mapping ID','bidId', 'Bid Name', 'Bid Status', 'Bid Value', 
-    'Source Name','Destination Name','Container MasterName', 'Weight Desc',
-    'Confirmed By', 'Action'
+    'Bid Mapping ID', 'Bid Name', 'Bid Status', 'Bid Value', 
+    'SourceName','destinationName','containerMasterName', 'weightDesc',
+    'bidValue','originalRate', 'Details','Action'
   ];
   bids: BidUserMapping[] = [];
   id:number;
