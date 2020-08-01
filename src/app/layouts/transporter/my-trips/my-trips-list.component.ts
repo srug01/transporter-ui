@@ -71,12 +71,21 @@ export class MyTripsListComponent implements OnInit {
     const startTime = new Date().getTime();
     console.log('make sure startitme is giving time as well');
     // trip.startDate = startTime;
+    // trip.status = 'started';
     
     // here make sure trip ID is correct and then hit the update method from trip service
     // this._tripService.updateMytripMaster(trip).subscribe(
     //   (res) => {
     //     console.log('success');
     //     this.openSnackBar('Success !', 'Trip Started Successfully');
+    //     this._tripService.getAllTripsbyUserId(this.currentUser.userId).subscribe(
+    //       (trips: Trip[]) => {
+    //         this.tripMasters = trips;
+    //       },
+    //      (err) => {
+    //        console.log(err);
+    //      }
+    // );
     //   },
     //   (err) => {
     //     console.log('err');
