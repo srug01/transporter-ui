@@ -1,5 +1,5 @@
 import { PortsResolver } from './resolvers/port.resolver';
-import { DriversResolver } from "./resolvers/driver.resolver";
+
 
 
 import { NgModule } from '@angular/core';
