@@ -15,7 +15,7 @@ export class DriverEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.driver = this.route.snapshot.data['driversResolver'];  
+    this.driver = this.route.snapshot.data['driverResolver'];
   }
 
 }

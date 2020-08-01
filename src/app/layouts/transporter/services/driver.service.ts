@@ -1,5 +1,5 @@
-import { Driver } from './../../../shared/models/driver';
-import { environment } from './../../../../environments/environment';
+import { Driver } from '../../../shared/models/driver';
+import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DriverService {
-  
+
   baseUrl = environment.baseUri;
   public HttpUploadOptions = {
     headers: new HttpHeaders({
@@ -21,12 +21,12 @@ export class DriverService {
   ) { }
 
   saveDriverMaster(driver: Driver): Observable<any> {
-    delete driver.driversyscode;
+    delete driver.driverId;
     return this.http.post<Driver>(this.baseUrl + 'drivers', JSON.stringify(driver), this.HttpUploadOptions);
   }
 
   updateDriverMaster(driver: Driver): Observable<any> {
-    return this.http.put<Driver>(this.baseUrl + 'drivers/'+ driver.driversyscode,
+    return this.http.put<Driver>(this.baseUrl + 'drivers/'+ driver.driverId,
      JSON.stringify(driver), this.HttpUploadOptions);
   }
 

@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 })
 export class DriverMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-  'driversyscode', 'name','firstname','lastname','address',
-  'identitytypesyscode','identitynumber',
+  'driverId', 'firstname','lastname','address1','mobileNumber',
+  'identitytype','identitynumber',
   'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
@@ -47,7 +47,7 @@ export class DriverMasterListComponent implements OnInit {
         this.getAllDriverMasters();
       }
     );
-    
+
   }
 
   openSnackBar(message: string, action: string) {

@@ -22,7 +22,7 @@ export class TripService {
 
   saveMytripMaster(trip: Mytrip): Observable<any> {
     delete trip.tripId;
-    return this.http.post<Mytrip>(this.baseUrl + 'trips', JSON.stringify(trip), 
+    return this.http.post<Mytrip>(this.baseUrl + 'trips', JSON.stringify(trip),
     this.HttpUploadOptions);
   }
 
@@ -35,7 +35,7 @@ export class TripService {
     return this.http.get(this.baseUrl + 'trips', this.HttpUploadOptions);
   }
 
- 
+
 
   getMytripMasterById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'trips/' + id);
@@ -44,4 +44,9 @@ export class TripService {
   deleteMytripMasterById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'trips/' + id);
   }
+
+  getAllTripsbyUserId(userId): Observable<Mytrip[]> {
+    return this.http.get<Mytrip[]>(this.baseUrl + 'GetTripsByUserId/' + userId);
+  }
+
 }
