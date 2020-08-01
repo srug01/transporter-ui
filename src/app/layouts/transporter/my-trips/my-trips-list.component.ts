@@ -67,6 +67,11 @@ export class MyTripsListComponent implements OnInit {
 
   startTrip(trip: Trip) {
     console.log(trip);
+    // https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+    const startTime = new Date().getTime();
+    console.log('make sure startitme is giving time as well');
+    // trip.startDate = startTime;
+    
     // here make sure trip ID is correct and then hit the update method from trip service
     // this._tripService.updateMytripMaster(trip).subscribe(
     //   (res) => {
