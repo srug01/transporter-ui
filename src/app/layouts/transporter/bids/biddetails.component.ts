@@ -10,7 +10,7 @@ import { BidsService } from '../services/bids.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { BidUserMappingService } from '../services/bid-user-mapping.service';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -19,39 +19,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./biddetails.component.scss']
 })
 export class BiddetailsComponent implements OnInit {
+  public bidsdetails: BidUserMapping;
   displayedColumns: string[] = [
     'bidName', 'exhibitionDate', 'subOrderId', 'createdBy', 
     'originalRate','bidValue', 'bidStatus',
     'firstName' , 'email'
   ];
-  bidsdetails: BidUserMapping[] = [];
+
   public userid=localStorage.getItem('userID');
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor( private _ngZone: NgZone,
-    private _bidService: BidsService,
-    private _userService: UserService,
-    private _bidMappingService: BidUserMappingService,
-    private _router: Router,
-    private _notificationService: NotificationService, 
-    private _snackBar: MatSnackBar) { }
+    // private _bidService: BidsService,
+    // private _userService: UserService,
+    // private _bidMappingService: BidUserMappingService,
+    // private _router: Router,
+    // private _notificationService: NotificationService, 
+    // private _snackBar: MatSnackBar) 
+    private router: Router,
+    private route: ActivatedRoute)
+    { }
 
   ngOnInit(): void {
-    this.getAllBidsByUserID(1);
+    this.bidsdetails = this.route.snapshot.data['biddetailsResolver'];
   }
 
-  getAllBidsByUserID(bidID:Number) {   
-    //console.log(localStorage.getItem('bidId'));
-
-    this._bidMappingService.GetBidDetailsByBidId(1).subscribe(
-      (bidsdetails: BidUserMapping[]) => {
-        this.bidsdetails = bidsdetails;
-        console.log(this.bidsdetails);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  
 
 }

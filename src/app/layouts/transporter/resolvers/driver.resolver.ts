@@ -10,7 +10,8 @@ export class DriverResolver implements Resolve<Driver>
 {
   constructor(private service: DriverService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Driver> | Promise<Driver> | Driver {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Driver>
+   | Promise<Driver> | Driver {
     return this.service.getDriverMastersById(route.params.id);
   }
 }
