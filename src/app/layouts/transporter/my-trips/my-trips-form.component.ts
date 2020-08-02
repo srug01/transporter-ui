@@ -26,7 +26,7 @@ export class MyTripsFormComponent implements OnInit {
   public currentUser: User;
   public drivers: Driver[] = [];
   public vehicles: VehicleMaster[] = [];
-
+  public userId = localStorage.getItem('userID');
 
   constructor(
     private _ngZone: NgZone,
@@ -43,7 +43,7 @@ export class MyTripsFormComponent implements OnInit {
     this.getUserInfo();
     this.getAllDrivers();
     this.getAllVehicles();
-    if (this.tripData[0]) {   
+    if (this.tripData[0]) {
       this.tripForm = this.fb.group({
         tripId: [this.tripData[0].tripId ? this.tripData[0].tripId : ''],
         subOrderId: [this.tripData[0].subOrderId ? this.tripData[0].subOrderId : '', Validators.required],
@@ -86,11 +86,10 @@ export class MyTripsFormComponent implements OnInit {
         vehicleNumber: ['']
       });
     }
-    console.log(this.tripForm);
   }
 
   getAllVehicles() {
-    this._vehicleService.getAllVehicleMasters().subscribe(
+    this._vehicleService.getAllVehiclesbyUserId(this.userId).subscribe(
       (vehicles: VehicleMaster[]) => {
         this.vehicles = vehicles;
       },
@@ -101,7 +100,7 @@ export class MyTripsFormComponent implements OnInit {
   }
 
   getAllDrivers() {
-    this._driverService.getAllDriverMasters().subscribe(
+    this._driverService.getAllDriversbyUserId(this.userId).subscribe(
       (drivers: Driver[]) => {
         this.drivers = drivers;
       },
@@ -127,15 +126,15 @@ export class MyTripsFormComponent implements OnInit {
       destinationId: trip.destinationId,
       assignedVehicle: trip.assignedVehicle,
       assignedDriver: trip.assignedDriver,
-      status: trip.status,
-      billedAmount: trip.billedAmount,
+      status: 'assigned',
+      billedAmount: 0,
       isActive: trip.isActive,
-      createdBy: trip.createdBy,
-      createdOn: trip.createdOn,
-      modifiedBy: trip.modifiedBy,
-      modifiedOn: trip.modifiedOn,
-      startDate: trip.startDate,
-      endDate: trip.endDate,
+      createdBy: trip.createdBy ? trip.createdBy : this.currentUser.userId,
+      createdOn: new Date(),
+      modifiedBy: trip.modifiedBy ? trip.modifiedBy : this.currentUser.userId,
+      modifiedOn: new Date(),
+      startDate: new Date(),
+      endDate: new Date(),
     } as Trip;
   }
 
@@ -145,8 +144,7 @@ export class MyTripsFormComponent implements OnInit {
     }
     if (this.tripForm.valid) {
       const trip: Trip = this.transformTripObj(this.tripForm.value);
-      console.log(trip);
-      //this.updateTripMaster(this.tripForm);
+      this.updateTripMaster(trip);
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }

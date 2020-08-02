@@ -11,7 +11,7 @@ export interface BidUserMapping {
     containerMasterName:string;
     weightDesc:string;
     containerMasterId:number;
-    weightMasterId:number; 
+    weightMasterId:number;
     originalRate:number;
 
 }

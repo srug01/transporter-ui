@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
-
+import { TimeSlot } from './../../../shared/models/timeslot';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,10 @@ export class MasterTypeService {
 
   GetAllCFSWeightsbyUserandContainerId(userId, typeId, containerId): Observable<Weight[]> {
     return this.http.get<Weight[]>(this.baseUrl + 'GetAllCFSWeightsbyUserandContainerId/' + userId + '/' + typeId + '/' + containerId);
+  }
+
+  getAllTimeSlotMasters(): Observable<any> {
+    return this.http.get(this.baseUrl + 'timeslotmasters');
   }
 
 }

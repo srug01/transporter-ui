@@ -30,6 +30,7 @@ import { DatePipe, AsyncPipe } from '@angular/common';
 import { PortterminalmasterService } from '../../masters/services/portterminalmaster.service';
 import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
 import { async } from 'rxjs/internal/scheduler/async';
+import { TimeSlot } from 'src/app/shared/models/timeslot';
 
 @Component({
   selector: 'app-create-order',
@@ -57,6 +58,8 @@ export class CreateOrderComponent implements OnInit {
   public cfsLocation: Array<any> = [];
   public weights: Array<any> = [];
   public containerTypes: Array<any> = [];
+  public timeSlots: Array<any> = [];
+
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
   ];
@@ -89,6 +92,7 @@ export class CreateOrderComponent implements OnInit {
     this.getUserInfo();
     this.getMasterTypes();
     this.initialiseOrderForm();
+    this.getAllTimeSlots();
   }
 
   masterTypeSelected(masterTypeId) {
@@ -229,6 +233,20 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
+  getAllTimeSlots(){
+    this._masterTypeService.getAllTimeSlotMasters().subscribe(
+      (slots: TimeSlot[]) => {
+        this.timeSlots = slots;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  timeSlotSelected(slotId){
+
+  }
+
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
       orderId: [''],
@@ -253,6 +271,7 @@ export class CreateOrderComponent implements OnInit {
       profitRate: [''],
       profitMarginPercentage: [''],
       rateExcludingProfit: [''],
+      timeslotMasterId: [''],
       containers: this.fb.array([]),
     });
     this.addFormControl();
@@ -288,7 +307,8 @@ export class CreateOrderComponent implements OnInit {
       profitRate: 0,
       profitMarginPercentage: 0,
       rateExcludingProfit: 0,
-      portTerminalId: order.portTerminalId
+      portTerminalId: order.portTerminalId,
+      timeslotMasterId: order.timeslotMasterId
     } as Order;
   }
 

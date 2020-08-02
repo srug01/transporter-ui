@@ -37,6 +37,9 @@ export class VehicleService {
   getVehicleMasterById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'vehicle-masters/' + id);
   }
+  getAllVehiclesbyUserId(userId): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetAllVehiclesbyUserId/' + userId);
+  }
 
   deleteVehicleMasterById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'vehicle-masters/' + id);
