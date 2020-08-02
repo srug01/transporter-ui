@@ -1,7 +1,7 @@
 export interface Order {
     orderId?: number;
     orderTypeId?: number;
-    orderDate?: string;
+    orderDate?: Date;
     masterTypeId?: number;
     sourceId?: number;
     destinationId?: number;

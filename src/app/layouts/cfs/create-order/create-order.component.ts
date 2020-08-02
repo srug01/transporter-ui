@@ -233,7 +233,7 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  getAllTimeSlots(){
+  getAllTimeSlots() {
     this._masterTypeService.getAllTimeSlotMasters().subscribe(
       (slots: TimeSlot[]) => {
         this.timeSlots = slots;
@@ -243,7 +243,7 @@ export class CreateOrderComponent implements OnInit {
       }
     );
   }
-  timeSlotSelected(slotId){
+  timeSlotSelected(slotId) {
 
   }
 
@@ -277,6 +277,11 @@ export class CreateOrderComponent implements OnInit {
     this.addFormControl();
   }
 
+  addDays(date: Date, days: number): Date {
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
   transformOrderObj(order: any, status: string): Order {
     const containers: Array<Container> = [];
     if (order.containers.length > 0) {
@@ -287,7 +292,7 @@ export class CreateOrderComponent implements OnInit {
     return {
       orderId: null,
       masterTypeId: order.masterTypeId,
-      orderDate: order.orderDate,
+      orderDate: this.addDays(order.orderDate, 1),
       orderRemarks: order.orderRemarks,
       orderTypeId: order.orderTypeId,
       orderAddress: order.orderAddress,

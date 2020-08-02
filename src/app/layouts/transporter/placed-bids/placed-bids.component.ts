@@ -69,6 +69,7 @@ export class PlacedBidsComponent implements OnInit {
     this._bidService.getAllBidsbyUserId(this.currentUser.userId).subscribe(
       (bids: Bid[]) => {
         this.bids = bids;
+        console.log(this.bids);        
         this.bids.forEach((bid) => {
           if (!bid.bidValue) {
             bid.bidValue = bid.originalRate;

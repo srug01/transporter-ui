@@ -86,6 +86,10 @@ export class MyTripsListComponent implements OnInit {
       });
   }
 
+  stopTrip(ev, trip: Trip) {
+
+  }
+
   openDialog(ev, tripId: number) {
     if (ev) {
       ev.preventDefault();
