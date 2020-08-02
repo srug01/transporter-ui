@@ -86,7 +86,6 @@ export class MyTripsFormComponent implements OnInit {
         vehicleNumber: ['']
       });
     }
-    console.log(this.tripForm);
   }
 
   getAllVehicles() {
@@ -127,15 +126,15 @@ export class MyTripsFormComponent implements OnInit {
       destinationId: trip.destinationId,
       assignedVehicle: trip.assignedVehicle,
       assignedDriver: trip.assignedDriver,
-      status: trip.status,
-      billedAmount: trip.billedAmount,
+      status: 'assigned',
+      billedAmount: 0,
       isActive: trip.isActive,
-      createdBy: trip.createdBy,
-      createdOn: trip.createdOn,
-      modifiedBy: trip.modifiedBy,
-      modifiedOn: trip.modifiedOn,
-      startDate: trip.startDate,
-      endDate: trip.endDate,
+      createdBy: trip.createdBy ? trip.createdBy : this.currentUser.userId,
+      createdOn: new Date(),
+      modifiedBy: trip.modifiedBy ? trip.modifiedBy : this.currentUser.userId,
+      modifiedOn: new Date(),
+      startDate: new Date(),
+      endDate: new Date(),
     } as Trip;
   }
 
@@ -145,8 +144,7 @@ export class MyTripsFormComponent implements OnInit {
     }
     if (this.tripForm.valid) {
       const trip: Trip = this.transformTripObj(this.tripForm.value);
-      console.log(trip);
-      //this.updateTripMaster(this.tripForm);
+      this.updateTripMaster(trip);
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }

@@ -20,7 +20,7 @@ export class MyTripsListComponent implements OnInit {
   public currentUser: User;
   displayedColumns: string[] = [
     'tripId', 'subOrderId', 'sourceId', 'destinationId',
-    'assignedVehicle', 'assignedDriver', 'billedAmount',
+    'assignedVehicle', 'assignedDriver',
     'status', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
@@ -41,14 +41,18 @@ export class MyTripsListComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-        this._tripService.getAllTripsbyUserId(this.currentUser.userId).subscribe(
-          (trips: Trip[]) => {
-            this.tripMasters = trips;
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
+        this.getAllTripsByUserId(this.currentUser.userId);
+      }
+    );
+  }
+
+  getAllTripsByUserId(userId: number) {
+    this._tripService.getAllTripsbyUserId(userId).subscribe(
+      (trips: Trip[]) => {
+        this.tripMasters = trips;
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }
@@ -66,31 +70,20 @@ export class MyTripsListComponent implements OnInit {
   }
 
   startTrip(trip: Trip) {
-    console.log(trip);
     // https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+    const aTrip = {...trip};
     const startTime = new Date().getTime();
-    console.log('make sure startitme is giving time as well');
-    // trip.startDate = startTime;
-    // trip.status = 'started';
-    
-    // here make sure trip ID is correct and then hit the update method from trip service
-    // this._tripService.updateMytripMaster(trip).subscribe(
-    //   (res) => {
-    //     console.log('success');
-    //     this.openSnackBar('Success !', 'Trip Started Successfully');
-    //     this._tripService.getAllTripsbyUserId(this.currentUser.userId).subscribe(
-    //       (trips: Trip[]) => {
-    //         this.tripMasters = trips;
-    //       },
-    //      (err) => {
-    //        console.log(err);
-    //      }
-    // );
-    //   },
-    //   (err) => {
-    //     console.log('err');
-    //     this.openSnackBar('Failure !', 'could not start the trip!');
-    //   });
+    aTrip.startDate = new Date(startTime);
+    aTrip.status = 'started';
+    delete aTrip.DriverName;
+    this._tripService.updateMytripMaster(aTrip).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Trip Started Successfully');
+        this.getAllTripsByUserId(this.currentUser.userId);
+      },
+      (err) => {
+        this.openSnackBar('Failure !', 'could not start the trip!');
+      });
   }
 
   openDialog(ev, tripId: number) {
@@ -98,25 +91,18 @@ export class MyTripsListComponent implements OnInit {
       ev.preventDefault();
     }
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.deleteTripById(tripId);
+        this.deleteTripById(tripId);
       }
     });
   }
-  deleteTripById1(tripId: number) {
-    this._tripService.getAllMytripMasters().subscribe(
-      (mytrip) => {
-        this.tripMasters = mytrip;
-      }
-    );
 
-  }
   deleteTripById(tripId: number) {
     this._tripService.deleteMytripMasterById(tripId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Trip Master Deleted Successfully');
+        this.getAllTripsByUserId(this.currentUser.userId);
       }
     );
   }
