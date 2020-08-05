@@ -1,3 +1,4 @@
+import { BidsResolver } from './resolvers/biddetails.resolver';
 import { AppDateFormats } from './../../shared/date-formats';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'transporter-list', component: TransporterListComponent },
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'bids', component: BidsComponent },
+  { path: 'bids/:id', component: BiddetailsComponent, resolve: { bidResolver: BidsResolver } },
   {
     path: 'my-trips', component: MyTripsComponent,
     children: [
@@ -154,6 +156,7 @@ const toasterConfig: MatSnackBarConfig = {
     VehicleResolver,
     TripResolver,
     DriverResolver,
+    BidsResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
     { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config },
     MatDatepickerModule,

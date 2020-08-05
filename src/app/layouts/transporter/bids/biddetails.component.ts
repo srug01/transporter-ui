@@ -21,15 +21,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class BiddetailsComponent implements OnInit {
   public bidsdetails: BidUserMapping;
   displayedColumns: string[] = [
-    'bidName', 'exhibitionDate', 'subOrderId', 'createdBy', 
-    'originalRate','bidValue', 'bidStatus',
-    'firstName' , 'email'
+    'bidName', 'exhibitionDate', 'subOrderId', 'createdBy',
+    'originalRate', 'bidValue', 'bidStatus',
+    'firstName', 'email'
   ];
 
-  public userid=localStorage.getItem('userID');
+  public userid = localStorage.getItem('userID');
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor( private _ngZone: NgZone,
+  constructor(private _ngZone: NgZone,
     // private _bidService: BidsService,
     // private _userService: UserService,
     // private _bidMappingService: BidUserMappingService,
@@ -37,13 +37,13 @@ export class BiddetailsComponent implements OnInit {
     // private _notificationService: NotificationService, 
     // private _snackBar: MatSnackBar) 
     private router: Router,
-    private route: ActivatedRoute)
-    { }
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.bidsdetails = this.route.snapshot.data['biddetailsResolver'];
+    this.bidsdetails = this.route.snapshot.data['bidResolver'];
+    console.log(this.bidsdetails);
   }
 
-  
+
 
 }

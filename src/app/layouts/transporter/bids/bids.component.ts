@@ -22,9 +22,9 @@ import { LoginComponent } from 'src/app/default/welcome/login/login.component';
 })
 export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid Mapping ID', 'Bid Name', 'Bid Status', 'Bid Value', 
+    'Bid Mapping ID', 'Bid Name', 'Bid Status',  
     'SourceName','destinationName','containerMasterName', 'weightDesc',
-    'bidValue','originalRate', 'Details','Action'
+    'BidValue','originalRate', 'Details'
   ];
   bids: BidUserMapping[] = [];
   id:number;
@@ -62,7 +62,6 @@ export class BidsComponent implements OnInit {
     this._bidMappingService.getAllConfirmedBids().subscribe(
       (bids: BidUserMapping[]) => {
         this.bids = bids;
-        console.log(this.bids);
       },
       (err) => {
         console.log(err);

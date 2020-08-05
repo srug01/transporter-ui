@@ -523,6 +523,7 @@ export class CreateOrderComponent implements OnInit {
 
   transformOrderContainerObj(container: any): Container {
     const trucks: Array<Truck> = [];
+    console.log(container);    
     if (container.container_numbers.length > 0) {
       container.container_numbers.forEach(truck => {
         trucks.push(this.transformTruckObj(truck));

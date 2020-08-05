@@ -76,6 +76,7 @@ export class MyTripsListComponent implements OnInit {
     aTrip.startDate = new Date(startTime);
     aTrip.status = 'started';
     delete aTrip.DriverName;
+    delete aTrip.bidValue;
     this._tripService.updateMytripMaster(aTrip).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Trip Started Successfully');
