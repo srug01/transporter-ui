@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (res) => {
         this.currentUser = res;
-
+        // console.log(res.permissions[0].Permissions);
         const userId = localStorage.getItem('userID');
         if(userId === null || userId === 'undefined'){
           localStorage.setItem('userID', JSON.stringify(this.currentUser.userId));
