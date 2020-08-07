@@ -2,7 +2,8 @@ import { Setting } from './../../shared/models/setting';
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from '../masters/services/setting.service';
 import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-settings',
@@ -16,11 +17,11 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private _settingService: SettingService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
-    this.initialiseSettingsForm();
     this.getSettings();
   }
 
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnInit {
   }
 
   getSettings() {
+    this.initialiseSettingsForm();
     this._settingService.getAllSetting().subscribe(
       (res) => {
         res.forEach((setting) => {
@@ -60,12 +62,64 @@ export class SettingsComponent implements OnInit {
       settingsValue: [setting.settingsValue],
       isActive: [setting.isActive]
     });
-    settingsArray.insert(arraylen, settingRow); 
+    settingsArray.insert(arraylen, settingRow);
   }
 
   removeFormControl(i) {
     const settingsArray = this.settingsForm.controls.settings as FormArray;
     settingsArray.removeAt(i);
+  }
+
+  transformSetting(settingRow: Setting): Setting {
+    return {
+      settingsId: settingRow.settingsId,
+      isActive: settingRow.isActive ? settingRow.isActive : false,
+      settingsName: settingRow.settingsName ? settingRow.settingsName : '',
+      settingsValue: settingRow.settingsValue ? settingRow.settingsValue : ''
+    } as Setting;
+  }
+
+  saveSetting(settingRow: FormControl) {
+    if (settingRow.valid) {
+      const setting = this.transformSetting(settingRow.value);
+      if (setting.settingsId) {
+        this._settingService.updateSetting(setting).subscribe(
+          (res) => {
+            console.log(res);
+            this.openSnackBar('Success !', `${setting.settingsName} saved`);
+          },
+          (err) => {
+            console.log(err);
+            this.openSnackBar('Failure !', 'could not save the setting');
+          },
+          () => {
+            this.getSettings();
+          }
+        );
+      } else {
+        this._settingService.saveSetting(setting).subscribe(
+          (res) => {
+            console.log(res);
+            this.openSnackBar('Success !', `${setting.settingsName} saved`);
+          },
+          (err) => {
+            console.log(err);
+            this.openSnackBar('Failure !', 'could not save the setting');
+          },
+          () => {
+            this.getSettings();
+          }
+        );
+      }
+    } else {
+      this.openSnackBar('Failure !', 'Invalid Data');
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   addFormControl() {

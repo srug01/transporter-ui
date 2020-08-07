@@ -29,15 +29,15 @@
                         <div fxFlex="20%">
                             <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
                         </div>
-                        <div fxFlex="10%">
-                            <button type="button" mat-raised-button color="primary" (click)="removeFormControl(i)">Delete</button>
+                        <div fxFlex="10%" fxLayout="row" fxLayoutGap="10px">
+                            <button type="button" class="btn" mat-raised-button color="primary" (click)="saveSetting(settingRow)">Save</button>
+                            <button type="submit" class="btn" mat-raised-button color="warn" (click)="removeFormControl(i)">Delete</button>
                         </div>
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutGap="10px">
                     <button type="button" mat-raised-button color="primary" (click)="addFormControl()">Add New
                         Setting</button>
-                    <button type="button" mat-raised-button color="primary">Save</button>
                 </div>
             </div>
         </form>

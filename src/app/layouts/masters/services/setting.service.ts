@@ -1,7 +1,7 @@
 import { Setting } from '../../../shared/models/setting';
 import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,6 +10,11 @@ import { Observable } from 'rxjs';
 export class SettingService {
 
   baseUrl = environment.baseUri;
+  public HttpUploadOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(
     private http: HttpClient
@@ -18,13 +23,12 @@ export class SettingService {
   saveSetting(setting: Setting): Observable<any> {
     console.log(setting);
     delete setting.settingsId;
-   
-    return this.http.post<Setting>(this.baseUrl + 'settings', JSON.stringify(setting));
+    return this.http.post<Setting>(this.baseUrl + 'settings', JSON.stringify(setting), this.HttpUploadOptions);
   }
 
   updateSetting(setting: Setting): Observable<any> {
-    return this.http.put<Setting>(this.baseUrl + 'settings/'+ setting.settingsId,
-     JSON.stringify(setting));
+    return this.http.put<Setting>(this.baseUrl + 'settings/' + setting.settingsId,
+      JSON.stringify(setting));
   }
 
   getAllSetting(): Observable<any> {

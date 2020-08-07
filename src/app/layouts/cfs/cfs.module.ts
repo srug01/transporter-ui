@@ -56,8 +56,7 @@ const routes: Routes = [
     UserRegistrationListComponent,
     PendingOrderListComponent,
     DateFormatPipe,
-    EditOrderComponent
-  
+    EditOrderComponent  
   ],
   imports: [
     CommonModule,
