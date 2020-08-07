@@ -303,7 +303,7 @@ export class CreateOrderComponent implements OnInit {
       isDeleted: order.isDeleted,
       isVerified: order.isVerified,
       createdBy: this.currentUser.userId,
-      createdOn: new Date(),
+      // createdOn: new Date(),
       modifiedBy: this.currentUser.userId,
       modifiedOn: new Date(),
       status,
@@ -523,7 +523,7 @@ export class CreateOrderComponent implements OnInit {
 
   transformOrderContainerObj(container: any): Container {
     const trucks: Array<Truck> = [];
-    console.log(container);    
+    console.log(container);
     if (container.container_numbers.length > 0) {
       container.container_numbers.forEach(truck => {
         trucks.push(this.transformTruckObj(truck));
