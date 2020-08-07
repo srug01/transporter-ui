@@ -57,6 +57,16 @@ export class OrderService {
     return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
   }
 
+  getAllNewlyCreatedOrders(): Observable<Order[]> {
+    this.filter.where = {
+      status: 'submitted'
+    };
+    this.filter.order =[
+      "createdOn DESC" 
+    ];
+    return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+  }
+
   deleteOrderById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'orders/' + id);
   }

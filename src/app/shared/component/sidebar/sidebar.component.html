@@ -1,13 +1,4 @@
 <mat-nav-list *ngIf="currentUser" class="sidebar">
-
-    <!-- <div class="profile-card">
-        <div class="header" *ngIf="currentUser">
-            <h1><strong></strong>{{currentUser.name}}</h1>
-            <h3>{{currentUser.email}}</h3>
-        </div>
-    </div> -->
-
-    <mat-divider></mat-divider>
     <div mat-list-item class="menu-item" routerLinkActive="list-item-active" routerLink='/default'>
         <div class="icon">
             <i class="fas fa-tachometer-alt fa-lg md-24"></i>
@@ -16,83 +7,131 @@
             <p class="menu-text">Dashboard</p>
         </div>
     </div>
-    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 4 || currentUser.typeSyscode === 0 || currentUser.typeSyscode === 7 || currentUser.typeSyscode === 8 || currentUser.typeSyscode === 9">
-        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1">
-            <div class="icon">
-                <i class="fas fa fa-cubes md-24" aria-hidden="true"></i>
+    <div *ngIf="currentUser.typeSyscode !== 1">
+        <div *ngIf="currentUser.typeSyscode === 4">
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1">
+                <div class="icon">
+                    <i class="fas fa fa-cubes md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">CFS</p>
+                </div>
             </div>
-            <div class="link">
-                <p class="menu-text">CFS</p>
-            </div>
+            <mat-menu #menu1="matMenu">
+                <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
+                <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
+                <button mat-menu-item routerLink='/default/cfs/register-user'>User Registration</button>
+                <button mat-menu-item routerLink='/default/cfs/user-list'>User List</button>
+            </mat-menu>
         </div>
-        <mat-menu #menu1="matMenu">
-            <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
-            <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
-            <button mat-menu-item routerLink='/default/cfs/register-user'>User Registration</button>
-            <button mat-menu-item routerLink='/default/cfs/user-list'>User List</button>
-        </mat-menu>
+        <div *ngIf="currentUser.typeSyscode === 5">
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2">
+                <div class="icon">
+                    <i class="fas fa fa-truck md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">Transporter</p>
+                </div>
+            </div>
+            <mat-menu #menu2="matMenu">
+                <button mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</button>
+                <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
+                <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
+                <button mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter
+                    Registration</button>
+                <button mat-menu-item routerLink='/default/transporter/transporter-list'>Transporter List</button>
+                <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
+            </mat-menu>
+        </div>
+        <div *ngIf="currentUser.typeSyscode === 5">
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu3">
+                <div class="icon">
+                    <i class="fas fa fa-road md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">Trips</p>
+                </div>
+            </div>
+            <mat-menu #menu3="matMenu">
+                <button mat-menu-item routerLink='/default/transporter/my-trips'>My Trips</button>
+            </mat-menu>
+        </div>
     </div>
-
-    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5 || currentUser.typeSyscode === 0">
-        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu2">
-            <div class="icon">
-                <i class="fas fa fa-truck md-24" aria-hidden="true"></i>
+    <div *ngIf="currentUser.typeSyscode === 1">
+        <div>
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
+                <div class="icon">
+                    <i class="fas fa fa-cubes md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">CFS</p>
+                </div>
             </div>
-            <div class="link">
-                <p class="menu-text">Transporter</p>
-            </div>
+            <mat-menu #menu4="matMenu">
+                <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
+                <button mat-menu-item routerLink='/default/cfs/user-list'>User List</button>
+            </mat-menu>
         </div>
-        <mat-menu #menu2="matMenu">
-            <button mat-menu-item routerLink='/default/transporter/bids' *ngIf="currentUser.typeSyscode === 1">Bids</button>
-            <button mat-menu-item routerLink='/default/transporter/placed-bids' *ngIf="currentUser.typeSyscode === 5">Placed Bids</button>
-            <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
-            <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
-            <button mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter
-                Registration</button>
-            <button mat-menu-item routerLink='/default/transporter/transporter-list'>Transporter List</button>
-            <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
-        </mat-menu>
-    </div>
-    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 0">
-        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
-            <div class="icon">
-                <i class="fas fa fa-briefcase md-24" aria-hidden="true"></i>
+        <div>
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu7">
+                <div class="icon">
+                    <i class="fas fa fa-truck md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">Transporter</p>
+                </div>
             </div>
-            <div class="link">
-                <p class="menu-text">Masters</p>
-            </div>
+            <mat-menu #menu7="matMenu">
+                <button mat-menu-item routerLink='/default/transporter/bids'>Bids</button>
+                <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
+                <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
+                <button mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter
+                    Registration</button>
+                <button mat-menu-item routerLink='/default/transporter/transporter-list'>Transporter List</button>
+                <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
+            </mat-menu>
         </div>
-        <mat-menu #menu4="matMenu">
-            <button mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</button>
-            <button mat-menu-item routerLink='/default/masters/container/list'>Container Master</button>
-            <button mat-menu-item routerLink='/default/masters/cfs-rate/list'>CFS Rate Master</button>
-            <button mat-menu-item routerLink='/default/masters/diesel/list'>Diesel Rate Master</button>
-            <button mat-menu-item routerLink='/default/masters/location/list'>Location Master</button>
-            <button mat-menu-item routerLink='/default/masters/mileage/list'>Mileage Master</button>
-            <button mat-menu-item routerLink='/default/masters/port/list'>Port Master</button>
-            <button mat-menu-item routerLink='/default/masters/portterminalmaster/list'>Port Terminal Master</button>
-            <button mat-menu-item routerLink='/default/masters/state-master-list'>State Master</button>
-            <button mat-menu-item routerLink='/default/masters/weight/list'>Weight Master</button>
-            <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>
-            <button mat-menu-item routerLink='/default/masters/yard-port-map/list'>Yard Port Mapping</button>
-            <button mat-menu-item routerLink='/default/masters/yardcfsrate/list'>Yard CFS Rate Master</button>
-            <button mat-menu-item routerLink='/default/masters/zone/list'>Zone Master</button>
-            <button mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</button>
-        </mat-menu>
-    </div>
-    <div *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5">
-        <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu4">
-            <div class="icon">
-                <i class="fas fa fa-road md-24" aria-hidden="true"></i>
+        <div>
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu5">
+                <div class="icon">
+                    <i class="fas fa fa-briefcase md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">Masters</p>
+                </div>
             </div>
-            <div class="link">
-                <p class="menu-text">Trips</p>
-            </div>
+            <mat-menu #menu5="matMenu">
+                <button mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</button>
+                <button mat-menu-item routerLink='/default/masters/container/list'>Container Master</button>
+                <button mat-menu-item routerLink='/default/masters/cfs-rate/list'>CFS Rate Master</button>
+                <button mat-menu-item routerLink='/default/masters/diesel/list'>Diesel Rate Master</button>
+                <button mat-menu-item routerLink='/default/masters/location/list'>Location Master</button>
+                <button mat-menu-item routerLink='/default/masters/mileage/list'>Mileage Master</button>
+                <button mat-menu-item routerLink='/default/masters/port/list'>Port Master</button>
+                <button mat-menu-item routerLink='/default/masters/portterminalmaster/list'>Port Terminal
+                    Master</button>
+                <button mat-menu-item routerLink='/default/masters/state-master-list'>State Master</button>
+                <button mat-menu-item routerLink='/default/masters/weight/list'>Weight Master</button>
+                <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>
+                <button mat-menu-item routerLink='/default/masters/yard-port-map/list'>Yard Port Mapping</button>
+                <button mat-menu-item routerLink='/default/masters/yardcfsrate/list'>Yard CFS Rate Master</button>
+                <button mat-menu-item routerLink='/default/masters/zone/list'>Zone Master</button>
+                <button mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</button>
+            </mat-menu>
         </div>
-        <mat-menu #menu4="matMenu">
-            <button *ngIf="currentUser.typeSyscode === 5" mat-menu-item routerLink='/default/transporter/my-trips'>My Trips</button>
-            <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item>Trips</button>
-        </mat-menu>
+        <div>
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu6">
+                <div class="icon">
+                    <i class="fas fa fa-road md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">Trips</p>
+                </div>
+            </div>
+            <mat-menu #menu6="matMenu">
+                <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item>Trips</button>
+            </mat-menu>
+        </div>
     </div>
     <mat-divider></mat-divider>
 </mat-nav-list>

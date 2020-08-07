@@ -15,6 +15,7 @@ export class TripService {
       'Content-Type': 'application/json'
     })
   }
+  filter: any = {};
 
   constructor(
     private http: HttpClient
@@ -36,7 +37,7 @@ export class TripService {
   }
 
   getMytripMasterById(id: number): Observable<any> {
-    console.log(id);    
+    console.log(id);
     return this.http.get(this.baseUrl + 'GetTripsbyId/' + id);
   }
 
@@ -46,6 +47,16 @@ export class TripService {
 
   getAllTripsbyUserId(userId): Observable<any> {
     return this.http.get(this.baseUrl + 'GetTripsByUserId/' + userId);
+  }
+
+  getAllNewlyCreatedTrips(): Observable<Trip[]> {
+    this.filter.where = {
+      status: 'assigned'
+    };
+    this.filter.order = [
+      'createdOn DESC'
+    ];
+    return this.http.get<Trip[]>(this.baseUrl + 'trips?filter=' + JSON.stringify(this.filter));
   }
 
 }

@@ -14,75 +14,76 @@ export class CardComponent implements OnInit {
   @Input() total: String;
   @Input() percentage: String;
 
-  Highcharts= Highcharts;
-  chartOptions={};
-@Input() data: any=[];
+  Highcharts = Highcharts;
+  chartOptions = {};
+  @Input() data: any = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.chartOptions= {
+    this.chartOptions = {
       chart: {
-          type: 'area',
-          backgroundColor:null,
-          borderWidth:0,
-          margin: [2,2,2,2],
-          height: 60
+        type: 'area',
+        backgroundColor: null,
+        borderWidth: 0,
+        margin: [2, 2, 2, 2],
+        height: 60
       },
       title: {
-          text: null
+        text: null
       },
       subtitle: {
-          text: null      },
-     
+        text: null
+      },
+
       tooltip: {
-          split: true,
-         outside: true
+        split: true,
+        outside: true
       },
-      legend:{
+      legend: {
         enabled: false
       },
-      credits:{
-      enabled:false,
+      credits: {
+        enabled: false,
       },
-     exporting:{
-       enabled: false,
-     },
-     xAxis:{
-       lables:{
-         enabled:false
-       },
-       title:{
-         enabled: false
-       },
-       startOnTick: false,
-       endOnTick: false,
-       tickOptions:[]
-     },
-     
-     yAxis:{
-      lables:{
-        enabled:false
+      exporting: {
+        enabled: false,
       },
-      title:{
-        enabled: false
+      xAxis: {
+        lables: {
+          enabled: false
+        },
+        title: {
+          enabled: false
+        },
+        startOnTick: false,
+        endOnTick: false,
+        tickOptions: []
       },
-      startOnTick: false,
-      endOnTick: false,
-      tickOptions:[]
-    },
+
+      yAxis: {
+        lables: {
+          enabled: false
+        },
+        title: {
+          enabled: false
+        },
+        startOnTick: false,
+        endOnTick: false,
+        tickOptions: []
+      },
       series: [{
-        data:this.data
+        data: this.data
       }]
-     };
-  
-     HC_exporting(Highcharts);
-     
-     setTimeout(()=> {
-       window.dispatchEvent(
-         new Event('resize')
-       );
-     },300);
+    };
+
+    HC_exporting(Highcharts);
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event('resize')
+      );
+    }, 300);
   }
 
 }

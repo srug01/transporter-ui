@@ -1,3 +1,5 @@
+import { Bid } from './../../../shared/models/bid';
+import { Order } from './../../../shared/models/order';
 import { Vehicle } from './../../../shared/models/vehicle';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -26,4 +28,5 @@ export class BidsService {
   getAllBidsbyUserId(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'GetBidsByUserId/' + id);
   }
+
 }
