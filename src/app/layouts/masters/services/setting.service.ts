@@ -17,13 +17,13 @@ export class SettingService {
 
   saveSetting(setting: Setting): Observable<any> {
     console.log(setting);
-    delete setting.settings_syscode;
+    delete setting.settingsId;
    
     return this.http.post<Setting>(this.baseUrl + 'settings', JSON.stringify(setting));
   }
 
   updateSetting(setting: Setting): Observable<any> {
-    return this.http.put<Setting>(this.baseUrl + 'settings/'+ setting.settings_syscode,
+    return this.http.put<Setting>(this.baseUrl + 'settings/'+ setting.settingsId,
      JSON.stringify(setting));
   }
 

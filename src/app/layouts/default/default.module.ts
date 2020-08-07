@@ -41,6 +41,10 @@ import { AuthGuardService } from 'src/app/services/auth.guard.service';
             path: 'profile', loadChildren: () => import('./../profile/profile.module')
               .then(m => m.ProfileModule), canActivate: [AuthGuardService]
           },
+          {
+            path: 'settings', loadChildren: () => import('./../settings/settings.module')
+              .then(m => m.SettingsModule), canActivate: [AuthGuardService]
+          }
         ]
       }
     ]),

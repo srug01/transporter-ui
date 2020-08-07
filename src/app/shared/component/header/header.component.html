@@ -5,10 +5,10 @@
         </button>
         <span>CFS Master</span>
 
-        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" *ngIf="currentUser">
             <ul fxLayout="row" fxLayoutGap="20px">
-                <li>
-                    <button mat-icon-button>
+                <li *ngIf="currentUser.typeSyscode===1">
+                    <button mat-icon-button routerLink='/default/settings'>
                         <mat-icon>settings </mat-icon>
                     </button>
                 </li>
@@ -28,7 +28,7 @@
                         </button>
                         <button mat-menu-item routerLink="/default/profile/my-profile">
                             <mat-icon>person_outline</mat-icon>
-                            <span >My Profile</span>
+                            <span>My Profile</span>
                         </button>
                     </mat-menu>
                 </li>
@@ -41,13 +41,11 @@
                         <div style="text-align: right;color: blue;">
                             <a style="font-size: 14px;">Mark All as read</a>
                         </div>
-                        <div *ngFor="let notifyItem of notifications" class="notification notification-info"
-                            (click)="markNotificationAsRead(notifyItem)">
+                        <div *ngFor="let notifyItem of notifications" class="notification notification-info" (click)="markNotificationAsRead(notifyItem)">
                             <p>
                                 {{notifyItem.notificationDesc}}
                             </p>
-                            <a style="color: white;"
-                                [routerLink]="['/default/cfs',notifyItem.orderId,'order-details']">Show More</a>
+                            <a style="color: white;" [routerLink]="['/default/cfs ',notifyItem.orderId,'order-details ']">Show More</a>
                         </div>
                     </mat-menu>
                 </li>

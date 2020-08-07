@@ -24,7 +24,7 @@ export class SettingFormComponent implements OnInit {
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
-    private _snackBar: MatSnackBar,  
+    private _snackBar: MatSnackBar,
     private _settingService: SettingService,
 
     private _router: Router
@@ -34,20 +34,19 @@ export class SettingFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.settingData) {
       this.settingForm = this.fb.group({
-        setting_syscode: [this.settingData.settings_syscode ? this.settingData.settings_syscode : ''],
-        setting_value: [this.settingData.settings_value ? this.settingData.settings_value : '', Validators.required],
-        is_active: [this.settingData.is_active ? this.settingData.is_active : '', Validators.required]
+        settingsId: [this.settingData.settingsId ? this.settingData.settingsId : ''],
+        settingsValue: [this.settingData.settingsValue ? this.settingData.settingsValue : '', Validators.required],
+        isActive: [this.settingData.isActive ? this.settingData.isActive : '', Validators.required]
       });
     } else {
       this.settingForm = this.fb.group({
-        setting_syscode: [''],
-        setting_value: ['', Validators.required],
-       
-        is_active: ['', Validators.required]
+        settingsId: [''],
+        settingsValue: ['', Validators.required],
+        isActive: ['', Validators.required]
       });
     }
   }
- 
+
 
 
 
