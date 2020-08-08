@@ -8,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransporterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'transporter_syscode', 'transporter_name', 'transporter_address', 'transporter_partner',
-    'transporter_partner_address', 'transporter_is_active', 'transporter_is_verify','action'
+   'serialnumber','email', 'firstName', 'lastName', 'mobileNumber','is_active'  
   ];
   public transporters: [];
 
