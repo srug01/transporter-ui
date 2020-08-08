@@ -4,6 +4,8 @@ import { BidsService } from './../layouts/transporter/services/bids.service';
 import { OrderService } from './../layouts/cfs/services/order.service';
 import { Injectable } from '@angular/core';
 import { TripService } from '../layouts/transporter/services/trip.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,11 @@ export class DashboardService {
   getTotalCFSMasters() {
     return this._http.get<any>(this.baseUrl + 'cfs-masters/count');
   }
+
+
+
+
+
 
   bigChart() {
     return [{

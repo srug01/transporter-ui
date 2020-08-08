@@ -8,7 +8,7 @@
         </div>
     </div>
     <div *ngIf="currentUser.typeSyscode !== 1">
-        <div *ngIf="currentUser.typeSyscode === 4">
+        <div *ngIf="currentUser.typeSyscode === 4 || currentUser.typeSyscode === 7 || currentUser.typeSyscode === 8 || currentUser.typeSyscode === 9">
             <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu1">
                 <div class="icon">
                     <i class="fas fa fa-cubes md-24" aria-hidden="true"></i>

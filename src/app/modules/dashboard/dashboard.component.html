@@ -1,19 +1,19 @@
 <div class="container">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="state cards">
         <mat-card fxFlex="23">
-            <app-widget-card label="Total Trips" [total]="tripCount" percentage="0" [data]="cards"></app-widget-card>
+            <app-widget-card label="Total Trips" [total]="tripCount"  [data]="cards"></app-widget-card>
         </mat-card>
 
         <mat-card fxFlex="23">
-            <app-widget-card label="Total Bids" [total]="bidCount" percentage="0" [data]="cards"></app-widget-card>
+            <app-widget-card label="Total Bids" [total]="bidCount"  [data]="cards"></app-widget-card>
         </mat-card>
 
         <mat-card fxFlex="23">
-            <app-widget-card label="Total Orders" [total]="orderCount" percentage="0" [data]="cards"></app-widget-card>
+            <app-widget-card label="Total Orders" [total]="orderCount"  [data]="cards"></app-widget-card>
         </mat-card>
 
         <mat-card fxFlex="23">
-            <app-widget-card label="Total CFS" [total]="cfsCount" percentage="0" [data]="cards"></app-widget-card>
+            <app-widget-card label="Total CFS" [total]="cfsCount"  [data]="cards"></app-widget-card>
         </mat-card>
 
     </div>
@@ -59,9 +59,9 @@
                         <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="Status">
+                    <ng-container matColumnDef="orderStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForOrders"></tr>
@@ -109,9 +109,9 @@
                         <td mat-cell *matCellDef="let element"> {{element.BidValue}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="Status">
+                    <ng-container matColumnDef="tripstatus">
                         <th mat-header-cell *matHeaderCellDef>Status</th>
-                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.tripstatus}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
@@ -155,9 +155,9 @@
                         <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="Status">
+                    <ng-container matColumnDef="orderStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForOrders"></tr>
