@@ -14,6 +14,7 @@ import { BidUserMappingService } from '../services/bid-user-mapping.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginComponent } from 'src/app/default/welcome/login/login.component';
+import { StausEnum } from '../../../shared/Enum/statusEnum';
 
 @Component({
   selector: 'app-bids',
@@ -22,7 +23,7 @@ import { LoginComponent } from 'src/app/default/welcome/login/login.component';
 })
 export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid Mapping ID', 'Bid Name', 'Bid Status',  
+    'Bid Mapping ID', 'Bid Name', 'Bid Status',
     'SourceName','destinationName','containerMasterName', 'weightDesc',
     'BidValue','originalRate', 'Details'
   ];
@@ -70,7 +71,7 @@ export class BidsComponent implements OnInit {
   }
 
   GetBidDetailsByBidId(id:number) {
-   
+
     this._bidMappingService.GetBidDetailsByBidId(id).subscribe(
       (bids: BidUserMapping[]) => {
         this.bids = bids;
@@ -82,7 +83,7 @@ export class BidsComponent implements OnInit {
     );
   }
 
-  getAllBidsByUserID() {   
+  getAllBidsByUserID() {
     console.log(localStorage.getItem('userID'));
 
     this._bidMappingService.GetBidsbyUserId(Number(this.userid)).subscribe(
@@ -120,7 +121,8 @@ export class BidsComponent implements OnInit {
     return {
       bidId: bid.bidId,
       bidName: bid.bidName,
-      bidStatus: action,
+      biduserStatus: action,
+      biduserStatusId: StausEnum.BID_USER_EDIT,
       bidValue: bid.bidRate,
       userId: this.currentUser.userId
     } as BidUserMapping;

@@ -120,13 +120,16 @@ export class MyTripsFormComponent implements OnInit {
 
   transformTripObj(trip: Trip): Trip {
     return {
+
+
       tripId: trip.tripId,
       subOrderId: trip.subOrderId,
       sourceId: trip.sourceId,
       destinationId: trip.destinationId,
       assignedVehicle: trip.assignedVehicle,
       assignedDriver: trip.assignedDriver,
-      status: 'assigned',
+      tripstatus: "",
+      tripStatusId: 0,
       billedAmount: 0,
       isActive: trip.isActive,
       createdBy: trip.createdBy ? trip.createdBy : this.currentUser.userId,
@@ -143,7 +146,24 @@ export class MyTripsFormComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.tripForm.valid) {
+
       const trip: Trip = this.transformTripObj(this.tripForm.value);
+      if(trip.assignedDriver > 0 && (trip.assignedVehicle == 0 || trip.assignedVehicle == null))
+      {
+        trip.tripstatus = 'TRIP_DRIVER_ASSIGNED';
+        trip.tripStatusId = 17;
+      }
+      else if(trip.assignedVehicle > 0 && (trip.assignedDriver == 0 || trip.assignedDriver == null))
+      {
+        trip.tripstatus = 'TRIP_VEHICLE_ASSIGNED';
+        trip.tripStatusId = 18;
+      }
+      else{
+        trip.tripstatus = 'TRIP_DRIVER_VEHICLE_ASSIGNED';
+        trip.tripStatusId = 21;
+
+      }
+
       this.updateTripMaster(trip);
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');

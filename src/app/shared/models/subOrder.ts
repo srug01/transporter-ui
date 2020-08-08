@@ -14,5 +14,7 @@ export interface SubOrder {
     BidScheduleId?: number;
     OrderDate?: Date;
     CutOffTime?: Date;
+    suborderStatus?: string;
+    suborderStatusId?: number;
 
 }

@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { StartDialogComponent } from 'src/app/shared/startDialog/start-dialog.component';
+import { StausEnum } from '../../../shared/Enum/statusEnum';
 @Component({
   selector: 'app-my-trips-list',
   templateUrl: './my-trips-list.component.html',
@@ -74,7 +75,8 @@ export class MyTripsListComponent implements OnInit {
     const aTrip = {...trip};
     const startTime = new Date().getTime();
     aTrip.startDate = new Date(startTime);
-    aTrip.status = 'started';
+    aTrip.tripstatus = 'TRIP_STARTED';
+    aTrip.tripStatusId = StausEnum.TRIP_STARTED;
     delete aTrip.DriverName;
     delete aTrip.bidValue;
     this._tripService.updateMytripMaster(aTrip).subscribe(

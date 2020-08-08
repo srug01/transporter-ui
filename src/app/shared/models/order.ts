@@ -11,7 +11,8 @@ export interface Order {
     orderAddress?: string;
     isDeleted?: boolean;
     isVerified?: boolean;
-    status?: string;
+    orderStatus?: string;
+    orderStatusId?: number;
     createdBy?: number;
     createdOn?: Date;
     modifiedBy?: number;

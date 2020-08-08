@@ -13,6 +13,7 @@ import { User } from 'src/app/shared/models/user';
 import { BidUserMappingService } from '../services/bid-user-mapping.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StausEnum} from '../../../shared/Enum/statusEnum';
 
 @Component({
   selector: 'app-placed-bids',
@@ -69,7 +70,7 @@ export class PlacedBidsComponent implements OnInit {
     this._bidService.getAllBidsbyUserId(this.currentUser.userId).subscribe(
       (bids: Bid[]) => {
         this.bids = bids;
-        console.log(this.bids);        
+        console.log(this.bids);
         this.bids.forEach((bid) => {
           if (!bid.bidValue) {
             bid.bidValue = bid.originalRate;
@@ -94,7 +95,7 @@ export class PlacedBidsComponent implements OnInit {
   }
 
   confirmBid(bid: any) {
-    const bidMapping: BidUserMapping = this.transformBidObj(bid, 'confirmed');
+    const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
     this._bidMappingService.saveBid(bidMapping).subscribe(
       (res) => {
         console.log(res);
@@ -128,7 +129,8 @@ export class PlacedBidsComponent implements OnInit {
     return {
       bidId: bid.bidId,
       bidName: bid.bidName,
-      bidStatus: action,
+      biduserStatus: action,
+      biduserStatusId:  StausEnum.BID_USER_EDIT,
       bidValue: bid.bidValue,
       userId: this.currentUser.userId
     } as BidUserMapping;

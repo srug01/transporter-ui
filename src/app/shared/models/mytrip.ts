@@ -5,7 +5,8 @@ export interface Trip {
     destinationId: number;
     assignedVehicle: number;
     assignedDriver: number;
-    status: string;
+    tripstatus?: string;
+    tripStatusId?: number;
     createdBy?: number;
     createdOn?: Date;
     modifiedBy?: number;

@@ -15,4 +15,6 @@ export interface Bid {
     bidRate?: number;
     bidValue?: number;
     marginPercent?: number;
+    bidStatus?: string;
+    bidStatusId?: number;
 }
