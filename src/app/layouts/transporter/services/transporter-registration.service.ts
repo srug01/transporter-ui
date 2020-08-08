@@ -26,6 +26,6 @@ export class TransporterRegistrationService {
   }
 
   getAllTransporters(): Observable<any> {
-    return this.http.get(this.baseUrl + 'transporter-registrations');
+    return this.http.get(this.baseUrl + 'GetAllTransporter');
   }
 }
