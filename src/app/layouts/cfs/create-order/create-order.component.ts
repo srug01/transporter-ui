@@ -292,7 +292,7 @@ export class CreateOrderComponent implements OnInit {
     return {
       orderId: null,
       masterTypeId: order.masterTypeId,
-      orderDate: this.addDays(order.orderDate, 1),
+      orderDate: order.orderDate,
       orderRemarks: order.orderRemarks,
       orderTypeId: order.orderTypeId,
       orderAddress: order.orderAddress,
