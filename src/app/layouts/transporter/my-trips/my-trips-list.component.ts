@@ -22,7 +22,7 @@ export class MyTripsListComponent implements OnInit {
   displayedColumns: string[] = [
     'tripId', 'subOrderId', 'sourceId', 'destinationId',
     'assignedVehicle', 'assignedDriver',
-    'status', 'action'
+    'tripstatus', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public tripMasters: Array<Trip> = [];
@@ -90,7 +90,21 @@ export class MyTripsListComponent implements OnInit {
   }
 
   stopTrip(ev, trip: Trip) {
-
+    const aTrip = {...trip};
+    const startTime = new Date().getTime();
+    aTrip.startDate = new Date(startTime);
+    aTrip.tripstatus = 'TRIP_COMPLETED';
+    aTrip.tripStatusId = StausEnum.TRIP_COMPLETED;
+    delete aTrip.DriverName;
+    delete aTrip.bidValue;
+    this._tripService.updateMytripMaster(aTrip).subscribe(
+      (res) => {
+        this.openSnackBar('Success !', 'Trip Started Successfully');
+        this.getAllTripsByUserId(this.currentUser.userId);
+      },
+      (err) => {
+        this.openSnackBar('Failure !', 'could not start the trip!');
+      });
   }
 
   openDialog(ev, tripId: number) {

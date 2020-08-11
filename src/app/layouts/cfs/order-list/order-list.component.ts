@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
 
   displayedColumns: string[] = [
     'Order ID', 'Source', 'Destination',
-    'Containers', 'Created By', 'Created On', 'Status', 'Action'
+    'Containers', 'Created By', 'Created On', 'orderStatus', 'Action'
   ];
   public locations: Array<LocationMaster> = [];
   orders: Array<Order> = [];

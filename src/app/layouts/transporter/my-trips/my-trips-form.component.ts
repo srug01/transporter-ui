@@ -13,6 +13,7 @@ import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { DriverService } from '../services/driver.service';
+import {StausEnum} from '../../../shared/Enum/statusEnum';
 
 @Component({
   selector: 'app-my-trips-form',
@@ -49,9 +50,10 @@ export class MyTripsFormComponent implements OnInit {
         subOrderId: [this.tripData[0].subOrderId ? this.tripData[0].subOrderId : '', Validators.required],
         sourceId: [this.tripData[0].sourceId ? this.tripData[0].sourceId : ''],
         destinationId: [this.tripData[0].destinationId ? this.tripData[0].destinationId : ''],
-        assignedVehicle: [this.tripData[0].assignedVehicle ? this.tripData[0].assignedVehicle : ''],
-        assignedDriver: [this.tripData[0].assignedDriver ? this.tripData[0].assignedDriver : ''],
-        status: [this.tripData[0].status ? this.tripData[0].status : ''],
+        assignedVehicle: [this.tripData[0].assignedVehicle ? this.tripData[0].assignedVehicle : 0],
+        assignedDriver: [this.tripData[0].assignedDriver ? this.tripData[0].assignedDriver : 0],
+        tripstatus: [this.tripData[0].tripstatus ? this.tripData[0].tripstatus : ''],
+        tripStatusId: [this.tripData[0].tripStatusId ? this.tripData[0].tripStatusId : ''],
         billedAmount: [this.tripData[0].billedAmount ? this.tripData[0].billedAmount : ''],
         isActive: [this.tripData[0].isActive ? this.tripData[0].isActive : ''],
         createdBy: [this.tripData[0].createdBy ? this.tripData[0].createdBy : ''],
@@ -72,7 +74,8 @@ export class MyTripsFormComponent implements OnInit {
         destinationId: [''],
         assignedVehicle: [''],
         assignedDriver: [''],
-        status: [''],
+        tripstatus: [''],
+        tripStatusId: [''],
         billedAmount: [''],
         isActive: [''],
         createdBy: [''],
@@ -103,6 +106,7 @@ export class MyTripsFormComponent implements OnInit {
     this._driverService.getAllDriversbyUserId(this.userId).subscribe(
       (drivers: Driver[]) => {
         this.drivers = drivers;
+
       },
       (err) => {
         console.log(err);
@@ -151,16 +155,16 @@ export class MyTripsFormComponent implements OnInit {
       if(trip.assignedDriver > 0 && (trip.assignedVehicle == 0 || trip.assignedVehicle == null))
       {
         trip.tripstatus = 'TRIP_DRIVER_ASSIGNED';
-        trip.tripStatusId = 17;
+        trip.tripStatusId = StausEnum.TRIP_DRIVER_ASSIGNED;
       }
       else if(trip.assignedVehicle > 0 && (trip.assignedDriver == 0 || trip.assignedDriver == null))
       {
         trip.tripstatus = 'TRIP_VEHICLE_ASSIGNED';
-        trip.tripStatusId = 18;
+        trip.tripStatusId = StausEnum.TRIP_VEHICLE_ASSIGNED;
       }
       else{
         trip.tripstatus = 'TRIP_DRIVER_VEHICLE_ASSIGNED';
-        trip.tripStatusId = 21;
+        trip.tripStatusId = StausEnum.TRIP_DRIVER_VEHICLE_ASSIGNED;
 
       }
 

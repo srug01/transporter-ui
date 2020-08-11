@@ -55,11 +55,11 @@ export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   displayedColumnsForOrders: string[] = [
     'Order ID', 'Source', 'Destination',
-    'Containers', 'Created On', 'Status'
+    'Containers', 'Created On', 'orderStatus'
   ];
   displayedColumnsForTrips: string[] = [
     'Trip ID', 'Assigned Driver', 'Assigned Vehicle',
-    'Bid Value', 'Status'
+    'Bid Value', 'tripstatus'
   ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
