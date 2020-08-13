@@ -1,6 +1,19 @@
-table{
-  width: 100%
+@import './../../../../assets/scss/variable.scss';
+table {
+    width: 100%;
 }
-.action-wrapper{
-  justify-content: space-between;
+
+.table-title {
+    font-size: $table-title-font-size;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table-row {
+    font-size: $table-row-font-size;
+    text-align: center;
+}
+
+i {
+    color: #3F51B5
 }
