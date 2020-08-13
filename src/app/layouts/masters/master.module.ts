@@ -23,7 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { ContainerComponent } from './container/container.component';
 import { WeightComponent } from './weight/weight.component';
-import { CfsrateComponent } from './cfsrate/cfsrate.component';
+import { CfsportrateComponent } from './cfsportrate/cfsportrate.component';
 import { YardcfsrateComponent } from './yardcfsrate/yardcfsrate.component';
 import { MileageComponent } from './mileage/mileage.component';
 
@@ -38,7 +38,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } f
 import { StateMasterService } from './services/state-master.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PortMasterListComponent } from './port/port-master-list.component';
-import { CfsrateMasterListComponent } from './cfsrate/cfsrate-master-list.component';
+import { CfsportrateMasterListComponent } from './cfsportrate/cfsportrate-master-list.component';
 
 
 
@@ -101,10 +101,10 @@ import { DieselFormComponent } from './diesel/diesel-form.component';
 import { DieselMasterListComponent } from './diesel/diesel-master-list.component';
 import { DieselNewComponent } from './diesel/diesel-new.component';
 import { DieselComponent } from './diesel/diesel.component';
-import { CfsrateDetailsComponent } from './cfsrate/cfsrate-details.component';
-import { CfsrateEditComponent } from './cfsrate/cfsrate-edit.component';
-import { CfsrateFormComponent } from './cfsrate/cfsrate-form.component';
-import { CfsrateNewComponent } from './cfsrate/cfsrate-new.component';
+import { CfsPortRateDetailsComponent } from './cfsportrate/cfsportrate-details.component';
+import { CfsportrateEditComponent } from './cfsportrate/cfsportrate-edit.component';
+import { CfsportrateFormComponent } from './cfsportrate/cfsportrate-form.component';
+import { CfsportrateNewComponent } from './cfsportrate/cfsportrate-new.component';
 import { ZonedayDetailsComponent } from './zoneday/zoneday-details.component';
 import { ZonedayEditComponent } from './zoneday/zoneday-edit.component';
 import { ZonedayFormComponent } from './zoneday/zoneday-form.component';
@@ -122,7 +122,7 @@ import { CfsFormComponent } from './cfs/cfs-form.component';
 import { CfsMasterListComponent } from './cfs/cfs-master-list.component';
 import { CfsNewComponent } from './cfs/cfs-new.component';
 import { CfsResolver } from './resolvers/cfs.resolver';
-import { CfsrateResolver } from './resolvers/cfsrate.resolver';
+import { CfsPortRateResolver } from './resolvers/cfsportrate.resolver';
 import { NumbersOnly } from './../../shared/directives/numbersonly.directive';
 import { LocationComponent } from './location/location.component';
 import { LocationNewComponent } from './location/location-new.component';
@@ -145,6 +145,20 @@ import { PortterminalmasterFormComponent } from './portterminalmaster/porttermin
 import { PortterminalmasterNewComponent } from './portterminalmaster/portterminalmaster-new.component';
 import { PortterminalmasterListComponent } from './portterminalmaster/portterminalmaster-list.component';
 import { portTerminalMasterResolver } from './resolvers/portTermianlaMasterResolver.resolver';
+import { PortcfsrateComponent } from './portcfsrate/portcfsrate.component';
+import { PortcfsrateNewComponent } from './portcfsrate/portcfsrate-new.component';
+import { PortcfsrateMasterListComponent } from './portcfsrate/portcfsrate-master-list.component';
+import { PortcfsrateFormComponent } from './portcfsrate/portcfsrate-form.component';
+import { PortcfsrateEditComponent } from './portcfsrate/portcfsrate-edit.component';
+import { PortcfsrateDetailsComponent } from './portcfsrate/portcfsrate-details.component';
+import { CfsyardrateComponent } from './cfsyardrate/cfsyardrate.component';
+import { CfsyardrateNewComponent } from './cfsyardrate/cfsyardrate-new.component';
+import { CfsyardrateMasterListComponent } from './cfsyardrate/cfsyardrate-master-list.component';
+import { CfsyardrateFormComponent } from './cfsyardrate/cfsyardrate-form.component';
+import { CfsyardrateEditComponent } from './cfsyardrate/cfsyardrate-edit.component';
+import { CfsyardrateDetailsComponent } from './cfsyardrate/cfsyardrate-details.component';
+import { CfsYardRateResolver } from './resolvers/cfsyardrate.resolver';
+import { PortCfsRateResolver } from './resolvers/portcfsrate.resolver';
 
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -287,16 +301,44 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'cfs-rate', component: CfsrateComponent,
+    path: 'cfs-port-rate', component: CfsportrateComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: CfsrateMasterListComponent },
-      { path: 'new', component: CfsrateNewComponent },
+      { path: 'list', component: CfsportrateMasterListComponent },
+      { path: 'new', component: CfsportrateNewComponent },
       {
-        path: 'edit/:id', component: CfsrateEditComponent,
-        resolve: { cfsrateResolver: CfsrateResolver }
+        path: 'edit/:id', component: CfsportrateEditComponent,
+        resolve: { cfsportrateResolver: CfsPortRateResolver }
       },
-      { path: 'details/:id', component: CfsrateDetailsComponent }
+      { path: 'details/:id', component: CfsPortRateDetailsComponent }
+
+    ]
+  },
+  {
+    path: 'cfs-yard-rate', component: CfsyardrateComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: CfsyardrateMasterListComponent },
+      { path: 'new', component: CfsyardrateNewComponent },
+      {
+        path: 'edit/:id', component: CfsyardrateEditComponent,
+        resolve: { cfsyardrateResolver: CfsYardRateResolver }
+      },
+      { path: 'details/:id', component: CfsyardrateDetailsComponent }
+
+    ]
+  },
+  {
+    path: 'port-cfs-rate', component: PortcfsrateComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: PortcfsrateMasterListComponent },
+      { path: 'new', component: PortcfsrateNewComponent },
+      {
+        path: 'edit/:id', component: PortcfsrateEditComponent,
+        resolve: { portcfsrateResolver: PortCfsRateResolver }
+      },
+      { path: 'details/:id', component: PortcfsrateDetailsComponent }
 
     ]
   },
@@ -354,7 +396,7 @@ const routes: Routes = [
   /**
    * Lists
    */
-  { path: 'cfs-rate-master-list', component: CfsrateMasterListComponent },
+  { path: 'cfs-port-rate-master-list', component: CfsportrateMasterListComponent },
   { path: 'yard-cfs-rate-master-list', component: YardcfsrateMasterListComponent },
   { path: 'mileage-master-list', component: MileageMasterListComponent },
   { path: 'zone-master-list', component: ZoneMasterListComponent },
@@ -381,7 +423,7 @@ const routes: Routes = [
     YardportmapComponent,
     ContainerComponent,
     WeightComponent,
-    CfsrateComponent,
+    CfsportrateComponent,
     YardcfsrateComponent,
     MileageComponent,
     NumbersOnly,
@@ -389,7 +431,7 @@ const routes: Routes = [
     ZonedayComponent,
     StateComponent,
     PortMasterListComponent,
-    CfsrateMasterListComponent,
+    CfsportrateMasterListComponent,
     YardMasterListComponent,
     YardportmapMasterListComponent,
     ContainerMasterListComponent,
@@ -438,10 +480,10 @@ const routes: Routes = [
     DieselMasterListComponent,
     DieselNewComponent,
     DieselComponent,
-    CfsrateDetailsComponent,
-    CfsrateEditComponent,
-    CfsrateFormComponent,
-    CfsrateNewComponent,
+    CfsPortRateDetailsComponent,
+    CfsportrateEditComponent,
+    CfsportrateFormComponent,
+    CfsportrateNewComponent,
     ZonedayDetailsComponent,
     ZonedayEditComponent,
     ZonedayFormComponent,
@@ -473,7 +515,19 @@ const routes: Routes = [
     PortterminalmasterEditComponent,
     PortterminalmasterFormComponent,
     PortterminalmasterNewComponent,
-    PortterminalmasterListComponent
+    PortterminalmasterListComponent,
+    PortcfsrateComponent,
+    PortcfsrateNewComponent,
+    PortcfsrateMasterListComponent,
+    PortcfsrateFormComponent,
+    PortcfsrateEditComponent,
+    PortcfsrateDetailsComponent,
+    CfsyardrateComponent,
+    CfsyardrateNewComponent,
+    CfsyardrateMasterListComponent,
+    CfsyardrateFormComponent,
+    CfsyardrateEditComponent,
+    CfsyardrateDetailsComponent
 
   ],
   imports: [
@@ -509,8 +563,10 @@ const routes: Routes = [
     ZoneDayResolver,
     YardCFSRatesResolver,
     CfsResolver,
-    CfsrateResolver,
+    CfsPortRateResolver,
     portTerminalMasterResolver,
+    CfsYardRateResolver,
+    PortCfsRateResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }
   ]
 })
