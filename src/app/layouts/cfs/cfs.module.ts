@@ -1,3 +1,4 @@
+import { MatDividerModule } from '@angular/material/divider';
 import { AppDateFormats } from './../../shared/date-formats';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -75,6 +76,7 @@ const routes: Routes = [
     NgSelectModule,
     FormsModule,
     MatIconModule,
+    MatDividerModule,
     MatTooltipModule,
     RouterModule.forChild(routes)
   ],

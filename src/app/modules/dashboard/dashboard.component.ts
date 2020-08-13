@@ -6,6 +6,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 
 export interface PeriodicElement {
@@ -44,7 +46,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  currentUser: User;
   bigChart = [];
   cards = [];
   pieData = [];
@@ -70,10 +72,12 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private _orderService: OrderService,
-    private _tripService: TripService
+    private _tripService: TripService,
+    private _userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
     this.getTotalTrips();
     this.getTotalOrders();
     this.getTotalBids();
@@ -84,6 +88,14 @@ export class DashboardComponent implements OnInit {
     this.cards = this.dashboardService.cards();
     this.pieData = this.dashboardService.pieData();
     this.dataSource.paginator = this.paginator;
+  }
+
+  getUserInfo() {
+    this._userService.getUsersInfo().subscribe(
+      (loggedUser: User) => {
+        this.currentUser = loggedUser;
+      }
+    );
   }
 
   getTotalTrips() {

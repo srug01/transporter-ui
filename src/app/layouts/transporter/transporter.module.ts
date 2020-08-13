@@ -54,6 +54,7 @@ import { DriverNewComponent } from './driver-registration/driver-new.component';
 import { DriverComponent } from './driver-registration/driver.component';
 import { DriverResolver } from './resolvers/driver.resolver';
 import { BiddetailsComponent } from './bids/biddetails.component';
+import { BidEditComponent } from './bid-edit/bid-edit.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -82,6 +83,7 @@ const routes: Routes = [
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'bids', component: BidsComponent },
   { path: 'bids/:id', component: BiddetailsComponent, resolve: { bidResolver: BidsResolver } },
+  { path: 'bid-edit/:id', component: BidEditComponent, resolve: { bidResolver: BidsResolver } },
   {
     path: 'my-trips', component: MyTripsComponent,
     children: [
@@ -127,7 +129,8 @@ const toasterConfig: MatSnackBarConfig = {
     DriverDetailsComponent,
     DriverFormRegisterComponent,
     DriverNewComponent,
-    BiddetailsComponent
+    BiddetailsComponent,
+    BidEditComponent
   ],
   imports: [
     CommonModule,

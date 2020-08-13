@@ -56,9 +56,9 @@
                         <a [routerLink]="['/default/cfs',element.orderId,'order-details']" matTooltip="Details">
                             <i class="fas fa-info-circle fa-lg" aria-hidden="true"></i>
                         </a>
-                        <a [routerLink]="['/default/cfs',element.orderId,'edit']" matTooltip="edit">
+                        <!-- <a [routerLink]="['/default/cfs',element.orderId,'edit']" matTooltip="edit">
                             <i class="fas fa-edit fa-lg" aria-hidden="true"></i>
-                        </a>
+                        </a> -->
                         <a (click)="openDialog($event,element.orderId)" matTooltip="Delete"><i class="fa fa-ban fa-lg" aria-hidden="true"></i></a>
                     </div>
                 </td>

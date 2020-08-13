@@ -23,9 +23,9 @@ export class OrderDetailsComponent implements OnInit {
     'From', 'To'
   ];
   containerColumns: string[] = [
-    'Container Name', 'Weight', 'No. Of Trucks'
+    'Bid Name', 'Bid Name', 'Bid User Status', 'Sub Order Total Margin', 'SubOrder Status'
   ];
-  public order: Order;
+  public order: any;
   constructor(
     private _orderService: OrderService,
     private _route: ActivatedRoute,
@@ -45,9 +45,10 @@ export class OrderDetailsComponent implements OnInit {
   getOrderDetails() {
     this._route.params.subscribe(
       (params) => {
-        this._orderService.getOrderById(params.id).subscribe(
-          (order: Order) => {
+        this._orderService.getOrderDetailsbyOrderId(params.id).subscribe(
+          (order: any) => {
             this.order = order;
+            console.log(this.order);
           },
           (err) => {
             console.log(err);
