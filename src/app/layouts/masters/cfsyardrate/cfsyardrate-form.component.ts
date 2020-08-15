@@ -128,7 +128,8 @@ export class CfsyardrateFormComponent implements OnInit {
         portMasterId: [this.cfsyardrateData.portMasterId ? this.cfsyardrateData.portMasterId : '', Validators.required],
         rate: [this.cfsyardrateData.rate ? this.cfsyardrateData.rate : '', Validators.required],
         isActive: [this.cfsyardrateData.isActive ? this.cfsyardrateData.isActive : '', Validators.required],
-        createdBy: [this.cfsyardrateData.createdBy ? this.cfsyardrateData.createdBy : 0]
+        createdBy: [this.cfsyardrateData.createdBy ? this.cfsyardrateData.createdBy : 0],
+        createdOn: new Date()
       });
     } else {
       this.cfsyardrateForm = this.fb.group({
@@ -140,7 +141,8 @@ export class CfsyardrateFormComponent implements OnInit {
         portMasterId: ['', Validators.required],
         rate: ['', Validators.required],
         isActive: ['', Validators.required],
-        createdBy: [0]
+        createdBy: [0],
+        createdOn: new Date()
       });
     }
     this.getAllCFSYardRateMasters();
@@ -206,7 +208,7 @@ export class CfsyardrateFormComponent implements OnInit {
     this._cfsyardrateService.saveCfsYardRateMaster(cfsyardrateForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Yard Rate Master Created Successfully');
-        this._router.navigate(['/default/masters/cfsyardrate/list']);
+        this._router.navigate(['/default/masters/cfs-yard-rate/list']);
       },
       (err) => {
         console.log('err');
