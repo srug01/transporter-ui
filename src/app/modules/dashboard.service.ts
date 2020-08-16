@@ -5,6 +5,7 @@ import { OrderService } from './../layouts/cfs/services/order.service';
 import { Injectable } from '@angular/core';
 import { TripService } from '../layouts/transporter/services/trip.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Dashboard} from '../shared/models/dashboard';
 
 
 @Injectable({
@@ -36,7 +37,21 @@ export class DashboardService {
     return this._http.get<any>(this.baseUrl + 'cfs-masters/count');
   }
 
+  getAdminDashboardbyUserId(userId) : Observable<Dashboard>{
+    return this._http.get<Dashboard>(this.baseUrl + 'GetAdminDashboardbyUserId/' + userId);
+  }
 
+  getCFSDashboardbyUserId(userId) : Observable<Dashboard>{
+    return this._http.get<Dashboard>(this.baseUrl + 'GetCFSDashboardbyUserId/' + userId);
+  }
+
+  getTransporterDashboardbyUserId(userId) : Observable<Dashboard>{
+    return this._http.get<Dashboard>(this.baseUrl + 'GetTransporterDashboardbyUserId/' + userId);
+  }
+
+  GetDriverDashboardbyUserId(userId) : Observable<Dashboard>{
+    return this._http.get<Dashboard>(this.baseUrl + 'GetDriverDashboardbyUserId/' + userId);
+  }
 
 
 
