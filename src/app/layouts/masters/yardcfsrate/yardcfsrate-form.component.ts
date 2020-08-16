@@ -119,6 +119,7 @@ export class YardcfsrateFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.yardcfsrateData);    
     if (this.yardcfsrateData) {
       this.yardcfsrateForm = this.fb.group({
         yardCfsRateMasterId: [this.yardcfsrateData.yardCfsRateMasterId ? this.yardcfsrateData.yardCfsRateMasterId : ''],

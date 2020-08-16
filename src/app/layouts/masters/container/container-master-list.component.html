@@ -43,9 +43,9 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <a><i class="material-icons md-24 p5"
+                    <a><i class="material-icons md-24 p5 icon"
             [routerLink]="['/default/masters/container/edit/',element.containerMasterId]">create</i></a>
-                    <a><i class="material-icons md-24 p5" (click)="openDialog($event,element.containerMasterId)">delete_sweep</i></a>
+                    <a><i class="material-icons md-24 p5 icon" (click)="openDialog($event,element.containerMasterId)">delete_sweep</i></a>
                 </td>
             </ng-container>
 
