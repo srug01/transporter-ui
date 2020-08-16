@@ -28,6 +28,10 @@ export class BidUserMappingService {
     return this.http.post<any>(this.baseUrl + 'bidusermappings', JSON.stringify(bid), this.HttpUploadOptions);
   }
 
+  updateBid(bid: BidUserMapping): Observable<any> {
+    return this.http.patch<any>(this.baseUrl + 'bidusermappings/' + bid.bidusermappingId, JSON.stringify(bid), this.HttpUploadOptions);
+  }
+
   GetBidDetailsByBidId(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'GetBidDetailsByBidId/' + id);
   }

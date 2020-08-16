@@ -99,11 +99,11 @@ export class MyTripsListComponent implements OnInit {
     delete aTrip.bidValue;
     this._tripService.updateMytripMaster(aTrip).subscribe(
       (res) => {
-        this.openSnackBar('Success !', 'Trip Started Successfully');
+        this.openSnackBar('Success !', 'Trip Completed Successfully');
         this.getAllTripsByUserId(this.currentUser.userId);
       },
       (err) => {
-        this.openSnackBar('Failure !', 'could not start the trip!');
+        this.openSnackBar('Failure !', 'could not complete the trip!');
       });
   }
 

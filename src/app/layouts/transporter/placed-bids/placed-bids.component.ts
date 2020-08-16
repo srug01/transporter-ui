@@ -94,6 +94,36 @@ export class PlacedBidsComponent implements OnInit {
     );
   }
 
+  updateBid(bid: any) {
+    const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
+    this._bidMappingService.updateBid(bidMapping).subscribe(
+      (res) => {
+        console.log(res);
+        const notification: Notification = {
+          orderId: 1,
+          assignedToRole: 1,
+          assignedToUser: null,
+          createdBy: this.currentUser.userId,
+          createdOn: new Date(),
+          isRead: false,
+          notificationDesc: `${this.currentUser.name} confirmed a bid on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
+          notificationId: null,
+          notificationType: 'orders'
+        };
+        this.saveNotification(notification);
+        this.openSnackBar('Success !', 'Order placed successfully');
+      },
+      (err) => {
+        if (err.error.error.message) {
+          this.openSnackBar('Failure !', `${err.error.error.message} for ${bidMapping.bidName}`);
+        }
+        console.log();
+      },
+      ()=>{
+        this.getAllPlacedBidsbyUserId();
+      }
+    );
+  }
   confirmBid(bid: any) {
     const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
     this._bidMappingService.saveBid(bidMapping).subscribe(
@@ -126,13 +156,15 @@ export class PlacedBidsComponent implements OnInit {
   }
 
   transformBidObj(bid: any, action: string): BidUserMapping {
+    console.log(bid);    
     return {
       bidId: bid.bidId,
       bidName: bid.bidName,
       biduserStatus: action,
       biduserStatusId:  StausEnum.BID_USER_EDIT,
       bidValue: bid.bidValue,
-      userId: this.currentUser.userId
+      userId: this.currentUser.userId,
+      bidusermappingId: bid.bidusermappingId ? bid.bidusermappingId : 0
     } as BidUserMapping;
   }
 
