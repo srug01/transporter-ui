@@ -35,7 +35,8 @@ export class ContainerFormComponent implements OnInit {
     if (this.containerData) {
       this.containerForm = this.fb.group({
         containerMasterId: [this.containerData.containerMasterId ? this.containerData.containerMasterId : ''],
-        containerMasterName: [this.containerData.containerMasterName ? this.containerData.containerMasterName : '', Validators.required],
+        containerMasterName: [this.containerData.containerMasterName ? this.containerData.containerMasterName : '', 
+          Validators.compose([Validators.required, Validators.maxLength(30)])],
         isActive: [this.containerData.isActive ? this.containerData.isActive : '', Validators.required],
         createdBy: [this.containerData.createdBy ? this.containerData.createdBy : ''],
         createdOn: [this.containerData.createdOn ? this.containerData.createdOn : ''],
@@ -45,7 +46,7 @@ export class ContainerFormComponent implements OnInit {
     } else {
       this.containerForm = this.fb.group({
         containerMasterId: [''],
-        containerMasterName: ['', Validators.required],
+        containerMasterName: ['', Validators.compose([Validators.required, Validators.maxLength(10)])],
         isActive: ['', Validators.required],
         createdBy: [''],
         createdOn: [''],

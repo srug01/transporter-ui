@@ -10,6 +10,8 @@
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <input matInput placeholder="Container Name" formControlName="containerMasterName" name="name" required />
+                                <mat-error *ngIf="containerForm.get('containerMasterName').errors !== null &&  containerForm.get('containerMasterName').errors.maxlength">Name cannot exceed 30 characters</mat-error>
+                                <mat-error *ngIf="containerForm.get('containerMasterName').errors !== null &&  containerForm.get('containerMasterName').errors.required">Please Enter Container Name</mat-error>
                             </mat-form-field>
                         </div>
 

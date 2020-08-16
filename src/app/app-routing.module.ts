@@ -6,7 +6,6 @@ import { TransporterSignupComponent } from './registration/transporter-signup/tr
 import { CustomerSignupComponent } from './registration/customer-signup/customer-signup.component';
 import { DriverSignupComponent } from './registration/driver-signup/driver-signup.component';
 
-
 const routes: Routes = [
   { path: '', component: AuthComponent },
   {
