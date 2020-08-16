@@ -131,6 +131,7 @@ export class CfsyardrateFormComponent implements OnInit {
         createdBy: [this.cfsyardrateData.createdBy ? this.cfsyardrateData.createdBy : 0],
         createdOn: new Date()
       });
+      this.getAllWeightMastersbyContainerID(this.cfsyardrateData.containerMasterId);
     } else {
       this.cfsyardrateForm = this.fb.group({
         cfsYardRateMasterId: [''],
@@ -221,7 +222,7 @@ export class CfsyardrateFormComponent implements OnInit {
     this._cfsyardrateService.updateCfsYardRateMaster(cfsyardrateForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Yard Rate Master Updated Successfully');
-        this._router.navigate(['/default/masters/cfsyardrate/list']);
+        this._router.navigate(['/default/masters/cfs-yard-rate/list']);
       },
       (err) => {
         console.log('err');

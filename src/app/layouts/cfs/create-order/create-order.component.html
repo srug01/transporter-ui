@@ -98,7 +98,7 @@
                                 <div fxFlex="94%">
                                     <mat-form-field class="demo-full-width">
                                         <mat-label>Yard</mat-label>
-                                        <mat-select matNativeControl formControlName="sourceId" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-select matNativeControl formControlName="sourceId" (valueChange)="yardChanged($event,'source')"  [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
                                                 {{yard.yardName}}
                                             </mat-option>
@@ -179,7 +179,7 @@
                                 <div fxFlex="94%">
                                     <mat-form-field class="demo-full-width">
                                         <mat-label>Yard</mat-label>
-                                        <mat-select matNativeControl formControlName="destinationId" [errorStateMatcher]="errorStateMatcher">
+                                        <mat-select matNativeControl formControlName="destinationId" (valueChange)="yardChanged($event,'destination')" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
                                                 {{yard.yardName}}
                                             </mat-option>

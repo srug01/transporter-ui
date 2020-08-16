@@ -56,6 +56,7 @@ export class PortcfsrateFormComponent implements OnInit {
         rate: [this.portcfsrateData.rate ? this.portcfsrateData.rate : 0, Validators.required],
         isActive: [this.portcfsrateData.isActive ? this.portcfsrateData.isActive : '', Validators.required]
       });
+      this.getAllWeightMastersbyContainerID(this.portcfsrateData.containerMasterId);
     } else {
       this.portcfsrateForm = this.fb.group({
         portCfsRateMasterId: [''],
@@ -126,7 +127,7 @@ export class PortcfsrateFormComponent implements OnInit {
 
   transformCfsRateObj(portcfsRate: PortCfsRateMaster): PortCfsRateMaster {
     return {
-      cfsRateId: portcfsRate.portCfsRateMasterId ? portcfsRate.portCfsRateMasterId : 0,
+      portCfsRateMasterId: portcfsRate.portCfsRateMasterId ? portcfsRate.portCfsRateMasterId : 0,
       cfsMasterId: portcfsRate.cfsMasterId,
       portMasterId: portcfsRate.portMasterId,
       weightMasterId: portcfsRate.weightMasterId,

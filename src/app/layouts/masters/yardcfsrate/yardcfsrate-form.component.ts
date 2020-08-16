@@ -119,7 +119,7 @@ export class YardcfsrateFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.yardcfsrateData);    
+    console.log(this.yardcfsrateData);
     if (this.yardcfsrateData) {
       this.yardcfsrateForm = this.fb.group({
         yardCfsRateMasterId: [this.yardcfsrateData.yardCfsRateMasterId ? this.yardcfsrateData.yardCfsRateMasterId : ''],
@@ -132,6 +132,7 @@ export class YardcfsrateFormComponent implements OnInit {
         isActive: [this.yardcfsrateData.isActive ? this.yardcfsrateData.isActive : '', Validators.required],
         createdBy: [this.yardcfsrateData.createdBy ? this.yardcfsrateData.createdBy : 0]
       });
+      this.getAllWeightMastersbyContainerID(this.yardcfsrateData.containerMasterId);
     } else {
       this.yardcfsrateForm = this.fb.group({
         yardCfsRateMasterId: [''],

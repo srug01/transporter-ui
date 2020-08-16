@@ -48,12 +48,12 @@ export class MasterTypeService {
     return this.http.get<Yard[]>(this.baseUrl + 'GetAllCFSYardsbyUserId/' + userId);
   }
 
-  getAllCFSContainersbyUserId(userId, typeId): Observable<ContainerMaster[]> {
-    return this.http.get<ContainerMaster[]>(this.baseUrl + 'getAllCFSContainersbyUserId/' + userId + '/' + typeId);
+  getAllCFSContainersbyUserId(userId, typeId, portyardId): Observable<ContainerMaster[]> {
+    return this.http.get<ContainerMaster[]>(this.baseUrl + 'getAllCFSContainersbyUserId/' + userId + '/' + typeId + '/' + portyardId);
   }
 
-  GetAllCFSWeightsbyUserandContainerId(userId, typeId, containerId): Observable<Weight[]> {
-    return this.http.get<Weight[]>(this.baseUrl + 'GetAllCFSWeightsbyUserandContainerId/' + userId + '/' + typeId + '/' + containerId);
+  GetAllCFSWeightsbyUserandContainerId(userId, typeId, containerId,portyardId): Observable<Weight[]> {
+    return this.http.get<Weight[]>(this.baseUrl + 'GetAllCFSWeightsbyUserandContainerId/' + userId + '/' + typeId + '/' + containerId + '/' + portyardId);
   }
 
   getAllTimeSlotMasters(): Observable<any> {

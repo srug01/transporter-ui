@@ -62,7 +62,7 @@ export class EditOrderComponent implements OnInit {
   terminals: PortTerminalMaster[] = [];
   public dataSource: any[];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  constructor(   
+  constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -84,7 +84,7 @@ export class EditOrderComponent implements OnInit {
     this.initialiseOrderForm();
   }
 
-  
+
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
       orderId: [''],
@@ -125,7 +125,7 @@ export class EditOrderComponent implements OnInit {
     containersArray.insert(arraylen, containerRow);
   }
 
-  
+
   submitOrderForm(ev) {
     if (ev) {
       ev.preventDefault();
@@ -217,7 +217,7 @@ export class EditOrderComponent implements OnInit {
   }
 
   getAllWeightsForCFS(type: number, containerId: number) {
-    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type, containerId).subscribe(
+    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type, containerId,0).subscribe(
       (weightMasters) => {
         this.weights = weightMasters;
       },

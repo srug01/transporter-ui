@@ -32,7 +32,24 @@ export class DashboardResolver implements Resolve<Dashboard>{
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<DashboardStats> | Promise<DashboardStats> | DashboardStats | any {
-            const userId = + localStorage.getItem('userID');
-            return this.dashboardService.getAdminDashboardbyUserId(userId);
+            const roleId = parseInt(localStorage.getItem('roleID'),10);
+            const userId = parseInt(localStorage.getItem('userID'), 10);
+            if(roleId == 1)
+            {
+              return this.dashboardService.getAdminDashboardbyUserId(userId);
+            }
+            else if(roleId == 4 || roleId == 7 || roleId == 8 || roleId == 9)
+            {
+              return this.dashboardService.getCFSDashboardbyUserId(userId);
+            }
+            else if(roleId == 5)
+            {
+              return this.dashboardService.getTransporterDashboardbyUserId(userId);
+            }
+            else if(roleId == 6)
+            {
+              return this.dashboardService.GetDriverDashboardbyUserId(userId);
+            }
+
     }
 }

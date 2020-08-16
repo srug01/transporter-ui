@@ -42,7 +42,6 @@ export class CfsportrateFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPortMasters();
-    //this.getAllWeightMasters();
     this.getAllCfsMasters();
     this.getAllContainerMasters();
     this.getUserInfo();
@@ -56,6 +55,7 @@ export class CfsportrateFormComponent implements OnInit {
         rate: [this.cfsportrateData.rate ? this.cfsportrateData.rate : 0, Validators.required],
         isActive: [this.cfsportrateData.isActive ? this.cfsportrateData.isActive : '', Validators.required]
       });
+      this.getAllWeightMastersbyContainerID(this.cfsportrateData.weightMasterId);
     } else {
       this.cfsrateForm = this.fb.group({
         cfsPortRateMasterId: [''],
@@ -103,10 +103,12 @@ export class CfsportrateFormComponent implements OnInit {
   getAllWeightMastersbyContainerID(id: number){
     this.weightMasters = [];
     this.weightMasters.length = 0;
+    console.log(id);
 
     this._weightService.getAllWeightMastersbyContainerID(id).subscribe(
       (weightMasters) => {
         this.weightMasters = weightMasters;
+        console.log(weightMasters);
       },
       (err) => {
         console.log(err);
@@ -134,7 +136,7 @@ export class CfsportrateFormComponent implements OnInit {
 
   transformCfsRateObj(cfsRate: CfsPortRateMaster): CfsPortRateMaster {
     return {
-      cfsRateId: cfsRate.cfsPortRateMasterId ? cfsRate.cfsPortRateMasterId : 0,
+      cfsPortRateMasterId: cfsRate.cfsPortRateMasterId ? cfsRate.cfsPortRateMasterId : 0,
       cfsMasterId: cfsRate.cfsMasterId,
       portMasterId: cfsRate.portMasterId,
       weightMasterId: cfsRate.weightMasterId,
@@ -178,6 +180,7 @@ export class CfsportrateFormComponent implements OnInit {
   }
 
   updateCfsrateMaster(cfsRate: CfsPortRateMaster) {
+
     this._cfsrateService.updateCfsRateMaster(cfsRate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Rate Master Updated Successfully');
