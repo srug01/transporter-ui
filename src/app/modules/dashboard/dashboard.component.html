@@ -1,338 +1,338 @@
-<div class="container" *ngIf="currentUser.typeSyscode">
-  <div fxLayout="row" fxLayoutAlign="space-between center" class="state cards">
-      <mat-card fxFlex="23">
-          <app-widget-card label="Total Trips" [total]="tripCount" [data]="cards"></app-widget-card>
-      </mat-card>
+<div class="container">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="state cards">
+        <mat-card fxFlex="23">
+            <app-widget-card label="Total Trips" [total]="tripCount" [data]="cards"></app-widget-card>
+        </mat-card>
 
-      <mat-card fxFlex="23">
-          <app-widget-card label="Total Bids" [total]="bidCount" [data]="cards"></app-widget-card>
-      </mat-card>
+        <mat-card fxFlex="23">
+            <app-widget-card label="Total Bids" [total]="bidCount" [data]="cards"></app-widget-card>
+        </mat-card>
 
-      <mat-card fxFlex="23">
-          <app-widget-card label="Total Orders" [total]="orderCount" [data]="cards"></app-widget-card>
-      </mat-card>
+        <mat-card fxFlex="23">
+            <app-widget-card label="Total Orders" [total]="orderCount" [data]="cards"></app-widget-card>
+        </mat-card>
 
-      <mat-card fxFlex="23">
-          <app-widget-card label="Total SubOrders" [total]="suborderCount" [data]="cards"></app-widget-card>
-      </mat-card>
+        <mat-card fxFlex="23">
+            <app-widget-card label="Total SubOrders" [total]="suborderCount" [data]="cards"></app-widget-card>
+        </mat-card>
 
-  </div>
-
-  <br>
-
-  <mat-divider></mat-divider>
-
-  <br>
-
-  <!-- Admin View -->
-  <div fxLayout="column" >
-      <!--
-          Order List for admin
-      -->
-      <div fxFlex="100" *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 4 || currentUser.typeSyscode === 7 || currentUser.typeSyscode === 8 || currentUser.typeSyscode === 9">
-          <h3>All Order Summary</h3>
-          <div class="mat-elevation-z8">
-              <table mat-table [dataSource]="orders">
-
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="orderId">
-                      <th mat-header-cell *matHeaderCellDef> Order ID </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderId}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="sourceType">
-                    <th mat-header-cell *matHeaderCellDef> Source </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : '--'}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="destinationType">
-                  <th mat-header-cell *matHeaderCellDef> Destination </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : '--'}} </td>
-              </ng-container>
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="sourceName">
-                      <th mat-header-cell *matHeaderCellDef> Source </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceName ? element.sourceName : '--'}} </td>
-                  </ng-container>
-
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="destinationName">
-                      <th mat-header-cell *matHeaderCellDef> Destination </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationName ? element.destinationName : '--'}} </td>
-                  </ng-container>
-
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="terminal">
-                      <th mat-header-cell *matHeaderCellDef> Terminal </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.terminal ? element.terminal : '--'}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="orderRemarks">
-                    <th mat-header-cell *matHeaderCellDef> Remarks </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderRemarks ? element.orderRemarks : '--'}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="totalRate">
-                  <th mat-header-cell *matHeaderCellDef> TotalRate </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.totalRate ? element.totalRate : 0}} </td>
-              </ng-container>
-
-
-
-                  <ng-container matColumnDef="orderStatus">
-                      <th mat-header-cell *matHeaderCellDef> Status </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
-                  </ng-container>
-                  <ng-container matColumnDef="OrderDate">
-                    <th mat-header-cell *matHeaderCellDef> Order Date </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderDate ? element.OrderDate : 'NA'}} </td>
-                </ng-container>
-                <ng-container matColumnDef="CreatedOn">
-                  <th mat-header-cell *matHeaderCellDef> Created On </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CreatedOn ? element.CreatedOn : 'NA'}} </td>
-              </ng-container>
-
-                  <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminOrders"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumnsForAdminOrders;"></tr>
-              </table>
-
-              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-          </div>
-      </div>
-
-      <br>
-
-      <mat-divider></mat-divider>
-
-      <br>
-
-      <div fxFlex="100" *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5">
-        <h3>All Sub Order Summary</h3>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="suborders">
-
-                <!-- Position Column -->
-                <ng-container matColumnDef="orderId">
-                    <th mat-header-cell *matHeaderCellDef> OrderID </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderId}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="subOrderId">
-                  <th mat-header-cell *matHeaderCellDef> SubOrderID </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderId}} </td>
-              </ng-container>
-
-
-                <ng-container matColumnDef="subOrderTotalMargin">
-                  <th mat-header-cell *matHeaderCellDef> Total </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderTotalMargin ? element.subOrderTotalMargin : 0}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="CutOffTime">
-                <th mat-header-cell *matHeaderCellDef> CutOffTime </th>
-                <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CutOffTime ? element.CutOffTime : '--'}} </td>
-            </ng-container>
-                <!-- Name Column -->
-                <ng-container matColumnDef="suborderStatus">
-                    <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.suborderStatus ? element.suborderStatus : '--'}} </td>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="containerMasterName">
-                    <th mat-header-cell *matHeaderCellDef> Cotainer </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName ? element.containerMasterName : '--'}} </td>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="weightDesc">
-                    <th mat-header-cell *matHeaderCellDef> Weight </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc ? element.weightDesc : '--'}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="SubOrderDate">
-                  <th mat-header-cell *matHeaderCellDef> Created On </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.SubOrderDate ? element.SubOrderDate : '--'}} </td>
-              </ng-container>
-
-
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminSubOrders"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsForAdminSubOrders;"></tr>
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
     </div>
 
     <br>
 
-      <mat-divider></mat-divider>
+    <mat-divider></mat-divider>
 
-      <br>
+    <br>
 
-      <div fxFlex="100">
+    <!-- Admin View -->
+    <div fxLayout="column">
+        <!--
+          Order List for admin
+      -->
+        <div fxFlex="100" *ngIf="roleId === 1 || roleId === 4 || roleId === 7 || roleId === 8 || roleId === 9">
+            <h3>All Order Summary</h3>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="orders">
 
-              <h3>Trips</h3>
-              <div class="mat-elevation-z8">
-                  <table mat-table [dataSource]="trips">
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="orderId">
+                        <th mat-header-cell *matHeaderCellDef> Order ID </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderId}} </td>
+                    </ng-container>
 
-                      <!-- Position Column -->
-                      <ng-container matColumnDef="tripId">
-                          <th mat-header-cell *matHeaderCellDef> Trip ID </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripId}} </td>
-                      </ng-container>
+                    <ng-container matColumnDef="sourceType">
+                        <th mat-header-cell *matHeaderCellDef> Source </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : '--'}} </td>
+                    </ng-container>
 
-                      <ng-container matColumnDef="subOrderId">
+                    <ng-container matColumnDef="destinationType">
+                        <th mat-header-cell *matHeaderCellDef> Destination </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : '--'}} </td>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="sourceName">
+                        <th mat-header-cell *matHeaderCellDef> Source </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceName ? element.sourceName : '--'}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="destinationName">
+                        <th mat-header-cell *matHeaderCellDef> Destination </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationName ? element.destinationName : '--'}} </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="terminal">
+                        <th mat-header-cell *matHeaderCellDef> Terminal </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.terminal ? element.terminal : '--'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="orderRemarks">
+                        <th mat-header-cell *matHeaderCellDef> Remarks </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderRemarks ? element.orderRemarks : '--'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="totalRate">
+                        <th mat-header-cell *matHeaderCellDef> TotalRate </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.totalRate ? element.totalRate : 0}} </td>
+                    </ng-container>
+
+
+
+                    <ng-container matColumnDef="orderStatus">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="OrderDate">
+                        <th mat-header-cell *matHeaderCellDef> Order Date </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderDate ? element.OrderDate : 'NA'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="CreatedOn">
+                        <th mat-header-cell *matHeaderCellDef> Created On </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CreatedOn ? element.CreatedOn : 'NA'}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminOrders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsForAdminOrders;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+        <br>
+
+        <mat-divider></mat-divider>
+
+        <br>
+
+        <div fxFlex="100" *ngIf="roleId === 1 || roleId === 5">
+            <h3>All Sub Order Summary</h3>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="suborders">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="orderId">
+                        <th mat-header-cell *matHeaderCellDef> OrderID </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderId}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subOrderId">
+                        <th mat-header-cell *matHeaderCellDef> SubOrderID </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderId}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="subOrderTotalMargin">
+                        <th mat-header-cell *matHeaderCellDef> Total </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderTotalMargin ? element.subOrderTotalMargin : 0}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="CutOffTime">
+                        <th mat-header-cell *matHeaderCellDef> CutOffTime </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CutOffTime ? element.CutOffTime : '--'}} </td>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="suborderStatus">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.suborderStatus ? element.suborderStatus : '--'}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="containerMasterName">
+                        <th mat-header-cell *matHeaderCellDef> Cotainer </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName ? element.containerMasterName : '--'}} </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="weightDesc">
+                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc ? element.weightDesc : '--'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="SubOrderDate">
+                        <th mat-header-cell *matHeaderCellDef> Created On </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.SubOrderDate ? element.SubOrderDate : '--'}} </td>
+                    </ng-container>
+
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminSubOrders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsForAdminSubOrders;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+        <br>
+
+        <mat-divider></mat-divider>
+
+        <br>
+
+        <div fxFlex="100">
+
+            <h3>Trips</h3>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="trips">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="tripId">
+                        <th mat-header-cell *matHeaderCellDef> Trip ID </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripId}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subOrderId">
                         <th mat-header-cell *matHeaderCellDef> SubOrder ID </th>
                         <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderId}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="TransporterName">
-                      <th mat-header-cell *matHeaderCellDef>Transporter Name</th>
-                      <td mat-cell class="table-cell" *matCellDef="let element">
-                          {{element.TransporterName ? element.TransporterName : 'NA'}} </td>
-                  </ng-container>
+                        <th mat-header-cell *matHeaderCellDef>Transporter Name</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element">
+                            {{element.TransporterName ? element.TransporterName : 'NA'}} </td>
+                    </ng-container>
 
-                  <ng-container matColumnDef="AssignedVehicle">
-                    <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element">
-                        {{element.AssignedVehicle ? element.AssignedVehicle : 'NA'}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="AssignedVehicle">
+                        <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element">
+                            {{element.AssignedVehicle ? element.AssignedVehicle : 'NA'}} </td>
+                    </ng-container>
 
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="AssignedDriver">
-                          <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
-                          <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.AssignedDriver ? element.AssignedDriver : 'NA'}} </td>
-                      </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="AssignedDriver">
+                        <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element">
+                            {{element.AssignedDriver ? element.AssignedDriver : 'NA'}} </td>
+                    </ng-container>
 
-                      <!-- Weight Column -->
+                    <!-- Weight Column -->
 
-                      <!-- Symbol Column -->
-                      <ng-container matColumnDef="TransporterContainer">
-                          <th mat-header-cell *matHeaderCellDef>Transporter Container</th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterContainer ? element.TransporterContainer : 'NA'}} </td>
-                      </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="TransporterContainer">
+                        <th mat-header-cell *matHeaderCellDef>Transporter Container</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterContainer ? element.TransporterContainer : 'NA'}} </td>
+                    </ng-container>
 
                     <ng-container matColumnDef="TransporterWeight">
-                      <th mat-header-cell *matHeaderCellDef>Transporter Weight</th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterWeight ? element.TransporterWeight : 'NA'}} </td>
-                  </ng-container>
-                  <ng-container matColumnDef="OrderContainer">
-                    <th mat-header-cell *matHeaderCellDef>Order Container</th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderContainer ? element.OrderContainer : 'NA'}} </td>
-                </ng-container>
-                <ng-container matColumnDef="Orderweight">
-                  <th mat-header-cell *matHeaderCellDef>Order Weight</th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.Orderweight ? element.Orderweight : 'NA'}} </td>
-              </ng-container>
+                        <th mat-header-cell *matHeaderCellDef>Transporter Weight</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterWeight ? element.TransporterWeight : 'NA'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="OrderContainer">
+                        <th mat-header-cell *matHeaderCellDef>Order Container</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderContainer ? element.OrderContainer : 'NA'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Orderweight">
+                        <th mat-header-cell *matHeaderCellDef>Order Weight</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.Orderweight ? element.Orderweight : 'NA'}} </td>
+                    </ng-container>
 
-                      <ng-container matColumnDef="tripstatus">
-                          <th mat-header-cell *matHeaderCellDef>Status</th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : 'NA'}} </td>
-                      </ng-container>
+                    <ng-container matColumnDef="tripstatus">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : 'NA'}} </td>
+                    </ng-container>
 
-                      <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumnsForTrips;"></tr>
-                  </table>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsForTrips;"></tr>
+                </table>
 
-                  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-              </div>
-          </div>
-          <br>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+        <br>
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <br>
+        <br>
 
-          <div fxFlex="100" *ngIf="currentUser.typeSyscode === 1 || currentUser.typeSyscode === 5">
-              <h3>Bids</h3>
-              <div class="mat-elevation-z8">
-                  <table mat-table [dataSource]="bids">
+        <div fxFlex="100" *ngIf="roleId === 1 || roleId === 5">
+            <h3>Bids</h3>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="bids">
 
-                      <!-- Position Column -->
-                      <!-- <ng-container matColumnDef="Order ID">
+                    <!-- Position Column -->
+                    <!-- <ng-container matColumnDef="Order ID">
                           <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
                           <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
                       </ng-container> -->
 
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="bidName">
-                          <th mat-header-cell *matHeaderCellDef> Bid </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidName}} </td>
-                      </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="bidName">
+                        <th mat-header-cell *matHeaderCellDef> Bid </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidName}} </td>
+                    </ng-container>
 
-                      <!-- Weight Column -->
-                      <ng-container matColumnDef="subOrderId">
-                          <th mat-header-cell *matHeaderCellDef> SubOrder ID </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderId}} </td>
-                      </ng-container>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="subOrderId">
+                        <th mat-header-cell *matHeaderCellDef> SubOrder ID </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderId}} </td>
+                    </ng-container>
 
-                      <ng-container matColumnDef="bidStatus">
+                    <ng-container matColumnDef="bidStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>
                         <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidStatus}} </td>
                     </ng-container>
                     <ng-container matColumnDef="originalRate">
-                      <th mat-header-cell *matHeaderCellDef> Rate </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.originalRate}} </td>
-                  </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> Rate </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.originalRate}} </td>
+                    </ng-container>
 
-                  <ng-container matColumnDef="bidValue">
-                    <th mat-header-cell *matHeaderCellDef> Bid Value </th>
-                    <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidValue}} </td>
-                </ng-container>
-                <ng-container matColumnDef="TransporterName">
-                  <th mat-header-cell *matHeaderCellDef> Transporter </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterName}} </td>
-              </ng-container>
-                <ng-container matColumnDef="AwardStatus">
-                  <th mat-header-cell *matHeaderCellDef> Award Status </th>
-                  <td mat-cell class="table-cell" *matCellDef="let element"> {{element.AwardStatus}} </td>
-              </ng-container>
+                    <ng-container matColumnDef="bidValue">
+                        <th mat-header-cell *matHeaderCellDef> Bid Value </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidValue}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="TransporterName">
+                        <th mat-header-cell *matHeaderCellDef> Transporter </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="AwardStatus">
+                        <th mat-header-cell *matHeaderCellDef> Award Status </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.AwardStatus}} </td>
+                    </ng-container>
 
-              <ng-container matColumnDef="sourceType">
-                <th mat-header-cell *matHeaderCellDef> Source Type </th>
-                <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType}} </td>
-            </ng-container>
+                    <ng-container matColumnDef="sourceType">
+                        <th mat-header-cell *matHeaderCellDef> Source Type </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType}} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="destinationType">
-              <th mat-header-cell *matHeaderCellDef> Destination Type </th>
-              <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType}} </td>
-          </ng-container>
-                      <!-- Symbol Column -->
-                      <ng-container matColumnDef="containerMasterName">
-                          <th mat-header-cell *matHeaderCellDef> Container </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName}}
-                          </td>
-                      </ng-container>
-                      <ng-container matColumnDef="weightDesc">
+                    <ng-container matColumnDef="destinationType">
+                        <th mat-header-cell *matHeaderCellDef> Destination Type </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType}} </td>
+                    </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="containerMasterName">
+                        <th mat-header-cell *matHeaderCellDef> Container </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="weightDesc">
                         <th mat-header-cell *matHeaderCellDef> Weight </th>
                         <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc}}
                         </td>
                     </ng-container>
 
-                      <!-- <ng-container matColumnDef="Created On">
+                    <!-- <ng-container matColumnDef="Created On">
                           <th mat-header-cell *matHeaderCellDef> Created On </th>
                           <td mat-cell class="table-cell" *matCellDef="let element"> {{element.symbol}} </td>
                       </ng-container> -->
 
 
 
-                      <tr mat-header-row *matHeaderRowDef="displayedColumnsForBids"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumnsForBids;"></tr>
-                  </table>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsForBids"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsForBids;"></tr>
+                </table>
 
-                  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-              </div>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
 
-      </div>
-  </div>
-  <!---->
+        </div>
+    </div>
+    <!---->
 
 
-  <!-- CFS View -->
-  <!-- <div fxLayout="column" *ngIf="currentUser.typeSyscode === 4 || currentUser.typeSyscode === 7 || currentUser.typeSyscode === 8 || currentUser.typeSyscode === 9">
+    <!-- CFS View -->
+    <!-- <div fxLayout="column" *ngIf="roleId === 4 || roleId === 7 || roleId === 8 || roleId === 9">
 
       <div fxFlex="100">
           <h3>My Open Orders</h3>
@@ -492,8 +492,8 @@
   </div> -->
 
 
-  <!-- Transporter View -->
-  <!-- <div fxLayout="column" *ngIf="currentUser.typeSyscode === 5">
+    <!-- Transporter View -->
+    <!-- <div fxLayout="column" *ngIf="roleId === 5">
 
       <div fxFlex="100">
           <h3>Newly created orders to Bid</h3>
@@ -645,10 +645,10 @@
           </div>
       </div>
   </div> -->
-<!---->
+    <!---->
 
-  <!-- Driver View -->
-<!--   <div fxLayout="column" *ngIf="currentUser.typeSyscode === 6">
+    <!-- Driver View -->
+    <!--   <div fxLayout="column" *ngIf="roleId === 6">
       <div fxFlex="100" fxLayout="row" fxLayoutGap="5%">
           <div fxFlex="50">
               <h3>My Currently Active Trips</h3>
@@ -746,5 +746,5 @@
           </div>
       </div>
   </div> -->
- <!---->
+    <!---->
 </div>

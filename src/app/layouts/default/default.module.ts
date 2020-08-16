@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthComponent } from 'src/app/shared/auth/auth.component';
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
+import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { AuthGuardService } from 'src/app/services/auth.guard.service';
       {
         path: 'default', component: DefaultComponent,
         children: [
-          { path: '', component: DashboardComponent },
+          { path: '', component: DashboardComponent, resolve: { dashboardResolver: DashboardResolver } },
           { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule), canActivate: [AuthGuardService] },
           {
             path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')
@@ -58,7 +59,8 @@ import { AuthGuardService } from 'src/app/services/auth.guard.service';
   ],
   providers: [
     DashboardService,
-    AuthGuardService
+    AuthGuardService,
+    DashboardResolver
   ]
 })
 export class DefaultModule { }

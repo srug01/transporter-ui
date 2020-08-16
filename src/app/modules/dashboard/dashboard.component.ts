@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { Dashboard } from 'src/app/shared/models/dashboard';
 import { mapTo } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -58,27 +59,27 @@ export class DashboardComponent implements OnInit {
   suborderCount: number = 0;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   displayedColumnsForOrders: string[] = [
-    'Order ID', 'Source', 'Destination','Containers','Created On','orderStatus'
+    'Order ID', 'Source', 'Destination', 'Containers', 'Created On', 'orderStatus'
 
   ];
   displayedColumnsForAdminOrders: string[] = [
-    'orderId', 'sourceType', 'destinationType','sourceName','destinationName','terminal',
-    'orderRemarks','totalRate','orderStatus','OrderDate','CreatedOn'
+    'orderId', 'sourceType', 'destinationType', 'sourceName', 'destinationName', 'terminal',
+    'orderRemarks', 'totalRate', 'orderStatus', 'OrderDate', 'CreatedOn'
 
   ];
   displayedColumnsForAdminSubOrders: string[] = [
-    'orderId', 'subOrderId', 'subOrderTotalMargin','CutOffTime','suborderStatus','containerMasterName',
-    'weightDesc','SubOrderDate'
+    'orderId', 'subOrderId', 'subOrderTotalMargin', 'CutOffTime', 'suborderStatus', 'containerMasterName',
+    'weightDesc', 'SubOrderDate'
 
   ];
   displayedColumnsForTrips: string[] = [
-    'tripId','subOrderId','TransporterName','AssignedVehicle' ,'AssignedDriver','TransporterContainer' ,
-    'TransporterWeight', 'OrderContainer','Orderweight','tripstatus'
+    'tripId', 'subOrderId', 'TransporterName', 'AssignedVehicle', 'AssignedDriver', 'TransporterContainer',
+    'TransporterWeight', 'OrderContainer', 'Orderweight', 'tripstatus'
   ];
 
   displayedColumnsForBids: string[] = [
-    'bidName','subOrderId','bidStatus','originalRate' ,'bidValue','AwardStatus' ,'TransporterName',
-    'sourceType', 'destinationType','containerMasterName','weightDesc'
+    'bidName', 'subOrderId', 'bidStatus', 'originalRate', 'bidValue', 'AwardStatus', 'TransporterName',
+    'sourceType', 'destinationType', 'containerMasterName', 'weightDesc'
   ];
 
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -95,22 +96,15 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService,
     private _orderService: OrderService,
     private _tripService: TripService,
-    private _userService: UserService
+    private _userService: UserService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.roleId = + localStorage.getItem('roleID');
-    // console.log(this.roleId);
+    this.roleId = parseInt(localStorage.getItem('roleID'), 10);
+    this.dashboard = this.route.snapshot.data['dashboardResolver'];
+    this.setupDashboard();
     this.getUserInfo();
-    /* this.getTotalTrips();
-    this.getTotalOrders();
-    this.getTotalBids();
-    this.getTotalCfsMasters(); */
-
-
-    // this.getNewlyCreatedOrders();
-    // this.getNewlyCreatedTrips();
-
     this.bigChart = this.dashboardService.bigChart();
     this.cards = this.dashboardService.cards();
     this.pieData = this.dashboardService.pieData();
@@ -121,89 +115,42 @@ export class DashboardComponent implements OnInit {
     this._userService.getUsersInfo().subscribe(
       (loggedUser: User) => {
         this.currentUser = loggedUser;
-        console.log(loggedUser);
-        this.currentUser.typeSyscode = this.roleId;
-        this.getDashboard();
-      },
-      (err) => {
-        console.log(err);
-       }
-    );
-  }
-
-
-  getDashboard(){
-
-    if(this.roleId === 1)
-    {
-    this.dashboardService.getAdminDashboardbyUserId(0).subscribe(
-      (res) => {
-        this.dashboard = res;
-        this.orderCount = this.dashboard.TotalOrders;
-        this.suborderCount = this.dashboard.TotalSubOrders;
-        this.bidCount = this.dashboard.TotalBids;
-        this.tripCount = this.dashboard.TotalTrips;
-        this.orders = this.dashboard.Orders;
-        this.suborders = this.dashboard.SubOrders;
-        this.bids = this.dashboard.Bids;
-        this.trips = this.dashboard.Trips;
-
-      },
-      (err) => {
-        console.log(err);
-       }
-    );
-    }
-    else if(this.roleId === 4 || this.roleId === 7 || this.roleId === 8 || this.roleId === 9)
-    {
-
-      this.dashboardService.getCFSDashboardbyUserId(this.currentUser.userId).subscribe(
-        (res) => {
-          this.dashboard = res;
-          this.orderCount = this.dashboard.TotalOrders;
-          this.tripCount = this.dashboard.TotalTrips;
-          this.orders = this.dashboard.Orders;
-          this.trips = this.dashboard.Trips;
-
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
-    else if(this.roleId === 5)
-    {
-    this.dashboardService.getTransporterDashboardbyUserId(this.currentUser.userId).subscribe(
-      (res) => {
-        this.dashboard = res;
-        this.suborderCount = this.dashboard.TotalSubOrders;
-        this.bidCount = this.dashboard.TotalBids;
-        this.tripCount = this.dashboard.TotalTrips;
-        this.suborders = this.dashboard.SubOrders;
-        this.bids = this.dashboard.Bids;
-        this.trips = this.dashboard.Trips;
-
       },
       (err) => {
         console.log(err);
       }
     );
-    }
-    else if(this.roleId === 6)
-    {
-    this.dashboardService.getTransporterDashboardbyUserId(this.currentUser.userId).subscribe(
-      (res) => {
-        this.dashboard = res;
-        this.tripCount = this.dashboard.TotalTrips;
-        this.trips = this.dashboard.Trips;
+  }
 
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+
+  setupDashboard() {
+    if (this.roleId === 1) {
+      this.orderCount = this.dashboard.TotalOrders;
+      this.suborderCount = this.dashboard.TotalSubOrders;
+      this.bidCount = this.dashboard.TotalBids;
+      this.tripCount = this.dashboard.TotalTrips;
+      this.orders = this.dashboard.Orders;
+      this.suborders = this.dashboard.SubOrders;
+      this.bids = this.dashboard.Bids;
+      this.trips = this.dashboard.Trips;
+    } else if (this.roleId === 4 || this.roleId === 7 || this.roleId === 8 || this.roleId === 9) {
+      this.orderCount = this.dashboard.TotalOrders;
+      this.tripCount = this.dashboard.TotalTrips;
+      this.orders = this.dashboard.Orders;
+      this.trips = this.dashboard.Trips;
+    } else if (this.roleId === 5) {
+      this.suborderCount = this.dashboard.TotalSubOrders;
+      this.bidCount = this.dashboard.TotalBids;
+      this.tripCount = this.dashboard.TotalTrips;
+      this.suborders = this.dashboard.SubOrders;
+      this.bids = this.dashboard.Bids;
+      this.trips = this.dashboard.Trips;
+    } else if (this.roleId === 6) {
+      this.tripCount = this.dashboard.TotalTrips;
+      this.trips = this.dashboard.Trips;
     }
   }
+
   getTotalTrips() {
     this.dashboardService.getTotalTrips().subscribe(
       (res) => {
