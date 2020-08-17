@@ -12,7 +12,6 @@ import { MatCardModule } from '@angular/material/card';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuthComponent } from 'src/app/shared/auth/auth.component';
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
 

@@ -1,0 +1,125 @@
+<mat-card class="example-card" fxFlex="50%" *ngIf="tripData">
+    <mat-card-header>
+        <mat-card-title>Trip Details</mat-card-title>
+        <mat-card-subtitle>Trip Information</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="field-title">
+        <div class="container" fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout="column">
+                <div fxFlex="100%">
+                    <h3>Trip Date & Status</h3>
+                </div>
+                <div fxFlex="100%">
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Trip Date</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.OrderDate | dateFormat}}
+                        </div>
+                    </div>
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Status</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.tripstatus}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column">
+                <div fxFlex="100%">
+                    <h3>Source & Destination</h3>
+                </div>
+                <div fxFlex="100%">
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>From</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.sourceName}}
+                        </div>
+                    </div>
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>To</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.destinationName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column">
+                <div fxFlex="100%">
+                    <h3>Container Details</h3>
+                </div>
+                <div fxFlex="100%">
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Container Type </strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.TransporterContainer}}
+                        </div>
+                    </div>
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Container Weight</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.TransporterWeight}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column">
+                <div fxFlex="100%">
+                    <h3>Driver & Vehicle</h3>
+                </div>
+                <div fxFlex="100%">
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Driver</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.AssignedDriver ? tripData.AssignedDriver : 'NA'}}
+                        </div>
+                    </div>
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Vehicle</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.AssignedVehicle ? tripData.AssignedVehicle : 'NA'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column">
+                <div fxFlex="100%">
+                    <h3>Trip Actions</h3>
+                </div>
+                <div fxFlex="100%">
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Stopped At</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.StoppedAt ? tripData.StoppedAt : 'NA'}}
+                        </div>
+                    </div>
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Stopped By</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{tripData.StoppedBy ? tripData.StoppedBy : 'NA'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
