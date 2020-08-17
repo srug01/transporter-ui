@@ -5,21 +5,26 @@
     </mat-card-header>
     <mat-card-content class="field-title">
         <div class="container" fxLayout="column" fxLayoutGap="20px">
-            <div fxLayout="row">
-                <div fxFlex="50%">
-                    <div fxFlex="50%">
-                        <strong>Order Date</strong>
-                    </div>
-                    <div fxFlex="50%">
-                        {{order.orderDate | dateFormat}}
-                    </div>
+            <div fxLayout="column">
+                <div fxFlex="100%">
+                    <h3>Order Information</h3>
                 </div>
-                <div fxFlex="50%">
-                    <div fxFlex="50%">
-                        <strong>Status</strong>
+                <div fxFlex="100%">
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Order Date</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{order.orderDate | dateFormat}}
+                        </div>
                     </div>
-                    <div fxFlex="50%">
-                        {{order.orderStatus}}
+                    <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>Status</strong></p>
+                        </div>
+                        <div fxFlex="100%">
+                            {{order.orderStatus}}
+                        </div>
                     </div>
                 </div>
             </div>

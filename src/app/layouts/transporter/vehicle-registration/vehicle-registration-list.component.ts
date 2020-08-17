@@ -63,11 +63,13 @@ export class VehicleRegistrationListComponent implements OnInit {
   }
 
   getStatebyId(id): string {
-    for (let i = 0; i < this.states.length; i++) {
-      if (this.states[i].stateMasterId === id) {
-        return this.states[i].stateName;
+    if(this.states) {
+      for (let i = 0; i < this.states.length; i++) {
+        if (this.states[i].stateMasterId === id) {
+          return this.states[i].stateName;
+        }
       }
-    }
+    }    
   }
 
   deleteVehicleById(vehicleId: number) {
