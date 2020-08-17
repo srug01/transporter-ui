@@ -21,4 +21,7 @@ export interface Trip {
     vehicleNumber?: string;
     BidValue?: number;
     bidValue? :number;
+    startedBy?: number;
+    stoppeddBy?: number;
+
 }

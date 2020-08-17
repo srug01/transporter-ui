@@ -28,7 +28,7 @@ export class TripService {
   }
 
   updateMytripMaster(trip: Trip): Observable<any> {
-    return this.http.put<Trip>(this.baseUrl + 'trips/' + trip.tripId,
+    return this.http.patch<Trip>(this.baseUrl + 'trips/' + trip.tripId,
       JSON.stringify(trip), this.HttpUploadOptions);
   }
 
@@ -40,6 +40,11 @@ export class TripService {
     console.log(id);
     return this.http.get(this.baseUrl + 'GetTripsbyId/' + id);
   }
+
+  getTripdetailsbyTripId(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetTripDetailsbyTripId/' + id);
+  }
+
 
   deleteMytripMasterById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'trips/' + id);
