@@ -53,9 +53,11 @@ export class CfsportrateFormComponent implements OnInit {
         containerMasterId: [this.cfsportrateData.containerMasterId ? this.cfsportrateData.containerMasterId : '', Validators.required],
         weightMasterId: [this.cfsportrateData.weightMasterId ? this.cfsportrateData.weightMasterId : '', Validators.required],
         rate: [this.cfsportrateData.rate ? this.cfsportrateData.rate : 0, Validators.required],
+        bidMarginRate: [this.cfsportrateData.bidMarginRate ? this.cfsportrateData.bidMarginRate : 0, Validators.required],
+        orderMarginRate: [this.cfsportrateData.orderMarginRate ? this.cfsportrateData.orderMarginRate : 0, Validators.required],
         isActive: [this.cfsportrateData.isActive ? this.cfsportrateData.isActive : '', Validators.required]
       });
-      this.getAllWeightMastersbyContainerID(this.cfsportrateData.weightMasterId);
+      this.getAllWeightMastersbyContainerID(this.cfsportrateData.containerMasterId);
     } else {
       this.cfsrateForm = this.fb.group({
         cfsPortRateMasterId: [''],
@@ -64,6 +66,8 @@ export class CfsportrateFormComponent implements OnInit {
         containerMasterId: ['', Validators.required],
         weightMasterId: ['', Validators.required],
         rate: [0, Validators.required],
+        bidMarginRate: [0, Validators.required],
+        orderMarginRate: [0, Validators.required],
         isActive: ['', Validators.required]
       });
     }
@@ -142,6 +146,8 @@ export class CfsportrateFormComponent implements OnInit {
       weightMasterId: cfsRate.weightMasterId,
       containerMasterId: cfsRate.containerMasterId,
       rate: cfsRate.rate,
+      orderMarginRate : cfsRate.orderMarginRate,
+      bidMarginRate: cfsRate.bidMarginRate,
       createdBy: this.currentUser.userId,
       modifiedBy: this.currentUser.userId,
       createdOn: new Date(),

@@ -5,6 +5,8 @@ export interface CfsYardRateMaster {
   containerMasterId?: number;
   weightMasterId?: number;
   rate?: number;
+  bidMarginRate?: number;
+  orderMarginRate?: number;
   portMasterId?: number;
   isActive?: boolean;
   createdBy?: number;

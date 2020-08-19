@@ -54,6 +54,8 @@ export class PortcfsrateFormComponent implements OnInit {
         containerMasterId: [this.portcfsrateData.containerMasterId ? this.portcfsrateData.containerMasterId : '', Validators.required],
         weightMasterId: [this.portcfsrateData.weightMasterId ? this.portcfsrateData.weightMasterId : '', Validators.required],
         rate: [this.portcfsrateData.rate ? this.portcfsrateData.rate : 0, Validators.required],
+        bidMarginRate: [this.portcfsrateData.bidMarginRate ? this.portcfsrateData.bidMarginRate : 0, Validators.required],
+        orderMarginRate: [this.portcfsrateData.orderMarginRate ? this.portcfsrateData.orderMarginRate : 0, Validators.required],
         isActive: [this.portcfsrateData.isActive ? this.portcfsrateData.isActive : '', Validators.required]
       });
       this.getAllWeightMastersbyContainerID(this.portcfsrateData.containerMasterId);
@@ -65,6 +67,8 @@ export class PortcfsrateFormComponent implements OnInit {
         containerMasterId: ['', Validators.required],
         weightMasterId: ['', Validators.required],
         rate: [0, Validators.required],
+        bidMarginRate: [0, Validators.required],
+        orderMarginRate: [0, Validators.required],
         isActive: ['', Validators.required]
       });
     }
@@ -133,6 +137,8 @@ export class PortcfsrateFormComponent implements OnInit {
       weightMasterId: portcfsRate.weightMasterId,
       containerMasterId: portcfsRate.containerMasterId,
       rate: portcfsRate.rate,
+      bidMarginRate: portcfsRate.bidMarginRate,
+      orderMarginRate: portcfsRate.orderMarginRate,
       createdBy: this.currentUser.userId,
       modifiedBy: this.currentUser.userId,
       createdOn: new Date(),

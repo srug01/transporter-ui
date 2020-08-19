@@ -5,6 +5,8 @@ export interface YardCFSRate {
   containerMasterId?: number;
   weightMasterId?: number;
   rate?: number;
+  bidMarginRate?: number;
+  orderMarginRate?: number;
   isActive?: boolean;
   createdBy?: number;
   modifiedBy?: number;

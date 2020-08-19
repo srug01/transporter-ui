@@ -5,6 +5,8 @@ export interface PortCfsRateMaster {
   weightMasterId?: number;
   containerMasterId?: number;
   rate?: number;
+  bidMarginRate?: number;
+  orderMarginRate?: number;
   isActive?: boolean;
   createdBy?: number;
   createdOn?: Date;
