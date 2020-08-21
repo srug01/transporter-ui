@@ -1,3 +1,4 @@
+import { Constants } from './../../shared/constants/constants';
 import { Order } from './../../shared/models/order';
 import { Trip } from './../../shared/models/mytrip';
 import { TripService } from './../../layouts/transporter/services/trip.service';
@@ -58,6 +59,7 @@ export class DashboardComponent implements OnInit {
   orderCount: number = 0;
   suborderCount: number = 0;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  detailsAwaited = Constants.detailsAwaited;
   displayedColumnsForOrders: string[] = [
     'Order ID', 'Source', 'Destination', 'Containers', 'Created On', 'orderStatus'
 

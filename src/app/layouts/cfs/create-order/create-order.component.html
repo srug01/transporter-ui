@@ -108,18 +108,6 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div fxFlex="100%">
-                                <mat-form-field class="location-field">
-                                    <mat-label>Select Terminal</mat-label>
-                                    <mat-select matNativeControl formControlName="portTerminalId" [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let terminal of terminals" [value]="terminal.portTerminalId">
-                                            {{terminal.terminal}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['portTerminalId'].hasError('required')">You must make a selection
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
                         </div>
                     </div>
                     <div [ngSwitch]="destination" fxFlex="50%">
@@ -188,18 +176,6 @@
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
-                            </div>
-                            <div fxFlex="100%">
-                                <mat-form-field class="location-field2">
-                                    <mat-label>Select Terminal</mat-label>
-                                    <mat-select matNativeControl formControlName="portTerminalId" [errorStateMatcher]="errorStateMatcher">
-                                        <mat-option *ngFor="let terminal of terminals" [value]="terminal.portTerminalId">
-                                            {{terminal.terminal}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="orderForm.controls['portTerminalId'].hasError('required')">You must make a selection
-                                    </mat-error>
-                                </mat-form-field>
                             </div>
                         </div>
                     </div>

@@ -296,7 +296,7 @@ export class CreateOrderComponent implements OnInit {
       profitRate: [''],
       profitMarginPercentage: [''],
       rateExcludingProfit: [''],
-      timeslotMasterId: [''],
+      timeslotMasterId: ['',Validators.required],
       containers: this.fb.array([]),
     });
     this.addFormControl();
@@ -485,9 +485,9 @@ export class CreateOrderComponent implements OnInit {
     const containersArray = this.orderForm.controls.containers as FormArray;
     const arraylen = containersArray.length;
     const containerRow: FormGroup = this.fb.group({
-      containerMasterId: ['', Validators.required],
-      weightType: ['', Validators.required],
-      numberOfTrucks: ['', Validators.required],
+      containerMasterId: [''],
+      weightType: [''],
+      numberOfTrucks: [''],
       trucks: [null]
     });
     containersArray.insert(arraylen, containerRow);
@@ -501,8 +501,10 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
-      this.saveOrder(order);
+      console.log(order);      
+       // this.saveOrder(order);
     } else {
+      console.log(this.orderForm);      
       this.openSnackBar('Invalid Form !', 'please review all fields');
     }
   }

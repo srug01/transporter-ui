@@ -42,34 +42,34 @@
 
                     <ng-container matColumnDef="sourceType">
                         <th mat-header-cell *matHeaderCellDef> Source </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="destinationType">
                         <th mat-header-cell *matHeaderCellDef> Destination </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : detailsAwaited}} </td>
                     </ng-container>
                     <!-- Name Column -->
                     <ng-container matColumnDef="sourceName">
                         <th mat-header-cell *matHeaderCellDef> Source </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceName ? element.sourceName : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceName ? element.sourceName : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
                     <ng-container matColumnDef="destinationName">
                         <th mat-header-cell *matHeaderCellDef> Destination </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationName ? element.destinationName : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationName ? element.destinationName : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="terminal">
                         <th mat-header-cell *matHeaderCellDef> Terminal </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.terminal ? element.terminal : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.terminal ? element.terminal : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="orderRemarks">
                         <th mat-header-cell *matHeaderCellDef> Remarks </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderRemarks ? element.orderRemarks : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderRemarks ? element.orderRemarks : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="totalRate">
@@ -81,15 +81,15 @@
 
                     <ng-container matColumnDef="orderStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="OrderDate">
                         <th mat-header-cell *matHeaderCellDef> Order Date </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderDate ? element.OrderDate : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderDate ? element.OrderDate : detailsAwaited }} </td>
                     </ng-container>
                     <ng-container matColumnDef="CreatedOn">
                         <th mat-header-cell *matHeaderCellDef> Created On </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CreatedOn ? element.CreatedOn : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CreatedOn ? element.CreatedOn : detailsAwaited}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminOrders"></tr>
@@ -130,29 +130,29 @@
 
                     <ng-container matColumnDef="CutOffTime">
                         <th mat-header-cell *matHeaderCellDef> CutOffTime </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CutOffTime ? element.CutOffTime : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.CutOffTime ? element.CutOffTime : detailsAwaited}} </td>
                     </ng-container>
                     <!-- Name Column -->
                     <ng-container matColumnDef="suborderStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.suborderStatus ? element.suborderStatus : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.suborderStatus ? element.suborderStatus : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
                     <ng-container matColumnDef="containerMasterName">
                         <th mat-header-cell *matHeaderCellDef> Cotainer </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName ? element.containerMasterName : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName ? element.containerMasterName : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="weightDesc">
                         <th mat-header-cell *matHeaderCellDef> Weight </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc ? element.weightDesc : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc ? element.weightDesc : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="SubOrderDate">
                         <th mat-header-cell *matHeaderCellDef> Created On </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.SubOrderDate ? element.SubOrderDate : '--'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.SubOrderDate ? element.SubOrderDate : detailsAwaited}} </td>
                     </ng-container>
 
 
@@ -191,20 +191,20 @@
                     <ng-container matColumnDef="TransporterName">
                         <th mat-header-cell *matHeaderCellDef>Transporter Name</th>
                         <td mat-cell class="table-cell" *matCellDef="let element">
-                            {{element.TransporterName ? element.TransporterName : 'NA'}} </td>
+                            {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="AssignedVehicle">
                         <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
                         <td mat-cell class="table-cell" *matCellDef="let element">
-                            {{element.AssignedVehicle ? element.AssignedVehicle : 'NA'}} </td>
+                            {{element.AssignedVehicle ? element.AssignedVehicle : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="AssignedDriver">
                         <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
                         <td mat-cell class="table-cell" *matCellDef="let element">
-                            {{element.AssignedDriver ? element.AssignedDriver : 'NA'}} </td>
+                            {{element.AssignedDriver ? element.AssignedDriver : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
@@ -212,25 +212,25 @@
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="TransporterContainer">
                         <th mat-header-cell *matHeaderCellDef>Transporter Container</th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterContainer ? element.TransporterContainer : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterContainer ? element.TransporterContainer : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="TransporterWeight">
                         <th mat-header-cell *matHeaderCellDef>Transporter Weight</th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterWeight ? element.TransporterWeight : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterWeight ? element.TransporterWeight : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="OrderContainer">
                         <th mat-header-cell *matHeaderCellDef>Order Container</th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderContainer ? element.OrderContainer : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.OrderContainer ? element.OrderContainer : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Orderweight">
                         <th mat-header-cell *matHeaderCellDef>Order Weight</th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.Orderweight ? element.Orderweight : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.Orderweight ? element.Orderweight : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="tripstatus">
                         <th mat-header-cell *matHeaderCellDef>Status</th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : 'NA'}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : detailsAwaited}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
@@ -271,44 +271,44 @@
 
                     <ng-container matColumnDef="bidStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidStatus}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidStatus ? element.bidStatus : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="originalRate">
                         <th mat-header-cell *matHeaderCellDef> Rate </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.originalRate}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.originalRate ? element.originalRate : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="bidValue">
                         <th mat-header-cell *matHeaderCellDef> Bid Value </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidValue}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.bidValue ? element.bidValue : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="TransporterName">
                         <th mat-header-cell *matHeaderCellDef> Transporter </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterName}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="AwardStatus">
                         <th mat-header-cell *matHeaderCellDef> Award Status </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.AwardStatus}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.AwardStatus ? element.AwardStatus : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="sourceType">
                         <th mat-header-cell *matHeaderCellDef> Source Type </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="destinationType">
                         <th mat-header-cell *matHeaderCellDef> Destination Type </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType}} </td>
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : detailsAwaited}} </td>
                     </ng-container>
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="containerMasterName">
                         <th mat-header-cell *matHeaderCellDef> Container </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName}}
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.containerMasterName ? element.containerMasterName : detailsAwaited}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="weightDesc">
                         <th mat-header-cell *matHeaderCellDef> Weight </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc}}
+                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.weightDesc ? element.weightDesc : detailsAwaited}}
                         </td>
                     </ng-container>
 
@@ -349,7 +349,7 @@
                   <ng-container matColumnDef="Source">
                       <th mat-header-cell *matHeaderCellDef> Source </th>
                       <td mat-cell class="table-cell" *matCellDef="let element">
-                          {{element.sourceType ? element.sourceType: '--'}}
+                          {{element.sourceType ? element.sourceType: detailsAwaited}}
                       </td>
                   </ng-container>
 
@@ -357,7 +357,7 @@
                   <ng-container matColumnDef="Destination">
                       <th mat-header-cell *matHeaderCellDef> Destination </th>
                       <td mat-cell class="table-cell" *matCellDef="let element">
-                          {{element.destinationType ? element.destinationType : '--'}}
+                          {{element.destinationType ? element.destinationType : detailsAwaited}}
                       </td>
                   </ng-container>
 
@@ -372,14 +372,14 @@
                   <ng-container matColumnDef="Created On">
                       <th mat-header-cell *matHeaderCellDef> Created On </th>
                       <td mat-cell class="table-cell" *matCellDef="let element">
-                          {{element.createdOn ? element.createdOn : 'NA'}}
+                          {{element.createdOn ? element.createdOn : {{detailsAwaited}}}}
                       </td>
                   </ng-container>
 
                   <ng-container matColumnDef="orderStatus">
                       <th mat-header-cell class="table-header" *matHeaderCellDef> Status </th>
                       <td mat-cell class="table-cell" *matCellDef="let element">
-                          {{element.orderStatus ? element.orderStatus : 'NA'}}
+                          {{element.orderStatus ? element.orderStatus : {{detailsAwaited}}}}
                       </td>
                   </ng-container>
 
@@ -413,25 +413,25 @@
                       <ng-container matColumnDef="Assigned Driver">
                           <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.assignedDriver ? element.assignedDriver : 'NA'}} </td>
+                              {{element.assignedDriver ? element.assignedDriver : {{detailsAwaited}}}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Assigned Vehicle">
                           <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.assignedVehicle ? element.assignedVehicle : 'NA'}} </td>
+                              {{element.assignedVehicle ? element.assignedVehicle : {{detailsAwaited}}}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Bid Value">
                           <th mat-header-cell *matHeaderCellDef>Bid Value</th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.BidValue ? element.BidValue : 'NA'}} </td>
+                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.BidValue ? element.BidValue : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="tripstatus">
                           <th mat-header-cell *matHeaderCellDef>Status</th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : 'NA'}} </td>
+                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
@@ -455,13 +455,13 @@
 
                       <ng-container matColumnDef="Source">
                           <th mat-header-cell *matHeaderCellDef> Source </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : '--'}} </td>
+                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : detailsAwaited}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Destination">
                           <th mat-header-cell *matHeaderCellDef> Destination </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : '--'}} </td>
+                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : detailsAwaited}} </td>
                       </ng-container>
 
 
@@ -473,12 +473,12 @@
 
                       <ng-container matColumnDef="Created On">
                           <th mat-header-cell *matHeaderCellDef> Created On </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.createdOn ? element.createdOn : 'NA'}} </td>
+                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.createdOn ? element.createdOn : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="orderStatus">
                           <th mat-header-cell *matHeaderCellDef> Status </th>
-                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
+                          <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumnsForOrders"></tr>
@@ -509,13 +509,13 @@
 
                   <ng-container matColumnDef="Source">
                       <th mat-header-cell *matHeaderCellDef> Source </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : 'NA'}} </td>
+                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.sourceType ? element.sourceType : {{detailsAwaited}}}} </td>
                   </ng-container>
 
 
                   <ng-container matColumnDef="Destination">
                       <th mat-header-cell *matHeaderCellDef> Destination </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : 'NA'}} </td>
+                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.destinationType ? element.destinationType : {{detailsAwaited}}}} </td>
                   </ng-container>
 
 
@@ -526,12 +526,12 @@
 
                   <ng-container matColumnDef="Created On">
                       <th mat-header-cell *matHeaderCellDef> Created On </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.createdOn ? element.createdOn : 'NA'}} </td>
+                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.createdOn ? element.createdOn : {{detailsAwaited}}}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="orderStatus">
                       <th mat-header-cell *matHeaderCellDef> Status </th>
-                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
+                      <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : {{detailsAwaited}}}} </td>
                   </ng-container>
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumnsForOrders"></tr>
@@ -564,14 +564,14 @@
                       <ng-container matColumnDef="Assigned Driver">
                           <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
                           <td mat-cell *matCellDef="let element">
-                              {{element.assignedDriver ? element.assignedDriver : 'NA'}} </td>
+                              {{element.assignedDriver ? element.assignedDriver : {{detailsAwaited}}}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Assigned Vehicle">
                           <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
                           <td mat-cell *matCellDef="let element">
-                              {{element.assignedVehicle ? element.assignedVehicle : 'NA'}} </td>
+                              {{element.assignedVehicle ? element.assignedVehicle : {{detailsAwaited}}}} </td>
                       </ng-container>
 
 
@@ -607,14 +607,14 @@
                       <ng-container matColumnDef="Source">
                           <th mat-header-cell *matHeaderCellDef> Source </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.sourceType ? element.sourceType : '--'}} </td>
+                              {{element.sourceType ? element.sourceType : detailsAwaited}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Destination">
                           <th mat-header-cell *matHeaderCellDef> Destination </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.destinationType ? element.destinationType : '--'}} </td>
+                              {{element.destinationType ? element.destinationType : detailsAwaited}} </td>
                       </ng-container>
 
 
@@ -627,13 +627,13 @@
                       <ng-container matColumnDef="Created On">
                           <th mat-header-cell *matHeaderCellDef> Created On </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.createdOn ? element.createdOn : 'NA'}} </td>
+                              {{element.createdOn ? element.createdOn : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="orderStatus">
                           <th mat-header-cell *matHeaderCellDef> Status </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
+                              {{element.orderStatus ? element.orderStatus : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumnsForOrders"></tr>
@@ -665,25 +665,25 @@
                       <ng-container matColumnDef="Assigned Driver">
                           <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
                           <td mat-cell *matCellDef="let element">
-                              {{element.assignedDriver ? element.assignedDriver : 'NA'}} </td>
+                              {{element.assignedDriver ? element.assignedDriver : {{detailsAwaited}}}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Assigned Vehicle">
                           <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
                           <td mat-cell *matCellDef="let element">
-                              {{element.assignedVehicle ? element.assignedVehicle : 'NA'}} </td>
+                              {{element.assignedVehicle ? element.assignedVehicle : {{detailsAwaited}}}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Bid Value">
                           <th mat-header-cell *matHeaderCellDef>Bid Value</th>
-                          <td mat-cell *matCellDef="let element"> {{element.BidValue ? element.BidValue : 'NA'}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.BidValue ? element.BidValue : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="tripstatus">
                           <th mat-header-cell *matHeaderCellDef>Status</th>
-                          <td mat-cell *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : 'NA'}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.tripstatus ? element.tripstatus : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
@@ -708,14 +708,14 @@
                       <ng-container matColumnDef="Source">
                           <th mat-header-cell *matHeaderCellDef> Source </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.sourceType ? element.sourceType : '--'}} </td>
+                              {{element.sourceType ? element.sourceType : detailsAwaited}} </td>
                       </ng-container>
 
 
                       <ng-container matColumnDef="Destination">
                           <th mat-header-cell *matHeaderCellDef> Destination </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.destinationType ? element.destinationType : '--'}} </td>
+                              {{element.destinationType ? element.destinationType : detailsAwaited}} </td>
                       </ng-container>
 
 
@@ -728,13 +728,13 @@
                       <ng-container matColumnDef="Created On">
                           <th mat-header-cell *matHeaderCellDef> Created On </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.createdOn ? element.createdOn : 'NA'}} </td>
+                              {{element.createdOn ? element.createdOn : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="orderStatus">
                           <th mat-header-cell *matHeaderCellDef> Status </th>
                           <td mat-cell class="table-cell" *matCellDef="let element">
-                              {{element.orderStatus ? element.orderStatus : 'NA'}} </td>
+                              {{element.orderStatus ? element.orderStatus : {{detailsAwaited}}}} </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumnsForOrders"></tr>

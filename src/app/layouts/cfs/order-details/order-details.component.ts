@@ -1,3 +1,4 @@
+import { Constants } from './../../../shared/constants/constants';
 import { Port } from './../../../shared/models/port';
 import { Yard } from './../../../shared/models/yard';
 import { Cfs } from './../../../shared/models/cfs';
@@ -19,11 +20,12 @@ export class OrderDetailsComponent implements OnInit {
   public cfsMasters: Cfs[] = [];
   public yardMasters: Yard[] = [];
   public portMasters: Port[] = [];
+  detailsAwaited = Constants.detailsAwaited;
   displayedColumns: string[] = [
     'From', 'To'
   ];
   containerColumns: string[] = [
-    'Bid Name', 'Bid Name', 'Bid User Status', 'Sub Order Total Margin', 'SubOrder Status'
+    'Bid Name', 'Bid Name', 'Bid User Status','SubOrder Status'
   ];
   public order: any;
   constructor(
