@@ -61,6 +61,8 @@ export class CreateOrderComponent implements OnInit {
   public timeSlots: Array<any> = [];
   masterTypeSelectedId: number = 0;
   portyardId: number = 0;
+  public minDate: Date;
+  public maxDate: Date;
 
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
@@ -91,6 +93,8 @@ export class CreateOrderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.minDate = this.addDays(new Date(),1);
+    this.maxDate = this.addDays(new Date(),15);
     this.getUserInfo();
     this.getMasterTypes();
     this.initialiseOrderForm();
@@ -151,17 +155,15 @@ export class CreateOrderComponent implements OnInit {
     this.getAllWeightsForCFS(typeId, containerMasterId, i);
   }
 
-  yardChanged(id,type)
-  {
-    if(type == "source"){
-    this.orderForm.get('sourceId').setValue(id);
+  yardChanged(id, type) {
+    if (type == "source") {
+      this.orderForm.get('sourceId').setValue(id);
     }
-    else if(type == "destination")
-    {
+    else if (type == "destination") {
       this.orderForm.get('destinationId').setValue(id);
     }
     this.portyardId = id;
-    this.getAllCFSContainersbyUserId(this.masterTypeSelectedId,this.portyardId);
+    this.getAllCFSContainersbyUserId(this.masterTypeSelectedId, this.portyardId);
 
   }
 
@@ -201,7 +203,7 @@ export class CreateOrderComponent implements OnInit {
         this.orderForm.get(masterType).setValue(portMasters[0].portMasterId);
         this.getTerminalsByPortMasterId(portMasters[0].portMasterId);
         this.portyardId = portMasters[0].portMasterId;
-        this.getAllCFSContainersbyUserId(this.masterTypeSelectedId,this.portyardId);
+        this.getAllCFSContainersbyUserId(this.masterTypeSelectedId, this.portyardId);
       },
       (err) => {
         console.log(err);
@@ -225,7 +227,7 @@ export class CreateOrderComponent implements OnInit {
         this.orderForm.get(masterType).setValue(yardMasters[0].yardMasterId);
         this.getPortMasterByPortMasterId(yardMasters[0].portMasterId);
         this.portyardId = yardMasters[0].yardMasterId;
-        this.getAllCFSContainersbyUserId(this.masterTypeSelectedId,this.portyardId);
+        this.getAllCFSContainersbyUserId(this.masterTypeSelectedId, this.portyardId);
       },
       (err) => {
         console.log(err);
@@ -361,7 +363,7 @@ export class CreateOrderComponent implements OnInit {
 
   // try to fetch from cache Need to ask Bhushan
   getAllWeightsForCFS(type: number, containerId: any, i) {
-    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type, containerId, this.portyardId ).subscribe(
+    this._masterTypeService.GetAllCFSWeightsbyUserandContainerId(this.currentUser.userId, type, containerId, this.portyardId).subscribe(
       (weightMasters) => {
         this.weights[i] = weightMasters;
       },
@@ -394,7 +396,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getAllCFSContainersbyUserId(type: number, portyardid: number) {
-    this._masterTypeService.getAllCFSContainersbyUserId(this.currentUser.userId, type,portyardid).subscribe(
+    this._masterTypeService.getAllCFSContainersbyUserId(this.currentUser.userId, type, portyardid).subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
       },

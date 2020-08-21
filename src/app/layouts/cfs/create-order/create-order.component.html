@@ -22,23 +22,23 @@
                     <div fxFlex="30%">
                         <mat-form-field color="accent">
                             <mat-label>Date</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="orderDate">
+                            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName="orderDate">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <div fxFlex="20%">
-                      <mat-form-field color="accent">
-                          <mat-label>Time Slot</mat-label>
-                          <mat-select matNativeControl formControlName="timeslotMasterId" (valueChange)="timeSlotSelected($event)" [errorStateMatcher]="errorStateMatcher">
-                            <mat-option *ngFor="let timeSlot of timeSlots" [value]="timeSlot.timeslotMasterId">
-                                {{timeSlot.actualValue}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="orderForm.controls['timeslotMasterId'].hasError('required')">You must make a selection
-                        </mat-error>
-                      </mat-form-field>
-                  </div>
+                        <mat-form-field color="accent">
+                            <mat-label>Time Slot</mat-label>
+                            <mat-select matNativeControl formControlName="timeslotMasterId" (valueChange)="timeSlotSelected($event)" [errorStateMatcher]="errorStateMatcher">
+                                <mat-option *ngFor="let timeSlot of timeSlots" [value]="timeSlot.timeslotMasterId">
+                                    {{timeSlot.actualValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="orderForm.controls['timeslotMasterId'].hasError('required')">You must make a selection
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
                 <div fxLayout='row' fxFlex="100%" fxLayoutGap="70px">
                     <div [ngSwitch]="source" fxFlex="50%">
@@ -98,7 +98,7 @@
                                 <div fxFlex="94%">
                                     <mat-form-field class="demo-full-width">
                                         <mat-label>Yard</mat-label>
-                                        <mat-select matNativeControl formControlName="sourceId" (valueChange)="yardChanged($event,'source')"  [errorStateMatcher]="errorStateMatcher">
+                                        <mat-select matNativeControl formControlName="sourceId" (valueChange)="yardChanged($event,'source')" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
                                                 {{yard.yardName}}
                                             </mat-option>
