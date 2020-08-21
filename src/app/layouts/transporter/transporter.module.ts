@@ -53,6 +53,7 @@ import { BidEditComponent } from './bid-edit/bid-edit.component';
 import { TripDetailsComponent } from './my-trips/trip-details.component';
 import { TripDetailsResolver } from './resolvers/tripDetailsResolver';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
+import { MatDividerModule } from '@angular/material/divider';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -144,6 +145,7 @@ const toasterConfig: MatSnackBarConfig = {
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDividerModule,
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,

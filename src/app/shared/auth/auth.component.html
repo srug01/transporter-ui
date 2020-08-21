@@ -1,6 +1,5 @@
-
-<div class="main-div" >
-<mat-card class="example-card">
+<div class="main-div">
+    <!-- <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
@@ -24,5 +23,32 @@
   <mat-card-actions>
     <button mat-raised-button (click)="login()" color="primary">Login</button>
   </mat-card-actions>
-</mat-card>
+</mat-card> -->
+    <section layout="column" flex layout-align="center center" class="login">
+        <mat-card>
+            <mat-toolbar>
+                <div layout="column" layout-padding layout-align="center center">
+                    <div>
+                        <mat-icon class="logo">home</mat-icon>
+                    </div>
+                    <div>Login</div>
+                </div>
+            </mat-toolbar>
+            <mat-card-content>
+                <form name="login">
+                    <div class="container" fxLayout="column" fxLayoutGap="20px">
+                        <mat-form-field>
+                            <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-card-content>
+            <mat-card-actions class="footer">
+                <button mat-raised-button (click)="login()" color="primary">Login</button>
+            </mat-card-actions>
+        </mat-card>
+    </section>
 </div>
