@@ -1,3 +1,5 @@
+import { Bid } from './../../shared/models/bid';
+import { SubOrder } from './../../shared/models/subOrder';
 import { Constants } from './../../shared/constants/constants';
 import { Order } from './../../shared/models/order';
 import { Trip } from './../../shared/models/mytrip';
@@ -88,10 +90,10 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   dashboard: Dashboard;
-  orders: any[] = [];
-  suborders: any[] = [];
-  bids: any[] = [];
-  trips: any[] = [];
+  orders: MatTableDataSource<Order>;
+  suborders: MatTableDataSource<SubOrder>;
+  bids: MatTableDataSource<Bid>;
+  trips: MatTableDataSource<Trip>;
 
 
   constructor(
@@ -124,6 +126,26 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  applyAdminOrdersFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.orders.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyAdminSubOrdersFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.suborders.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyAdminTripsFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.trips.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyAdminBidsFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.bids.filter = filterValue.trim().toLowerCase();
+  }
+
 
   setupDashboard() {
     if (this.roleId === 1) {
@@ -131,25 +153,25 @@ export class DashboardComponent implements OnInit {
       this.suborderCount = this.dashboard.TotalSubOrders;
       this.bidCount = this.dashboard.TotalBids;
       this.tripCount = this.dashboard.TotalTrips;
-      this.orders = this.dashboard.Orders;
-      this.suborders = this.dashboard.SubOrders;
-      this.bids = this.dashboard.Bids;
-      this.trips = this.dashboard.Trips;
+      this.orders =  new MatTableDataSource(this.dashboard.Orders);
+      this.suborders = new MatTableDataSource(this.dashboard.SubOrders);
+      this.bids = new MatTableDataSource(this.dashboard.Bids);
+      this.trips = new MatTableDataSource(this.dashboard.Trips); 
     } else if (this.roleId === 4 || this.roleId === 7 || this.roleId === 8 || this.roleId === 9) {
       this.orderCount = this.dashboard.TotalOrders;
       this.tripCount = this.dashboard.TotalTrips;
-      this.orders = this.dashboard.Orders;
-      this.trips = this.dashboard.Trips;
+      this.orders = new MatTableDataSource(this.dashboard.Orders);
+      this.trips =  new MatTableDataSource(this.dashboard.Trips);
     } else if (this.roleId === 5) {
       this.suborderCount = this.dashboard.TotalSubOrders;
       this.bidCount = this.dashboard.TotalBids;
       this.tripCount = this.dashboard.TotalTrips;
-      this.suborders = this.dashboard.SubOrders;
-      this.bids = this.dashboard.Bids;
-      this.trips = this.dashboard.Trips;
+      this.suborders = new MatTableDataSource(this.dashboard.SubOrders);
+      this.bids = new MatTableDataSource(this.dashboard.Bids);
+      this.trips =  new MatTableDataSource(this.dashboard.Trips);
     } else if (this.roleId === 6) {
       this.tripCount = this.dashboard.TotalTrips;
-      this.trips = this.dashboard.Trips;
+      this.trips =  new MatTableDataSource(this.dashboard.Trips);
     }
   }
 
@@ -192,7 +214,7 @@ export class DashboardComponent implements OnInit {
   getNewlyCreatedOrders() {
     this._orderService.getAllNewlyCreatedOrders().subscribe(
       (res) => {
-        this.orders = res;
+        this.orders = new MatTableDataSource(res);
       },
       (err) => {
         console.log(err);
@@ -203,7 +225,7 @@ export class DashboardComponent implements OnInit {
   getNewlyCreatedTrips() {
     this._tripService.getAllNewlyCreatedTrips().subscribe(
       (res) => {
-        this.trips = res;
+        this.trips = new MatTableDataSource(res);
       },
       (err) => {
         console.log(err);
