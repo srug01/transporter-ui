@@ -1,140 +1,162 @@
-<mat-card class="example-card" fxFlex="50%" *ngIf="order">
-    <mat-card-header>
-        <mat-card-title>Order Details</mat-card-title>
-        <mat-card-subtitle>Current Order</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="field-title">
-        <div class="container" fxLayout="column" fxLayoutGap="20px">
-            <div fxLayout="column">
-                <div fxFlex="100%">
-                    <h3>Order Information</h3>
+<div class="card">
+    <mat-card fxFlex="50%" *ngIf="order">
+        <mat-card-header>
+            <mat-card-title>Order Details</mat-card-title>
+            <mat-card-subtitle>Order Information</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="field-title">
+            <div class="container" fxLayout="column" fxLayoutGap="20px">
+                <div fxLayout="column">
+                    <div fxFlex="100%">
+                        <h3>Order Date & Status</h3>
+                    </div>
+                    <div fxFlex="100%">
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Order Date</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.orderDate | dateFormat}}
+                            </div>
+                        </div>
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Status</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.orderStatus ? order.orderStatus : detailsAwaited}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div fxFlex="100%">
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>Order Date</strong></p>
+                <span layout="row" class="separator">
+                    <hr flex /></span>
+                <div fxLayout="column">
+                    <div fxFlex="100%">
+                        <h3>Source & Destination</h3>
+                    </div>
+                    <div fxFlex="100%">
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>From</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.sourceType ? order.sourceType : detailsAwaited }} - {{order.sourceName ? order.sourceName : detailsAwaited}}
+                            </div>
                         </div>
-                        <div fxFlex="100%">
-                            {{order.orderDate | dateFormat}}
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>To</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.destinationType ? order.destinationType : detailsAwaited}} - {{order.destinationName ? order.destinationName : detailsAwaited}}
+                            </div>
                         </div>
                     </div>
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>Status</strong></p>
+                </div>
+                <span layout="row" class="separator">
+                    <hr flex /></span>
+                <div fxLayout="column" *ngIf="order.bids">
+                    <div fxFlex="100%">
+                        <h3>Bids For Order</h3>
+                    </div>
+                    <div fxFlex="100%">
+                        <table mat-table [dataSource]="order.bids" class="mat-elevation-z8">
+                            <ng-container matColumnDef="Bid Name">
+                                <th mat-header-cell *matHeaderCellDef class="table-title"> Bid Name </th>
+                                <td mat-cell *matCellDef="let element" class="table-row">
+                                    {{element.bidName ? element.bidName : detailsAwaited}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Bid Value">
+                                <th mat-header-cell *matHeaderCellDef class="table-title">Bid Value </th>
+                                <td mat-cell *matCellDef="let element" class="table-row">
+                                    {{element.bidValue ? element.bidValue : detailsAwaited}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Bid User Status">
+                                <th mat-header-cell *matHeaderCellDef class="table-title"> Bid User Status </th>
+                                <td mat-cell *matCellDef="let element" class="table-row">
+                                    {{element.biduserStatus ? element.biduserStatus : detailsAwaited}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="SubOrder Status">
+                                <th mat-header-cell *matHeaderCellDef class="table-title"> SubOrder Status </th>
+                                <td mat-cell *matCellDef="let element" class="table-row">
+                                    {{element.suborderStatus ? element.suborderStatus : detailsAwaited}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="containerColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: containerColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+                <span layout="row" class="separator">
+                    <hr flex /></span>
+                <div fxLayout="column">
+                    <div fxFlex="100%">
+                        <h3>Trips For the Order</h3>
+                    </div>
+                    <div fxFlex="100%">
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Trip Status</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.tripstatus ? order.tripstatus : detailsAwaited}}
+                            </div>
                         </div>
-                        <div fxFlex="100%">
-                            {{order.orderStatus}}
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Total Rate</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.totalRate ? order.totalRate : detailsAwaited}}
+                            </div>
                         </div>
                     </div>
+                </div>
+                <span layout="row" class="separator">
+                    <hr flex /></span>
+                <div fxLayout="column">
+                    <div fxFlex="100%">
+                        <h3>Driver & Vehicle</h3>
+                    </div>
+                    <div fxFlex="100%">
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Driver</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.AssignedDriver ? order.AssignedDriver : detailsAwaited}}
+                            </div>
+                        </div>
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Vehicle</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.vehicleNumber ? order.vehicleNumber : detailsAwaited}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span layout="row" class="separator">
+                    <hr flex /></span>
+                <div fxLayout="column">
+                    <div fxFlex="100%">
+                        <h3>Additional Information</h3>
+                    </div>
+                    <div fxFlex="100%">
+                        <div fxFlex="50%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Remarks</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.orderRemarks ? order.orderRemarks : detailsAwaited}}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div fxLayout="column">
-                <div fxFlex="100%">
-                    <h3>Source & Destination</h3>
-                </div>
-                <div fxFlex="100%">
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>From</strong></p>
-                        </div>
-                        <div fxFlex="100%">
-                            {{order.sourceType}} - {{order.sourceName}}
-                        </div>
-                    </div>
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>To</strong></p>
-                        </div>
-                        <div fxFlex="100%">
-                            {{order.destinationType}} - {{order.destinationName}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxLayout="column" *ngIf="order.bids">
-                <div fxFlex="100%">
-                    <h3>Bids For Order</h3>
-                </div>
-                <div fxFlex="100%">
-                    <table mat-table [dataSource]="order.bids" class="mat-elevation-z8">
-                        <ng-container matColumnDef="Bid Name">
-                            <th mat-header-cell *matHeaderCellDef class="table-title"> Bid Name </th>
-                            <td mat-cell *matCellDef="let element" class="table-row"> {{element.bidName ? element.bidName : detailsAwaited}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Bid Value">
-                            <th mat-header-cell *matHeaderCellDef class="table-title">Bid Value </th>
-                            <td mat-cell *matCellDef="let element" class="table-row"> {{element.bidValue ? element.bidValue : detailsAwaited}}
-                            </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Bid User Status">
-                            <th mat-header-cell *matHeaderCellDef class="table-title"> Bid User Status </th>
-                            <td mat-cell *matCellDef="let element" class="table-row"> {{element.biduserStatus ? element.biduserStatus : detailsAwaited}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="SubOrder Status">
-                            <th mat-header-cell *matHeaderCellDef class="table-title"> SubOrder Status </th>
-                            <td mat-cell *matCellDef="let element" class="table-row"> {{element.suborderStatus ? element.suborderStatus : detailsAwaited}} </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="containerColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: containerColumns;"></tr>
-                    </table>
-                </div>
-            </div>
-            <div fxLayout="column">
-                <div fxFlex="100%">
-                    <h3>Trips</h3>
-                </div>
-                <div fxFlex="100%">
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>Trip Status</strong></p>
-                        </div>
-                        <div fxFlex="100%">
-                            {{order.tripstatus ? order.tripstatus : detailsAwaited}}
-                        </div>
-                    </div>
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>totalRate</strong></p>
-                        </div>
-                        <div fxFlex="100%">
-                            {{order.totalRate ? order.totalRate : detailsAwaited}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxLayout="column">
-                <div fxFlex="100%">
-                    <h3>Driver & Vehicle</h3>
-                </div>
-                <div fxFlex="100%">
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>Driver</strong></p>
-                        </div>
-                        <div fxFlex="100%">
-                            {{order.AssignedDriver ? order.AssignedDriver : detailsAwaited}}
-                        </div>
-                    </div>
-                    <div fxFlex="50%" fxLayout="column">
-                        <div fxFlex="100%">
-                            <p><strong>Vehicle</strong></p>
-                        </div>
-                        <div fxFlex="100%">
-                            {{order.vehicleNumber ? order.vehicleNumber : detailsAwaited}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxLayout="row">
-                <div fxFlex="50%">
-                    <div fxFlex="50%">
-                        <strong>Remarks</strong>
-                    </div>
-                    <div fxFlex="50%">
-                        {{order.orderRemarks}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>

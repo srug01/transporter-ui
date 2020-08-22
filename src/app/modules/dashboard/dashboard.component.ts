@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   displayedColumnsForBids: string[] = [
-    'bidName', 'subOrderId', 'bidStatus', 'originalRate', 'bidValue', 'AwardStatus', 'TransporterName',
+    'bidId','bidName', 'subOrderId', 'bidStatus', 'originalRate', 'bidValue', 'AwardStatus', 'TransporterName',
     'sourceType', 'destinationType', 'containerMasterName', 'weightDesc'
   ];
 

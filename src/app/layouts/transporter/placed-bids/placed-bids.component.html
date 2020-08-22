@@ -13,41 +13,41 @@
             <!-- Position Column -->
             <ng-container matColumnDef="Bid ID">
                 <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element"> {{element.bidId}} </td>
+                <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="Bid Name">
                 <th mat-header-cell *matHeaderCellDef> Bid Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.bidName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.bidName ? element.bidName : detailsAwaited}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="Source">
                 <th mat-header-cell *matHeaderCellDef> Source </th>
-                <td mat-cell *matCellDef="let element"> ( {{element.SorurceName}} ) - {{element.source_name}}</td>
+                <td mat-cell *matCellDef="let element">{{element.sourceName ? element.sourceName : detailsAwaited}}</td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="Destination">
                 <th mat-header-cell *matHeaderCellDef> Destination </th>
-                <td mat-cell *matCellDef="let element"> ( {{element.destinationName}} ) - {{element.destination_name}} </td>
+                <td mat-cell *matCellDef="let element">{{element.destinationName ? element.destinationName : detailsAwaited}}</td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="Container Type">
                 <th mat-header-cell *matHeaderCellDef> Container Type </th>
-                <td mat-cell *matCellDef="let element"> {{element.containerMasterName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.containerMasterName ? element.containerMasterName : detailsAwaited}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Container Weight">
                 <th mat-header-cell *matHeaderCellDef> Container Weight</th>
-                <td mat-cell *matCellDef="let element"> {{element.weightDesc}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.weightDesc ? element.weightDesc : detailsAwaited}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Bid Rate">
                 <th mat-header-cell *matHeaderCellDef> Bid Rate </th>
-                <td mat-cell *matCellDef="let element"> {{element.originalRate}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.originalRate ? element.originalRate : detailsAwaited}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Bid Value">

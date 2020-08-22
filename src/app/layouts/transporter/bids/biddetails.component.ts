@@ -1,3 +1,4 @@
+import { Constants } from './../../../shared/constants/constants';
 
 import { NotificationService } from './../../../shared/services/notification.service';
 import { BidUserMapping } from './../../../shared/models/bidusermapping';
@@ -27,6 +28,7 @@ export class BiddetailsComponent implements OnInit {
   ];
 
   public userid = localStorage.getItem('userID');
+  public detailsAwaited = Constants.detailsAwaited;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(private _ngZone: NgZone,

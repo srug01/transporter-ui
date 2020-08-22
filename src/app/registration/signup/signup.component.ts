@@ -58,7 +58,11 @@ export class SignupComponent implements OnInit {
         },
         (err) => {
           console.log(err);
-          this.openSnackBar('Server Error !', 'Could not signup the user');
+          if (err.error.error.code === 'ER_DUP_ENTRY') {
+            this.openSnackBar('Failure !', 'Duplicate Email Specified');
+          } else {
+            this.openSnackBar('Server Error !', 'Could not signup the user');
+          }
         }
       );
     } else {

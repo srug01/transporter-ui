@@ -16,7 +16,6 @@ export class TripDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tripData = this.route.snapshot.data['tripDetailsResolver'][0];
-    
   }
 
 }

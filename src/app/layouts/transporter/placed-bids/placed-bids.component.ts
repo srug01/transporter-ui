@@ -1,3 +1,4 @@
+import { Constants } from './../../../shared/constants/constants';
 import { DatePipe } from '@angular/common';
 import { Notification } from './../../../shared/models/notification';
 import { NotificationService } from './../../../shared/services/notification.service';
@@ -28,6 +29,7 @@ export class PlacedBidsComponent implements OnInit {
   bids: Bid[] = [];
   public currentUser: User;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  public detailsAwaited = Constants.detailsAwaited;
 
   constructor(
     private _ngZone: NgZone,
@@ -115,7 +117,7 @@ export class PlacedBidsComponent implements OnInit {
       },
       (err) => {
         if (err.error.error.message) {
-          this.openSnackBar('Failure !', `${err.error.error.message} for ${bidMapping.bidName}`);
+          this.openSnackBar('Failure !', `${err.error.error.message}`);
         }
         console.log();
       },
@@ -145,7 +147,7 @@ export class PlacedBidsComponent implements OnInit {
       },
       (err) => {
         if (err.error.error.message) {
-          this.openSnackBar('Failure !', `${err.error.error.message} for ${bidMapping.bidName}`);
+          this.openSnackBar('Failure !', `${err.error.error.message}`);
         }
         console.log();
       },

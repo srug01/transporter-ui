@@ -7,9 +7,9 @@ import { take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import {StateMasterService} from '../../masters/services/state-master.service';
-import {ContainerService} from '../../masters/services/container.service';
-import {WeightService} from '../../masters/services/weight.service';
+import { StateMasterService } from '../../masters/services/state-master.service';
+import { ContainerService } from '../../masters/services/container.service';
+import { WeightService } from '../../masters/services/weight.service';
 import { State } from 'src/app/shared/models/state';
 import { ContainerMaster } from 'src/app/shared/models/ContainerMaster';
 import { Weight } from 'src/app/shared/models/weight';
@@ -44,7 +44,7 @@ export class VehicleRegistrationFormComponent implements OnInit {
   //   { value: '2 TON', viewValue: '2 TON' },
   //   { value: '3 TON', viewValue: '3 TON' }
   // ];
- // public weight: Array<any> = [];
+  // public weight: Array<any> = [];
   public manufactureYear: Array<any> = [];
   public owned = false;
   public currentUser: User;
@@ -57,7 +57,7 @@ export class VehicleRegistrationFormComponent implements OnInit {
     private _router: Router,
     private _stateService: StateMasterService,
     private _containerservice: ContainerService,
-    private _weightservice : WeightService,
+    private _weightservice: WeightService,
     private _userService: UserService,
   ) { }
   getUserInfo() {
@@ -71,44 +71,44 @@ export class VehicleRegistrationFormComponent implements OnInit {
     this.getAllStates();
     this.getAllContainer();
     this.getAllWeight();
-    this.getUserInfo() ;
+    this.getUserInfo();
 
-    if(this.vehicleMasterData){
-      this.vehicleForm= this.fb.group({
+    if (this.vehicleMasterData) {
+      this.vehicleForm = this.fb.group({
         vehicleMasterId: [this.vehicleMasterData.vehicleMasterId ?
-        this.vehicleMasterData.vehicleMasterId : ''],
+          this.vehicleMasterData.vehicleMasterId : ''],
         vehicleNumber: [this.vehicleMasterData.vehicleNumber ? this.vehicleMasterData.vehicleNumber : '',
-          Validators.required],
-          vehicleType: [this.vehicleMasterData.vehicleType ? this.vehicleMasterData.vehicleType : '',
-          Validators.required],
-          vehicleCapacity: [this.vehicleMasterData.vehicleCapacity ? this.vehicleMasterData.vehicleCapacity : '',
-          Validators.required],
-          weight: [this.vehicleMasterData.weight ? this.vehicleMasterData.weight : '',
-          Validators.required],
-          manufactureYear: [this.vehicleMasterData.manufactureYear ? this.vehicleMasterData.manufactureYear : '',
-          Validators.required],
-          stateId: [this.vehicleMasterData.stateId ? this.vehicleMasterData.stateId : '',
-          Validators.required],
-          owned: [this.vehicleMasterData.owned ? this.vehicleMasterData.owned : '',
-          Validators.required],
-          isActive: ['', Validators.required]
+        Validators.required],
+        vehicleType: [this.vehicleMasterData.vehicleType ? this.vehicleMasterData.vehicleType : '',
+        Validators.required],
+        vehicleCapacity: [this.vehicleMasterData.vehicleCapacity ? this.vehicleMasterData.vehicleCapacity : '',
+        Validators.required],
+        weight: [this.vehicleMasterData.weight ? this.vehicleMasterData.weight : '',
+        Validators.required],
+        manufactureYear: [this.vehicleMasterData.manufactureYear ? this.vehicleMasterData.manufactureYear : '',
+        Validators.required],
+        stateId: [this.vehicleMasterData.stateId ? this.vehicleMasterData.stateId : '',
+        Validators.required],
+        owned: [this.vehicleMasterData.owned ? this.vehicleMasterData.owned : '',
+        Validators.required],
+        isActive: ['', Validators.required]
 
       });
     }
-    else{
-     this.vehicleForm = this.fb.group({
-      vehicleMasterId : [''],
-      vehicleNumber: ['', Validators.required],
-      vehicleType: ['', Validators.required],
-      vehicleCapacity: ['', Validators.required],
-      weight: ['', Validators.required],
-      manufactureYear: ['', Validators.required],
-      stateId: ['', Validators.required],
-      owned: [''],
-      isActive: ['', Validators.required]
+    else {
+      this.vehicleForm = this.fb.group({
+        vehicleMasterId: [''],
+        vehicleNumber: ['', Validators.required],
+        vehicleType: ['', Validators.required],
+        vehicleCapacity: ['', Validators.required],
+        weight: ['', Validators.required],
+        manufactureYear: ['', Validators.required],
+        stateId: ['', Validators.required],
+        owned: [''],
+        isActive: ['', Validators.required]
 
 
-     });
+      });
     }
 
   }
@@ -171,30 +171,30 @@ export class VehicleRegistrationFormComponent implements OnInit {
     const invalid = [];
     const controls = this.vehicleForm.controls;
     for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-        }
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
     }
     return invalid;
-}
+  }
 
 
 
   submitVehicleForm(ev) {
-   // this.findInvalidControls();
+    // this.findInvalidControls();
     if (ev) {
       ev.preventDefault();
     }
     if (this.vehicleForm.valid) {
       const vehicle: VehicleMaster =
-       this.transformVehicleRegistrationObj(this.vehicleForm.value);
-       if (!this.vehicleMasterData) {
-         console.log(vehicle);
-         this.saveVehicleMaster(vehicle);
-       }
-       else{
+        this.transformVehicleRegistrationObj(this.vehicleForm.value);
+      if (!this.vehicleMasterData) {
+        console.log(vehicle);
+        this.saveVehicleMaster(vehicle);
+      }
+      else {
         this.updateVehicleMaster(vehicle);
-       }
+      }
 
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
@@ -210,8 +210,12 @@ export class VehicleRegistrationFormComponent implements OnInit {
         this._router.navigate(['/default/transporter/register-vehicle/list']);
       },
       (err) => {
-        console.log('err');
-        this.openSnackBar('Failure !', 'Could not create vehicle');
+        console.log(err);
+        if (err.error.error.code === 'ER_DUP_ENTRY') {
+          this.openSnackBar('Failure !', 'Duplicate Vehicle Number Specified');
+        } else {
+          this.openSnackBar('Failure !', 'Could not create vehicle');
+        }
       }
     );
   }

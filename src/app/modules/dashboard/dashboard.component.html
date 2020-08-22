@@ -40,8 +40,8 @@
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="orderId">
-                        <th mat-header-cell *matHeaderCellDef> Order ID </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderId}} </td>
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="sourceType">
@@ -131,8 +131,8 @@
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="orderId">
-                        <th mat-header-cell *matHeaderCellDef> OrderID </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.orderId}} </td>
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="subOrderId">
@@ -207,8 +207,8 @@
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="tripId">
-                        <th mat-header-cell *matHeaderCellDef> Trip ID </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element"> {{element.tripId}} </td>
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="subOrderId">
@@ -289,10 +289,10 @@
                 <table mat-table [dataSource]="bids">
 
                     <!-- Position Column -->
-                    <!-- <ng-container matColumnDef="Order ID">
-                          <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
-                          <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
-                      </ng-container> -->
+                    <ng-container matColumnDef="bidId">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
+                    </ng-container>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="bidName">
@@ -366,7 +366,8 @@
 
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForBids"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsForBids;"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsForBids;" [ngClass]="{'confirmed-bid': row.AwardStatus === 'BID_USER_CONFIRMED' }">
+                    </tr>
                 </table>
 
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
