@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="currentUser">
     <mat-toolbar-row>
         <button mat-icon-button (click)="toggleSidebar()">
             <mat-icon>menu</mat-icon>
@@ -32,7 +32,7 @@
                 CFS User Viewer
             </span>
         </div>
-        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" *ngIf="currentUser">
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li *ngIf="currentUser.typeSyscode===1">
                     <button mat-icon-button routerLink='/default/settings'>

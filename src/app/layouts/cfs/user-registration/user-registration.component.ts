@@ -9,8 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CfsService } from './../../masters/services/cfs.service';
 import { User } from 'src/app/shared/models/user';
-import { Userrole} from 'src/app/shared/models/userrole';
-import { UserroleService} from './../../../services/userrole.service';
+import { Userrole } from 'src/app/shared/models/userrole';
+import { UserroleService } from './../../../services/userrole.service';
 
 
 @Component({
@@ -142,7 +142,12 @@ export class UserRegistrationComponent implements OnInit {
         this._router.navigate(['/default/cfs/user-list']);
       },
       (err) => {
-        this.openSnackBar('Failure !', 'Could not create CFS User');
+        console.log(err);
+        if (err.error.error.code === 'ER_DUP_ENTRY') {
+          this.openSnackBar('Failure !', 'Duplicate Email Specified');
+        } else {
+          this.openSnackBar('Failure !', 'Could not create CFS User');
+        }
       }
     );
   }
