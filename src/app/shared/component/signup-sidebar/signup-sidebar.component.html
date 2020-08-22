@@ -1,19 +1,26 @@
-<mat-nav-list>
-    <mat-card-title>Sign Up As...</mat-card-title>
-    <mat-divider></mat-divider>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/signup/customer'><i class="material-icons md-24 p5">dashboard</i>customer</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/signup/driver'><i class="material-icons md-24 p5">dashboard</i>Driver</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/signup/transporter'><i class="material-icons md-24 p5">dashboard</i>Transporter</a>
-    <mat-divider></mat-divider>
-
-    <!-- <h2 matSubheader>Tools</h2>
-
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/contacts'>
-        <mat-icon>import_contacts</mat-icon>
-        Contacts
-     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink='/contacts'>
-        <mat-icon>contact_phone</mat-icon>
-        Leads
-    </a> -->
+<mat-nav-list class="sidebar">
+    <div mat-list-item class="menu-item" routerLinkActive="list-item-active" routerLink='/signup/customer'>
+        <div class="icon">
+            <i class="fas fa-user fa-lg md-24"></i>
+        </div>
+        <div class="link">
+            <p class="menu-text">Customer</p>
+        </div>
+    </div>
+    <div mat-list-item fxLayout="row" class="menu-item" routerLinkActive="list-item-active" routerLink='/signup/transporter'>
+        <div class="icon">
+            <i class="fas fa fa-truck fa-lg md-24"></i>
+        </div>
+        <div class="link">
+            <p class="menu-text">Transporter</p>
+        </div>
+    </div>
+    <div mat-list-item fxLayout="row" class="menu-item" routerLinkActive="list-item-active" routerLink='/signup/driver'>
+        <div class="icon">
+            <i class="fas fa-car fa-lg md-24"></i>
+        </div>
+        <div class="link">
+            <p class="menu-text">Driver</p>
+        </div>
+    </div>
 </mat-nav-list>

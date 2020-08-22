@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { BidsResolver } from './resolvers/biddetails.resolver';
 import { AppDateFormats } from './../../shared/date-formats';
 import { NgModule } from '@angular/core';
@@ -54,6 +55,7 @@ import { TripDetailsComponent } from './my-trips/trip-details.component';
 import { TripDetailsResolver } from './resolvers/tripDetailsResolver';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { ConfirmBidDialogComponent } from './confirm-bid-dialog/confirm-bid-dialog.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -131,7 +133,8 @@ const toasterConfig: MatSnackBarConfig = {
     DriverNewComponent,
     BiddetailsComponent,
     BidEditComponent,
-    TripDetailsComponent
+    TripDetailsComponent,
+    ConfirmBidDialogComponent
   ],
   imports: [
     CommonModule,
@@ -156,6 +159,7 @@ const toasterConfig: MatSnackBarConfig = {
     MatIconModule,
     MatTooltipModule,
     RouterModule.forChild(routes,),
+    MatDialogModule
   ],
   providers: [
     VehicleService,

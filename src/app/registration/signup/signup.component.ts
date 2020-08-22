@@ -32,11 +32,11 @@ export class SignupComponent implements OnInit {
 
   initializeSignupForm() {
     this.signupForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.required])],
       password: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      mobileNumber: ['', Validators.required],
+      mobileNumber: ['',  Validators.compose([Validators.pattern('[6-9]\\d{9}'), Validators.required])],
       typeSyscode: []
     });
   }

@@ -1,60 +1,57 @@
-
-  <form [formGroup]="signupForm" (ngSubmit)="submitSignupForm($event)">
-        <div fxLayout="column" fxLayoutGap="5px">
-          <div fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="50%">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Email"
-                  formControlName="email"
-                />
-              </mat-form-field>
-            </div>          
-            <div fxFlex="50%">
-              <mat-form-field>
-                <input
-                  matInput
-                  type="password"
-                  placeholder="Password"
-                  formControlName="password"
-                />
-              </mat-form-field>              
-            </div>
-          </div>
-          <div fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="50%">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="First Name"
-                  formControlName="firstName"
-                />
-              </mat-form-field>
-            </div>          
-            <div fxFlex="50%">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Last Name"
-                  formControlName="lastName"
-                />
-              </mat-form-field>
-            </div>
-          </div>
-          <div fxFlex="100%">
-            <mat-form-field >
-              <input
-                matInput
-                placeholder="Mobile Number"
-                formControlName="mobileNumber"
-              />
-              <mat-icon matSuffix>phone</mat-icon>
-              <mat-hint>Include area code</mat-hint>
-            </mat-form-field>
-          </div>
-          <div fxLayout="row" fxLayoutGap="10px" >
-            <button type="submit" mat-raised-button color="primary">Register</button>
-          </div>
-        </div>
-      </form>
+<div class="main-div">
+    <section layout="column" flex layout-align="center center" class="login">
+        <mat-card>
+            <form name="login" [formGroup]="signupForm" (ngSubmit)="submitSignupForm($event)">
+                <mat-toolbar class="wrapper">
+                    <div class="logo-wrapper" fxLayout="column" fxFlex="50">
+                        <div class="logo" fxFlex="100">
+                            <mat-icon class="logo">home</mat-icon>
+                        </div>
+                        <div [ngSwitch]="userType" class="banner" fxFlex="100">
+                            <div *ngSwitchCase="4">
+                                CFS Customer
+                            </div>
+                            <div *ngSwitchCase="5">
+                                Transporter
+                            </div>
+                            <div *ngSwitchCase="6">
+                                Driver
+                            </div>
+                        </div>
+                    </div>
+                </mat-toolbar>
+                <mat-card-content>
+                    <div class="container" fxLayout="column" fxLayoutGap="20px">
+                        <mat-form-field>
+                            <input matInput placeholder="Email" formControlName="email" />
+                            <mat-error *ngIf="signupForm.get('email').errors !== null &&  signupForm.get('email').errors.pattern">
+                                Please Enter valid Email</mat-error>
+                            <mat-error *ngIf="signupForm.get('email').errors !== null &&  signupForm.get('email').errors.required">
+                                Please Enter Email</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="Password" formControlName="password" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="First Name" formControlName="firstName" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Last Name" formControlName="lastName" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Mobile Number" formControlName="mobileNumber" />
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="signupForm.get('mobileNumber').errors !== null &&  signupForm.get('mobileNumber').errors.pattern">
+                                Please Enter valid phone number</mat-error>
+                            <mat-error *ngIf="signupForm.get('mobileNumber').errors !== null &&  signupForm.get('mobileNumber').errors.required">
+                                Please Enter mobile number</mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions class="footer">
+                    <button type="submit" mat-raised-button color="primary">Register</button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </section>
+</div>

@@ -1,3 +1,5 @@
+import { ConfirmBidDialogComponent } from './../confirm-bid-dialog/confirm-bid-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Constants } from './../../../shared/constants/constants';
 import { DatePipe } from '@angular/common';
 import { Notification } from './../../../shared/models/notification';
@@ -14,7 +16,7 @@ import { User } from 'src/app/shared/models/user';
 import { BidUserMappingService } from '../services/bid-user-mapping.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { StausEnum} from '../../../shared/Enum/statusEnum';
+import { StausEnum } from '../../../shared/Enum/statusEnum';
 
 @Component({
   selector: 'app-placed-bids',
@@ -39,7 +41,8 @@ export class PlacedBidsComponent implements OnInit {
     private _router: Router,
     private _notificationService: NotificationService,
     private datePipe: DatePipe,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -121,7 +124,7 @@ export class PlacedBidsComponent implements OnInit {
         }
         console.log();
       },
-      ()=>{
+      () => {
         this.getAllPlacedBidsbyUserId();
       }
     );
@@ -151,19 +154,43 @@ export class PlacedBidsComponent implements OnInit {
         }
         console.log();
       },
-      ()=>{
+      () => {
         this.getAllPlacedBidsbyUserId();
       }
     );
   }
 
+  openSaveDialog(ev, bid: any) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this._dialog.open(ConfirmBidDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.confirmBid(bid);
+      }
+    });
+  }
+
+  openUpdateDialog(ev, bid: any) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this._dialog.open(ConfirmBidDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateBid(bid);
+      }
+    });
+  }
+
   transformBidObj(bid: any, action: string): BidUserMapping {
-    console.log(bid);    
+    console.log(bid);
     return {
       bidId: bid.bidId,
       bidName: bid.bidName,
       biduserStatus: action,
-      biduserStatusId:  StausEnum.BID_USER_EDIT,
+      biduserStatusId: StausEnum.BID_USER_EDIT,
       bidValue: bid.bidValue,
       userId: this.currentUser.userId,
       bidusermappingId: bid.bidusermappingId ? bid.bidusermappingId : 0
