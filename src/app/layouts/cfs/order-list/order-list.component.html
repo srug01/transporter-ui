@@ -10,14 +10,15 @@
 
             <!-- Position Column -->
             <ng-container matColumnDef="Order ID">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Order ID </th>
-                <td mat-cell *matCellDef="let element" class="table-row"> {{element.orderId}} </td>
+                <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
+                <td mat-cell class="table-cell" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="Source">
                 <th mat-header-cell *matHeaderCellDef class="table-title"> Source </th>
-                <td mat-cell *matCellDef="let element" class="table-row"> {{searchSourceById(element.sourceType,element.sourceId)}}
+                <td mat-cell *matCellDef="let element" class="table-row">
+                    {{searchSourceById(element.sourceType,element.sourceId)}}
                 </td>
             </ng-container>
 
@@ -59,7 +60,8 @@
                         <!-- <a [routerLink]="['/default/cfs',element.orderId,'edit']" matTooltip="edit">
                             <i class="fas fa-edit fa-lg" aria-hidden="true"></i>
                         </a> -->
-                        <a (click)="openDialog($event,element.orderId)" matTooltip="Delete"><i class="fa fa-ban fa-lg" aria-hidden="true"></i></a>
+                        <a (click)="openDialog($event,element.orderId)" matTooltip="Delete"><i class="fa fa-ban fa-lg"
+                                aria-hidden="true"></i></a>
                     </div>
                 </td>
             </ng-container>

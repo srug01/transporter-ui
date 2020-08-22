@@ -25,7 +25,7 @@ export class OrderDetailsComponent implements OnInit {
     'From', 'To'
   ];
   containerColumns: string[] = [
-    'Bid Name', 'Bid Name', 'Bid User Status','SubOrder Status'
+    'Bid Name', 'Bid Value', 'Bid User Status','SubOrder Status'
   ];
   public order: any;
   constructor(

@@ -1,3 +1,4 @@
+import { Constants } from './../../../shared/constants/constants';
 import { DatePipe } from '@angular/common';
 import { Notification } from './../../../shared/models/notification';
 import { NotificationService } from './../../../shared/services/notification.service';
@@ -31,6 +32,7 @@ export class BidsComponent implements OnInit {
   id:number;
   public currentUser: User;
   public userid=localStorage.getItem('userID');
+  public detailsAwaited = Constants.detailsAwaited;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
@@ -75,7 +77,6 @@ export class BidsComponent implements OnInit {
     this._bidMappingService.GetBidDetailsByBidId(id).subscribe(
       (bids: BidUserMapping[]) => {
         this.bids = bids;
-        console.log(this.bids);
       },
       (err) => {
         console.log(err);
