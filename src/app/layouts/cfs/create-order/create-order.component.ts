@@ -338,7 +338,7 @@ export class CreateOrderComponent implements OnInit {
       profitRate: 0,
       profitMarginPercentage: 0,
       rateExcludingProfit: 0,
-      portTerminalId: order.portTerminalId,
+      portTerminalId: order.portTerminalId ? order.portTerminalId : 0 ,
       timeslotMasterId: order.timeslotMasterId
     } as Order;
   }
@@ -502,7 +502,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
       console.log(order);      
-       // this.saveOrder(order);
+        this.saveOrder(order);
     } else {
       console.log(this.orderForm);      
       this.openSnackBar('Invalid Form !', 'please review all fields');
