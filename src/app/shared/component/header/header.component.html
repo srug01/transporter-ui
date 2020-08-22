@@ -3,8 +3,35 @@
         <button mat-icon-button (click)="toggleSidebar()">
             <mat-icon>menu</mat-icon>
         </button>
-        <span>CFS Master</span>
-
+        <div [ngSwitch]="currentUser.typeSyscode">
+            <span *ngSwitchCase="1">
+                Administrator
+            </span>
+            <span *ngSwitchCase="2">
+                Import Customer
+            </span>
+            <span *ngSwitchCase="3">
+               Export Customer
+            </span>
+            <span *ngSwitchCase="4">
+                CFS Customer
+            </span>
+            <span *ngSwitchCase="5">
+                Transporter
+            </span>
+            <span *ngSwitchCase="6">
+                Driver
+            </span>
+            <span *ngSwitchCase="7">
+                CFS User admin
+            </span>
+            <span *ngSwitchCase="8">
+                CFS User Super Admin
+            </span>
+            <span *ngSwitchCase="9">
+                CFS User Viewer
+            </span>
+        </div>
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" *ngIf="currentUser">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li *ngIf="currentUser.typeSyscode===1">
