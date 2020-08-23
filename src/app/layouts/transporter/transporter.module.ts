@@ -56,6 +56,8 @@ import { TripDetailsResolver } from './resolvers/tripDetailsResolver';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { ConfirmBidDialogComponent } from './confirm-bid-dialog/confirm-bid-dialog.component';
+import { EditTransporterComponent } from './edit-transporter/edit-transporter.component';
+import { TransporterResolver } from './resolvers/transporter.resolver';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent },
@@ -81,6 +83,7 @@ const routes: Routes = [
 
   },
   { path: 'transporter-list', component: TransporterListComponent },
+  { path: 'transporter-edit/:id', component: EditTransporterComponent, resolve: { transporterResolver: TransporterResolver } },
   { path: 'placed-bids', component: PlacedBidsComponent },
   { path: 'bids', component: BidsComponent },
   { path: 'bids/:id', component: BiddetailsComponent, resolve: { bidResolver: BidsResolver } },
@@ -134,7 +137,8 @@ const toasterConfig: MatSnackBarConfig = {
     BiddetailsComponent,
     BidEditComponent,
     TripDetailsComponent,
-    ConfirmBidDialogComponent
+    ConfirmBidDialogComponent,
+    EditTransporterComponent
   ],
   imports: [
     CommonModule,
@@ -168,6 +172,7 @@ const toasterConfig: MatSnackBarConfig = {
     TripDetailsResolver,
     DriverResolver,
     BidsResolver,
+    TransporterResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
     { provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config },
     MatDatepickerModule,

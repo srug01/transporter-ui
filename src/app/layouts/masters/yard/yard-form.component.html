@@ -1,185 +1,103 @@
 <div fxLayout="row wrap" class="matero-row">
-  <div fxFlex="66.67" class="matero-col">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>Yard Master</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form
-          fxLayout="row"
-          fxLayoutGap="10px"
-          [formGroup]="yardForm"
-          (ngSubmit)="submitYardForm($event)"
-        >
-          <div fxLayout="row wrap" fxLayoutGap="8px grid">
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Yard Name"
-                  formControlName="yardName"
-                  name="name"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Port</mat-label>
-                <mat-select
-                  formControlName="portMasterId"
-                  [errorStateMatcher]="matcher"
-                >
-                  <mat-option
-                    *ngFor="let port of portMasters"
-                    [value]="port.portMasterId"
-                  >
-                    {{ port.portName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Address1"
-                  formControlName="address1"
-                  name="address1"
-                  required
-                />
-              </mat-form-field>
-            </div>
+    <div fxFlex="66.67" class="matero-col">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Yard Master</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="row" fxLayoutGap="10px" [formGroup]="yardForm" (ngSubmit)="submitYardForm($event)">
+                    <div fxLayout="row wrap" fxLayoutGap="8px grid">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Yard Name" formControlName="yardName" name="name" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <mat-label>Port</mat-label>
+                                <mat-select formControlName="portMasterId" [errorStateMatcher]="matcher">
+                                    <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
+                                        {{ port.portName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Address1" formControlName="address1" name="address1" required />
+                            </mat-form-field>
+                        </div>
 
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Address2"
-                  formControlName="address2"
-                  name="address2"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="LandMark"
-                  formControlName="landmark"
-                  name="landmark"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>Location</mat-label>
-                <mat-select
-                  formControlName="locationMasterId"
-                  [errorStateMatcher]="matcher"
-                >
-                  <mat-option
-                    *ngFor="let location of locationMasters"
-                    [value]="location.locationMasterId"
-                  >
-                    {{ location.locationName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Address2" formControlName="address2" name="address2" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="LandMark" formControlName="landmark" name="landmark" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <mat-label>Location</mat-label>
+                                <mat-select formControlName="locationMasterId" [errorStateMatcher]="matcher">
+                                    <mat-option *ngFor="let location of locationMasters" [value]="location.locationMasterId">
+                                        {{ location.locationName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <mat-label>State</mat-label>
-                <mat-select
-                  formControlName="stateMasterId"
-                  [errorStateMatcher]="matcher"
-                >
-                  <mat-option
-                    *ngFor="let state of stateMasters"
-                    [value]="state.stateMasterId"
-                  >
-                    {{ state.stateName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Pincode"
-                  formControlName="pincode"
-                  name="pincode"
-                  required
-                />
-              </mat-form-field>
-            </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <mat-label>State</mat-label>
+                                <mat-select formControlName="stateMasterId" [errorStateMatcher]="matcher">
+                                    <mat-option *ngFor="let state of stateMasters" [value]="state.stateMasterId">
+                                        {{ state.stateName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Pincode" formControlName="pincode" name="pincode" required />
+                                <mat-error *ngIf="yardForm.get('pincode').errors !== null &&  yardForm.get('pincode').errors.pattern">Please Enter valid Pin Code</mat-error>
+                                <mat-error *ngIf="yardForm.get('pincode').errors !== null &&  yardForm.get('pincode').errors.required">Please Enter Pin Coder</mat-error>
+                            </mat-form-field>
+                        </div>
 
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Latiutude"
-                  formControlName="latitude"
-                  name="latitude"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Longitude"
-                  formControlName="longitude"
-                  name="longitude"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Primary Contact Person"
-                  formControlName="primarycontactperson"
-                  name="primarycontactperson"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="50" fxFlex.lt-sm="100">
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Primary Contact Number"
-                  formControlName="primarycontactnumber"
-                  name="primarycontactnumber"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div fxFlex="100" fxFlex.lt-sm="100">
-              <mat-slide-toggle formControlName="isActive"
-                >Active</mat-slide-toggle
-              >
-            </div>
-            <div fxFlex="100" fxFlex.lt-sm="100">
-              <button
-                type="submit"
-                mat-raised-button
-                color="primary"
-                class="m-t-8"
-              >
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Latiutude" formControlName="latitude" name="latitude" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Longitude" formControlName="longitude" name="longitude" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Primary Contact Person" formControlName="primarycontactperson" name="primarycontactperson" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Primary Contact Number" formControlName="primarycontactnumber" name="primarycontactnumber" required />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.lt-sm="100">
+                            <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+                        </div>
+                        <div fxFlex="100" fxFlex.lt-sm="100">
+                            <button type="submit" mat-raised-button color="primary" class="m-t-8">
                 Save
               </button>
-            </div>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

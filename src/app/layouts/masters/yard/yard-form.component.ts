@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { YardService } from '../services/yard.service';
 import { PortService } from '../services/port.service';
 import { StateMasterService } from '../services/state-master.service';
-import {  LocationService } from '../services/location.service';
+import { LocationService } from '../services/location.service';
 import { User } from 'src/app/shared/models/user';
 
 
@@ -57,7 +57,7 @@ export class YardFormComponent implements OnInit {
         address1: [this.yardData.address1 ? this.yardData.address1 : ''],
         address2: [this.yardData.address2 ? this.yardData.address2 : ''],
         landmark: [this.yardData.landmark ? this.yardData.landmark : ''],
-        locationMasterId: [this.yardData.locationMasterId ? this.yardData.locationMasterId : '',Validators.required],
+        locationMasterId: [this.yardData.locationMasterId ? this.yardData.locationMasterId : '', Validators.required],
         stateMasterId: [this.yardData.stateMasterId ? this.yardData.stateMasterId : '', Validators.required],
         createdBy: [this.yardData.createdBy ? this.yardData.createdBy : ''],
         createdOn: [this.yardData.createdOn ? this.yardData.createdOn : ''],
@@ -65,7 +65,8 @@ export class YardFormComponent implements OnInit {
         longitude: [this.yardData.longitude ? this.yardData.longitude : ''],
         modifiedBy: [this.yardData.modifiedBy ? this.yardData.modifiedBy : ''],
         modifiedOn: [this.yardData.modifiedOn ? this.yardData.modifiedOn : ''],
-        pincode: [this.yardData.pincode ? this.yardData.pincode : ''],
+        pincode: [this.yardData.pincode ? this.yardData.pincode : '',
+        Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])],
         primarycontactperson: [this.yardData.primarycontactperson ? this.yardData.primarycontactperson : '', Validators.required],
         primarycontactnumber: [this.yardData.primarycontactnumber ? this.yardData.primarycontactnumber : '', Validators.required],
       });
@@ -86,7 +87,7 @@ export class YardFormComponent implements OnInit {
         longitude: [''],
         modifiedBy: [''],
         modifiedOn: [''],
-        pincode: [''],
+        pincode: ['', Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])],
         primarycontactperson: ['', Validators.required],
         primarycontactnumber: ['', Validators.required],
 
@@ -106,7 +107,7 @@ export class YardFormComponent implements OnInit {
     );
   }
 
-  getAllStateMasters(){
+  getAllStateMasters() {
     this._stateService.getAllStateMasters().subscribe(
       (stateMasters) => {
         this.stateMasters = stateMasters;
@@ -116,7 +117,7 @@ export class YardFormComponent implements OnInit {
       }
     );
   }
-  getAllLocationMasters(){
+  getAllLocationMasters() {
     this._locationService.getAllLocationMasters().subscribe(
       (locationMasters) => {
         this.locationMasters = locationMasters;
@@ -141,7 +142,7 @@ export class YardFormComponent implements OnInit {
       address2: yard.address2,
       landmark: yard.landmark,
       locationMasterId: yard.locationMasterId,
-      stateMasterId : yard.stateMasterId,
+      stateMasterId: yard.stateMasterId,
       createdBy: this.currentUser.userId,
       createdOn: new Date(),
       isActive: yard.isActive,

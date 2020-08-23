@@ -11,7 +11,7 @@ export class TransporterRegistrationService {
   baseUrl = environment.baseUri;
   public HttpUploadOptions = {
     headers: new HttpHeaders({
-      'Content-Type' : 'application/json'
+      'Content-Type': 'application/json'
     })
   }
 
@@ -22,10 +22,14 @@ export class TransporterRegistrationService {
   saveTransporter(transporter: any): Observable<any> {
     delete transporter.confirm_transporter_bank_acno;
     delete transporter.transporter_syscode;
-    return this.http.post<Vehicle>(this.baseUrl + 'transporter-registrations', JSON.stringify(transporter), this.HttpUploadOptions);
+    return this.http.post<any>(this.baseUrl + 'transporter-registrations', JSON.stringify(transporter), this.HttpUploadOptions);
   }
 
   getAllTransporters(): Observable<any> {
     return this.http.get(this.baseUrl + 'GetAllTransporter');
+  }
+
+  getTransporterById(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'transporter-registrations/' + id, this.HttpUploadOptions);
   }
 }

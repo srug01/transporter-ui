@@ -76,7 +76,7 @@ export class PortFormComponent implements OnInit {
         address1: ['', Validators.required],
         address2: ['', Validators.required],
         landmark: ['', Validators.required],
-        pincode: ['', Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])],
+        pincode: ['', Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])], 
         latitude: ['', Validators.required],
         longitude: ['', Validators.required],
         stateMasterId: ['', Validators.required],

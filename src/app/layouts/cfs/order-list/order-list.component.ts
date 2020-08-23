@@ -14,7 +14,8 @@ import { User } from 'src/app/shared/models/user';
 import { DateFormatPipe } from './../../../shared/pipe/date-format.pipe';
 import { PortService } from '../../masters/services/port.service';
 import { CfsService } from '../../masters/services/cfs.service';
-import { YardService } from '../../masters/services/yard.service';
+import { YardService } from '../../masters/services/yard.service'; 
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-order-list',
@@ -28,7 +29,7 @@ export class OrderListComponent implements OnInit {
     'Containers', 'Created By', 'Created On', 'orderStatus', 'Action'
   ];
   public locations: Array<LocationMaster> = [];
-  orders: Array<Order> = [];
+  orders: MatTableDataSource<Order>;
   public currentUser: User;
   public users: User[] = [];
   public orderUserIds: Array<{ id: number }> = null;
@@ -95,8 +96,8 @@ export class OrderListComponent implements OnInit {
   getAllOrders() {
     this._orderService.getAllOrders().subscribe(
       (orders: Order[]) => {
-        this.orders = orders;
-        this.orderUserIds = this.orders.map((order) => {
+        this.orders = new MatTableDataSource(orders);
+        this.orderUserIds = orders.map((order) => {
           return { id: order.createdBy };
         });
         this.orderUserIds = this.orderUserIds.reduce((accumulator, currentValue) => {
@@ -109,6 +110,11 @@ export class OrderListComponent implements OnInit {
         this.getAllUsers();
       }
     );
+  }
+
+  applyOrdersFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.orders.filter = filterValue.trim().toLowerCase();
   }
 
   getAllUsers() {
