@@ -11,7 +11,7 @@ import { StateMasterService } from '../../masters/services/state-master.service'
 import { ContainerService } from '../../masters/services/container.service';
 import { WeightService } from '../../masters/services/weight.service';
 import { State } from 'src/app/shared/models/state';
-import { ContainerMaster } from 'src/app/shared/models/ContainerMaster';
+import { ContainerMaster } from 'src/app/shared/models/containerMaster';
 import { Weight } from 'src/app/shared/models/weight';
 import { VehicleMaster } from 'src/app/shared/models/VehicleMaster';
 import { UserService } from './../../../services/user.service';
