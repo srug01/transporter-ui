@@ -1,4 +1,4 @@
-import { Trip } from './../../../shared/models/Mytrip';
+import { Trip } from './../../../shared/models/mytrip';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TripService } from '../services/trip.service';
