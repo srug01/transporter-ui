@@ -1,3 +1,4 @@
+import { Trip } from 'src/app/shared/models/mytrip';
 import { VehicleMaster } from 'src/app/shared/models/VehicleMaster';
 import { Driver } from './../../../shared/models/driver';
 import { VehicleService } from './../services/vehicle.service';
@@ -8,7 +9,6 @@ import { take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Trip } from 'src/app/shared/models/Mytrip';
 import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
