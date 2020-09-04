@@ -1,3 +1,4 @@
+@import './../../../assets/scss/variable.scss';
 :host {
     display: flex;
     flex-direction: column;
@@ -7,6 +8,11 @@
 .cc {
     background-color: #3F51B5;
     color: white;
+}
+
+.container {
+    padding: 10px;
+    background-color: $beau-blue;
 }
 
 .mat-drawer {
@@ -31,6 +37,6 @@ mat-drawer-content {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    background-color: #3F51B5;
+    background-color: $beau-blue;
     color: white;
 }

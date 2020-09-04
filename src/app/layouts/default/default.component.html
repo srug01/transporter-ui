@@ -1,6 +1,13 @@
 <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
 
-<mat-drawer-container>
+
+<div class="navigation-box">
+    <a><i class="fa fa-arrow-left" aria-hidden="true" (click)="backClicked()"></i></a>
+</div>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+<!-- <mat-drawer-container>
     <mat-drawer mode='side' [opened]="sideBarOpened" class="sidebar">
         <app-sidebar></app-sidebar>
     </mat-drawer>
@@ -12,6 +19,6 @@
             <router-outlet></router-outlet>
         </div>
     </mat-drawer-content>
-</mat-drawer-container>
+</mat-drawer-container> -->
 
 <app-footer></app-footer>

@@ -43,7 +43,7 @@ export class CreateOrderComponent implements OnInit {
   public orderForm: FormGroup;
   public selectedSimpleItem;
   public containers: [] = [];
-  public currentUser: User;
+  public currentUser: User = new User();
   public containerNumbers: Array<any> = [];
   public cfsMasters: Cfs[] = [];
   public yardMasters: Yard[] = [];
@@ -94,9 +94,13 @@ export class CreateOrderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.minDate = this.addDays(new Date(),1);
-    this.maxDate = this.addDays(new Date(),15);
-    this.getUserInfo();
+    this.minDate = this.addDays(new Date(), 1);
+    this.maxDate = this.addDays(new Date(), 15);
+    this.currentUser.userId = parseInt(localStorage.getItem('userID'), 10);
+    this.currentUser.typeSyscode = parseInt(localStorage.getItem('roleID'), 10);
+    this.getAllCFSbyUserId();
+    this.getAllCFSPortsbyUserId();
+    this.getAllCFSYardsbyUserId();
     this.getMasterTypes();
     this.initialiseOrderForm();
     this.getAllTimeSlots();
@@ -312,7 +316,7 @@ export class CreateOrderComponent implements OnInit {
       profitRate: [''],
       profitMarginPercentage: [''],
       rateExcludingProfit: [''],
-      timeslotMasterId: ['',Validators.required],
+      timeslotMasterId: ['', Validators.required],
       containers: this.fb.array([]),
     });
     this.addFormControl();
@@ -354,15 +358,9 @@ export class CreateOrderComponent implements OnInit {
       profitRate: 0,
       profitMarginPercentage: 0,
       rateExcludingProfit: 0,
-      portTerminalId: order.portTerminalId ? order.portTerminalId : 0 ,
+      portTerminalId: order.portTerminalId ? order.portTerminalId : 0,
       timeslotMasterId: order.timeslotMasterId
     } as Order;
-  }
-
-  getLocations() {
-    this.getAllCFSbyUserId();
-    this.getAllCFSPortsbyUserId();
-    this.getAllCFSYardsbyUserId();
   }
 
   getAllWeightMasters() {
@@ -471,22 +469,12 @@ export class CreateOrderComponent implements OnInit {
     this._masterTypeService.getAllMasterTypes().subscribe(
       (masterTypes) => {
         this.masterTypes = masterTypes;
-        this.getLocations();
       },
       (err) => {
         console.log(err);
       }
     );
-  }
-
-  getUserInfo() {
-    this._userService.getUsersInfo().subscribe(
-      (loggedUser: User) => {
-        this.currentUser = loggedUser;
-        this.getLocations();
-      }
-    );
-  }
+  }  
 
   removeFormControl(i) {
     const containersArray = this.orderForm.controls.containers as FormArray;
@@ -519,7 +507,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
       console.log(order);
-        this.saveOrder(order);
+      this.saveOrder(order);
     } else {
       console.log(this.orderForm);
       this.openSnackBar('Invalid Form !', 'please review all fields');
