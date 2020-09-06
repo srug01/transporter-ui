@@ -20,7 +20,8 @@ import { AuthComponent } from '../auth/auth.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgModel, FormsModule } from '@angular/forms';
+import { NgModel, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 //import {NumbersOnly} from '../directives/numbersonly.directive';
 
@@ -50,7 +51,9 @@ import { NgModel, FormsModule } from '@angular/forms';
     MatCardModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   exports:[
     HeaderComponent,

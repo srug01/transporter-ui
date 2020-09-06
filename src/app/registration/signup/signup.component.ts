@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      mobileNumber: ['',  Validators.compose([Validators.pattern('[6-9]\\d{9}'), Validators.required])],
+      mobileNumber: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}'), Validators.required])],
       typeSyscode: []
     });
   }
@@ -50,7 +50,7 @@ export class SignupComponent implements OnInit {
       this._signupService.saveUser(this.signupForm.value).subscribe(
         (user) => {
           this.openSnackBar('Success !', 'User created successfully');
-          this._authService.login(user.email, this.signupForm.value.password)
+          this._authService.login(user.email, this.signupForm.value.password, this.signupForm.get('typeSyscode').value)
             .subscribe(
               (data) => {
                 this._router.navigate(['default']);

@@ -25,6 +25,7 @@
     "@ng-select/ng-select": "^4.0.1",
     "angular2-jwt": "^0.2.3",
     "aws-sdk": "^2.706.0",
+    "bootstrap": "^4.5.2",
     "dayjs": "^1.8.28",
     "highcharts": "^8.0.4",
     "highcharts-angular": "^2.4.0",
@@ -35,6 +36,7 @@
     "ng2-file-upload": "^1.4.0",
     "ngx-material-file-input": "^2.1.1",
     "ngx-take-until-destroy": "^5.4.0",
+    "ngx-toastr": "^13.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
