@@ -1,29 +1,46 @@
 <div class="main-div">
     <section layout="column" flex layout-align="center center" class="login">
-        <mat-card>
-            <mat-toolbar>
-                <div layout="column" layout-padding layout-align="center center">
-                    <div>
-                        <mat-icon class="logo">home</mat-icon>
+        <form [formGroup]="loginForm" (ngSubmit)="login()" (keyup.enter)="login()">
+            <mat-card>
+                <mat-toolbar>
+                    <div layout="column" layout-padding layout-align="center center">
+                        <div>
+                            <mat-icon class="logo">home</mat-icon>
+                        </div>
+                        <div>Login</div>
                     </div>
-                    <div>Login</div>
-                </div>
-            </mat-toolbar>
-            <mat-card-content>
-                <form name="login">
+                </mat-toolbar>
+                <mat-card-content>
                     <div class="container" fxLayout="column" fxLayoutGap="20px">
-                        <mat-form-field>
-                            <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Log In as:</mat-label>
+                            <mat-select formControlName="role">
+                                <mat-option *ngFor="let role of roles" [value]="role.value">
+                                    {{role.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="loginForm.get('role').errors !== null &&  loginForm.get('role').errors.required">
+                                Role Cannot be Blank!
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field>
-                            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+                            <input matInput formControlName="username" placeholder="Username" name="username" required>
+                            <mat-error *ngIf="loginForm.get('username').errors !== null &&  loginForm.get('username').errors.required">
+                                Email Cannot be Blank!
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput formControlName="password" placeholder="Password" type="password" name="password" required>
+                            <mat-error *ngIf="loginForm.get('password').errors !== null &&  loginForm.get('password').errors.required">
+                                Password Cannot be Blank!
+                            </mat-error>
                         </mat-form-field>
                     </div>
-                </form>
-            </mat-card-content>
-            <mat-card-actions class="footer">
-                <button mat-raised-button (click)="login()" color="primary">Login</button>
-            </mat-card-actions>
-        </mat-card>
+                </mat-card-content>
+                <mat-card-actions class="footer">
+                    <button mat-raised-button type="submit" color="primary">Login</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
     </section>
 </div>
