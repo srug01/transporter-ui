@@ -45,7 +45,11 @@ import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
           {
             path: 'settings', loadChildren: () => import('./../settings/settings.module')
               .then(m => m.SettingsModule), canActivate: [AuthGuardService]
-          }
+          },
+          {
+            path: 'reports', loadChildren: () => import('./../reports/reports.module')
+              .then(m => m.ReportsModule), canActivate: [AuthGuardService]
+          },
         ]
       }
     ]),

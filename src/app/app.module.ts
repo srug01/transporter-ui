@@ -42,6 +42,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { AppDateAdapter, AppDateFormats } from './shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { StartDialogComponent } from './shared/startDialog/start-dialog.component';
+
 //import {NumbersOnly} from './directives/numbersonly.directive';
 
 
@@ -63,7 +64,8 @@ const toasterConfig: MatSnackBarConfig = {
     SignupComponent,
     SignupHeaderComponent,
     SignupSidebarComponent,
-    StartDialogComponent
+    StartDialogComponent,
+
   ],
   imports: [
     BrowserModule,

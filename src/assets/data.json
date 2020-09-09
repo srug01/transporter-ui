@@ -1,0 +1,369 @@
+[
+  {
+     "data":{
+        "orderId":"2",
+        "Source":"CFS",
+        "Destination":"PORT",
+        "OrderDate":"2020-09-04 10:00:00",
+        "OrderTotal":"1000",
+        "Remarks":"4 SEP 10 - 11 AM",
+        "orderStatus": "ORDER_DELIVERED"
+     },
+     "kids":{
+        "has_SubOrders":{
+           "records":[
+              {
+                 "data":{
+                    "SubOrder ID":"3",
+                    "orderId":"2",
+                    "subOrderTotal":"450",
+                    "CutOffTime":"2020-09-01 02:25:25",
+                    "containerMasterName":"10 FT",
+                    "weightDesc":"10 Ton",
+                    "suborderStatus":"SUB_ORDER_BID_ASSIGNED"
+                 },
+                 "kids":{
+                    "has_bids":{
+                       "records":[
+                          {
+                             "data":{
+                              "Bid ID":"9",
+                              "SubOrder ID":"3",
+                                "bidName":"BID00000001",
+                                "bidValue":"430",
+                                "biduserStatus":"BID_USER_CONFIRMED",
+                                "bidStatus": "BID_ASSIGNED"
+                             },
+                             "kids":{
+
+                             }
+                          }
+                       ]
+                    }
+                 }
+              }
+           ]
+        }
+     }
+  },
+  {
+     "data":{
+      "orderId":"3",
+      "Source":"CFS",
+      "Destination":"PORT",
+      "OrderDate":"2020-09-04 10:00:00",
+      "OrderTotal":"1000",
+      "Remarks":"4 SEP 10 - 11 AM",
+      "orderStatus": "ORDER_DELIVERED"
+     },
+     "kids":{
+
+     }
+  },
+  {
+     "data":{
+      "orderId":"4",
+      "Source":"CFS",
+      "Destination":"PORT",
+      "OrderDate":"2020-09-04 10:00:00",
+      "OrderTotal":"1000",
+      "Remarks":"4 SEP 10 - 11 AM",
+      "orderStatus": "ORDER_DELIVERED"
+     },
+     "kids":{
+        "has_SubOrders":{
+           "records":[
+              {
+                 "data":{
+                  "SubOrder ID":"5",
+                  "orderId":"4",
+                  "subOrderTotal":"450",
+                  "CutOffTime":"2020-09-01 02:25:25",
+                  "containerMasterName":"10 FT",
+                  "weightDesc":"10 Ton",
+                  "suborderStatus":"SUB_ORDER_BID_ASSIGNED"
+                 },
+                 "kids":{
+                    "has_bids":{
+                       "records":[
+                          {
+                             "data":{
+                              "Bid ID":"10",
+                              "SubOrder ID":"5",
+                              "bidName":"BID00000010",
+                              "bidValue":"430",
+                              "biduserStatus":"BID_USER_CONFIRMED",
+                              "bidStatus": "BID_ASSIGNED"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"11",
+                              "SubOrder ID":"5",
+                              "bidName":"BID00000011",
+                              "bidValue":"380",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          }
+                       ]
+                    }
+                 }
+              },
+              {
+                 "data":{
+                  "SubOrder ID":"6",
+                  "orderId":"4",
+                  "subOrderTotal":"550",
+                  "CutOffTime":"2020-09-10 02:25:25",
+                  "containerMasterName":"20 FT",
+                  "weightDesc":"20 Ton",
+                  "suborderStatus":"SUB_ORDER_PENDING"
+                 },
+                 "kids":{
+                    "has_bids":{
+                       "records":[
+                          {
+                             "data":{
+                              "Bid ID":"12",
+                              "SubOrder ID":"6",
+                              "bidName":"BID00000012",
+                              "bidValue":"380",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"13",
+                              "SubOrder ID":"6",
+                              "bidName":"BID00000013",
+                              "bidValue":"380",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          }
+                       ]
+                    }
+                 }
+              },
+              {
+                 "data":{
+                  "SubOrder ID":"7",
+                  "orderId":"4",
+                  "subOrderTotal":"650",
+                  "CutOffTime":"2020-09-10 02:25:25",
+                  "containerMasterName":"40 FT",
+                  "weightDesc":"40 Ton",
+                  "suborderStatus":"SUB_ORDER_PENDING"
+                 },
+                 "kids":{
+                    "has_bids":{
+                       "records":[
+                          {
+                             "data":{
+                              "Bid ID":"15",
+                              "SubOrder ID":"7",
+                              "bidName":"BID00000015",
+                              "bidValue":"380",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"18",
+                              "SubOrder ID":"7",
+                              "bidName":"BID00000018",
+                              "bidValue":"380",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          }
+                       ]
+                    }
+                 }
+              }
+           ]
+        }
+     }
+  },
+  {
+     "data":{
+      "orderId":"7",
+      "Source":"YARD",
+      "Destination":"CFS",
+      "OrderDate":"2020-09-12 10:00:00",
+      "OrderTotal":"1000",
+      "Remarks":"12 SEP 10 - 11 AM",
+      "orderStatus": "ORDER_ASSIGNED"
+     },
+     "kids":{
+        "has_SubOrders":{
+           "records":[
+              {
+                 "data":{
+                  "SubOrder ID":"10",
+                  "orderId":"7",
+                  "subOrderTotal":"650",
+                  "CutOffTime":"2020-09-10 02:25:25",
+                  "containerMasterName":"40 FT",
+                  "weightDesc":"40 Ton",
+                  "suborderStatus":"SUB_ORDER_PENDING"
+                 },
+                 "kids":{
+                    "has_bids":{
+                       "records":[
+                          {
+                             "data":{
+                              "Bid ID":"20",
+                              "SubOrder ID":"10",
+                              "bidName":"BID00000020",
+                              "bidValue":"550",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"21",
+                              "SubOrder ID":"10",
+                              "bidName":"BID00000021",
+                              "bidValue":"540",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"22",
+                              "SubOrder ID":"10",
+                              "bidName":"BID00000022",
+                              "bidValue":"530",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"22",
+                              "SubOrder ID":"10",
+                              "bidName":"BID00000022",
+                              "bidValue":"520",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          }
+                       ]
+                    }
+                 }
+              }
+           ]
+        }
+     }
+  },
+
+  {
+     "data":{
+      "orderId":"9",
+      "Source":"CFS",
+      "Destination":"YARD",
+      "OrderDate":"2020-09-12 10:00:00",
+      "OrderTotal":"1000",
+      "Remarks":"12 SEP 13 - 14 PM",
+      "orderStatus": "ORDER_PENDING"
+     },
+     "kids":{
+        "has_SubOrders":{
+           "records":[
+              {
+                 "data":{
+                  "SubOrder ID":"25",
+                  "orderId":"9",
+                  "subOrderTotal":"650",
+                  "CutOffTime":"2020-09-10 02:25:25",
+                  "containerMasterName":"30 FT",
+                  "weightDesc":"30 Ton",
+                  "suborderStatus":"SUB_ORDER_PENDING"
+                 },
+                 "kids":{
+                    "has_bids":{
+                       "records":[
+                          {
+                             "data":{
+                              "Bid ID":"33",
+                              "SubOrder ID":"25",
+                              "bidName":"BID00000033",
+                              "bidValue":"450",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"34",
+                              "SubOrder ID":"25",
+                              "bidName":"BID00000034",
+                              "bidValue":"440",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          },
+                          {
+                             "data":{
+                              "Bid ID":"38",
+                              "SubOrder ID":"25",
+                              "bidName":"BID00000038",
+                              "bidValue":"400",
+                              "biduserStatus":"BID_USER_PENDING",
+                              "bidStatus": "BID_PENDING"
+                             },
+                             "kids":{
+
+                             }
+                          }
+                       ]
+                    }
+                 }
+              }
+           ]
+        }
+     }
+  }
+]
