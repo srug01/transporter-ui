@@ -38,7 +38,7 @@ export class StateMasterService {
     return this.http.get<Array<LocationMaster>>(`${this.baseUrl}state-masters/${stateMasterId}/location-masters`);
   }
 
-  getStateMastersById(id: number): Observable<any> {
+  getStateMastersById(id: number): Observable<State> {
     return this.http.get(this.baseUrl + 'state-masters/' + id);
   }
 

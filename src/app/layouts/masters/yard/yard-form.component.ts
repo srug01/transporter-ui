@@ -27,8 +27,10 @@ export class YardFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public yardForm: FormGroup;
   public portMasters: Array<any> = [];
-  public stateMasters: Array<State> = new Array<State>();
+  public stateMasters: Array<any> = [];
   public locationMasters: Array<any> = [];
+  public state:State;
+  public location: Location;
   public currentUser: User;
 
   constructor(
@@ -47,8 +49,8 @@ export class YardFormComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     this.getAllPortMasters();
-    // this.getAllStateMasters();
-    // this.getAllLocationMasters();
+      this.getAllStateMasters();
+    this.getAllLocationMasters();
     if (this.yardData) {
       this.yardForm = this.fb.group({
         yardMasterId: [this.yardData.yardMasterId ? this.yardData.yardMasterId : ''],
@@ -146,37 +148,41 @@ export class YardFormComponent implements OnInit {
 
     this._portService.getPortMastersById(portMasterId).subscribe(
       (portMaster) => {
-        console.log("First : " + portMaster.stateMasterId);
-        this._stateService.getStateMastersById(portMaster.stateMasterId).subscribe(
-          (stateArray: Array<State>) => {
-            this.stateMasters = stateArray;
-            console.log(this.stateMasters);
-            /* console.log("States : " +  stateArray[0]);
-            if(this.stateMasters.length === 1)
-            {
-              let state =  this.stateMasters[0];
-              console.log(state);
-              this.getAllLocationsByStateId(state.stateMasterId);
-            } */
-
-          },
-          (err) => {
-          }
-        );
+        this.getStatebyId(portMaster.stateMasterId);
+        this.getLocationbyId(portMaster.locationMasterId);
           },
       (err) => {
+        console.log(err);
       }
     );
 
   }
 
+  getStatebyId(stateId: number){
+     this.state = this.stateMasters.find(a=> a.stateMasterId == stateId);
+    if(this.state != null)
+    {
+      this.stateMasters = this.stateMasters.filter(s=> s.stateMasterId == stateId) ;
+      this.yardForm.get('stateMasterId').setValue(stateId);
+    }
+  }
 
+  getLocationbyId(locationId: number){
+    this.location = this.locationMasters.find(a=> a.locationMasterId == locationId);
+   if(this.location != null)
+   {
+     this.locationMasters = this.locationMasters.filter(l=> l.locationMasterId == locationId) ;
+     this.yardForm.get('locationMasterId').setValue(locationId);
+   }
+ }
 
   stateSelected(stateMasterId) {
     this.getAllLocationsByStateId(stateMasterId);
   }
   portSelected(portMasterId) {
-    console.log(portMasterId);
+
+    this.getAllStateMasters();
+    this.getAllLocationMasters();
     this.getStateAndLocationByPortId(portMasterId);
   }
 

@@ -55,6 +55,7 @@ export class UserRegistrationService {
     return this.http.get(this.baseUrl + '/MultipleTables/' + userid + "/" + roleid);
   }
 
+
   deleteCfsUserRegistrationById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'cfs-user-registrations/' + id, this.HttpUploadOptions);
   }

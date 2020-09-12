@@ -12,6 +12,7 @@ import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
+import { Cfs } from 'src/app/shared/models/cfs';
 
 @Component({
   selector: 'app-cfsportrate-form',
@@ -26,6 +27,7 @@ export class CfsportrateFormComponent implements OnInit {
   public portMasters: Array<any> = [];
   public weightMasters: Array<any> = [];
   public containerMaster: Array<any> = [];
+  public cfs: Cfs;
   public currentUser: User;
   constructor(
     private _ngZone: NgZone,
@@ -41,7 +43,7 @@ export class CfsportrateFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllPortMasters();
+    // this.getAllPortMasters();
     this.getAllCfsMasters();
     this.getAllContainerMasters();
     this.getUserInfo();
@@ -57,6 +59,7 @@ export class CfsportrateFormComponent implements OnInit {
         orderMarginRate: [this.cfsportrateData.orderMarginRate ? this.cfsportrateData.orderMarginRate : 0, Validators.required],
         isActive: [this.cfsportrateData.isActive ? this.cfsportrateData.isActive : '', Validators.required]
       });
+      this.getPortMasterForCfs(this.cfsportrateData.portMasterId);
       this.getAllWeightMastersbyContainerID(this.cfsportrateData.containerMasterId);
     } else {
       this.cfsrateForm = this.fb.group({
@@ -88,12 +91,31 @@ export class CfsportrateFormComponent implements OnInit {
     this._portService.getAllPortMasters().subscribe(
       (portMasters) => {
         this.portMasters = portMasters;
+
       },
       (err) => {
       }
     );
   }
 
+  getPortMasterForCfs(portId: number) {
+    this._portService.getAllPortMasters().subscribe(
+      (portMasters) => {
+        this.portMasters = portMasters;
+        this.portMasters = this.portMasters.filter(p=> p.portMasterId == portId);
+        this.cfsrateForm.get('portMasterId').setValue(portId);
+      },
+      (err) => {
+      }
+    );
+  }
+
+  cfsSelected(cfsId){
+     this.cfs = this.cfsMasters.find(a=> a.cfsMasterId == cfsId);
+    this.getPortMasterForCfs(this.cfs.portMasterId);
+
+
+  }
  /*  getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
       (weightMasters) => {

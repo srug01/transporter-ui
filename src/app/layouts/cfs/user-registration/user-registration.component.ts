@@ -11,6 +11,7 @@ import { CfsService } from './../../masters/services/cfs.service';
 import { User } from 'src/app/shared/models/user';
 import { Userrole } from 'src/app/shared/models/userrole';
 import { UserroleService } from './../../../services/userrole.service';
+import { MasterTypeService } from './../../cfs/services/master-type.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class UserRegistrationComponent implements OnInit {
   public cfsTypes: Array<Cfs> = [];
   public cfsData: Array<any> = [];
   public cfsRoles: Array<any> = [];
-
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -36,7 +37,8 @@ export class UserRegistrationComponent implements OnInit {
     private _userRoleService: UserroleService,
     private _cfsService: CfsService,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private _masterTypeService : MasterTypeService
 
   ) { }
 
@@ -63,7 +65,7 @@ export class UserRegistrationComponent implements OnInit {
     }, {
       validator: this.checkPasswords
     });
-    this.getAllCfsMasters();
+    this.getAllCFSbyUserId();
     this.getAllcfsRoles();
     // this.getCfsData();
   }
@@ -78,6 +80,17 @@ export class UserRegistrationComponent implements OnInit {
         this.cfsTypes = cfsTypes;
       },
       (err) => {
+      }
+    );
+  }
+
+  getAllCFSbyUserId() {
+    this._masterTypeService.getAllCFSbyUserId(this.userId).subscribe(
+      (cfsMasters) => {
+        this.cfsTypes = cfsMasters;
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }

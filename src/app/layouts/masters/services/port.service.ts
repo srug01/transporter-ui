@@ -3,6 +3,8 @@ import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +42,13 @@ export class PortService {
   getPortMastersById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'port-masters/' + id);
   }
+
+  getPortbyId(id: number) {
+    return this.http.get(this.baseUrl + 'port-masters/' + id)
+               .pipe(map((data: any) => data.result ),
+                     catchError(error => { return throwError('Its a Trap!')})
+               );
+   }
 
   deletePortMastersById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'port-masters/' + id);
