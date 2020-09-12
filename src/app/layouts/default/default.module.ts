@@ -15,12 +15,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
     DefaultComponent,
     DashboardComponent,
-    PostsComponent
+    PostsComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
@@ -28,27 +30,46 @@ import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
       {
         path: 'default', component: DefaultComponent,
         children: [
-          { path: '', component: DashboardComponent, resolve: { dashboardResolver: DashboardResolver } },
-          { path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule), canActivate: [AuthGuardService] },
+          {
+            path: '', component: DashboardComponent, resolve: { dashboardResolver: DashboardResolver },
+            data: { breadcrumb: 'home' }
+          },
+          {
+            path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule), canActivate: [AuthGuardService],
+            data: { breadcrumb: 'cfs' }
+          },
           {
             path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')
-              .then(m => m.TransporterModule), canActivate: [AuthGuardService]
+              .then(m => m.TransporterModule), canActivate: [AuthGuardService],
+            data: { breadcrumb: 'transporter' }
           },
           {
             path: 'masters', loadChildren: () => import('./../masters/master.module')
-              .then(m => m.MasterModule), canActivate: [AuthGuardService]
+              .then(m => m.MasterModule), canActivate: [AuthGuardService],
+            data: { breadcrumb: 'masters' }
           },
           {
             path: 'profile', loadChildren: () => import('./../profile/profile.module')
-              .then(m => m.ProfileModule), canActivate: [AuthGuardService]
+              .then(m => m.ProfileModule), canActivate: [AuthGuardService],
+            data: {
+              title: 'profile',
+              breadcrumb: [
+                {
+                  label: 'profile',
+                  url: ''
+                }
+              ]
+            }
           },
           {
             path: 'settings', loadChildren: () => import('./../settings/settings.module')
-              .then(m => m.SettingsModule), canActivate: [AuthGuardService]
+              .then(m => m.SettingsModule), canActivate: [AuthGuardService],
+            data: { breadcrumb: 'settings' }
           },
           {
             path: 'reports', loadChildren: () => import('./../reports/reports.module')
-              .then(m => m.ReportsModule), canActivate: [AuthGuardService]
+              .then(m => m.ReportsModule), canActivate: [AuthGuardService],
+            data: { breadcrumb: 'reports' }
           },
         ]
       }

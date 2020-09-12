@@ -112,18 +112,18 @@
             </mat-menu>
         </div>
         <div>
-          <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu8">
-              <div class="icon">
-                  <i class="fas fa fa-road md-24" aria-hidden="true"></i>
-              </div>
-              <div class="link">
-                  <p class="menu-text">Reports</p>
-              </div>
-          </div>
-          <mat-menu #menu8="matMenu">
-              <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item>Order Report</button>
-          </mat-menu>
-      </div>
+            <div mat-list-item class="menu-item" routerLinkActive="list-item-active" [matMenuTriggerFor]="menu8">
+                <div class="icon">
+                    <i class="fas fa fa-road md-24" aria-hidden="true"></i>
+                </div>
+                <div class="link">
+                    <p class="menu-text">Reports</p>
+                </div>
+            </div>
+            <mat-menu #menu8="matMenu">
+                <button *ngIf="currentUser.typeSyscode === 1" mat-menu-item>Order Report</button>
+            </mat-menu>
+        </div>
     </div>
     <mat-divider></mat-divider>
 </mat-nav-list>
@@ -134,7 +134,7 @@
 </mat-menu>
 <mat-menu #vehicles="matMenu">
     <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
-    <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
+    <button mat-menu-item routerLink='/default/transporter/register-vehicle/list'>Vehicle List</button>
 </mat-menu>
 <mat-menu #userRegistrations="matMenu">
     <button mat-menu-item routerLink='/default/cfs/register-user'>User Registration</button>

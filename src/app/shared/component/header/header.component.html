@@ -104,13 +104,13 @@
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 1" class="menu-item">
-                  <div class="menu-text" mat-list-item [matMenuTriggerFor]="reports">
-                      <p>Reports</p>
-                  </div>
-                  <mat-menu #reports="matMenu">
-                    <button mat-menu-item routerLink='/default/reports'>Order Report</button>
-                  </mat-menu>
-              </li>
+                    <div class="menu-text" mat-list-item [matMenuTriggerFor]="reports">
+                        <p>Reports</p>
+                    </div>
+                    <mat-menu #reports="matMenu">
+                        <button mat-menu-item routerLink='/default/reports'>Order Report</button>
+                    </mat-menu>
+                </li>
             </ul>
         </div>
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
@@ -173,7 +173,7 @@
 
 <mat-menu #vehicles="matMenu">
     <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
-    <button mat-menu-item routerLink='/default/transporter/vehicle-list'>Vehicle List</button>
+    <button mat-menu-item routerLink='/default/transporter/register-vehicle/list'>Vehicle List</button>
 </mat-menu>
 
 <mat-menu #transporterRegistrations="matMenu">
@@ -183,15 +183,15 @@
 </mat-menu>
 
 <mat-menu #rateMasters="matMenu">
-    <button mat-menu-item routerLink='/default/masters/cfs-port-rate/list'>CFS Port Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/port-cfs-rate/list'>Port CFS Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/yardcfsrate/list'>Yard CFS Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/cfs-yard-rate/list'>CFS Yard Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/diesel/list'>Diesel Rate Master</button>
+    <button mat-menu-item routerLink='/default/masters/cfs-port-rate/cfs-port-rate-list'>CFS Port Rate Master</button>
+    <button mat-menu-item routerLink='/default/masters/port-cfs-rate/port-cfs-rate-list'>Port CFS Rate Master</button>
+    <button mat-menu-item routerLink='/default/masters/yardcfsrate/yardcfsrate-list'>Yard CFS Rate Master</button>
+    <button mat-menu-item routerLink='/default/masters/cfs-yard-rate/cfs-yard-rate-list'>CFS Yard Rate Master</button>
+    <button mat-menu-item routerLink='/default/masters/diesel/diesel-list'>Diesel Rate Master</button>
 </mat-menu>
 <mat-menu #locationMasters="matMenu">
-    <button mat-menu-item routerLink='/default/masters/location/list'>Location Master</button>
-    <button mat-menu-item routerLink='/default/masters/port/list'>Port Master</button>
+    <button mat-menu-item routerLink='/default/masters/location/location-list'>Location Master</button>
+    <button mat-menu-item routerLink='/default/masters/port/port-list'>Port Master</button>
     <button mat-menu-item routerLink='/default/masters/portterminalmaster/list'>Port Terminal Master</button>
     <button mat-menu-item routerLink='/default/masters/state-master-list'>State Master</button>
     <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>

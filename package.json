@@ -35,6 +35,7 @@
     "material-design-icons-iconfont": "^5.0.1",
     "material-icons": "^0.3.1",
     "ng2-file-upload": "^1.4.0",
+    "ng7-mat-breadcrumb": "^3.0.0",
     "ngx-material-file-input": "^2.1.1",
     "ngx-nested-data-table": "0.0.8",
     "ngx-take-until-destroy": "^5.4.0",

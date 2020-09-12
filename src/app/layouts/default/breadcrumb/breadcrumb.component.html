@@ -1,0 +1,15 @@
+<!-- <nav aria-label='breadcrumb'>
+    <ul class='breadcrumb'>
+        <li *ngFor='let breadcrumb of breadcrumbs'>
+            <a [routerLink]='[breadcrumb.url, breadcrumb.params]' routerLinkActive='active'>{{ breadcrumb.label }}</a>
+        </li>
+    </ul>
+</nav> -->
+
+<div class="breadcrumbs">
+    <ul class="steps">
+        <li class="step" *ngFor='let breadcrumb of breadcrumbs'>
+            <a [routerLink]="[breadcrumb.url ? breadcrumb.url : ' ']" routerLinkActive='active'>{{ breadcrumb.label }}</a>
+        </li>
+    </ul>
+</div>

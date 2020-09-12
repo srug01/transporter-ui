@@ -213,8 +213,7 @@ export class OrderListComponent implements OnInit {
 
   searchUserById(userId): string {
     for (let i = 0; i < this.users.length; i++) {
-      if (this.users[i].userId === userId) {
-        console.log(this.users[i]);        
+      if (this.users[i].userId === userId) {        
         return `${this.users[i].email}`;
       }
     }
