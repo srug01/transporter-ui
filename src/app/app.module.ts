@@ -42,11 +42,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { AppDateAdapter, AppDateFormats } from './shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { StartDialogComponent } from './shared/startDialog/start-dialog.component';
-<<<<<<< HEAD
-
-=======
 import { ToastrModule } from 'ngx-toastr';
->>>>>>> b092abd6f2e476fbae82fe341e8db11d21c3f450
 //import {NumbersOnly} from './directives/numbersonly.directive';
 
 

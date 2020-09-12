@@ -199,7 +199,7 @@ const routes: Routes = [
     path: 'port', component: PortComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: PortMasterListComponent },
+      { path: 'port-list', component: PortMasterListComponent },
       { path: 'new', component: PortNewComponent },
       { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
       { path: 'details/:id', component: PortDetailsComponent }
@@ -209,7 +209,7 @@ const routes: Routes = [
     path: 'location', component: PortComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: LocationListComponent },
+      { path: 'location-list', component: LocationListComponent },
       { path: 'new', component: LocationNewComponent },
       { path: 'edit/:id', component: LocationEditComponent, resolve: { locationResolver: LocationResolver } },
       { path: 'details/:id', component: LocationDetailsComponent }
@@ -291,7 +291,7 @@ const routes: Routes = [
     path: 'yardcfsrate', component: YardcfsrateComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: YardcfsrateMasterListComponent },
+      { path: 'yardcfsratelist', component: YardcfsrateMasterListComponent },
       { path: 'new', component: YardcfsrateNewComponent },
       {
         path: 'edit/:id', component: YardcfsrateEditComponent,
@@ -304,7 +304,7 @@ const routes: Routes = [
     path: 'cfs-port-rate', component: CfsportrateComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: CfsportrateMasterListComponent },
+      { path: 'cfs-port-rate-list', component: CfsportrateMasterListComponent },
       { path: 'new', component: CfsportrateNewComponent },
       {
         path: 'edit/:id', component: CfsportrateEditComponent,
@@ -357,7 +357,7 @@ const routes: Routes = [
     path: 'diesel', component: DieselComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: DieselMasterListComponent },
+      { path: 'diesel-list', component: DieselMasterListComponent },
       { path: 'new', component: DieselNewComponent },
       {
         path: 'edit/:id', component: DieselEditComponent,

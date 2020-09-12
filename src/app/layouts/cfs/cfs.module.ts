@@ -34,14 +34,13 @@ import { CommonSharedModule } from 'src/app/shared/common.shared.module';
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
 const routes: Routes = [
-  { path: '', component: CfsComponent },
-  { path: 'create-order', component: CreateOrderComponent },
-  { path: 'register-user', component: UserRegistrationComponent },
-  { path: 'user-list', component: UserRegistrationListComponent },
-  { path: 'order-list', component: OrderListComponent },
-  { path: ':id/edit', component: EditOrderComponent },
-  { path: ':id/order-details', component: OrderDetailsComponent },
-  { path: 'user-list', component: UserRegistrationListComponent }
+  { path: '', component: CfsComponent,data: { breadcrumb: 'cfs' } },
+  { path: 'create-order', component: CreateOrderComponent,data: { breadcrumb: 'create-order' } },
+  { path: 'register-user', component: UserRegistrationComponent,data: { breadcrumb: 'user-registration' } },
+  { path: 'user-list', component: UserRegistrationListComponent,data: { breadcrumb: 'user-list' } },
+  { path: 'order-list', component: OrderListComponent,data: { breadcrumb: 'order-list' } },
+  { path: ':id/edit', component: EditOrderComponent,data: { breadcrumb: 'edit-order' } },
+  { path: ':id/order-details', component: OrderDetailsComponent,data: { breadcrumb: 'order-details' } }
 ];
 
 
