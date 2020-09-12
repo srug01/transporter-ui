@@ -48,7 +48,7 @@ export class PortFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocations();
+    // this.getLocations();
     this.getAllStateMasters();
     this.getUserInfo();
     if (this.portData) {
@@ -56,12 +56,12 @@ export class PortFormComponent implements OnInit {
         portMasterId: [this.portData.portMasterId ? this.portData.portMasterId : ''],
         portName: [this.portData.portName ? this.portData.portName : '', Validators.required],
         address1: [this.portData.address1 ? this.portData.address1 : '', Validators.required],
-        address2: [this.portData.address2 ? this.portData.address2 : '', Validators.required],
-        landmark: [this.portData.landmark ? this.portData.landmark : '', Validators.required],
+        address2: [this.portData.address2 ? this.portData.address2 : ''],
+        landmark: [this.portData.landmark ? this.portData.landmark : ''],
         pincode: [this.portData.pincode ? this.portData.pincode : '',
           Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])],
-        latitude: [this.portData.latitude ? this.portData.latitude : '', Validators.required],
-        longitude: [this.portData.longitude ? this.portData.longitude : '', Validators.required],
+        latitude: [this.portData.latitude ? this.portData.latitude : ''],
+        longitude: [this.portData.longitude ? this.portData.longitude : ''],
         stateMasterId: [this.portData.stateMasterId ? this.portData.stateMasterId : '', Validators.required],
         locationMasterId: [this.portData.locationMasterId ? this.portData.locationMasterId : '', Validators.required],
         isActive: [this.portData.isActive ? this.portData.isActive : '', Validators.required],
@@ -69,16 +69,17 @@ export class PortFormComponent implements OnInit {
         primarycontactnumber: [this.portData.primarycontactnumber ? this.portData.primarycontactnumber : '', Validators.required],
 
       });
+      this.getAllLocationsByStateId(this.portData.stateMasterId );
     } else {
       this.portForm = this.fb.group({
         portMasterId: [''],
         portName: ['', Validators.required],
         address1: ['', Validators.required],
-        address2: ['', Validators.required],
-        landmark: ['', Validators.required],
-        pincode: ['', Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])], 
-        latitude: ['', Validators.required],
-        longitude: ['', Validators.required],
+        address2: [''],
+        landmark: [''],
+        pincode: ['', Validators.compose([Validators.pattern('[0-9]\\d{5}'), Validators.required])],
+        latitude: [''],
+        longitude: [''],
         stateMasterId: ['', Validators.required],
         locationMasterId: ['', Validators.required],
         isActive: ['', Validators.required],

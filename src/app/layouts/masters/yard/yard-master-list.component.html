@@ -29,7 +29,7 @@
             <!-- Name Column  check-->
             <ng-container matColumnDef="yardName">
                 <th mat-header-cell *matHeaderCellDef> Yard Name </th>
-                <td mat-cell *matCellDef="let element"><a [routerLink]="['/default/masters/yard/details/',element.yardMasterId]">{{element.yardName}}</a>
+                <td mat-cell *matCellDef="let element">{{element.yardName}}
                 </td>
             </ng-container>
 

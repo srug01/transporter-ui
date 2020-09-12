@@ -22,7 +22,7 @@
                   />
                 </mat-form-field> -->
                 <mat-form-field>
-                    <mat-label>Port</mat-label>
+                    <mat-label class="required">Port</mat-label>
                     <mat-select formControlName="portMasterId" [errorStateMatcher]="matcher">
                       <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
                         {{ port.portName }}
@@ -49,7 +49,7 @@
                       placeholder="Longitude"
                       formControlName="longitude"
                       name="name"
-                      required
+
                     />
                   </mat-form-field>
               </div>
@@ -60,7 +60,7 @@
                       placeholder="latitude"
                       formControlName="latitude"
                       name="name"
-                      required
+
                     />
                   </mat-form-field>
               </div>
@@ -77,4 +77,3 @@
       </mat-card>
     </div>
   </div>
-  

@@ -38,8 +38,8 @@
     "ngx-material-file-input": "^2.1.1",
     "ngx-nested-data-table": "0.0.8",
     "ngx-take-until-destroy": "^5.4.0",
-    "npm": "^6.14.8",
     "ngx-toastr": "^13.0.0",
+    "npm": "^6.14.8",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

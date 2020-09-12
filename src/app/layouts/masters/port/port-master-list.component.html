@@ -35,13 +35,7 @@
       <ng-container matColumnDef="portName">
         <th mat-header-cell *matHeaderCellDef>Port Name</th>
         <td mat-cell *matCellDef="let element">
-          <a
-            [routerLink]="[
-              '/default/masters/port/details/',
-              element.portMasterId
-            ]"
-            >{{ element.portName }}</a
-          >
+         {{ element.portName }}
         </td>
       </ng-container>
       <ng-container matColumnDef="address1">

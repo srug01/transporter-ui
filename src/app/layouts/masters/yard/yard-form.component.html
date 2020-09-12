@@ -14,8 +14,8 @@
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <mat-label>Port</mat-label>
-                                <mat-select formControlName="portMasterId" [errorStateMatcher]="matcher">
+                                <mat-label class="required">Port</mat-label>
+                                <mat-select formControlName="portMasterId" [errorStateMatcher]="matcher" (valueChange)="portSelected($event)">
                                     <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
                                         {{ port.portName }}
                                     </mat-option>
@@ -30,35 +30,36 @@
 
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Address2" formControlName="address2" name="address2" required />
+                                <input matInput placeholder="Address2" formControlName="address2" name="address2"  />
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="LandMark" formControlName="landmark" name="landmark" required />
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="50" fxFlex.lt-sm="100">
-                            <mat-form-field>
-                                <mat-label>Location</mat-label>
-                                <mat-select formControlName="locationMasterId" [errorStateMatcher]="matcher">
-                                    <mat-option *ngFor="let location of locationMasters" [value]="location.locationMasterId">
-                                        {{ location.locationName }}
-                                    </mat-option>
-                                </mat-select>
+                                <input matInput placeholder="LandMark" formControlName="landmark" name="landmark"  />
                             </mat-form-field>
                         </div>
 
+
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <mat-label>State</mat-label>
-                                <mat-select formControlName="stateMasterId" [errorStateMatcher]="matcher">
+                                <mat-label class="required">State</mat-label>
+                                <mat-select formControlName="stateMasterId" [errorStateMatcher]="matcher" (valueChange)="stateSelected($event)">
                                     <mat-option *ngFor="let state of stateMasters" [value]="state.stateMasterId">
                                         {{ state.stateName }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                          <mat-form-field>
+                              <mat-label class="required">Location</mat-label>
+                              <mat-select formControlName="locationMasterId" [errorStateMatcher]="matcher">
+                                  <mat-option *ngFor="let location of locationMasters" [value]="location.locationMasterId">
+                                      {{ location.locationName }}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                      </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <input matInput placeholder="Pincode" formControlName="pincode" name="pincode" required />
@@ -69,12 +70,12 @@
 
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Latiutude" formControlName="latitude" name="latitude" required />
+                                <input matInput placeholder="Latiutude" formControlName="latitude" name="latitude"  />
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Longitude" formControlName="longitude" name="longitude" required />
+                                <input matInput placeholder="Longitude" formControlName="longitude" name="longitude"  />
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">

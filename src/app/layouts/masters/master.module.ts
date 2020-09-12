@@ -144,7 +144,7 @@ import { PortterminalmasterEditComponent } from './portterminalmaster/porttermin
 import { PortterminalmasterFormComponent } from './portterminalmaster/portterminalmaster-form.component';
 import { PortterminalmasterNewComponent } from './portterminalmaster/portterminalmaster-new.component';
 import { PortterminalmasterListComponent } from './portterminalmaster/portterminalmaster-list.component';
-import { portTerminalMasterResolver } from './resolvers/portTermianlaMasterResolver.resolver';
+import { PortTerminalMasterResolver } from './resolvers/portTerminalMaster.resolver';
 import { PortcfsrateComponent } from './portcfsrate/portcfsrate.component';
 import { PortcfsrateNewComponent } from './portcfsrate/portcfsrate-new.component';
 import { PortcfsrateMasterListComponent } from './portcfsrate/portcfsrate-master-list.component';
@@ -188,7 +188,7 @@ const routes: Routes = [
       { path: 'list', component: PortterminalmasterListComponent },
       { path: 'new', component: PortterminalmasterNewComponent },
       { path: 'edit/:id', component: PortterminalmasterEditComponent,
-       resolve: { PortterminalmasterResolver:  portTerminalMasterResolver} },
+       resolve: { portTerminalMasterResolver : PortTerminalMasterResolver  } },
       { path: 'details/:id', component: PortterminalmasterDetailsComponent }
     ]
   },
@@ -564,7 +564,7 @@ const routes: Routes = [
     YardCFSRatesResolver,
     CfsResolver,
     CfsPortRateResolver,
-    portTerminalMasterResolver,
+    PortTerminalMasterResolver,
     CfsYardRateResolver,
     PortCfsRateResolver,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig }

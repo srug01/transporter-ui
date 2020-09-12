@@ -13,6 +13,7 @@ import { PortService } from '../services/port.service';
 import { StateMasterService } from '../services/state-master.service';
 import { LocationService } from '../services/location.service';
 import { User } from 'src/app/shared/models/user';
+import { State } from 'src/app/shared/models/state';
 
 
 
@@ -26,7 +27,7 @@ export class YardFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public yardForm: FormGroup;
   public portMasters: Array<any> = [];
-  public stateMasters: Array<any> = [];
+  public stateMasters: Array<State> = new Array<State>();
   public locationMasters: Array<any> = [];
   public currentUser: User;
 
@@ -46,15 +47,15 @@ export class YardFormComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     this.getAllPortMasters();
-    this.getAllStateMasters();
-    this.getAllLocationMasters();
+    // this.getAllStateMasters();
+    // this.getAllLocationMasters();
     if (this.yardData) {
       this.yardForm = this.fb.group({
         yardMasterId: [this.yardData.yardMasterId ? this.yardData.yardMasterId : ''],
         yardName: [this.yardData.yardName ? this.yardData.yardName : '', Validators.required],
         portMasterId: [this.yardData.portMasterId ? this.yardData.portMasterId : '', Validators.required],
         isActive: [this.yardData.isActive ? this.yardData.isActive : '', Validators.required],
-        address1: [this.yardData.address1 ? this.yardData.address1 : ''],
+        address1: [this.yardData.address1 ? this.yardData.address1 : '', Validators.required],
         address2: [this.yardData.address2 ? this.yardData.address2 : ''],
         landmark: [this.yardData.landmark ? this.yardData.landmark : ''],
         locationMasterId: [this.yardData.locationMasterId ? this.yardData.locationMasterId : '', Validators.required],
@@ -70,13 +71,15 @@ export class YardFormComponent implements OnInit {
         primarycontactperson: [this.yardData.primarycontactperson ? this.yardData.primarycontactperson : '', Validators.required],
         primarycontactnumber: [this.yardData.primarycontactnumber ? this.yardData.primarycontactnumber : '', Validators.required],
       });
+      this.getStateAndLocationByPortId(this.yardData.portMasterId);
+
     } else {
       this.yardForm = this.fb.group({
         yardMasterId: [''],
         yardName: ['', Validators.required],
         portMasterId: ['', Validators.required],
         isActive: ['', Validators.required],
-        address1: [''],
+        address1: ['', Validators.required],
         address2: [''],
         landmark: [''],
         locationMasterId: ['', Validators.required],
@@ -126,6 +129,55 @@ export class YardFormComponent implements OnInit {
         console.log('could not fetch location masters');
       }
     );
+  }
+
+
+  getAllLocationsByStateId(stateMasterId: number) {
+    this._stateService.getAllLocationMastersByStateId(stateMasterId).subscribe(
+      (locationMasters) => {
+        this.locationMasters = locationMasters;
+      },
+      (err) => {
+      }
+    );
+  }
+
+  getStateAndLocationByPortId(portMasterId: number) {
+
+    this._portService.getPortMastersById(portMasterId).subscribe(
+      (portMaster) => {
+        console.log("First : " + portMaster.stateMasterId);
+        this._stateService.getStateMastersById(portMaster.stateMasterId).subscribe(
+          (stateArray: Array<State>) => {
+            this.stateMasters = stateArray;
+            console.log(this.stateMasters);
+            /* console.log("States : " +  stateArray[0]);
+            if(this.stateMasters.length === 1)
+            {
+              let state =  this.stateMasters[0];
+              console.log(state);
+              this.getAllLocationsByStateId(state.stateMasterId);
+            } */
+
+          },
+          (err) => {
+          }
+        );
+          },
+      (err) => {
+      }
+    );
+
+  }
+
+
+
+  stateSelected(stateMasterId) {
+    this.getAllLocationsByStateId(stateMasterId);
+  }
+  portSelected(portMasterId) {
+    console.log(portMasterId);
+    this.getStateAndLocationByPortId(portMasterId);
   }
 
   getUserInfo() {

@@ -15,7 +15,7 @@ public portterminalmaster : PortTerminalMaster;
   ) { }
 
   ngOnInit(): void {
-    this.portterminalmaster = this.route.snapshot.data['portTermianlaMasterResolver'];   
+    this.portterminalmaster = this.route.snapshot.data['portTerminalMasterResolver'];
   }
 
 }

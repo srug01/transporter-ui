@@ -46,13 +46,13 @@ export class PortterminalmasterFormComponent implements OnInit {
         Validators.required],
         latitude: [this.portterminalmasterData.latitude],
         longitude: [this.portterminalmasterData.longitude],
-        terminal: [this.portterminalmasterData.terminal],
+        terminal: [this.portterminalmasterData.terminal,Validators.required],
         isActive: [this.portterminalmasterData.isActive ?
           this.portterminalmasterData.isActive : '', Validators.required],
-        createdBy: [],
-        createdOn: [],
-        modifiedBy: [],
-        modifiedOn: []
+        // createdBy: [],
+        // createdOn: [],
+        // modifiedBy: [],
+        // modifiedOn: []
       });
     } else {
       this.portterminalmasterForm = this.fb.group({
@@ -60,12 +60,12 @@ export class PortterminalmasterFormComponent implements OnInit {
         portMasterId: ['', Validators.required],
         latitude: [''],
         longitude: [''],
-        terminal: [''],
+        terminal: ['',  Validators.required],
         isActive: ['', Validators.required],
-        createdBy: [],
-        createdOn: [],
-        modifiedBy: [],
-        modifiedOn: []
+        // createdBy: [],
+        // createdOn: [],
+        // modifiedBy: [],
+        // modifiedOn: []
       });
     }
   }

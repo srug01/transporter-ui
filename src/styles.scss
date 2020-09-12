@@ -61,6 +61,15 @@ a {
     justify-content: space-between;
 }
 
+label span.mat-form-field-required-marker{
+  color:red;
+}
+
+.required:after {
+  content:" *";
+  color: red;
+}
+
 @media(max-width: 768px) {
     body {
         padding: 0px;

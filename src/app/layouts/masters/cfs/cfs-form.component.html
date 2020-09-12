@@ -9,20 +9,20 @@
                     <div fxLayout="row wrap" fxLayoutGap="8px grid">
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Cfs Name" formControlName="cfsName" name="name" required />
+                                <input matInput placeholder="Cfs Name" formControlName="cfsName" name="name" required >
                                 <mat-error *ngIf="cfsForm.get('cfsName').errors !== null &&  cfsForm.get('cfsName').errors.required">Please Enter Name</mat-error>
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="Contact No" formControlName="contactNumber" name="Contact No" />
+                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="Contact No" formControlName="contactNumber" name="Contact No" required />
                                 <mat-error *ngIf="cfsForm.get('contactNumber').errors !== null &&  cfsForm.get('contactNumber').errors.pattern">Please Enter valid phone number</mat-error>
                                 <mat-error *ngIf="cfsForm.get('contactNumber').errors !== null &&  cfsForm.get('contactNumber').errors.required">Please Enter mobile number</mat-error>
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Email ID" formControlName="email" name="Email ID" />
+                                <input matInput placeholder="Email ID" formControlName="email" name="Email ID" required />
                                 <mat-error *ngIf="cfsForm.get('email').errors !== null &&  cfsForm.get('email').errors.pattern">Please Enter valid Email</mat-error>
                                 <mat-error *ngIf="cfsForm.get('email').errors !== null &&  cfsForm.get('email').errors.required">Please Enter Email</mat-error>
                             </mat-form-field>
@@ -35,8 +35,8 @@
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Address2" formControlName="address2" name="Address2" required />
-                                <mat-error *ngIf="cfsForm.get('address2').errors !== null &&  cfsForm.get('address2').errors.required">Please Enter Address2</mat-error>
+                                <input matInput placeholder="Address2" formControlName="address2" name="Address2" />
+                                <!-- <mat-error *ngIf="cfsForm.get('address2').errors !== null &&  cfsForm.get('address2').errors.required">Please Enter Address2</mat-error> -->
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
@@ -47,7 +47,7 @@
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <mat-label>Location</mat-label>
+                                <mat-label class="required">Location</mat-label>
                                 <mat-select formControlName="locationMasterId" [errorStateMatcher]="matcher">
                                     <mat-option *ngFor="let location of locations" [value]="location.locationMasterId">
                                         {{ location.locationName }}
@@ -58,7 +58,7 @@
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <mat-label>State</mat-label>
+                                <mat-label class="required">State</mat-label>
                                 <mat-select formControlName="stateMasterId" [errorStateMatcher]="matcher">
                                     <mat-option *ngFor="let state of stateMasters" [value]="state.stateMasterId">
                                         {{ state.stateName }}
@@ -69,19 +69,19 @@
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Latitude" formControlName="latitude" name="latitude" required />
-                                <mat-error *ngIf="cfsForm.get('latitude').errors !== null &&  cfsForm.get('latitude').errors.required">Please Enter latitude</mat-error>
+                                <input matInput placeholder="Latitude" formControlName="latitude" name="latitude" />
+                                <!-- <mat-error *ngIf="cfsForm.get('latitude').errors !== null &&  cfsForm.get('latitude').errors.required">Please Enter latitude</mat-error> -->
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput placeholder="Longitude" formControlName="longitude" name="longitude" required />
-                                <mat-error *ngIf="cfsForm.get('longitude').errors !== null &&  cfsForm.get('longitude').errors.required">Please Enter longitude</mat-error>
+                                <input matInput placeholder="Longitude" formControlName="longitude" name="longitude" />
+                                <!-- <mat-error *ngIf="cfsForm.get('longitude').errors !== null &&  cfsForm.get('longitude').errors.required">Please Enter longitude</mat-error> -->
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="PinCode" formControlName="pincode" name="PinCode" />
+                                <input matInput NumbersOnly [allowDecimals]="false" [allowSign]="true" placeholder="PinCode" formControlName="pincode" name="PinCode" required />
                                 <mat-error *ngIf="cfsForm.get('pincode').errors !== null &&  cfsForm.get('pincode').errors.pattern">Please Enter valid Pin Code</mat-error>
                                 <mat-error *ngIf="cfsForm.get('pincode').errors !== null &&  cfsForm.get('pincode').errors.required">Please Enter Pin Coder</mat-error>
                             </mat-form-field>
@@ -132,7 +132,7 @@
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
-                                <mat-label>Port</mat-label>
+                                <mat-label class="required">Port</mat-label>
                                 <mat-select formControlName="portMasterId" [errorStateMatcher]="matcher">
                                     <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
                                         {{ port.portName }}

@@ -29,7 +29,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="Location Name">
                 <th mat-header-cell *matHeaderCellDef> Location ID </th>
-                <td mat-cell *matCellDef="let element"><a [routerLink]="['/default/masters/port/details/',element.locationMasterId]">{{element.locationName}}</a>
+                <td mat-cell *matCellDef="let element">{{element.locationName}}
                 </td>
             </ng-container>
 
