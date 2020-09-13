@@ -1,6 +1,6 @@
 <mat-card class="example-card">
     <mat-card-header>
-        <mat-card-title>CFS Management</mat-card-title>
+        <mat-card-title>Add CFS User</mat-card-title>
         <mat-card-subtitle>User Registration</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -9,7 +9,7 @@
                 <div fxLayout='row' fxLayoutGap="10px">
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
-                            <mat-label>CFS Type</mat-label>
+                            <mat-label class="required">CFS Name</mat-label>
                             <mat-select matNativeControl formControlName="cfsMasterId" [errorStateMatcher]="cfsTypeErrormatcher">
                                 <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfsMasterId">
                                     {{cfs.cfsName}}
@@ -21,7 +21,7 @@
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
-                            <mat-label>User Type</mat-label>
+                            <mat-label class="required">User Type</mat-label>
                             <mat-select matNativeControl formControlName="userTypeId" [errorStateMatcher]="userTypeErrormatcher">
                                 <mat-option *ngFor="let role of cfsRoles" [value]="role.roleId">
                                     {{role.roleName}}
@@ -35,7 +35,7 @@
                 <div fxLayout='row'>
                     <mat-form-field class="demo-full-width">
                         <mat-label>Name</mat-label>
-                        <input matInput type="text" formControlName="cfsUserName" placeholder="Enter Name">
+                        <input matInput type="text" formControlName="cfsUserName" placeholder="Enter Name" required>
                     </mat-form-field>
                 </div>
                 <div fxLayout='row' fxLayoutGap="10px">
@@ -56,7 +56,7 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Mobile Number</mat-label>
-                            <input matInput formControlName="cfsUserMobileNumber" placeholder="Mobile Number">
+                            <input matInput formControlName="cfsUserMobileNumber" placeholder="Mobile Number" required>
                             <mat-icon matSuffix>phone</mat-icon>
                             <mat-error *ngIf="userForm.get('cfsUserMobileNumber').errors !== null &&  userForm.get('cfsUserMobileNumber').errors.pattern">
                                 Please Enter valid phone number</mat-error>
@@ -67,7 +67,7 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="cfsUserEmail" placeholder="Email">
+                            <input matInput formControlName="cfsUserEmail" placeholder="Email" required>
                             <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.pattern">
                                 Please Enter valid Email</mat-error>
                             <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.required">
@@ -79,13 +79,13 @@
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Password</mat-label>
-                            <input matInput type="password" formControlName="cfsUserPassword" placeholder="Password">
+                            <input matInput type="password" formControlName="cfsUserPassword" placeholder="Password" required>
                         </mat-form-field>
                     </div>
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
                             <mat-label>Confirm Password</mat-label>
-                            <input matInput type="password" formControlName="cfsUserConfirmPassword" placeholder="Confirm Password" [errorStateMatcher]="confirmPasswordmatcher">
+                            <input matInput type="password" formControlName="cfsUserConfirmPassword" placeholder="Confirm Password" [errorStateMatcher]="confirmPasswordmatcher" required>
                         </mat-form-field>
                         <div *ngIf="userForm.errors">
                             <mat-error *ngIf="userForm.controls['cfsUserConfirmPassword'].dirty && userForm.errors['notSame']">

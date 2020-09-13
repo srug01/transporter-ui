@@ -30,6 +30,7 @@ import { PendingOrderListComponent } from './pending-order-list/pending-order-li
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditOrderComponent } from './edit-order/edit-order.component';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
+import { UserRegistrationEditComponent } from './user-registration-edit/user-registration-edit.component';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
@@ -53,7 +54,8 @@ const routes: Routes = [
     OrderDetailsComponent,
     UserRegistrationListComponent,
     PendingOrderListComponent,
-    EditOrderComponent  
+    EditOrderComponent,
+    UserRegistrationEditComponent  
   ],
   imports: [
     CommonModule,
