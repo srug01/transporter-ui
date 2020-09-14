@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../services/alert.service';
@@ -12,6 +12,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
 
+  isUserAuthenticated: boolean = false;
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -32,10 +33,13 @@ export class AuthComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private _alert: AlertService
+    private _alert: AlertService,
+    private route: ActivatedRoute
   ) {
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+    this.isUserAuthenticated = this.route.snapshot.data['authResolver'];
+    console.log(this.isUserAuthenticated);    
+    if(this.isUserAuthenticated){
+      this.router.navigate(['/default']);
     }
   }
 

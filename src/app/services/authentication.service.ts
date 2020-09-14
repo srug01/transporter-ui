@@ -36,6 +36,41 @@ export class AuthenticationService {
         }
     }
 
+    public getUserRole(): string {
+        switch (parseInt(localStorage.getItem('roleID'))) {
+            case 1:
+                return 'Admin';
+                break;
+            case 2:
+                return 'Import Customer';
+                break;
+            case 3:
+                return 'Export Customer';
+                break;
+            case 4:
+                return 'CFS Customer';
+                break;
+            case 5:
+                return 'Transporter';
+                break;
+            case 6:
+                return 'Driver';
+                break;
+            case 7:
+                return 'CFS User admin';
+                break;
+            case 8:
+                return 'CFS User Super admin';
+                break;
+            case 9:
+                return 'CFS User Viewer';
+                break;
+            default:
+                return 'Anonymous';
+                break;
+        }
+    }
+
     login(username: string, password: string, role: number) {
         console.log(role);
         return this.http.post<any>(`${this.baseUri}users/login`, { email: username, password })

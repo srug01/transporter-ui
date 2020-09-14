@@ -58,7 +58,7 @@ export class BreadcrumbComponent implements OnInit {
     };
     switch (link) {
       case 'default':
-        details.label = 'default';
+        details.label = 'Home';
         details.url = '/default';
         break;
       case 'cfs':

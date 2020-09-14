@@ -4,7 +4,7 @@ import { Cfs } from './../../../shared/models/cfs';
 import { LocationMaster } from './../../../shared/models/location';
 import { LocationService } from './../../masters/services/location.service';
 import { Order } from './../../../shared/models/order';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
@@ -16,13 +16,14 @@ import { PortService } from '../../masters/services/port.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { YardService } from '../../masters/services/yard.service'; 
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
     'Order ID', 'Source', 'Destination',
@@ -37,6 +38,7 @@ export class OrderListComponent implements OnInit {
   public portMasters: Port[] = [];
   public yardMasters: Yard[];
 
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private _orderService: OrderService,
@@ -53,6 +55,9 @@ export class OrderListComponent implements OnInit {
     this.getAllPorts();
     this.getAllYards();
     this.getAllOrders();
+  }
+  ngAfterViewInit() {
+    // this.orders.sort = this.sort;
   }
 
   getAllCfs() {

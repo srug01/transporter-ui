@@ -16,6 +16,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RoleGuardService } from 'src/app/services/role.guard.service';
+import { AuthComponent } from 'src/app/shared/auth/auth.component';
+import { AuthResolver } from 'src/app/services/auth.resolver';
 
 @NgModule({
   declarations: [
@@ -29,24 +32,29 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     RouterModule.forChild([
       {
         path: 'default', component: DefaultComponent,
+        canActivate: [AuthGuardService],
         children: [
           {
             path: '', component: DashboardComponent, resolve: { dashboardResolver: DashboardResolver },
+            canActivate: [AuthGuardService],
             data: { breadcrumb: 'home' }
           },
           {
-            path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule), canActivate: [AuthGuardService],
-            data: { breadcrumb: 'cfs' }
+            path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule),
+            canActivate: [AuthGuardService, RoleGuardService],
+            data: { breadcrumb: 'cfs', roles: ['CFS Customer', 'Admin'] }
           },
           {
             path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')
-              .then(m => m.TransporterModule), canActivate: [AuthGuardService],
-            data: { breadcrumb: 'transporter' }
+              .then(m => m.TransporterModule),
+            canActivate: [AuthGuardService, RoleGuardService],
+            data: { breadcrumb: 'transporter', roles: ['Transporter', 'Driver', 'Admin'] }
           },
           {
             path: 'masters', loadChildren: () => import('./../masters/master.module')
-              .then(m => m.MasterModule), canActivate: [AuthGuardService],
-            data: { breadcrumb: 'masters' }
+              .then(m => m.MasterModule),
+            canActivate: [AuthGuardService, RoleGuardService],
+            data: { breadcrumb: 'masters', roles: ['Admin'] }
           },
           {
             path: 'profile', loadChildren: () => import('./../profile/profile.module')
@@ -63,16 +71,19 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
           },
           {
             path: 'settings', loadChildren: () => import('./../settings/settings.module')
-              .then(m => m.SettingsModule), canActivate: [AuthGuardService],
-            data: { breadcrumb: 'settings' }
+              .then(m => m.SettingsModule),
+            canActivate: [AuthGuardService, RoleGuardService],
+            data: { breadcrumb: 'settings', roles: ['Admin'] }
           },
           {
             path: 'reports', loadChildren: () => import('./../reports/reports.module')
-              .then(m => m.ReportsModule), canActivate: [AuthGuardService],
-            data: { breadcrumb: 'reports' }
+              .then(m => m.ReportsModule),
+            canActivate: [AuthGuardService, RoleGuardService],
+            data: { breadcrumb: 'reports', roles: ['Admin'] }
           },
-        ]
-      }
+        ],
+      },
+      { path: '**', component: AuthComponent, resolve: { authResolver: AuthResolver } }
     ]),
     SharedModule,
     MatSidenavModule,
@@ -86,6 +97,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
   providers: [
     DashboardService,
     AuthGuardService,
+    RoleGuardService,
     DashboardResolver
   ]
 })

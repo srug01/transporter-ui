@@ -63,49 +63,64 @@ const routes: Routes = [
   { path: '', component: TransporterComponent, data: { breadcrumb: 'home' } },
   {
     path: 'register-vehicle', component: VehicleRegistrationComponent,
-    data: { breadcrumb: 'register-vehicle' },
+    data: { breadcrumb: 'register-vehicle', roles: ['Transporter'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'vehicle-list', component: VehicleRegistrationListComponent, data: { breadcrumb: 'vehicle-list' } },
-      { path: 'new', component: VehicleRegistrationNewComponent, data: { breadcrumb: 'new-vehicle' } },
+      { path: 'vehicle-list', component: VehicleRegistrationListComponent, data: { breadcrumb: 'vehicle-list', roles: ['Transporter'] } },
+      { path: 'new', component: VehicleRegistrationNewComponent, data: { breadcrumb: 'new-vehicle', roles: ['Transporter'] } },
       {
         path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver },
-        data: { breadcrumb: 'edit-vehicle' }
+        data: { breadcrumb: 'edit-vehicle', roles: ['Transporter'] }
       }
     ]
   },
 
-  { path: 'register-transporter', component: TransporterRegistrationComponent, data: { breadcrumb: 'register-transporter' } },
+  {
+    path: 'register-transporter', component: TransporterRegistrationComponent,
+    data: { breadcrumb: 'register-transporter', roles: ['Transporter'] }
+  },
   {
     path: 'register-driver', component: DriverComponent,
-    data: { breadcrumb: 'register-driver' },
+    data: { breadcrumb: 'register-driver', roles: ['Transporter'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: DriverMasterListComponent, data: { breadcrumb: 'driver-list' } },
-      { path: 'new', component: DriverNewComponent, data: { breadcrumb: 'new-driver' } },
-      { path: 'edit/:id', component: DriverEditComponent, resolve: { driverResolver: DriverResolver }, data: { breadcrumb: 'edit-driver' } }
+      { path: 'list', component: DriverMasterListComponent, data: { breadcrumb: 'driver-list', roles: ['Transporter'] } },
+      { path: 'new', component: DriverNewComponent, data: { breadcrumb: 'new-driver', roles: ['Transporter'] } },
+      {
+        path: 'edit/:id', component: DriverEditComponent, resolve: { driverResolver: DriverResolver },
+        data: { breadcrumb: 'edit-driver', roles: ['Transporter'] }
+      }
     ]
 
   },
-  { path: 'transporter-list', component: TransporterListComponent, data: { breadcrumb: 'transporter-list' } },
+  { path: 'transporter-list', component: TransporterListComponent, data: { breadcrumb: 'transporter-list', roles: ['Transporter'] } },
   {
     path: 'transporter-edit/:id', component: EditTransporterComponent, resolve: { transporterResolver: TransporterResolver },
-    data: { breadcrumb: 'edit' }
+    data: { breadcrumb: 'edit', roles: ['Transporter'] }
   },
-  { path: 'placed-bids', component: PlacedBidsComponent, data: { breadcrumb: 'placed-bids' } },
-  { path: 'bids', component: BidsComponent, data: { breadcrumb: 'bids' } },
-  { path: 'bids/:id', component: BiddetailsComponent, resolve: { bidResolver: BidsResolver }, data: { breadcrumb: 'bid-details' } },
-  { path: 'bid-edit/:id', component: BidEditComponent, resolve: { bidResolver: BidsResolver }, data: { breadcrumb: 'bid-edit' } },
+  { path: 'placed-bids', component: PlacedBidsComponent, data: { breadcrumb: 'placed-bids', roles: ['Transporter'] } },
+  { path: 'bids', component: BidsComponent, data: { breadcrumb: 'bids', roles: ['Transporter'] } },
+  {
+    path: 'bids/:id', component: BiddetailsComponent, resolve: { bidResolver: BidsResolver },
+    data: { breadcrumb: 'bid-details', roles: ['Transporter'] }
+  },
+  {
+    path: 'bid-edit/:id', component: BidEditComponent, resolve: { bidResolver: BidsResolver },
+    data: { breadcrumb: 'bid-edit', roles: ['Transporter'] }
+  },
   {
     path: 'my-trips', component: MyTripsComponent,
-    data: { breadcrumb: 'trips' },
+    data: { breadcrumb: 'trips', roles: ['Transporter'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: MyTripsListComponent, data: { breadcrumb: 'list' } },
-      { path: 'new', component: MyTripsNewComponent, data: { breadcrumb: 'new' } },
-      { path: 'edit/:id', component: MyTripsEditComponent, data: { breadcrumb: 'edit' }, resolve: { tripResolver: TripResolver } },
+      { path: 'list', component: MyTripsListComponent, data: { breadcrumb: 'list', roles: ['Transporter'] } },
+      { path: 'new', component: MyTripsNewComponent, data: { breadcrumb: 'new', roles: ['Transporter'] } },
       {
-        path: 'details/:id', component: TripDetailsComponent, data: { breadcrumb: 'details' },
+        path: 'edit/:id', component: MyTripsEditComponent, data: { breadcrumb: 'edit', roles: ['Transporter'] },
+        resolve: { tripResolver: TripResolver }
+      },
+      {
+        path: 'details/:id', component: TripDetailsComponent, data: { breadcrumb: 'details', roles: ['Transporter'] },
         resolve: { tripDetailsResolver: TripDetailsResolver }
       }
     ]

@@ -3,6 +3,10 @@ table {
     width: 100%;
 }
 
+th.mat-sort-header-sorted {
+    color: black;
+}
+
 .table-title {
     font-size: $table-title-font-size;
     text-align: center;
