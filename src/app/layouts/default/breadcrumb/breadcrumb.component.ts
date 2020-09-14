@@ -37,10 +37,7 @@ export class BreadcrumbComponent implements OnInit {
       .pipe(filter(route => route.outlet === PRIMARY_OUTLET))
       .subscribe(route => {
         let snapshot = this.router.routerState.snapshot;
-        // let url = snapshot.url;
-        let routeData = route.snapshot.data;
-        // let label = routeData['breadcrumb'];
-        // let params = snapshot.root.params;
+        let routeData = route.snapshot.data;  
         const path2 = this.router.url.replace('/child', '');
         this.createRouterLinks(path2);
       });
@@ -80,6 +77,9 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'register-user';
         details.url = '/default/cfs/register-user';
         break;
+      case 'user-list-edit':
+        details.label = 'user-list-edit';
+        details.url = '/default/cfs/user-list-edit';
       case 'user-list':
         details.label = 'user-list';
         details.url = '/default/cfs/user-list';

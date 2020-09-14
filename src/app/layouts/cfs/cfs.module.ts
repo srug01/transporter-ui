@@ -31,17 +31,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditOrderComponent } from './edit-order/edit-order.component';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
 import { UserRegistrationEditComponent } from './user-registration-edit/user-registration-edit.component';
+import { UserRegistrationResolver } from './resolvers/user-registration.resolver';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
 const routes: Routes = [
-  { path: '', component: CfsComponent,data: { breadcrumb: 'cfs' } },
-  { path: 'create-order', component: CreateOrderComponent,data: { breadcrumb: 'create-order' } },
-  { path: 'register-user', component: UserRegistrationComponent,data: { breadcrumb: 'user-registration' } },
-  { path: 'user-list', component: UserRegistrationListComponent,data: { breadcrumb: 'user-list' } },
-  { path: 'order-list', component: OrderListComponent,data: { breadcrumb: 'order-list' } },
-  { path: ':id/edit', component: EditOrderComponent,data: { breadcrumb: 'edit-order' } },
-  { path: ':id/order-details', component: OrderDetailsComponent,data: { breadcrumb: 'order-details' } }
+  { path: '', component: CfsComponent, data: { breadcrumb: 'cfs' } },
+  { path: 'create-order', component: CreateOrderComponent, data: { breadcrumb: 'create-order' } },
+  { path: 'register-user', component: UserRegistrationComponent, data: { breadcrumb: 'user-registration' } },
+  { path: 'user-list', component: UserRegistrationListComponent, data: { breadcrumb: 'user-list' } },
+  {
+    path: 'user-list-edit/:id', component: UserRegistrationEditComponent, data: { breadcrumb: 'user-list-edit' }, resolve: {
+      userRegistrationResolver: UserRegistrationResolver
+    }
+  },
+  { path: 'order-list', component: OrderListComponent, data: { breadcrumb: 'order-list' } },
+  { path: ':id/edit', component: EditOrderComponent, data: { breadcrumb: 'edit-order' } },
+  { path: ':id/order-details', component: OrderDetailsComponent, data: { breadcrumb: 'order-details' } }
 ];
 
 
@@ -55,7 +61,7 @@ const routes: Routes = [
     UserRegistrationListComponent,
     PendingOrderListComponent,
     EditOrderComponent,
-    UserRegistrationEditComponent  
+    UserRegistrationEditComponent
   ],
   imports: [
     CommonModule,
@@ -82,6 +88,7 @@ const routes: Routes = [
   providers: [
     MatDatepickerModule,
     DatePipe,
+    UserRegistrationResolver,
     {
       provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
     },

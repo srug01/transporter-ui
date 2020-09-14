@@ -1,1 +1,111 @@
-<p>user-registration-edit works!</p>
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>Update CFS User</mat-card-title>
+        <mat-card-subtitle>User Registration</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="userForm" (ngSubmit)="submitUserForm($event)">
+            <div fxLayout="column" fxLayoutGap="10px">
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label class="required">CFS Name</mat-label>
+                            <mat-select matNativeControl formControlName="cfsMasterId" [errorStateMatcher]="cfsTypeErrormatcher">
+                                <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfsMasterId">
+                                    {{cfs.cfsName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="userForm.controls['cfsMasterId'].hasError('required')">You must make a selection
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label class="required">User Type</mat-label>
+                            <mat-select matNativeControl formControlName="userTypeId" [errorStateMatcher]="userTypeErrormatcher">
+                                <mat-option *ngFor="let role of cfsRoles" [value]="role.roleId">
+                                    {{role.roleName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="userForm.controls['userTypeId'].hasError('required')">You must make a selection
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout='row'>
+                    <mat-form-field class="demo-full-width">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="cfsUserName" placeholder="Enter Name" required>
+                    </mat-form-field>
+                </div>
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Designation</mat-label>
+                            <input matInput formControlName="cfsUserDesignation" placeholder="Designation">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Department</mat-label>
+                            <input matInput formControlName="cfsUserDepartment" placeholder="Department">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput formControlName="cfsUserMobileNumber" placeholder="Mobile Number" required>
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="userForm.get('cfsUserMobileNumber').errors !== null &&  userForm.get('cfsUserMobileNumber').errors.pattern">
+                                Please Enter valid phone number</mat-error>
+                            <mat-error *ngIf="userForm.get('cfsUserMobileNumber').errors !== null &&  userForm.get('cfsUserMobileNumber').errors.required">
+                                Please Enter mobile number</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="cfsUserEmail" placeholder="Email" required>
+                            <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.pattern">
+                                Please Enter valid Email</mat-error>
+                            <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.required">
+                                Please Enter Email</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout='row' fxLayoutGap="10px">
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="cfsUserPassword" placeholder="Password" required>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50%">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput type="password" formControlName="cfsUserConfirmPassword" placeholder="Confirm Password" [errorStateMatcher]="confirmPasswordmatcher" required>
+                        </mat-form-field>
+                        <div *ngIf="userForm.errors">
+                            <mat-error *ngIf="userForm.controls['cfsUserConfirmPassword'].dirty && userForm.errors['notSame']">
+                                Passwords must match</mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxFlex="20%">
+                        <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+                    </div>
+                    <div fxFlex="20%">
+                        <mat-slide-toggle formControlName="isVerified">Verify</mat-slide-toggle>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button type="submit" mat-raised-button color="primary">Save</button>
+                    <button mat-raised-button color="warn">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
