@@ -37,8 +37,8 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.isUserAuthenticated = this.route.snapshot.data['authResolver'];
-    console.log(this.isUserAuthenticated);    
-    if(this.isUserAuthenticated){
+    console.log(this.isUserAuthenticated);
+    if (this.isUserAuthenticated) {
       this.router.navigate(['/default']);
     }
   }
@@ -59,7 +59,11 @@ export class AuthComponent implements OnInit {
         .subscribe(
           (data) => {
             this._alert.success('Logged in Successfully.', 'Success');
-            this.router.navigate(['default']);
+            if (this.authenticationService.getUserRole() === 'CFS Customer') {
+              this.router.navigate(['/default/cfs/create-order']);
+            } else {
+              this.router.navigate(['default']);
+            }
           },
           (error) => {
             console.log(error);

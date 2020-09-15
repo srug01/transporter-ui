@@ -12,7 +12,7 @@
                             <mat-label>Select Source & Destination Types</mat-label>
                             <mat-select matNativeControl formControlName="masterTypeId" (valueChange)="masterTypeSelected($event)" [errorStateMatcher]="errorStateMatcher">
                                 <mat-option *ngFor="let masterType of masterTypes" [value]="masterType.masterTypeId">
-                                    {{masterType.masterType}}
+                                    {{masterType.sourceType + ' To ' + masterType.destinationType}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="orderForm.controls['masterTypeId'].hasError('required')">You must make a selection
