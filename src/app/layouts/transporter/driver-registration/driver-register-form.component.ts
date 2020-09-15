@@ -64,7 +64,7 @@ export class DriverFormRegisterComponent implements OnInit {
         landmark: [this.driverData.landmark ? this.driverData.landmark : ''],
         identitytype: [this.driverData.identitytype ? this.driverData.identitytype : ''],
         identitynumber: [this.driverData.identitynumber ? this.driverData.identitynumber : ''],
-        isActive: [this.driverData.isActive ? this.driverData.isActive : '', Validators.required],
+        isActive: [this.driverData.isActive ? this.driverData.isActive : true, Validators.required],
         userPassword: [this.driverData.userPassword ? this.driverData.userPassword : '', Validators.required]
       });
     }
@@ -83,7 +83,7 @@ export class DriverFormRegisterComponent implements OnInit {
         landmark: [''],
         identitytype: [''],
         identitynumber: [''],
-        isActive: ['', Validators.required],
+        isActive: [true, Validators.required],
         userPassword: ['', Validators.required],
         userConfirmPassword: ['', Validators.required],
 

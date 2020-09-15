@@ -131,7 +131,7 @@ export class YardcfsrateFormComponent implements OnInit {
         rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '', Validators.required],
         bidMarginRate: [this.yardcfsrateData.bidMarginRate ? this.yardcfsrateData.bidMarginRate : '', Validators.required],
         orderMarginRate: [this.yardcfsrateData.orderMarginRate ? this.yardcfsrateData.orderMarginRate : '', Validators.required],
-        isActive: [this.yardcfsrateData.isActive ? this.yardcfsrateData.isActive : '', Validators.required],
+        isActive: [this.yardcfsrateData.isActive ? this.yardcfsrateData.isActive : true, Validators.required],
         createdBy: [this.yardcfsrateData.createdBy ? this.yardcfsrateData.createdBy : 0]
       });
       this.getAllWeightMastersbyContainerID(this.yardcfsrateData.containerMasterId);
@@ -146,7 +146,7 @@ export class YardcfsrateFormComponent implements OnInit {
         rate: ['', Validators.required],
         bidMarginRate: ['', Validators.required],
         orderMarginRate: ['', Validators.required],
-        isActive: ['', Validators.required],
+        isActive: [true, Validators.required],
         createdBy: [0]
       });
     }

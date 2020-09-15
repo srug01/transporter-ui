@@ -44,7 +44,7 @@ export class ZonedayFormComponent implements OnInit {
         import: [this.zonedayData.import ? this.zonedayData.import : '', Validators.required],
         createdBy: [this.zonedayData.createdBy ? this.zonedayData.createdBy : ''],
         export: [this.zonedayData.export ? this.zonedayData.export : '', Validators.required],
-        isActive: [this.zonedayData.isActive ? this.zonedayData.isActive : '', Validators.required]
+        isActive: [this.zonedayData.isActive ? this.zonedayData.isActive : true, Validators.required]
       });
     } else {
       this.zonedayForm = this.fb.group({
@@ -54,7 +54,7 @@ export class ZonedayFormComponent implements OnInit {
         import: ['', Validators.required],
         createdBy: [''],
         export: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
     this.getAllPortMasters();

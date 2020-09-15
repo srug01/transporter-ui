@@ -48,7 +48,7 @@ export class PortterminalmasterFormComponent implements OnInit {
         longitude: [this.portterminalmasterData.longitude],
         terminal: [this.portterminalmasterData.terminal,Validators.required],
         isActive: [this.portterminalmasterData.isActive ?
-          this.portterminalmasterData.isActive : '', Validators.required],
+          this.portterminalmasterData.isActive : true, Validators.required],
         // createdBy: [],
         // createdOn: [],
         // modifiedBy: [],
@@ -61,7 +61,7 @@ export class PortterminalmasterFormComponent implements OnInit {
         latitude: [''],
         longitude: [''],
         terminal: ['',  Validators.required],
-        isActive: ['', Validators.required],
+        isActive: [true, Validators.required],
         // createdBy: [],
         // createdOn: [],
         // modifiedBy: [],

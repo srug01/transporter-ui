@@ -64,7 +64,7 @@ export class PortFormComponent implements OnInit {
         longitude: [this.portData.longitude ? this.portData.longitude : ''],
         stateMasterId: [this.portData.stateMasterId ? this.portData.stateMasterId : '', Validators.required],
         locationMasterId: [this.portData.locationMasterId ? this.portData.locationMasterId : '', Validators.required],
-        isActive: [this.portData.isActive ? this.portData.isActive : '', Validators.required],
+        isActive: [this.portData.isActive ? this.portData.isActive :true, Validators.required],
         primarycontactperson: [this.portData.primarycontactperson ? this.portData.primarycontactperson : '', Validators.required],
         primarycontactnumber: [this.portData.primarycontactnumber ? this.portData.primarycontactnumber : '', Validators.required],
 
@@ -82,7 +82,7 @@ export class PortFormComponent implements OnInit {
         longitude: [''],
         stateMasterId: ['', Validators.required],
         locationMasterId: ['', Validators.required],
-        isActive: ['', Validators.required],
+        isActive: [true, Validators.required],
         primarycontactperson: ['', Validators.required],
         primarycontactnumber: ['', Validators.required],
 

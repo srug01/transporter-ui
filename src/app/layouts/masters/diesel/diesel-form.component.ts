@@ -36,14 +36,14 @@ export class DieselFormComponent implements OnInit {
         dieselRate: [this.dieselData.dieselRate ? this.dieselData.dieselRate : '',
         Validators.required],
         dieselRateDate: [this.dieselData.dieselRateDate ? this.dieselData.dieselRateDate : '', Validators.required],
-        isActive: [this.dieselData.isActive ? this.dieselData.isActive : '', Validators.required]
+        isActive: [this.dieselData.isActive ? this.dieselData.isActive : true, Validators.required]
       });
     } else {
       this.dieselForm = this.fb.group({
         dieselRateId: [''],
         dieselRate: ['', Validators.required],
         dieselRateDate: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
     //this.getAllStateMasters();

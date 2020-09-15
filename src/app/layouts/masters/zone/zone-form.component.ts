@@ -34,7 +34,7 @@ export class ZoneFormComponent implements OnInit {
         zoneName: [this.zoneData.zoneName ? this.zoneData.zoneName : '', Validators.required],
         zoneDesc: [this.zoneData.zoneDesc ? this.zoneData.zoneDesc : '', Validators.required],
         pincode: [this.zoneData.pincode ? this.zoneData.pincode : ''],
-        isActive: [this.zoneData.isActive ? this.zoneData.isActive : '', Validators.required]
+        isActive: [this.zoneData.isActive ? this.zoneData.isActive : true, Validators.required]
       });
     } else {
       this.zoneForm = this.fb.group({
@@ -42,7 +42,7 @@ export class ZoneFormComponent implements OnInit {
         zoneName: ['', Validators.required],
         zoneDesc: ['', Validators.required],
         pincode: [''],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
 

@@ -1,0 +1,45 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>CFS Management</mat-card-title>
+        <mat-card-subtitle>Create Order</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="settingsForm" (ngSubmit)="submitSettingsForm($event)">
+            <div formArrayName="settings" fxLayout="column" fxLayoutGap="15px">
+                <div *ngFor="let settingRow of this.settingsForm.controls.settings['controls'];let i=index">
+                    <div [formGroup]="settingRow" fxLayout="row" fxLayoutGap="15px">
+                        <div fxFlex="25%">
+                            <mat-form-field>
+                                <mat-label>Setting Id</mat-label>
+                                <input matInput type="text" formControlName="settingsId" placeholder="settings Id" readonly>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="25%">
+                            <mat-form-field>
+                                <mat-label>Setting Name</mat-label>
+                                <input matInput type="text" formControlName="settingsName" placeholder="Settings Name">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="20%">
+                            <mat-form-field>
+                                <mat-label>Settings Value</mat-label>
+                                <input matInput type="text" formControlName="settingsValue" placeholder="Settings Value">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="20%">
+                            <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+                        </div>
+                        <div fxFlex="10%" fxLayout="row" fxLayoutGap="10px">
+                            <button type="button" class="btn" mat-raised-button color="primary" (click)="saveSetting(settingRow)">Save</button>
+                            <button type="submit" class="btn" mat-raised-button color="warn" (click)="removeFormControl(i)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button type="button" mat-raised-button color="primary" (click)="addFormControl()">Add New
+                        Setting</button>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

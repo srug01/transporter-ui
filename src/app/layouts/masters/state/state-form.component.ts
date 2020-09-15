@@ -35,13 +35,13 @@ export class StateFormComponent implements OnInit {
       this.stateForm = this.fb.group({
         stateMasterId: [this.stateData.stateMasterId ? this.stateData.stateMasterId : ''],
         stateName: [this.stateData.stateName ? this.stateData.stateName : '', Validators.required],
-        isActive: [this.stateData.isActive ? this.stateData.isActive : '', Validators.required]
+        isActive: [this.stateData.isActive ? this.stateData.isActive : true, Validators.required]
       });
     } else {
       this.stateForm = this.fb.group({
         stateMasterId: [''],
         stateName: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
   }

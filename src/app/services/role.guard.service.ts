@@ -20,8 +20,6 @@ export class RoleGuardService implements CanActivate {
 
     this.allowedRoles = route.data["roles"];
     const userRole = this.auth.getUserRole();
-    // const allowed: boolean = this.auth.currentUser.roles.filter(
-    //   role => this.allowedRoles.includes(role)).length > 0;
     if (this.allowedRoles.includes(userRole)) {
       return true;
     } else {

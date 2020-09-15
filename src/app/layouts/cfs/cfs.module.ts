@@ -32,22 +32,49 @@ import { EditOrderComponent } from './edit-order/edit-order.component';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
 import { UserRegistrationEditComponent } from './user-registration-edit/user-registration-edit.component';
 import { UserRegistrationResolver } from './resolvers/user-registration.resolver';
+import { AuthGuardService } from 'src/app/services/auth.guard.service';
+import { RoleGuardService } from 'src/app/services/role.guard.service';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
 const routes: Routes = [
-  { path: '', component: CfsComponent, data: { breadcrumb: 'cfs' } },
-  { path: 'create-order', component: CreateOrderComponent, data: { breadcrumb: 'create-order' } },
-  { path: 'register-user', component: UserRegistrationComponent, data: { breadcrumb: 'user-registration' } },
-  { path: 'user-list', component: UserRegistrationListComponent, data: { breadcrumb: 'user-list' } },
   {
-    path: 'user-list-edit/:id', component: UserRegistrationEditComponent, data: { breadcrumb: 'user-list-edit' }, resolve: {
-      userRegistrationResolver: UserRegistrationResolver
-    }
+    path: '', component: CfsComponent, data: { breadcrumb: 'cfs', roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
   },
-  { path: 'order-list', component: OrderListComponent, data: { breadcrumb: 'order-list' } },
-  { path: ':id/edit', component: EditOrderComponent, data: { breadcrumb: 'edit-order' } },
-  { path: ':id/order-details', component: OrderDetailsComponent, data: { breadcrumb: 'order-details' } }
+  {
+    path: 'create-order', component: CreateOrderComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'create-order', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
+  },
+  {
+    path: 'register-user', component: UserRegistrationComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'user-registration', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
+  },
+  {
+    path: 'user-list', component: UserRegistrationListComponent, data: { breadcrumb: 'user-list', 
+    roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'user-list-edit/:id', component: UserRegistrationEditComponent, resolve: {
+      userRegistrationResolver: UserRegistrationResolver
+    }, data: { breadcrumb: 'user-list-edit', roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'order-list', component: OrderListComponent, data: { breadcrumb: 'order-list',
+    roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: ':id/edit', component: EditOrderComponent, data: { breadcrumb: 'edit-order', roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: ':id/order-details', component: OrderDetailsComponent, data: { breadcrumb: 'order-details', 
+    roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  }
 ];
 
 

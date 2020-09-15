@@ -38,14 +38,14 @@ export class YardportmapFormComponent implements OnInit {
         yard_port_mapping_syscode : [this.yardportmapData.yard_port_mapping_syscode ? this.yardportmapData.yard_port_mapping_syscode : ''],
         port_syscode: [this.yardportmapData.port_syscode ? this.yardportmapData.port_syscode : ''],
         yard_syscode: [this.yardportmapData.yard_syscode ? this.yardportmapData.yard_syscode : '', Validators.required],
-        is_active: [this.yardportmapData.is_active ? this.yardportmapData.is_active : '', Validators.required]
+        is_active: [this.yardportmapData.is_active ? this.yardportmapData.is_active : true, Validators.required]
       });
     } else {
       this.yardportmapForm = this.fb.group({
         yard_port_mapping_syscode: [''],
         port_syscode: ['', Validators.required],
         yard_syscode: ['', Validators.required],
-        is_active: ['', Validators.required]
+        is_active: [true, Validators.required]
       });
     }
     this.getAllYardMasters();

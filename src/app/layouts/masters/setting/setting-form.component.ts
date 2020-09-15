@@ -36,13 +36,13 @@ export class SettingFormComponent implements OnInit {
       this.settingForm = this.fb.group({
         settingsId: [this.settingData.settingsId ? this.settingData.settingsId : ''],
         settingsValue: [this.settingData.settingsValue ? this.settingData.settingsValue : '', Validators.required],
-        isActive: [this.settingData.isActive ? this.settingData.isActive : '', Validators.required]
+        isActive: [this.settingData.isActive ? this.settingData.isActive : true, Validators.required]
       });
     } else {
       this.settingForm = this.fb.group({
         settingsId: [''],
         settingsValue: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
   }

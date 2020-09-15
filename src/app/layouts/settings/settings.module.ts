@@ -31,18 +31,24 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { AuthGuardService } from 'src/app/services/auth.guard.service';
+import { RoleGuardService } from 'src/app/services/role.guard.service';
 
 const routes: Routes = [
-  { path: '', component: SettingsComponent }
-  // {
-  //   path: 'settings', component: SettingsComponent,
-  //   children: [
-  //     { path: '', redirectTo: 'list', pathMatch: 'full' },
-  //     { path: 'list', component: VehicleRegistrationListComponent },
-  //     { path: 'new', component: VehicleRegistrationNewComponent },
-  //     { path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver } }
-  //   ]
-  // }
+  {
+    path: '', component: SettingsComponent, data: { breadcrumb: 'cfs', roles: ['Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'configuration', roles: ['Admin'] }
+  },
+  {
+    path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'user-management', roles: ['Admin'] }
+  }
 ];
 
 const toasterConfig: MatSnackBarConfig = {
@@ -53,7 +59,9 @@ const toasterConfig: MatSnackBarConfig = {
 
 @NgModule({
   declarations: [
-    SettingsComponent
+    SettingsComponent,
+    UserManagementComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

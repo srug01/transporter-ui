@@ -31,6 +31,7 @@ import { PortterminalmasterService } from '../../masters/services/portterminalma
 import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
 import { async } from 'rxjs/internal/scheduler/async';
 import { TimeSlot } from 'src/app/shared/models/timeslot';
+import { AlertService } from 'src/app/shared/services/alert.service';
 
 @Component({
   selector: 'app-create-order',
@@ -89,7 +90,8 @@ export class CreateOrderComponent implements OnInit {
     private datePipe: DatePipe,
     private _weightService: WeightService,
     private _containerService: ContainerService,
-    private _portTerminalService: PortterminalmasterService
+    private _portTerminalService: PortterminalmasterService,
+    private _alertService: AlertService
   ) { }
 
 
@@ -153,8 +155,6 @@ export class CreateOrderComponent implements OnInit {
   }
 
   containerTypeSelected(containerRow: FormGroup, i, containerMasterId) {
-    console.log(containerRow, i, containerMasterId);
-
     containerRow.controls['weightType'].reset();
     const typeId = this.selectedMasterType.masterTypeId;
     this.getAllWeightsForCFS(typeId, containerMasterId, i);
@@ -171,28 +171,6 @@ export class CreateOrderComponent implements OnInit {
     this.getAllCFSContainersbyUserId(this.masterTypeSelectedId, this.portyardId);
 
   }
-
-  /* getCfsMasterByUserId(masterType: string) {
-    const filter = {
-      where: {
-        or: [
-          {
-            userId: this.userId
-            //cfsMasterId: "1"
-          }
-        ]
-      }
-    };
-    this._cfsService.getAllCfsMastersByUserId(filter).subscribe(
-      (cfsMasters: Array<Cfs>) => {
-        console.log(cfsMasters[0].cfsMasterId);
-        this.orderForm.get(masterType).setValue(cfsMasters[0].cfsMasterId);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  } */
 
   getCfsMasterByUserId(masterType: string) {
     this._masterTypeService.getAllCFSbyUserId(this.userId).subscribe(
@@ -217,7 +195,7 @@ export class CreateOrderComponent implements OnInit {
       }
     };
     // this._portService.getAllPortMastersByUserId(filter).subscribe(
-      this._masterTypeService.getAllCFSPortsbyUserId(this.userId).subscribe(
+    this._masterTypeService.getAllCFSPortsbyUserId(this.userId).subscribe(
       (portMasters: Array<Port>) => {
         this.orderForm.get(masterType).setValue(portMasters[0].portMasterId);
         this.getTerminalsByPortMasterId(portMasters[0].portMasterId);
@@ -241,7 +219,7 @@ export class CreateOrderComponent implements OnInit {
       }
     };
     // this._yardService.getAllYardMastersByUserId(filter).subscribe(
-      this._masterTypeService.getAllCFSYardsbyUserId(this.userId).subscribe(
+    this._masterTypeService.getAllCFSYardsbyUserId(this.userId).subscribe(
       (yardMasters: Array<Yard>) => {
         this.yardMasters = yardMasters;
         this.orderForm.get(masterType).setValue(yardMasters[0].yardMasterId);
@@ -351,7 +329,7 @@ export class CreateOrderComponent implements OnInit {
       // createdOn: new Date(),
       modifiedBy: this.currentUser.userId,
       modifiedOn: new Date(),
-      orderStatus: order.orderStatus,
+      orderStatus: status,
       // orderStatusId: order.orderStatusId,
       containers,
       totalRate: 0,
@@ -410,7 +388,6 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getAllCFSContainersbyUserId(type: number, portyardid: number) {
-
     this._masterTypeService.getAllCFSContainersbyUserId(this.userId, type, portyardid).subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
@@ -474,7 +451,7 @@ export class CreateOrderComponent implements OnInit {
         console.log(err);
       }
     );
-  }  
+  }
 
   removeFormControl(i) {
     const containersArray = this.orderForm.controls.containers as FormArray;
@@ -501,16 +478,17 @@ export class CreateOrderComponent implements OnInit {
   addCustomContainer = (term) => ({ id: term, value: term });
 
   submitOrderForm(ev) {
+    console.log(this.orderForm);
     if (ev) {
       ev.preventDefault();
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
       console.log(order);
-      this.saveOrder(order);
+      // this.saveOrder(order);
     } else {
       console.log(this.orderForm);
-      this.openSnackBar('Invalid Form !', 'please review all fields');
+      this._alertService.error('please review all the fields', 'Invalid Form!');
     }
   }
 
@@ -527,7 +505,7 @@ export class CreateOrderComponent implements OnInit {
       const order = this.transformOrderObj(this.orderForm.value, 'draft');
       this.saveOrderDraft(order);
     } else {
-      this.openSnackBar('Invalid Form !', 'please review all fields');
+      this._alertService.error('please review all the fields', 'Invalid Form!');
     }
   }
 
@@ -593,12 +571,12 @@ export class CreateOrderComponent implements OnInit {
           notificationType: 'orders'
         };
         this.saveNotification(notification);
-        this.openSnackBar('Success !', 'Order placed successfully');
+        this._alertService.success('Order placed successfully', 'Success!');
         this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);
-        this.openSnackBar('Failure !', 'could not place the order');
+        this._alertService.error('could not place the order', 'Failure!');
       }
     );
   }
@@ -616,12 +594,12 @@ export class CreateOrderComponent implements OnInit {
   saveOrderDraft(order: Order) {
     this._orderService.saveOrder(order).subscribe(
       (res) => {
-        this.openSnackBar('Success !', 'Order saved');
+        this._alertService.success('Order saved As Draft', 'Success!');
         this._router.navigate(['/default/cfs/order-list']);
       },
       (err) => {
         console.log(err);
-        this.openSnackBar('Failure !', 'could not save the order');
+        this._alertService.error('could not place the order', 'Failure!');
       }
     );
   }

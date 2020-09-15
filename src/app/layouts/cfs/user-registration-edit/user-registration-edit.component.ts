@@ -75,7 +75,7 @@ export class UserRegistrationEditComponent implements OnInit {
         this.userRegistrationDetails.cfsUserPassword ? this.userRegistrationDetails.cfsUserPassword : '', Validators.required
       ],
       userId: [this.userRegistrationDetails.userId ? this.userRegistrationDetails.userId : ''],
-      isActive: [this.userRegistrationDetails.isActive ? this.userRegistrationDetails.isActive : '', Validators.required],
+      isActive: [this.userRegistrationDetails.isActive ? this.userRegistrationDetails.isActive : true, Validators.required],
       isVerified: [this.userRegistrationDetails.isVerified ? this.userRegistrationDetails.isVerified : '', Validators.required],
       createdBy: [this.userRegistrationDetails.createdBy? this.userRegistrationDetails.createdBy : ''],
       createdOn: [this.userRegistrationDetails.createdOn? this.userRegistrationDetails.createdOn : ''],

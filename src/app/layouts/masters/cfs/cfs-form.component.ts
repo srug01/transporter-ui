@@ -74,7 +74,7 @@ export class CfsFormComponent implements OnInit {
         portMasterId: [this.cfsData.portMasterId ? this.cfsData.portMasterId : '', Validators.required],
         stateMasterId: [this.cfsData.stateMasterId ? this.cfsData.stateMasterId : '', Validators.required],
         locationMasterId: [this.cfsData.locationMasterId ? this.cfsData.locationMasterId : '', Validators.required],
-        isActive: [this.cfsData.isActive ? this.cfsData.isActive : '', Validators.required]
+        isActive: [this.cfsData.isActive ? this.cfsData.isActive : true, Validators.required]
       });
     } else {
       this.cfsForm = this.fb.group({
@@ -99,7 +99,7 @@ export class CfsFormComponent implements OnInit {
         portMasterId: ['', Validators.required],
         stateMasterId: ['', Validators.required],
         locationMasterId: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
   }

@@ -37,7 +37,7 @@ export class BreadcrumbComponent implements OnInit {
       .pipe(filter(route => route.outlet === PRIMARY_OUTLET))
       .subscribe(route => {
         let snapshot = this.router.routerState.snapshot;
-        let routeData = route.snapshot.data;  
+        let routeData = route.snapshot.data;
         const path2 = this.router.url.replace('/child', '');
         this.createRouterLinks(path2);
       });
@@ -163,6 +163,18 @@ export class BreadcrumbComponent implements OnInit {
       case 'port-list':
         details.label = 'port-list';
         details.url = '/default/transporter/bids';
+        break;
+      case 'settings':
+        details.label = 'settings';
+        details.url = '/default/settings/configuration';
+        break;
+      case 'configuration':
+        details.label = 'configuration';
+        details.url = '/default/settings/configuration';
+        break;
+      case 'user-management':
+        details.label = 'user-management';
+        details.url = '/default/settings/user-management';
         break;
       default:
         break;

@@ -41,14 +41,14 @@ export class LocationFormComponent implements OnInit {
         locationMasterId: [this.locationData.locationMasterId ? this.locationData.locationMasterId : ''],
         locationName: [this.locationData.locationName ? this.locationData.locationName : '', Validators.required],
         stateMasterId: [this.locationData.stateMasterId ? this.locationData.stateMasterId : '', Validators.required],
-        isActive: [this.locationData.isActive ? this.locationData.isActive : '', Validators.required]
+        isActive: [this.locationData.isActive ? this.locationData.isActive : true, Validators.required]
       });
     } else {
       this.locationForm = this.fb.group({
         locationMasterId: [''],
         locationName: ['', Validators.required],
         stateMasterId: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
   }

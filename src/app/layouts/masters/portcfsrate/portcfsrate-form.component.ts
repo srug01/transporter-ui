@@ -56,7 +56,7 @@ export class PortcfsrateFormComponent implements OnInit {
         rate: [this.portcfsrateData.rate ? this.portcfsrateData.rate : 0, Validators.required],
         bidMarginRate: [this.portcfsrateData.bidMarginRate ? this.portcfsrateData.bidMarginRate : 0, Validators.required],
         orderMarginRate: [this.portcfsrateData.orderMarginRate ? this.portcfsrateData.orderMarginRate : 0, Validators.required],
-        isActive: [this.portcfsrateData.isActive ? this.portcfsrateData.isActive : '', Validators.required]
+        isActive: [this.portcfsrateData.isActive ? this.portcfsrateData.isActive : true, Validators.required]
       });
       this.getAllWeightMastersbyContainerID(this.portcfsrateData.containerMasterId);
     } else {
@@ -69,7 +69,7 @@ export class PortcfsrateFormComponent implements OnInit {
         rate: [0, Validators.required],
         bidMarginRate: [0, Validators.required],
         orderMarginRate: [0, Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
   }

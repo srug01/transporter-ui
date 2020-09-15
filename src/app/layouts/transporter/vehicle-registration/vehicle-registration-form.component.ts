@@ -91,7 +91,7 @@ export class VehicleRegistrationFormComponent implements OnInit {
         Validators.required],
         owned: [this.vehicleMasterData.owned ? this.vehicleMasterData.owned : '',
         Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
 
       });
     }
@@ -105,7 +105,7 @@ export class VehicleRegistrationFormComponent implements OnInit {
         manufactureYear: ['', Validators.required],
         stateId: ['', Validators.required],
         owned: [''],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
 
 
       });

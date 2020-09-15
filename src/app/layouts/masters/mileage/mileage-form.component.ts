@@ -52,7 +52,7 @@ export class MileageFormComponent implements OnInit {
         mileage: [this.mileageData.mileage ? this.mileageData.mileage : '', Validators.required],
         weightId: [this.mileageData.weightId ? this.mileageData.weightId : '', Validators.required],
         containerId: [this.mileageData.containerId ? this.mileageData.containerId : '', Validators.required],
-        isActive: [this.mileageData.isActive ? this.mileageData.isActive : '', Validators.required]
+        isActive: [this.mileageData.isActive ? this.mileageData.isActive : true, Validators.required]
       });
     } else {
       this.mileageForm = this.fb.group({
@@ -60,7 +60,7 @@ export class MileageFormComponent implements OnInit {
         mileage: ['', Validators.required],
         weightId: ['', Validators.required],
         containerId: ['', Validators.required],
-        isActive: ['', Validators.required]
+        isActive: [true, Validators.required]
       });
     }
   //  this.getAllMileageMasters();

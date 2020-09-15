@@ -49,9 +49,11 @@
                     </div>
                     <mat-menu #transporter="matMenu">
                         <button mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</button>
-                        <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
+                        <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle
+                            Registration</button>
                         <button mat-menu-item [matMenuTriggerFor]="transporterRegistrations">Transporters</button>
-                        <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver Registration</button>
+                        <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver
+                            Registration</button>
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 5 || currentUser.typeSyscode === 6" class="menu-item">
@@ -116,8 +118,8 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li *ngIf="currentUser.typeSyscode===1">
-                    <button mat-icon-button routerLink='/default/settings'>
-                        <mat-icon>settings </mat-icon>
+                    <button mat-button [matMenuTriggerFor]="settings">
+                        <mat-icon>settings</mat-icon>
                     </button>
                 </li>
                 <li>
@@ -203,4 +205,14 @@
     <button mat-menu-item routerLink='/default/masters/container/list'>Container Master</button>
     <button mat-menu-item routerLink='/default/masters/mileage/list'>Mileage Master</button>
     <button mat-menu-item routerLink='/default/masters/weight/list'>Weight Master</button>
+</mat-menu>
+<mat-menu #settings="matMenu">
+    <button mat-menu-item routerLink='/default/settings/configuration'>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+    </button>
+    <button mat-menu-item routerLink='/default/settings/user-management'>
+        <mat-icon>person_outline</mat-icon>
+        <span>User Management</span>
+    </button>
 </mat-menu>

@@ -42,7 +42,7 @@ export class WeightFormComponent implements OnInit {
       this.weightForm = this.fb.group({
         weightMasterId: [this.weightData.weightMasterId ? this.weightData.weightMasterId : ''],
         weightDesc: [this.weightData.weightDesc ? this.weightData.weightDesc : '', Validators.required],
-        isActive: [this.weightData.isActive ? this.weightData.isActive : '', Validators.required],
+        isActive: [this.weightData.isActive ? this.weightData.isActive : true, Validators.required],
         createdBy: [this.weightData.createdBy ? this.weightData.createdBy : ''],
         createdOn: [this.weightData.createdOn ? this.weightData.createdOn : ''],
         modifiedBy: [this.weightData.modifiedBy ? this.weightData.modifiedBy : ''],
@@ -53,7 +53,7 @@ export class WeightFormComponent implements OnInit {
       this.weightForm = this.fb.group({
         weightMasterId: [''],
         weightDesc: ['', Validators.required],
-        isActive: ['', Validators.required],
+        isActive: [true, Validators.required],
         createdBy: [''],
         createdOn: [''],
         modifiedBy: [''],
