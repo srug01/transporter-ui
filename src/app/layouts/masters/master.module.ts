@@ -318,7 +318,7 @@ const routes: Routes = [
     path: 'cfs-yard-rate', component: CfsyardrateComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: CfsyardrateMasterListComponent },
+      { path: 'cfs-yard-rate-list', component: CfsyardrateMasterListComponent },
       { path: 'new', component: CfsyardrateNewComponent },
       {
         path: 'edit/:id', component: CfsyardrateEditComponent,
@@ -332,7 +332,7 @@ const routes: Routes = [
     path: 'port-cfs-rate', component: PortcfsrateComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: PortcfsrateMasterListComponent },
+      { path: 'port-cfs-rate-list', component: PortcfsrateMasterListComponent },
       { path: 'new', component: PortcfsrateNewComponent },
       {
         path: 'edit/:id', component: PortcfsrateEditComponent,

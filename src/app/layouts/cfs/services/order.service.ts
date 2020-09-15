@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
+import { User } from 'aws-sdk/clients/appstream';
 
 
 @Injectable({
@@ -78,6 +79,28 @@ export class OrderService {
   getAllSubOrdersbyuserId(userId): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'GetAllSubOrdersbyUserId/' + userId);
   }
+
+/*  ************ Order Listing SPs ************** */
+
+  getOrderListForAdmin(sourceId,destinationId,orderDate,orderType,orderStatus,custId): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'GetOrderListForAdmin/'
+     + sourceId + '/'
+     + destinationId + '/'
+     + orderDate + '/'
+     + orderType + '/'
+     + orderStatus  + '/'
+     + custId
+     );
+  }
+
+  getAllCFSUsers(): Observable<User[]> {
+    this.filter.where = {
+      or: [{typeSyscode: 4}, {typeSyscode: 7}, {typeSyscode: 8}, {typeSyscode: 9}]
+  };
+    return this.http.get<User[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+  }
+
+  /*  ************ Order Listing SPs ************** */
 
   deleteOrderById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'orders/' + id);

@@ -12,6 +12,7 @@ import { ContainerService } from '../services/container.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { PortCfsRateService } from '../../masters/services/portcfsrate.service';
+import { Cfs } from 'src/app/shared/models/cfs';
 
 @Component({
   selector: 'app-portcfsrate-form',
@@ -27,6 +28,7 @@ export class PortcfsrateFormComponent implements OnInit {
   public weightMasters: Array<any> = [];
   public containerMaster: Array<any> = [];
   public currentUser: User;
+  public cfs: Cfs;
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -58,6 +60,7 @@ export class PortcfsrateFormComponent implements OnInit {
         orderMarginRate: [this.portcfsrateData.orderMarginRate ? this.portcfsrateData.orderMarginRate : 0, Validators.required],
         isActive: [this.portcfsrateData.isActive ? this.portcfsrateData.isActive : true, Validators.required]
       });
+      this.getPortMasterForCfs(this.portcfsrateData.portMasterId);
       this.getAllWeightMastersbyContainerID(this.portcfsrateData.containerMasterId);
     } else {
       this.portcfsrateForm = this.fb.group({
@@ -95,7 +98,22 @@ export class PortcfsrateFormComponent implements OnInit {
     );
   }
 
+  cfsSelected(cfsId){
+    this.cfs = this.cfsMasters.find(a=> a.cfsMasterId == cfsId);
+   this.getPortMasterForCfs(this.cfs.portMasterId);
+ }
 
+ getPortMasterForCfs(portId: number) {
+  this._portService.getAllPortMasters().subscribe(
+    (portMasters) => {
+      this.portMasters = portMasters;
+      this.portMasters = this.portMasters.filter(p=> p.portMasterId == portId);
+      this.portcfsrateForm.get('portMasterId').setValue(portId);
+    },
+    (err) => {
+    }
+  );
+}
 
   getAllWeightMastersbyContainerID(id: number){
     this.weightMasters = [];

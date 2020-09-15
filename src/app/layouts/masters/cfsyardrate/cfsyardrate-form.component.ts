@@ -1,4 +1,5 @@
 import { CfsYardRateMaster } from './../../../shared/models/cfsyardrate';
+import { Cfs } from './../../../shared/models/cfs';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormErrorStateMatcher } from './../../../shared/matchers/error.matcher';
 import { NgZone, ViewChild } from '@angular/core';
@@ -32,6 +33,7 @@ export class CfsyardrateFormComponent implements OnInit {
   public yardMaster: Array<any> = [];
   public weightMaster: Array<any> = [];
   public portMasters: Array<any> = [];
+  public cfs:Cfs;
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -72,10 +74,11 @@ export class CfsyardrateFormComponent implements OnInit {
 
 
 
-  getAllYardMasters() {
+  getAllYardMasters(Id : number) {
     this._yardService.getAllYardMasters().subscribe(
       (yardMasters) => {
         this.yardMaster = yardMasters;
+        this.yardMaster = this.yardMaster.filter(y=> y.portMasterId == Id)
       },
       (err) => {
         console.log('could not fetch Yard masters');
@@ -83,18 +86,32 @@ export class CfsyardrateFormComponent implements OnInit {
     );
   }
 
+  cfsSelected(cfsMasterId) {
+    this.cfs = this.cfsMaster.find(a=> a.cfsMasterId == cfsMasterId);
+    if(this.cfs != null)
+    {
+      this.getAllPortMasters(this.cfs.portMasterId);
+      this.getAllYardMasters(this.cfs.portMasterId);
+    }
+
+    //this.getAllPortandYardbycfsId(cfsMasterId);
+  }
+
+  getAllPortandYardbycfsId(cfsmasterid: number)
+  {
+    this.cfs = this.cfsMaster.find(a=> a.cfsMasterId == cfsmasterid);
+    if(this.cfs != null)
+    {
+      console.log("portmasterId" + this.cfs.portMasterId)
+      this.portMasters = this.portMasters.filter(p=> p.portMasterId == 1) ;
+      console.log(this.portMasters);
+      this.cfsyardrateForm.get('portMasterId').setValue(this.cfs.portMasterId);
+
+      this.yardMaster = this.yardMaster.filter(y=> y.portMasterId == this.cfs.portMasterId) ;
+    }
+  }
 
 
-  /* getAllWeightMasters() {
-    this._weightService.getAllWeightMasters().subscribe(
-      (weightMasters) => {
-        this.weightMaster = weightMasters;
-      },
-      (err) => {
-        console.log('could not fetch weight masters');
-      }
-    );
-  } */
 
   getAllWeightMastersbyContainerID(id: number){
     this.weightMaster = [];
@@ -133,6 +150,8 @@ export class CfsyardrateFormComponent implements OnInit {
         createdBy: [this.cfsyardrateData.createdBy ? this.cfsyardrateData.createdBy : 0],
         createdOn: new Date()
       });
+      this.getAllPortMasters(this.cfsyardrateData.portMasterId);
+      this.getAllYardMasters(this.cfsyardrateData.portMasterId);
       this.getAllWeightMastersbyContainerID(this.cfsyardrateData.containerMasterId);
     } else {
       this.cfsyardrateForm = this.fb.group({
@@ -154,10 +173,10 @@ export class CfsyardrateFormComponent implements OnInit {
 
     this.getAllCFSMasters();
     this.getAllContainerMasters();
-    //this.getAllWeightMasters();
+    /*this.getAllWeightMasters();
     this.getAllContainerMasters();
     this.getAllYardMasters();
-    this.getAllPortMasters();
+    this.getAllPortMasters();*/
 
   }
 
@@ -172,10 +191,12 @@ export class CfsyardrateFormComponent implements OnInit {
     );
   }
 
-  getAllPortMasters() {
+  getAllPortMasters(Id : number) {
     this._portService.getAllPortMasters().subscribe(
       (portMasters) => {
         this.portMasters = portMasters;
+        this.portMasters = this.portMasters.filter(p=> p.portMasterId == Id);
+        this.cfsyardrateForm.get('portMasterId').setValue(Id);
       },
       (err) => {
       }
