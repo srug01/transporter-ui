@@ -1,3 +1,4 @@
+import { OrderFilter } from './../../../shared/models/OrderFilter';
 import { Include } from './../../../shared/models/filter';
 import { Order } from './../../../shared/models/order';
 import { Injectable } from '@angular/core';
@@ -37,10 +38,10 @@ export class OrderService {
   getAllOrders(): Observable<Order[]> {
     const include = {
       include: [{
-          relation: 'containers'
-        }]
+        relation: 'containers'
+      }]
     };
-    return this.http.get<Order[]>(this.baseUrl + 'orders?filter='+JSON.stringify(include));
+    return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(include));
   }
 
   getOrderById(orderId: number): Observable<Order> {
@@ -62,7 +63,7 @@ export class OrderService {
     this.filter.where = {
       orderStatus: 'ORDER_ACCEPTED'
     };
-    this.filter.order =[
+    this.filter.order = [
       "createdOn DESC"
     ];
     return this.http.get<Order[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
@@ -80,24 +81,26 @@ export class OrderService {
     return this.http.get<any>(this.baseUrl + 'GetAllSubOrdersbyUserId/' + userId);
   }
 
-/*  ************ Order Listing SPs ************** */
+  /*  ************ Order Listing SPs ************** */
 
-  getOrderListForAdmin(sourceId,destinationId,orderDate,orderType,orderStatus,custId): Observable<any> {
+  getOrderListForAdmin(orderFilter: OrderFilter): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'GetOrderListForAdmin/'
-     + sourceId + '/'
-     + destinationId + '/'
-     + orderDate + '/'
-     + orderType + '/'
-     + orderStatus  + '/'
-     + custId
-     );
+      + orderFilter.sourceId + '/'
+      + orderFilter.destinationId + '/'
+      + orderFilter.orderDate + '/'
+      + orderFilter.orderType + '/'
+      + orderFilter.orderStatus + '/'
+      + orderFilter.custId
+    );
   }
 
   getAllCFSUsers(): Observable<User[]> {
-    this.filter.where = {
-      or: [{typeSyscode: 4}, {typeSyscode: 7}, {typeSyscode: 8}, {typeSyscode: 9}]
-  };
-    return this.http.get<User[]>(this.baseUrl + 'orders?filter=' + JSON.stringify(this.filter));
+    const filter = {
+      where: {
+        or: [{ typeSyscode: 4 }, { typeSyscode: 7 }, { typeSyscode: 8 }, { typeSyscode: 9 }]
+      }
+    }
+    return this.http.get<User[]>(this.baseUrl + 'users?filter=' + JSON.stringify(filter));
   }
 
   /*  ************ Order Listing SPs ************** */

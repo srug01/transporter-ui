@@ -1,3 +1,5 @@
+import { OrderFilter } from './../../../shared/models/OrderFilter';
+import { MasterType } from './../../../shared/models/masterType';
 import { Yard } from 'src/app/shared/models/yard';
 import { Port } from './../../../shared/models/port';
 import { Cfs } from './../../../shared/models/cfs';
@@ -14,9 +16,10 @@ import { User } from 'src/app/shared/models/user';
 import { DateFormatPipe } from './../../../shared/pipe/date-format.pipe';
 import { PortService } from '../../masters/services/port.service';
 import { CfsService } from '../../masters/services/cfs.service';
-import { YardService } from '../../masters/services/yard.service'; 
+import { YardService } from '../../masters/services/yard.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MasterTypeService } from '../services/master-type.service';
 
 @Component({
   selector: 'app-order-list',
@@ -37,8 +40,16 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   public cfsMasters: Cfs[] = [];
   public portMasters: Port[] = [];
   public yardMasters: Yard[];
+  public masterTypes: MasterType[] = [];
+  public masterTypeSelectedId: number;
+  public selectedMasterType: MasterType;
+  public source: any;
+  public destination: any;
+  public cfsUsers: any;
 
   @ViewChild(MatSort) sort: MatSort;
+
+  public orderFilter: OrderFilter = new OrderFilter();
 
   constructor(
     private _orderService: OrderService,
@@ -47,10 +58,13 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     private _userService: UserService,
     private _yardService: YardService,
     private _cfsService: CfsService,
-    private _portService: PortService
+    private _portService: PortService,
+    private _masterTypeService: MasterTypeService
   ) { }
 
   ngOnInit(): void {
+    this.getAllCustomers();
+    this.getMasterTypes();
     this.getAllCfs();
     this.getAllPorts();
     this.getAllYards();
@@ -58,6 +72,89 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     // this.orders.sort = this.sort;
+  }
+  getAllCustomers() {
+    this._orderService.getAllCFSUsers().subscribe(
+      (users) => {
+        this.cfsUsers = users;
+        console.log(this.cfsUsers);
+      }
+    );
+  }
+
+  getMasterTypes() {
+    this._masterTypeService.getAllMasterTypes().subscribe(
+      (masterTypes) => {
+        this.masterTypes = masterTypes;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  applyFilter() {
+    const filter: OrderFilter = {
+      custId: this.orderFilter.custId ? this.orderFilter.custId : null,
+      destinationId: this.orderFilter.destinationId ? this.orderFilter.destinationId : null,
+      orderDate: this.orderFilter.orderDate ? this.orderFilter.orderDate : null,
+      orderStatus: this.orderFilter.orderStatus ? this.orderFilter.orderStatus : null,
+      orderType: this.orderFilter.orderType ? this.orderFilter.orderType : null,
+      sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : null
+    };
+    this._orderService.getOrderListForAdmin(filter).subscribe(
+      (orders) => {
+        console.log(orders);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  resetFilter() {
+    this.orderFilter = new OrderFilter();
+  }
+
+  masterTypeSelected(masterTypeId) {
+    this.masterTypeSelectedId = masterTypeId;
+    this._masterTypeService.getMasterTypeById(masterTypeId).subscribe(
+      (masterType: MasterType) => {
+        this.selectedMasterType = masterType;
+        this.source = this.selectedMasterType.sourceType;
+        this.destination = this.selectedMasterType.destinationType;
+        switch (this.source) {
+          case 'CFS':
+            this.getAllCfs();
+            break;
+          case 'PORT':
+            this.getAllPorts();
+            break;
+          case 'YARD':
+            this.getAllYards();
+            break;
+          default:
+            break;
+        }
+        switch (this.destination) {
+          case 'CFS':
+            this.getAllCfs();
+            break;
+          case 'PORT':
+            this.getAllPorts();
+            break;
+          case 'YARD':
+            this.getAllYards();
+            break;
+          default:
+            break;
+        }
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getAllCfs() {
@@ -67,7 +164,6 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       },
       (err) => {
         console.log(err);
-
       }
     );
   }
@@ -115,11 +211,6 @@ export class OrderListComponent implements OnInit, AfterViewInit {
         this.getAllUsers();
       }
     );
-  }
-
-  applyOrdersFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.orders.filter = filterValue.trim().toLowerCase();
   }
 
   getAllUsers() {
@@ -218,7 +309,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
 
   searchUserById(userId): string {
     for (let i = 0; i < this.users.length; i++) {
-      if (this.users[i].userId === userId) {        
+      if (this.users[i].userId === userId) {
         return `${this.users[i].email}`;
       }
     }

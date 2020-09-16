@@ -4,10 +4,109 @@
         <mat-card-subtitle>Orders List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <mat-form-field>
-            <mat-label>Filter Orders</mat-label>
-            <input matInput (keyup)="applyOrdersFilter($event)" #orderInput>
-        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="20px">
+            <div fxFlex="20">
+                <mat-form-field class="full-width">
+                    <mat-label>Select Source & Destination Types*</mat-label>
+                    <mat-select [(ngModel)]="orderFilter.orderType" (valueChange)="masterTypeSelected($event)">
+                        <mat-option *ngFor="let masterType of masterTypes" [value]="masterType.masterTypeId">
+                            {{masterType.sourceType + ' To ' + masterType.destinationType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex="20" *ngIf="orderFilter.orderType">
+                <div [ngSwitch]="source">
+                    <div *ngSwitchCase="'CFS'">
+                        <mat-form-field class="full-width">
+                            <mat-label>CFS</mat-label>
+                            <mat-select [(ngModel)]="orderFilter.sourceId">
+                                <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
+                                    {{cfs.cfsName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngSwitchCase="'PORT'">
+                        <mat-form-field class="full-width">
+                            <mat-label>Port</mat-label>
+                            <mat-select [(ngModel)]="orderFilter.sourceId">
+                                <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
+                                    {{port.portName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngSwitchCase="'YARD'">
+                        <mat-form-field class="full-width">
+                            <mat-label>Yard</mat-label>
+                            <mat-select [(ngModel)]="orderFilter.sourceId">
+                                <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
+                                    {{yard.yardName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="20" *ngIf="orderFilter.orderType">
+                <div [ngSwitch]="destination">
+                    <div *ngSwitchCase="'CFS'">
+                        <mat-form-field class="full-width">
+                            <mat-label>CFS</mat-label>
+                            <mat-select [(ngModel)]="orderFilter.destinationId">
+                                <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
+                                    {{cfs.cfsName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngSwitchCase="'PORT'">
+                        <mat-form-field class="full-width">
+                            <mat-label>Port</mat-label>
+                            <mat-select [(ngModel)]="orderFilter.destinationId">
+                                <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
+                                    {{port.portName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngSwitchCase="'YARD'">
+                        <mat-form-field class="full-width">
+                            <mat-label>Yard</mat-label>
+                            <mat-select [(ngModel)]="orderFilter.destinationId">
+                                <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
+                                    {{yard.yardName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="20">
+                <mat-form-field color="accent" class="full-width">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="orderFilter.orderDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxFlex="20" *ngIf="cfsUsers">
+                <mat-form-field class="full-width">
+                    <mat-label>User</mat-label>
+                    <mat-select [(ngModel)]="orderFilter.custId">
+                        <mat-option *ngFor="let cfsUser of cfsUsers" [value]="cfsUser.userId">
+                            {{cfsUser.email}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="20" class="filter-wrapper">
+                <button mat-button (click)="applyFilter()"><mat-icon>filter_list</mat-icon></button>
+                <button mat-button (click)="resetFilter()"><mat-icon>clear</mat-icon></button>
+            </div>
+        </div>
         <table mat-table [dataSource]="orders" matSort class="mat-elevation-z8">
             <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
