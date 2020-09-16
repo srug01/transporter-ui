@@ -9,7 +9,7 @@
                 <div fxLayout='row' fxLayoutGap="70px">
                     <div fxFlex="50%">
                         <mat-form-field class="demo-full-width">
-                            <mat-label>Select Source & Destination Types*</mat-label>
+                            <mat-label class="required">Select Source & Destination Types</mat-label>
                             <mat-select matNativeControl formControlName="masterTypeId" (valueChange)="masterTypeSelected($event)" [errorStateMatcher]="errorStateMatcher">
                                 <mat-option *ngFor="let masterType of masterTypes" [value]="masterType.masterTypeId">
                                     {{masterType.sourceType + ' To ' + masterType.destinationType}}
@@ -21,7 +21,7 @@
                     </div>
                     <div fxFlex="30%">
                         <mat-form-field color="accent">
-                            <mat-label>Date*</mat-label>
+                            <mat-label class="required">Date</mat-label>
                             <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName="orderDate">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
@@ -31,7 +31,7 @@
                     </div>
                     <div fxFlex="20%">
                         <mat-form-field color="accent">
-                            <mat-label>Time Slot*</mat-label>
+                            <mat-label class="required">Time Slot</mat-label>
                             <mat-select matNativeControl formControlName="timeslotMasterId" (valueChange)="timeSlotSelected($event)" [errorStateMatcher]="errorStateMatcher">
                                 <mat-option *ngFor="let timeSlot of timeSlots" [value]="timeSlot.timeslotMasterId">
                                     {{timeSlot.actualValue}}
@@ -50,7 +50,7 @@
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
-                                    <mat-label>CFS*</mat-label>
+                                    <mat-label class="required">CFS</mat-label>
                                     <mat-select matNativeControl formControlName="sourceId" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
                                             {{cfs.cfsName}}
@@ -68,7 +68,7 @@
                                 </div>
                                 <div fxFlex="94%">
                                     <mat-form-field>
-                                        <mat-label>Port*</mat-label>
+                                        <mat-label class="required">Port</mat-label>
                                         <mat-select matNativeControl formControlName="sourceId" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
                                                 {{port.portName}}
@@ -81,7 +81,7 @@
                             </div>
                             <div fxFlex="100%">
                                 <mat-form-field class="location-field">
-                                    <mat-label>Select Terminal*</mat-label>
+                                    <mat-label class="required">Select Terminal</mat-label>
                                     <mat-select matNativeControl formControlName="portTerminalId" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let terminal of terminals" [value]="terminal.portTerminalId">
                                             {{terminal.terminal}}
@@ -99,7 +99,7 @@
                                 </div>
                                 <div fxFlex="94%">
                                     <mat-form-field class="demo-full-width">
-                                        <mat-label>Yard*</mat-label>
+                                        <mat-label class="required">Yard</mat-label>
                                         <mat-select matNativeControl formControlName="sourceId" (valueChange)="yardChanged($event,'source')" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
                                                 {{yard.yardName}}
@@ -119,7 +119,7 @@
                             </div>
                             <div fxFlex="94%">
                                 <mat-form-field class="demo-full-width">
-                                    <mat-label>CFS*</mat-label>
+                                    <mat-label class="required">CFS</mat-label>
                                     <mat-select matNativeControl formControlName="destinationId" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
                                             {{cfs.cfsName}}
@@ -137,7 +137,7 @@
                                 </div>
                                 <div fxFlex="94%">
                                     <mat-form-field class="demo-full-width">
-                                        <mat-label>Port*</mat-label>
+                                        <mat-label class="required">Port</mat-label>
                                         <mat-select matNativeControl formControlName="destinationId" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let port of portMasters" [value]="port.portMasterId">
                                                 {{port.portName}}
@@ -150,7 +150,7 @@
                             </div>
                             <div fxFlex="100%">
                                 <mat-form-field class="location-field2">
-                                    <mat-label>Select Terminal*</mat-label>
+                                    <mat-label class="required">Select Terminal</mat-label>
                                     <mat-select matNativeControl formControlName="portTerminalId" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let terminal of terminals" [value]="terminal.portTerminalId">
                                             {{terminal.terminal}}
@@ -168,7 +168,7 @@
                                 </div>
                                 <div fxFlex="94%">
                                     <mat-form-field class="demo-full-width">
-                                        <mat-label>Yard*</mat-label>
+                                        <mat-label class="required">Yard</mat-label>
                                         <mat-select matNativeControl formControlName="destinationId" (valueChange)="yardChanged($event,'destination')" [errorStateMatcher]="errorStateMatcher">
                                             <mat-option *ngFor="let yard of yardMasters" [value]="yard.yardMasterId">
                                                 {{yard.yardName}}
