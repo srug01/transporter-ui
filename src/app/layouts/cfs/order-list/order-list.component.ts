@@ -95,13 +95,14 @@ export class OrderListComponent implements OnInit, AfterViewInit {
 
   applyFilter() {
     const filter: OrderFilter = {
-      custId: this.orderFilter.custId ? this.orderFilter.custId : null,
-      destinationId: this.orderFilter.destinationId ? this.orderFilter.destinationId : null,
-      orderDate: this.orderFilter.orderDate ? this.orderFilter.orderDate : null,
-      orderStatus: this.orderFilter.orderStatus ? this.orderFilter.orderStatus : null,
-      orderType: this.orderFilter.orderType ? this.orderFilter.orderType : null,
-      sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : null
+      custId: this.orderFilter.custId ? this.orderFilter.custId : 0,
+      destinationId: this.orderFilter.destinationId ? this.orderFilter.destinationId : 0,
+      orderDate: this.orderFilter.orderDate ? this.orderFilter.orderDate : "",
+      orderStatus: this.orderFilter.orderStatus ? this.orderFilter.orderStatus : 0,
+      orderType: this.orderFilter.orderType ? this.orderFilter.orderType : 0,
+      sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : 0
     };
+    console.log("custId : "+filter.custId);
     this._orderService.getOrderListForAdmin(filter).subscribe(
       (orders) => {
         console.log(orders);

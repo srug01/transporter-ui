@@ -84,13 +84,10 @@ export class OrderService {
   /*  ************ Order Listing SPs ************** */
 
   getOrderListForAdmin(orderFilter: OrderFilter): Observable<any> {
-    return this.http.get<any>(this.baseUrl + 'GetOrderListForAdmin/'
-      + orderFilter.sourceId + '/'
-      + orderFilter.destinationId + '/'
-      + orderFilter.orderDate + '/'
-      + orderFilter.orderType + '/'
-      + orderFilter.orderStatus + '/'
-      + orderFilter.custId
+    console.log("Filter : " + orderFilter);
+    return this.http.post<any>(this.baseUrl + 'GetOrderListForAdmin',
+    JSON.stringify(orderFilter),
+     this.HttpUploadOptions
     );
   }
 

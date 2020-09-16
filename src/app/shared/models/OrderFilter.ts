@@ -1,8 +1,8 @@
 export class OrderFilter {
-    orderType: any;
-    sourceId: number;
-    destinationId: number;
-    orderDate: any;
-    orderStatus: any;
-    custId: any
+    orderType?: number;
+    sourceId?: number;
+    destinationId?: number;
+    orderDate?: string;
+    orderStatus?: number;
+    custId?: number
 }

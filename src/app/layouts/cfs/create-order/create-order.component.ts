@@ -391,6 +391,10 @@ export class CreateOrderComponent implements OnInit {
     this._masterTypeService.getAllCFSContainersbyUserId(this.userId, type, portyardid).subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
+        if(this.containerTypes.length == 0)
+        {
+          this._alertService.error('No Containers Found', 'Missing Info!');
+        }
       },
       (err) => {
         console.log(err);
