@@ -176,7 +176,11 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'user-management';
         details.url = '/default/settings/user-management';
         break;
+      case 'order-details':
+        details.label = 'order-details';
+        break;
       default:
+        details.label = link;
         break;
     }
     return details;

@@ -9,7 +9,8 @@
 <div class="breadcrumbs">
     <ul class="steps">
         <li class="step" *ngFor='let breadcrumb of breadcrumbs'>
-            <a [routerLink]="[breadcrumb.url ? breadcrumb.url : ' ']" routerLinkActive='active'>{{ breadcrumb.label }}</a>
+            <a *ngIf="breadcrumb.url" [routerLink]="[breadcrumb.url]" routerLinkActive='active'>{{ breadcrumb.label }}</a>
+            <a *ngIf="!breadcrumb.url">{{ breadcrumb.label }}</a>
         </li>
     </ul>
 </div>

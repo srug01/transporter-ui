@@ -10,6 +10,7 @@ import { PortService } from '../../masters/services/port.service';
 import { UserService } from 'src/app/services/user.service';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
+import { SubOrderFilter } from 'src/app/shared/models/subOrderFilter';
 
 @Component({
   selector: 'app-order-details',
@@ -20,12 +21,16 @@ export class OrderDetailsComponent implements OnInit {
   public cfsMasters: Cfs[] = [];
   public yardMasters: Yard[] = [];
   public portMasters: Port[] = [];
+  public subOrderFilter: SubOrderFilter = new SubOrderFilter();
+  public statuses: any;
+  public containerMasters: any;
+  public weights: any;
   detailsAwaited = Constants.detailsAwaited;
   displayedColumns: string[] = [
     'From', 'To'
   ];
   containerColumns: string[] = [
-    'Bid Name', 'Bid Value', 'Bid User Status','SubOrder Status'
+    'Bid Name', 'Bid Value', 'Bid User Status', 'SubOrder Status'
   ];
   public order: any;
   constructor(
@@ -38,10 +43,48 @@ export class OrderDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllContainerMasters();
+    this.getAllStatus();
+    this.getAllWeights();
     this.getAllCFS();
     this.getAllPorts();
     this.getAllYards();
     this.getOrderDetails();
+  }
+
+  getAllStatus() {
+    this._orderService.getAllStatuses().subscribe(
+      (statuses) => {
+        this.statuses = statuses;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  getAllWeights() {
+    this._orderService.getAllWeights().subscribe(
+      (weights) => {
+        this.weights = weights;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  getAllContainerMasters() {
+    this._orderService.getAllContainerMasters().subscribe(
+      (containerMasters) => {
+        this.containerMasters = containerMasters;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getOrderDetails() {
@@ -58,6 +101,31 @@ export class OrderDetailsComponent implements OnInit {
         );
       }
     );
+  }
+
+  applyFilter() {
+    const filter: SubOrderFilter = {
+      containerMasterName: this.subOrderFilter.containerMasterName ? this.subOrderFilter.containerMasterName : null,
+      cutOffTime: this.subOrderFilter.cutOffTime ? this.subOrderFilter.cutOffTime : null,
+      subOrderDate: this.subOrderFilter.subOrderDate ? this.subOrderFilter.subOrderDate : null,
+      subOrderStatus: this.subOrderFilter.subOrderStatus ? this.subOrderFilter.subOrderStatus : null,
+      weightDesc: this.subOrderFilter.weightDesc ? this.subOrderFilter.weightDesc : null
+    };
+
+    // call suborder api for order along with this filter
+
+    // this._orderService.getOrderListForAdmin(filter).subscribe(
+    //   (orders) => {
+    //     console.log(orders);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
+  }
+
+  resetFilter() {
+    this.subOrderFilter = new SubOrderFilter();
   }
 
   getAllCFS() {

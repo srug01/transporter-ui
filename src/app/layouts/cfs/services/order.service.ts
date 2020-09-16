@@ -52,6 +52,18 @@ export class OrderService {
     return this.http.get(this.baseUrl + 'searchCFSLocation/' + userId);
   }
 
+  getAllStatuses(): Observable<any> {
+    return this.http.get(this.baseUrl + 'status-details');
+  }
+
+  getAllWeights(): Observable<any> {
+    return this.http.get(this.baseUrl + 'weight-masters');
+  }
+
+  getAllContainerMasters(): Observable<any> {
+    return this.http.get(this.baseUrl + 'container-masters');
+  }
+
   getAllSavedOrders(): Observable<Order[]> {
     this.filter.where = {
       status: 'pending'
