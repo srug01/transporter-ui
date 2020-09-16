@@ -20,6 +20,8 @@ import { YardService } from '../../masters/services/yard.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MasterTypeService } from '../services/master-type.service';
+import { UserRegistrationService } from '../services/user-registration.service';
+
 
 @Component({
   selector: 'app-order-list',
@@ -29,14 +31,14 @@ import { MasterTypeService } from '../services/master-type.service';
 export class OrderListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
-    'Order ID', 'Source', 'Destination',
-    'Containers', 'Created By', 'Created On', 'orderStatus', 'Action'
+    'orderId', 'sourceType', 'destinationType',
+    , 'CustomerName','OrderDate', 'CreatedOn', 'orderStatus','orderRemarks', 'Action'
   ];
   public locations: Array<LocationMaster> = [];
-  orders: MatTableDataSource<Order>;
+  public orders: Array<any> = [];
   public currentUser: User;
   public users: User[] = [];
-  public orderUserIds: Array<{ id: number }> = null;
+  // public orderUserIds: Array<{ id: number }> = null;
   public cfsMasters: Cfs[] = [];
   public portMasters: Port[] = [];
   public yardMasters: Yard[];
@@ -59,7 +61,9 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     private _yardService: YardService,
     private _cfsService: CfsService,
     private _portService: PortService,
-    private _masterTypeService: MasterTypeService
+    private _masterTypeService: MasterTypeService,
+    private _userRegistrationService: UserRegistrationService
+
   ) { }
 
   ngOnInit(): void {
@@ -68,13 +72,14 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     this.getAllCfs();
     this.getAllPorts();
     this.getAllYards();
-    this.getAllOrders();
+    // this.getAllOrders();
+     this.applyFilter();
   }
   ngAfterViewInit() {
     // this.orders.sort = this.sort;
   }
   getAllCustomers() {
-    this._orderService.getAllCFSUsers().subscribe(
+    this._userRegistrationService.getAllCFSUsers().subscribe(
       (users) => {
         this.cfsUsers = users;
         console.log(this.cfsUsers);
@@ -102,10 +107,11 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       orderType: this.orderFilter.orderType ? this.orderFilter.orderType : 0,
       sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : 0
     };
-    console.log("custId : "+filter.custId);
+
     this._orderService.getOrderListForAdmin(filter).subscribe(
       (orders) => {
         console.log(orders);
+        this.orders = orders;
       },
       (err) => {
         console.log(err);
@@ -195,7 +201,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  getAllOrders() {
+  /* getAllOrders() {
     this._orderService.getAllOrders().subscribe(
       (orders: Order[]) => {
         this.orders = new MatTableDataSource(orders);
@@ -212,15 +218,9 @@ export class OrderListComponent implements OnInit, AfterViewInit {
         this.getAllUsers();
       }
     );
-  }
+  } */
 
-  getAllUsers() {
-    this._userService.getAllUsersByFilter(this.orderUserIds).subscribe(
-      (users) => {
-        this.users = users;
-      }
-    );
-  }
+
 
   openDialog(ev, orderId: number) {
     if (ev) {
@@ -239,7 +239,8 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     this._orderService.deleteOrderById(orderId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Order Deleted Successfully');
-        this.getAllOrders();
+        // this.getAllOrders();
+        this.applyFilter();
       }
     );
   }

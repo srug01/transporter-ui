@@ -3,7 +3,7 @@
         <mat-card-title>CFS Orders</mat-card-title>
         <mat-card-subtitle>Orders List</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf="orders">
         <div fxLayout="row" fxLayoutGap="20px">
             <div fxFlex="20">
                 <mat-form-field class="full-width">
@@ -112,39 +112,44 @@
                     The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
-            <ng-container matColumnDef="Order ID">
+            <ng-container matColumnDef="orderId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr.No. </th>
-                <td mat-cell *matCellDef="let i=index"> {{i+ 1}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="Source">
+            <ng-container matColumnDef="sourceType">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
                 <td mat-cell *matCellDef="let element">
-                    {{searchSourceById(element.sourceType,element.sourceId)}}
+                    {{element.sourceType}}
                 </td>
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="Destination">
+            <ng-container matColumnDef="destinationType">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
                 <td mat-cell *matCellDef="let element">
-                    {{searchDestinationById(element.destinationType,element.destinationId)}} </td>
+                    {{element.destinationType}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Containers">
+            <!-- <ng-container matColumnDef="Containers">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Containers </th>
                 <td mat-cell *matCellDef="let element"> {{element?.containers?.length}} </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="CustomerName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.CustomerName}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Created By">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
-                <td mat-cell *matCellDef="let element"> {{searchUserById(element.createdBy)}} </td>
-            </ng-container>
+            <ng-container matColumnDef="OrderDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.OrderDate}} </td>
+          </ng-container>
 
-            <ng-container matColumnDef="Created On">
+            <ng-container matColumnDef="CreatedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
-                <td mat-cell *matCellDef="let element"> {{element.createdOn | dateFormat }}
+                <td mat-cell *matCellDef="let element"> {{element.CreatedOn }}
                 </td>
             </ng-container>
 
@@ -153,6 +158,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.orderStatus }} </td>
             </ng-container>
 
+            <ng-container matColumnDef="orderRemarks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Remarks </th>
+              <td mat-cell *matCellDef="let element"> {{element.orderRemarks }} </td>
+          </ng-container>
             <ng-container matColumnDef="Action">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                 <td mat-cell *matCellDef="let element">

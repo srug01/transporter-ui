@@ -46,7 +46,14 @@ export class UserRegistrationService {
   getAllCfsUserRegistration(): Observable<any> {
     return this.http.get(this.baseUrl + 'cfs-user-registrations', this.HttpUploadOptions);
   }
-
+  getAllCFSUsers(): Observable<User[]> {
+    const filter = {
+      where: {
+        or: [{ typeSyscode: 4 }, { typeSyscode: 7 }, { typeSyscode: 8 }, { typeSyscode: 9 }]
+      }
+    }
+    return this.http.get<User[]>(this.baseUrl + 'users?filter=' + JSON.stringify(filter));
+  }
   getCfsUserRegistrationById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'cfs-user-registrations/' + id, this.HttpUploadOptions);
   }

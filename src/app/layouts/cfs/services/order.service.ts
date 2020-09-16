@@ -103,14 +103,7 @@ export class OrderService {
     );
   }
 
-  getAllCFSUsers(): Observable<User[]> {
-    const filter = {
-      where: {
-        or: [{ typeSyscode: 4 }, { typeSyscode: 7 }, { typeSyscode: 8 }, { typeSyscode: 9 }]
-      }
-    }
-    return this.http.get<User[]>(this.baseUrl + 'users?filter=' + JSON.stringify(filter));
-  }
+
 
   /*  ************ Order Listing SPs ************** */
 
