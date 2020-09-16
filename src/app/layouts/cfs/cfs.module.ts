@@ -35,6 +35,8 @@ import { UserRegistrationResolver } from './resolvers/user-registration.resolver
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { RoleGuardService } from 'src/app/services/role.guard.service';
 
+import {MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
 const routes: Routes = [
@@ -51,7 +53,7 @@ const routes: Routes = [
     data: { breadcrumb: 'user-registration', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
   },
   {
-    path: 'user-list', component: UserRegistrationListComponent, data: { breadcrumb: 'user-list', 
+    path: 'user-list', component: UserRegistrationListComponent, data: { breadcrumb: 'user-list',
     roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
     canActivate: [AuthGuardService, RoleGuardService]
   },
@@ -71,7 +73,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
-    path: ':id/order-details', component: OrderDetailsComponent, data: { breadcrumb: 'order-details', 
+    path: ':id/order-details', component: OrderDetailsComponent, data: { breadcrumb: 'order-details',
     roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
     canActivate: [AuthGuardService, RoleGuardService]
   }
@@ -119,9 +121,16 @@ const routes: Routes = [
     {
       provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
     },
+    // Comment out the line below to turn off UTC:
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    // These should be provided by MatMomentDateModule, but it has never worked in stackblitz for some reason:
     {
-      provide: MAT_DATE_FORMATS, useValue: AppDateFormats
-    }
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
+
   ]
 })
 export class CfsModule { }

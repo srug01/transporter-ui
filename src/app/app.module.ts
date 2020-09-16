@@ -43,6 +43,7 @@ import { AppDateAdapter, AppDateFormats } from './shared/date-formats';
 import { Platform } from '@angular/cdk/platform';
 import { StartDialogComponent } from './shared/startDialog/start-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
+import {MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 //import {NumbersOnly} from './directives/numbersonly.directive';
 
 
@@ -106,6 +107,14 @@ const toasterConfig: MatSnackBarConfig = {
       useClass: TokenInterceptor,
       multi: true
     },
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    // These should be provided by MatMomentDateModule, but it has never worked in stackblitz for some reason:
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
     // {provide: ErrorHandler, useClass: GlobalErrorHandler},
     AuthenticationService,
     SignupService,

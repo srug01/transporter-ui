@@ -1,3 +1,6 @@
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
 import { OrderFilter } from './../../../shared/models/OrderFilter';
 import { MasterType } from './../../../shared/models/masterType';
 import { Yard } from 'src/app/shared/models/yard';
@@ -21,7 +24,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MasterTypeService } from '../services/master-type.service';
 import { UserRegistrationService } from '../services/user-registration.service';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+// import {default as _rollupMoment} from 'moment';
 
+const moment =  _moment;
 
 @Component({
   selector: 'app-order-list',
@@ -31,7 +38,7 @@ import { UserRegistrationService } from '../services/user-registration.service';
 export class OrderListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
-    'orderId','sourceType', 'destinationType','CustomerName','OrderDate','orderRemarks',
+    'orderId','sourceType', 'destinationType','sourceName','destinationName','CustomerName','OrderDate','orderRemarks',
     'CreatedOn','orderStatus','Action'
   ];
   public locations: Array<LocationMaster> = [];
@@ -102,16 +109,17 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     const filter: OrderFilter = {
       custId: this.orderFilter.custId ? this.orderFilter.custId : 0,
       destinationId: this.orderFilter.destinationId ? this.orderFilter.destinationId : 0,
-      orderDate: this.orderFilter.orderDate ? this.orderFilter.orderDate : "",
+      fromDate:  this.orderFilter.fromDate ? this.orderFilter.fromDate : "",
+      toDate: this.orderFilter.toDate ? this.orderFilter.toDate : "",
       orderStatus: this.orderFilter.orderStatus ? this.orderFilter.orderStatus : 0,
       orderType: this.orderFilter.orderType ? this.orderFilter.orderType : 0,
       sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : 0
     };
-
+    console.log(filter.fromDate);
     this._orderService.getOrderListForAdmin(filter).subscribe(
-      (orders) => {       
+      (orders) => {
         this.orders = new MatTableDataSource(orders);
-        console.log(this.orders); 
+
       },
       (err) => {
         console.log(err);

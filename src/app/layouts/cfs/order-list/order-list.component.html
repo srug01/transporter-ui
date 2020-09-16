@@ -4,7 +4,7 @@
         <mat-card-subtitle>Orders List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content *ngIf="orders">
-        <!-- <div fxLayout="row" fxLayoutGap="20px">
+        <div fxLayout="row" fxLayoutGap="20px">
             <div fxFlex="20">
                 <mat-form-field class="full-width">
                     <mat-label>Select Source & Destination Types*</mat-label>
@@ -85,12 +85,21 @@
             </div>
             <div fxFlex="20">
                 <mat-form-field color="accent" class="full-width">
-                    <mat-label>Date</mat-label>
-                    <input matInput [matDatepicker]="picker1" [(ngModel)]="orderFilter.orderDate">
+                    <mat-label>From Date</mat-label>
+                    <input matInput [matDatepicker]="picker1" placeholder="Moment.js datepicker" [(ngModel)]="orderFilter.fromDate ">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
             </div>
+            <div fxFlex="20">
+              <mat-form-field color="accent" class="full-width">
+                  <mat-label>To Date</mat-label>
+                  <input matInput [matDatepicker]="picker2" placeholder="Moment.js datepicker" [(ngModel)]="orderFilter.toDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+          </div>
+
             <div fxFlex="20" *ngIf="cfsUsers">
                 <mat-form-field class="full-width">
                     <mat-label>User</mat-label>
@@ -106,7 +115,7 @@
                 <button mat-button (click)="applyFilter()"><mat-icon>filter_list</mat-icon></button>
                 <button mat-button (click)="resetFilter()"><mat-icon>clear</mat-icon></button>
             </div>
-        </div> -->
+        </div>
         <table mat-table [dataSource]="orders" class="mat-elevation-z8">
             <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
@@ -132,6 +141,18 @@
                     {{element.destinationType ? element.destinationType : 'NA'}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="sourceName">
+              <th mat-header-cell *matHeaderCellDef> Source Name</th>
+              <td mat-cell *matCellDef="let element">
+                  {{element.sourceName ? element.sourceName : 'NA'}}
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="destinationName">
+            <th mat-header-cell *matHeaderCellDef> Destination Name</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.destinationName ? element.destinationName : 'NA'}} </td>
+        </ng-container>
             <!-- <ng-container matColumnDef="Containers">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Containers </th>
                 <td mat-cell *matCellDef="let element"> {{element?.containers?.length}} </td>
