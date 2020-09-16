@@ -4,7 +4,7 @@
         <mat-card-subtitle>Orders List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content *ngIf="orders">
-        <div fxLayout="row" fxLayoutGap="20px">
+        <!-- <div fxLayout="row" fxLayoutGap="20px">
             <div fxFlex="20">
                 <mat-form-field class="full-width">
                     <mat-label>Select Source & Destination Types*</mat-label>
@@ -106,30 +106,30 @@
                 <button mat-button (click)="applyFilter()"><mat-icon>filter_list</mat-icon></button>
                 <button mat-button (click)="resetFilter()"><mat-icon>clear</mat-icon></button>
             </div>
-        </div>
-        <table mat-table [dataSource]="orders" matSort class="mat-elevation-z8">
+        </div> -->
+        <table mat-table [dataSource]="orders" class="mat-elevation-z8">
             <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
             <ng-container matColumnDef="orderId">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr.No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+                <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.orderId ? element.orderId : 'NA'}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="sourceType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
+                <th mat-header-cell *matHeaderCellDef> Source </th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.sourceType}}
+                    {{element.sourceType ? element.sourceType : 'NA'}}
                 </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="destinationType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
+                <th mat-header-cell *matHeaderCellDef> Destination </th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.destinationType}} </td>
+                    {{element.destinationType ? element.destinationType : 'NA'}} </td>
             </ng-container>
 
             <!-- <ng-container matColumnDef="Containers">
@@ -138,32 +138,32 @@
             </ng-container> -->
 
             <ng-container matColumnDef="CustomerName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.CustomerName}} </td>
+                <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.CustomerName ? element.CustomerName : 'NA'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="OrderDate">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.OrderDate}} </td>
-          </ng-container>
+                <th mat-header-cell *matHeaderCellDef> Order Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.OrderDate ? element.OrderDate : 'NA'}} </td>
+            </ng-container>
 
             <ng-container matColumnDef="CreatedOn">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
-                <td mat-cell *matCellDef="let element"> {{element.CreatedOn }}
+                <th mat-header-cell *matHeaderCellDef> Created On </th>
+                <td mat-cell *matCellDef="let element"> {{element.CreatedOn ? element.CreatedOn : 'NA' }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="orderStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                <td mat-cell *matCellDef="let element"> {{element.orderStatus }} </td>
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.orderStatus ? element.orderStatus : 'NA' }} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderRemarks">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Remarks </th>
-              <td mat-cell *matCellDef="let element"> {{element.orderRemarks }} </td>
-          </ng-container>
+                <th mat-header-cell *matHeaderCellDef> Remarks </th>
+                <td mat-cell *matCellDef="let element"> {{element.orderRemarks ? element.orderRemarks : 'NA' }} </td>
+            </ng-container>
             <ng-container matColumnDef="Action">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
                     <div>
                         <a [routerLink]="['/default/cfs',element.orderId,'order-details']" matTooltip="Details">

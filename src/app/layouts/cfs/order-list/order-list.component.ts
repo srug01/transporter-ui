@@ -31,11 +31,11 @@ import { UserRegistrationService } from '../services/user-registration.service';
 export class OrderListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
-    'orderId', 'sourceType', 'destinationType',
-    , 'CustomerName','OrderDate', 'CreatedOn', 'orderStatus','orderRemarks', 'Action'
+    'orderId','sourceType', 'destinationType','CustomerName','OrderDate','orderRemarks',
+    'CreatedOn','orderStatus','Action'
   ];
   public locations: Array<LocationMaster> = [];
-  public orders: Array<any> = [];
+  public orders: MatTableDataSource<any>;
   public currentUser: User;
   public users: User[] = [];
   // public orderUserIds: Array<{ id: number }> = null;
@@ -109,9 +109,9 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     };
 
     this._orderService.getOrderListForAdmin(filter).subscribe(
-      (orders) => {
-        console.log(orders);
-        this.orders = orders;
+      (orders) => {       
+        this.orders = new MatTableDataSource(orders);
+        console.log(this.orders); 
       },
       (err) => {
         console.log(err);
