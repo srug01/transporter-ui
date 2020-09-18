@@ -1,7 +1,8 @@
 export class SubOrderFilter {
-    cutOffTime: any;
-    subOrderStatus: any;
-    containerMasterName:any;
-    weightDesc:any;
-    subOrderDate:any;
+    orderId? : number;
+    cutOffTime?: string;
+    subOrderStatus?: number;
+    containerType?:number;
+    weightType?:number;
+    subOrderDate?:string;
 }

@@ -64,7 +64,7 @@
                         <div fxFlex="20">
                             <mat-form-field color="accent" class="full-width">
                                 <mat-label>Cut Off Date</mat-label>
-                                <input matInput [matDatepicker]="picker1" [(ngModel)]="subOrderFilter.cutOffTime">
+                                <input matInput [matDatepicker]="picker1" placeholder="Moment.js datepicker" [(ngModel)]="subOrderFilter.cutOffTime">
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
@@ -82,7 +82,7 @@
                         <div fxFlex="20">
                             <mat-form-field class="full-width">
                                 <mat-label>ContainerMasterName</mat-label>
-                                <mat-select [(ngModel)]="subOrderFilter.containerMasterName">
+                                <mat-select [(ngModel)]="subOrderFilter.containerType">
                                     <mat-option *ngFor="let containerMaster of containerMasters" [value]="containerMaster.containerMasterId">
                                         {{containerMaster.containerMasterName}}
                                     </mat-option>
@@ -102,7 +102,7 @@
                         <div fxFlex="20">
                             <mat-form-field color="accent" class="full-width">
                                 <mat-label>SubOrder Date</mat-label>
-                                <input matInput [matDatepicker]="picker2" [(ngModel)]="subOrderFilter.subOrderDate">
+                                <input matInput [matDatepicker]="picker2" placeholder="Moment.js datepicker" [(ngModel)]="subOrderFilter.subOrderDate">
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
@@ -110,7 +110,7 @@
                         <div fxFlex="20">
                             <mat-form-field class="full-width">
                                 <mat-label>Weight</mat-label>
-                                <mat-select [(ngModel)]="subOrderFilter.weightDesc">
+                                <mat-select [(ngModel)]="subOrderFilter.weightType">
                                     <mat-option *ngFor="let weight of weights" [value]="weight.weightMasterId">
                                         {{weight.weightDesc}}
                                     </mat-option>
@@ -119,30 +119,45 @@
                         </div>
                     </div>
                     <div fxFlex="100%">
-                        <table mat-table [dataSource]="order.bids" class="mat-elevation-z8">
-                            <ng-container matColumnDef="Bid Name">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Bid Name </th>
+                        <table mat-table [dataSource]="order.suborders" class="mat-elevation-z8">
+                            <ng-container matColumnDef="subOrderId">
+                                <th mat-header-cell *matHeaderCellDef class="table-title"> SubOrder Id </th>
                                 <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.bidName ? element.bidName : detailsAwaited}} </td>
+                                    {{element.subOrderId}} </td>
                             </ng-container>
-                            <ng-container matColumnDef="Bid Value">
-                                <th mat-header-cell *matHeaderCellDef class="table-title">Bid Value </th>
+                            <ng-container matColumnDef="subOrderTotalMargin">
+                                <th mat-header-cell *matHeaderCellDef class="table-title">Sub Order Total </th>
                                 <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.bidValue ? element.bidValue : detailsAwaited}}
+                                    {{element.subOrderTotalMargin}}
                                 </td>
                             </ng-container>
-                            <ng-container matColumnDef="Bid User Status">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Bid User Status </th>
+                            <ng-container matColumnDef="CutOffTime">
+                                <th mat-header-cell *matHeaderCellDef class="table-title"> CutOffTime </th>
                                 <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.biduserStatus ? element.biduserStatus : detailsAwaited}} </td>
+                                    {{element.CutOffTime}} </td>
                             </ng-container>
-                            <ng-container matColumnDef="SubOrder Status">
+                            <ng-container matColumnDef="suborderStatus">
                                 <th mat-header-cell *matHeaderCellDef class="table-title"> SubOrder Status </th>
                                 <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.suborderStatus ? element.suborderStatus : detailsAwaited}} </td>
+                                    {{element.suborderStatus}} </td>
                             </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="containerColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: containerColumns;"></tr>
+                            <ng-container matColumnDef="containerMasterName">
+                              <th mat-header-cell *matHeaderCellDef class="table-title"> Conatiner Type </th>
+                              <td mat-cell *matCellDef="let element" class="table-row">
+                                  {{element.containerMasterName}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="weightDesc">
+                            <th mat-header-cell *matHeaderCellDef class="table-title"> Weight Type </th>
+                            <td mat-cell *matCellDef="let element" class="table-row">
+                                {{element.weightDesc}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="SubOrderDate">
+                          <th mat-header-cell *matHeaderCellDef class="table-title"> SubOrder Date </th>
+                          <td mat-cell *matCellDef="let element" class="table-row">
+                              {{element.SubOrderDate}} </td>
+                      </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="subOrderColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: subOrderColumns;"></tr>
                         </table>
                     </div>
                 </div>

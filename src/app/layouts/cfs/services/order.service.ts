@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
 import { User } from 'aws-sdk/clients/appstream';
+import { SubOrderFilter } from 'src/app/shared/models/subOrderFilter';
 
 
 @Injectable({
@@ -95,14 +96,21 @@ export class OrderService {
 
   /*  ************ Order Listing SPs ************** */
 
-  getOrderListForAdmin(orderFilter: OrderFilter): Observable<any> {
+  getOrderListForFilters(orderFilter: OrderFilter): Observable<any> {
     console.log("Filter : " + orderFilter);
-    return this.http.post<any>(this.baseUrl + 'GetOrderListForAdmin',
+    return this.http.post<any>(this.baseUrl + 'GetOrderListForFilters',
     JSON.stringify(orderFilter),
      this.HttpUploadOptions
     );
   }
 
+  getSubOrderListForFilters(suborderFilter: SubOrderFilter): Observable<any> {
+    console.log("Filter : " + suborderFilter);
+    return this.http.post<any>(this.baseUrl + 'GetSubOrderListForFilters',
+    JSON.stringify(suborderFilter),
+     this.HttpUploadOptions
+    );
+  }
 
 
   /*  ************ Order Listing SPs ************** */

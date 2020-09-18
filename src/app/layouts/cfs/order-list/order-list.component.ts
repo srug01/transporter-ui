@@ -115,8 +115,8 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       orderType: this.orderFilter.orderType ? this.orderFilter.orderType : 0,
       sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : 0
     };
-    console.log(filter.fromDate);
-    this._orderService.getOrderListForAdmin(filter).subscribe(
+    // console.log(filter.fromDate);
+    this._orderService.getOrderListForFilters(filter).subscribe(
       (orders) => {
         this.orders = new MatTableDataSource(orders);
 

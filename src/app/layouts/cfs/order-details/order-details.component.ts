@@ -11,7 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 import { YardService } from '../../masters/services/yard.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { SubOrderFilter } from 'src/app/shared/models/subOrderFilter';
-
+import * as _moment from 'moment';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
@@ -32,7 +33,13 @@ export class OrderDetailsComponent implements OnInit {
   containerColumns: string[] = [
     'Bid Name', 'Bid Value', 'Bid User Status', 'SubOrder Status'
   ];
+  subOrderColumns: string[] = [
+    'subOrderId', 'subOrderTotalMargin', 'CutOffTime', 'suborderStatus',
+    'containerMasterName','weightDesc','SubOrderDate'
+  ];
+
   public order: any;
+  public suborders: MatTableDataSource<any>;
   constructor(
     private _orderService: OrderService,
     private _route: ActivatedRoute,
@@ -50,6 +57,7 @@ export class OrderDetailsComponent implements OnInit {
     this.getAllPorts();
     this.getAllYards();
     this.getOrderDetails();
+    this.applyFilter();
   }
 
   getAllStatus() {
@@ -105,23 +113,25 @@ export class OrderDetailsComponent implements OnInit {
 
   applyFilter() {
     const filter: SubOrderFilter = {
-      containerMasterName: this.subOrderFilter.containerMasterName ? this.subOrderFilter.containerMasterName : null,
-      cutOffTime: this.subOrderFilter.cutOffTime ? this.subOrderFilter.cutOffTime : null,
-      subOrderDate: this.subOrderFilter.subOrderDate ? this.subOrderFilter.subOrderDate : null,
-      subOrderStatus: this.subOrderFilter.subOrderStatus ? this.subOrderFilter.subOrderStatus : null,
-      weightDesc: this.subOrderFilter.weightDesc ? this.subOrderFilter.weightDesc : null
+      orderId: this.order.orderId,
+      containerType: this.subOrderFilter.containerType ? this.subOrderFilter.containerType : 0,
+      cutOffTime: this.subOrderFilter.cutOffTime ? this.subOrderFilter.cutOffTime : "",
+      subOrderDate: this.subOrderFilter.subOrderDate ? this.subOrderFilter.subOrderDate : "",
+      subOrderStatus: this.subOrderFilter.subOrderStatus ? this.subOrderFilter.subOrderStatus : 0,
+      weightType: this.subOrderFilter.weightType ? this.subOrderFilter.weightType : 0
     };
 
     // call suborder api for order along with this filter
 
-    // this._orderService.getOrderListForAdmin(filter).subscribe(
-    //   (orders) => {
-    //     console.log(orders);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
+    this._orderService.getSubOrderListForFilters(filter).subscribe(
+      (suborders) => {
+        this.suborders = new MatTableDataSource(suborders);
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   resetFilter() {
