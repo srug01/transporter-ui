@@ -318,7 +318,7 @@ export class CreateOrderComponent implements OnInit {
       masterTypeId: order.masterTypeId,
       orderDate: order.orderDate,
       orderRemarks: order.orderRemarks,
-      orderTypeId: order.orderTypeId,
+      orderTypeId: order.masterTypeId,
       orderAddress: order.orderAddress,
       destinationId: order.destinationId,
       sourceId: order.sourceId,
