@@ -1,3 +1,5 @@
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Constants } from './../../../shared/constants/constants';
 import { Port } from './../../../shared/models/port';
 import { Yard } from './../../../shared/models/yard';
@@ -26,6 +28,7 @@ export class OrderDetailsComponent implements OnInit {
   public statuses: any;
   public containerMasters: any;
   public weights: any;
+  public order_Id: number;
   detailsAwaited = Constants.detailsAwaited;
   displayedColumns: string[] = [
     'From', 'To'
@@ -57,7 +60,7 @@ export class OrderDetailsComponent implements OnInit {
     this.getAllPorts();
     this.getAllYards();
     this.getOrderDetails();
-    this.applyFilter();
+
   }
 
   getAllStatus() {
@@ -101,7 +104,10 @@ export class OrderDetailsComponent implements OnInit {
         this._orderService.getOrderDetailsbyOrderId(params.id).subscribe(
           (order: any) => {
             this.order = order;
-            console.log(this.order);
+            console.log(params.id);
+            this.order_Id = parseInt(params.id) ;
+            this.applyFilter();
+            // console.log(this.order);
           },
           (err) => {
             console.log(err);
@@ -112,8 +118,10 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   applyFilter() {
+
+    this.subOrderFilter.orderId = this.order_Id;
     const filter: SubOrderFilter = {
-      orderId: this.order.orderId,
+      orderId: this.subOrderFilter.orderId ? this.subOrderFilter.orderId : 0,
       containerType: this.subOrderFilter.containerType ? this.subOrderFilter.containerType : 0,
       cutOffTime: this.subOrderFilter.cutOffTime ? this.subOrderFilter.cutOffTime : "",
       subOrderDate: this.subOrderFilter.subOrderDate ? this.subOrderFilter.subOrderDate : "",

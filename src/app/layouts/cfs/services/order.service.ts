@@ -54,7 +54,13 @@ export class OrderService {
   }
 
   getAllStatuses(): Observable<any> {
-    return this.http.get(this.baseUrl + 'status-details');
+    const filter1 = {
+      where: {
+        statusMasterId: 4
+      }
+    };
+
+    return this.http.get(this.baseUrl + 'status-details?filter='+  JSON.stringify(filter1));
   }
 
   getAllWeights(): Observable<any> {
@@ -97,7 +103,7 @@ export class OrderService {
   /*  ************ Order Listing SPs ************** */
 
   getOrderListForFilters(orderFilter: OrderFilter): Observable<any> {
-    console.log("Filter : " + orderFilter);
+    // console.log("Filter : " + orderFilter);
     return this.http.post<any>(this.baseUrl + 'GetOrderListForFilters',
     JSON.stringify(orderFilter),
      this.HttpUploadOptions
@@ -105,7 +111,7 @@ export class OrderService {
   }
 
   getSubOrderListForFilters(suborderFilter: SubOrderFilter): Observable<any> {
-    console.log("Filter : " + suborderFilter);
+    // console.log("Filter : " + JSON.stringify(suborderFilter));
     return this.http.post<any>(this.baseUrl + 'GetSubOrderListForFilters',
     JSON.stringify(suborderFilter),
      this.HttpUploadOptions
