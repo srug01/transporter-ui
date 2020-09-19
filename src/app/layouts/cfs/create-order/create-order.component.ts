@@ -32,6 +32,7 @@ import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
 import { async } from 'rxjs/internal/scheduler/async';
 import { TimeSlot } from 'src/app/shared/models/timeslot';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import * as _moment from 'moment';
 
 @Component({
   selector: 'app-create-order',
@@ -272,7 +273,7 @@ export class CreateOrderComponent implements OnInit {
   initialiseOrderForm() {
     this.orderForm = this.fb.group({
       orderId: [''],
-      ordeorderTypeId: [''],
+      orderTypeId: [''],
       orderDate: ['', Validators.required],
       masterTypeId: ['', Validators.required],
       sourceId: ['', Validators.required],
@@ -315,7 +316,7 @@ export class CreateOrderComponent implements OnInit {
     return {
       orderId: null,
       masterTypeId: order.masterTypeId,
-      orderDate: this.addDays(order.orderDate, 1),
+      orderDate: order.orderDate,
       orderRemarks: order.orderRemarks,
       orderTypeId: order.orderTypeId,
       orderAddress: order.orderAddress,
@@ -488,8 +489,8 @@ export class CreateOrderComponent implements OnInit {
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
-      console.log(order);
-      // this.saveOrder(order);
+      // console.log(order);
+       this.saveOrder(order);
     } else {
       console.log(this.orderForm);
       this._alertService.error('please review all the fields', 'Invalid Form!');
