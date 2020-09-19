@@ -115,6 +115,10 @@
                 <button mat-button (click)="applyFilter()"><mat-icon>filter_list</mat-icon></button>
                 <button mat-button (click)="resetFilter()"><mat-icon>clear</mat-icon></button>
             </div>
+
+        </div>
+        <div>
+          Total Orders Found : {{orders.data.length}}
         </div>
         <table mat-table [dataSource]="orders" class="mat-elevation-z8">
             <!--- Note that these columns can be defined in any order.
