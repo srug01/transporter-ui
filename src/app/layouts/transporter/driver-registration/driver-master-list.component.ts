@@ -19,6 +19,8 @@ export class DriverMasterListComponent implements OnInit {
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public driverMasters: Array<any> = [];
+  public userId = parseInt(localStorage.getItem('userID'),10);
+  public roleId = parseInt(localStorage.getItem('roleID'),10);
   constructor(
     private _driverService: DriverService,
     private _snackBar: MatSnackBar,
@@ -29,6 +31,8 @@ export class DriverMasterListComponent implements OnInit {
     this.getAllDriverMasters();
   }
   getAllDriverMasters() {
+    if(this.roleId == 1)
+    {
     this._driverService.getAllDriverMasters().subscribe(
       (driverMasters) => {
         this.driverMasters = driverMasters;
@@ -36,6 +40,21 @@ export class DriverMasterListComponent implements OnInit {
       (err) => {
       }
     );
+    }
+    else
+    {
+      this._driverService.getAllDriversbyUserId(this.userId).subscribe(
+        (drivers) => {
+          this.driverMasters = drivers;
+
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+      }
+
+
   }
   deleteDriverById(ev, portId: number) {
     if (ev) {

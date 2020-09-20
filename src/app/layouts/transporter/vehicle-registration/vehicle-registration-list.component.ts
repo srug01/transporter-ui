@@ -25,6 +25,9 @@ export class VehicleRegistrationListComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public vehicleMasters: Array<any> = [];
   public states: State[];
+  public userId = parseInt(localStorage.getItem('userID'),10);
+  public roleId = parseInt(localStorage.getItem('roleID'),10);
+
 
   constructor(
     private _ngZone: NgZone,
@@ -41,15 +44,29 @@ export class VehicleRegistrationListComponent implements OnInit {
   }
 
   getAllVehicleMasters() {
+    if(this.roleId == 1)
+    {
     this._vehicleService.getAllVehicleMasters().subscribe(
       (vehicleMasters) => {
-        console.log(vehicleMasters);
+        // console.log(vehicleMasters);
         this.vehicleMasters = vehicleMasters;
       },
       (err) => {
         console.log('could not fetch vehicle masters');
       }
     );
+    }
+    else
+    {
+      this._vehicleService.getAllVehiclesbyUserId(this.userId).subscribe(
+        (vehicleMasters) => {
+          this.vehicleMasters = vehicleMasters;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   getAllStates() {
@@ -69,7 +86,7 @@ export class VehicleRegistrationListComponent implements OnInit {
           return this.states[i].stateName;
         }
       }
-    }    
+    }
   }
 
   deleteVehicleById(vehicleId: number) {

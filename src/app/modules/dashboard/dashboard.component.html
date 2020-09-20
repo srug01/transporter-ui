@@ -1,18 +1,18 @@
 <div class="container">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="state cards">
-        <mat-card fxFlex="23">
+        <mat-card fxFlex="23" *ngIf="tripCount > 0">
             <app-widget-card label="Total Trips" [total]="tripCount" [data]="cards"></app-widget-card>
         </mat-card>
 
-        <mat-card fxFlex="23">
+        <mat-card fxFlex="23" *ngIf="bidCount > 0">
             <app-widget-card label="Total Bids" [total]="bidCount" [data]="cards"></app-widget-card>
         </mat-card>
 
-        <mat-card fxFlex="23">
+        <mat-card fxFlex="23" *ngIf="orderCount > 0">
             <app-widget-card label="Total Orders" [total]="orderCount" [data]="cards"></app-widget-card>
         </mat-card>
 
-        <mat-card fxFlex="23">
+        <mat-card fxFlex="23" *ngIf="suborderCount > 0">
             <app-widget-card label="Total SubOrders" [total]="suborderCount" [data]="cards"></app-widget-card>
         </mat-card>
 

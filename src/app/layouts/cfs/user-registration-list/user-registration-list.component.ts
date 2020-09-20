@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CfsService } from '../../masters/services/cfs.service';
 import { User } from 'src/app/shared/models/user';
 import { MatTableDataSource } from '@angular/material/table';
+import { CfsUserRegistration } from 'src/app/shared/models/cfsUserRegistration';
 
 @Component({
   selector: 'app-user-registration-list',
@@ -12,12 +13,15 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class UserRegistrationListComponent implements OnInit {
   displayedColumns: string[] = [
-    'cfsUserRegistrationId', 'cfsUserName', 'userTypeId', 
+    'cfsUserRegistrationId', 'cfsUserName', 'userTypeId',
     'cfsUserDesignation', 'cfsUserDepartment', 'isActive',
     'isVerified', 'action'
   ];
-  public users: MatTableDataSource<User>;
+  public users: MatTableDataSource<CfsUserRegistration>;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   public cfsMasters: Cfs[] = [];
+  public currentCFSUser: any;
+  public cfsUsers: Array<any> = [];
   constructor(
     private _userregistrationService: UserRegistrationService,
     private _cfsService: CfsService
@@ -26,6 +30,12 @@ export class UserRegistrationListComponent implements OnInit {
   ngOnInit(): void {
     this._userregistrationService.getAllCfsUserRegistration().subscribe(
       (users) => {
+        this.cfsUsers = users;
+        this.currentCFSUser = this.cfsUsers.filter(a=> a.userId == this.userId);
+        if(this.currentCFSUser.length > 0)
+        {
+          users = users.filter(m=> m.cfsMasterId == this.currentCFSUser[0].cfsMasterId)
+        }
         this.users = new MatTableDataSource(users);
       },
       (err) => {

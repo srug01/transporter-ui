@@ -66,7 +66,7 @@ const routes: Routes = [
     data: { breadcrumb: 'register-vehicle', roles: ['Transporter'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'vehicle-list', component: VehicleRegistrationListComponent, data: { breadcrumb: 'vehicle-list', roles: ['Transporter'] } },
+      { path: 'list', component: VehicleRegistrationListComponent, data: { breadcrumb: 'vehicle-list', roles: ['Transporter'] } },
       { path: 'new', component: VehicleRegistrationNewComponent, data: { breadcrumb: 'new-vehicle', roles: ['Transporter'] } },
       {
         path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver },

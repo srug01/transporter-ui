@@ -37,12 +37,13 @@ export class OrderDetailsComponent implements OnInit {
     'Bid Name', 'Bid Value', 'Bid User Status', 'SubOrder Status'
   ];
   subOrderColumns: string[] = [
-    'subOrderId', 'subOrderTotalMargin', 'CutOffTime', 'suborderStatus',
+    'subOrderId', 'subOrderTotal', 'CutOffTime', 'suborderStatus',
     'containerMasterName','weightDesc','SubOrderDate'
   ];
 
   public order: any;
   public suborders: MatTableDataSource<any>;
+  public roleId = parseInt(localStorage.getItem('roleID'), 10);
   constructor(
     private _orderService: OrderService,
     private _route: ActivatedRoute,
@@ -60,6 +61,7 @@ export class OrderDetailsComponent implements OnInit {
     this.getAllPorts();
     this.getAllYards();
     this.getOrderDetails();
+
 
   }
 

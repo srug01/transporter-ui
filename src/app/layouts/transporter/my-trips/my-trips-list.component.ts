@@ -70,6 +70,18 @@ export class MyTripsListComponent implements OnInit {
     });
   }
 
+  openDialogForTripStop(ev, trip: Trip) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(StartDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.stopTrip(trip);
+      }
+    });
+  }
+
   startTrip(trip: Trip) {
     // https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
     const aTrip = {...trip};
@@ -91,7 +103,7 @@ export class MyTripsListComponent implements OnInit {
       });
   }
 
-  stopTrip(ev, trip: Trip) {
+  stopTrip( trip: Trip) {
     const aTrip = {...trip};
     const stopTime = new Date().getTime();
     aTrip.endDate = new Date(stopTime);
