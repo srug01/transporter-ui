@@ -80,10 +80,10 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
               .then(m => m.ReportsModule),
             canActivate: [AuthGuardService, RoleGuardService],
             data: { breadcrumb: 'reports', roles: ['Admin'] }
-          },
-        ],
+          }
+        ]
       },
-      { path: '**', component: AuthComponent, resolve: { authResolver: AuthResolver } }
+      // { path: '**', component: AuthComponent, resolve: { authResolver: AuthResolver } }
     ]),
     SharedModule,
     MatSidenavModule,
