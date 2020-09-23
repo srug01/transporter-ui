@@ -82,8 +82,7 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
             data: { breadcrumb: 'reports', roles: ['Admin'] }
           },
         ],
-      },
-      { path: '**', component: AuthComponent, resolve: { authResolver: AuthResolver } }
+      }
     ]),
     SharedModule,
     MatSidenavModule,
