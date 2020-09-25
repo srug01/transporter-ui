@@ -29,4 +29,8 @@ export class BidsService {
     return this.http.get(this.baseUrl + 'GetBidsByUserId/' + id);
   }
 
+  getAllBidsforBidding(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'GetBidsforBidding/' + id);
+  }
+
 }

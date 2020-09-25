@@ -17,4 +17,8 @@ export interface Bid {
     marginPercent?: number;
     bidStatus?: string;
     bidStatusId?: number;
+    BidScheduleId?: number;
+    CutOffTime?: Date;
+
+
 }

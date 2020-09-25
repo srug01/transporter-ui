@@ -25,7 +25,7 @@ import { StausEnum } from '../../../shared/Enum/statusEnum';
 })
 export class PlacedBidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid ID', 'Bid Name', 'Source', 'Destination', 'Container Type',
+    'subOrderId', 'Source', 'Destination', 'Container Type',
     'Container Weight', 'Bid Rate', 'Bid Value', 'Action'
   ];
   bids: Bid[] = [];
@@ -72,7 +72,7 @@ export class PlacedBidsComponent implements OnInit {
   // }
 
   getAllPlacedBidsbyUserId() {
-    this._bidService.getAllBidsbyUserId(this.currentUser.userId).subscribe(
+    this._bidService.getAllBidsforBidding(this.currentUser.userId).subscribe(
       (bids: Bid[]) => {
         this.bids = bids;
         console.log(this.bids);
@@ -129,7 +129,7 @@ export class PlacedBidsComponent implements OnInit {
       }
     );
   }
-  confirmBid(bid: any) {
+  /* confirmBid(bid: any) {
     const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
     this._bidMappingService.saveBid(bidMapping).subscribe(
       (res) => {
@@ -158,8 +158,10 @@ export class PlacedBidsComponent implements OnInit {
         this.getAllPlacedBidsbyUserId();
       }
     );
-  }
+  } */
+  confirmBid(bid: any) {
 
+  }
   openSaveDialog(ev, bid: any) {
     if (ev) {
       ev.preventDefault();
