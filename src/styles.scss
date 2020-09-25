@@ -8,6 +8,8 @@
 
 html,
 body {
+    position: relative;
+    min-height: 100%;
     height: 100%;
 }
 
@@ -61,13 +63,13 @@ a {
     justify-content: space-between;
 }
 
-label span.mat-form-field-required-marker{
-  color:red;
+label span.mat-form-field-required-marker {
+    color: red;
 }
 
 .required:after {
-  content:" *";
-  color: red;
+    content: " *";
+    color: red;
 }
 
 @media(max-width: 768px) {

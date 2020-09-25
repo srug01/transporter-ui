@@ -37,7 +37,6 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.isUserAuthenticated = this.route.snapshot.data['authResolver'];
-    console.log(this.isUserAuthenticated);
     if (this.isUserAuthenticated) {
       this.router.navigate(['/default']);
     }

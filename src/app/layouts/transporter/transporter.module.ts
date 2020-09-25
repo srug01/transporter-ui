@@ -58,59 +58,65 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ConfirmBidDialogComponent } from './confirm-bid-dialog/confirm-bid-dialog.component';
 import { EditTransporterComponent } from './edit-transporter/edit-transporter.component';
 import { TransporterResolver } from './resolvers/transporter.resolver';
+import { TripsComponent } from './trips/trips.component';
+import { TripsListComponent } from './trips/trips-list.component';
+import { TripsNewComponent } from './trips/trips-new.component';
+import { TripsEditComponent } from './trips/trips-edit.component';
+import { TripsDetailsComponent } from './trips/trips-details.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent, data: { breadcrumb: 'home' } },
   {
     path: 'register-vehicle', component: VehicleRegistrationComponent,
-    data: { breadcrumb: 'register-vehicle', roles: ['Transporter'] },
+    data: { breadcrumb: 'register-vehicle', roles: ['Transporter', 'Admin'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: VehicleRegistrationListComponent, data: { breadcrumb: 'vehicle-list', roles: ['Transporter'] } },
-      { path: 'new', component: VehicleRegistrationNewComponent, data: { breadcrumb: 'new-vehicle', roles: ['Transporter'] } },
+      { path: 'list', component: VehicleRegistrationListComponent, data: { breadcrumb: 'vehicle-list', roles: ['Transporter', 'Admin'] } },
+      { path: 'new', component: VehicleRegistrationNewComponent, data: { breadcrumb: 'new-vehicle', roles: ['Transporter', 'Admin'] } },
       {
         path: 'edit/:id', component: VehicleRegistrationEditComponent, resolve: { vehicleResolver: VehicleResolver },
-        data: { breadcrumb: 'edit-vehicle', roles: ['Transporter'] }
+        data: { breadcrumb: 'edit-vehicle', roles: ['Transporter', 'Admin'] }
       }
     ]
   },
 
   {
     path: 'register-transporter', component: TransporterRegistrationComponent,
-    data: { breadcrumb: 'register-transporter', roles: ['Transporter'] }
+    data: { breadcrumb: 'register-transporter', roles: ['Transporter', 'Admin'] }
   },
   {
     path: 'register-driver', component: DriverComponent,
-    data: { breadcrumb: 'register-driver', roles: ['Transporter'] },
+    data: { breadcrumb: 'register-driver', roles: ['Transporter', 'Admin'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: DriverMasterListComponent, data: { breadcrumb: 'driver-list', roles: ['Transporter'] } },
-      { path: 'new', component: DriverNewComponent, data: { breadcrumb: 'new-driver', roles: ['Transporter'] } },
+      { path: 'list', component: DriverMasterListComponent, data: { breadcrumb: 'driver-list', roles: ['Transporter', 'Admin'] } },
+      { path: 'new', component: DriverNewComponent, data: { breadcrumb: 'new-driver', roles: ['Transporter', 'Admin'] } },
       {
         path: 'edit/:id', component: DriverEditComponent, resolve: { driverResolver: DriverResolver },
-        data: { breadcrumb: 'edit-driver', roles: ['Transporter'] }
+        data: { breadcrumb: 'edit-driver', roles: ['Transporter', 'Admin'] }
       }
     ]
 
   },
-  { path: 'transporter-list', component: TransporterListComponent, data: { breadcrumb: 'transporter-list', roles: ['Transporter'] } },
+  { path: 'transporter-list', component: TransporterListComponent, 
+    data: { breadcrumb: 'transporter-list', roles: ['Transporter','Admin'] } },
   {
     path: 'transporter-edit/:id', component: EditTransporterComponent, resolve: { transporterResolver: TransporterResolver },
-    data: { breadcrumb: 'edit', roles: ['Transporter'] }
+    data: { breadcrumb: 'edit', roles: ['Transporter','Admin'] }
   },
-  { path: 'placed-bids', component: PlacedBidsComponent, data: { breadcrumb: 'placed-bids', roles: ['Transporter'] } },
-  { path: 'bids', component: BidsComponent, data: { breadcrumb: 'bids', roles: ['Transporter'] } },
+  { path: 'placed-bids', component: PlacedBidsComponent, data: { breadcrumb: 'placed-bids', roles: ['Transporter','Admin'] } },
+  { path: 'bids', component: BidsComponent, data: { breadcrumb: 'bids', roles: ['Transporter','Admin'] } },
   {
     path: 'bids/:id', component: BiddetailsComponent, resolve: { bidResolver: BidsResolver },
-    data: { breadcrumb: 'bid-details', roles: ['Transporter'] }
+    data: { breadcrumb: 'bid-details', roles: ['Transporter','Admin'] }
   },
   {
     path: 'bid-edit/:id', component: BidEditComponent, resolve: { bidResolver: BidsResolver },
-    data: { breadcrumb: 'bid-edit', roles: ['Transporter'] }
+    data: { breadcrumb: 'bid-edit', roles: ['Transporter','Admin'] }
   },
   {
     path: 'my-trips', component: MyTripsComponent,
-    data: { breadcrumb: 'trips', roles: ['Transporter'] },
+    data: { breadcrumb: 'my-trips', roles: ['Transporter'] },
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MyTripsListComponent, data: { breadcrumb: 'list', roles: ['Transporter'] } },
@@ -120,7 +126,24 @@ const routes: Routes = [
         resolve: { tripResolver: TripResolver }
       },
       {
-        path: 'details/:id', component: TripDetailsComponent, data: { breadcrumb: 'details', roles: ['Transporter'] },
+        path: 'details/:id', component: TripDetailsComponent, data: { breadcrumb: 'my-trip-details', roles: ['Transporter'] },
+        resolve: { tripDetailsResolver: TripDetailsResolver }
+      }
+    ]
+  },
+  {
+    path: 'trips', component: TripsComponent,
+    data: { breadcrumb: 'trips', roles: ['Admin'] },
+    children: [
+      { path: '', redirectTo: 'trip-list', pathMatch: 'full' },
+      { path: 'trip-list', component: TripsListComponent, data: { breadcrumb: 'trip-list', roles: ['Admin'] } },
+      { path: 'trip-new', component: TripsNewComponent, data: { breadcrumb: 'trip-new', roles: ['Admin'] } },
+      {
+        path: 'trip-edit/:id', component: TripsEditComponent, data: { breadcrumb: 'trip-edit', roles: ['Admin'] },
+        resolve: { tripResolver: TripResolver }
+      },
+      {
+        path: 'trip-details/:id', component: TripsDetailsComponent, data: { breadcrumb: 'trip-details', roles: ['Admin'] },
         resolve: { tripDetailsResolver: TripDetailsResolver }
       }
     ]
@@ -165,7 +188,11 @@ const toasterConfig: MatSnackBarConfig = {
     BidEditComponent,
     TripDetailsComponent,
     ConfirmBidDialogComponent,
-    EditTransporterComponent
+    EditTransporterComponent,
+    TripsComponent,
+    TripsListComponent,
+    TripsEditComponent,
+    TripsDetailsComponent
   ],
   imports: [
     CommonModule,

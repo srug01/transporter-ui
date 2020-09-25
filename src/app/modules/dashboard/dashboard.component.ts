@@ -13,7 +13,8 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { Dashboard } from 'src/app/shared/models/dashboard';
 import { mapTo } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 export interface PeriodicElement {
   name: string;
@@ -82,7 +83,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   displayedColumnsForBids: string[] = [
-    'bidId','bidName', 'subOrderId', 'bidStatus', 'originalRate', 'bidValue', 'AwardStatus', 'TransporterName',
+    'bidId', 'bidName', 'subOrderId', 'bidStatus', 'originalRate', 'bidValue', 'AwardStatus', 'TransporterName',
     'sourceType', 'destinationType', 'containerMasterName', 'weightDesc'
   ];
 
@@ -101,7 +102,9 @@ export class DashboardComponent implements OnInit {
     private _orderService: OrderService,
     private _tripService: TripService,
     private _userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _auth: AuthenticationService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -121,7 +124,10 @@ export class DashboardComponent implements OnInit {
         this.currentUser = loggedUser;
       },
       (err) => {
-        console.log(err);
+        if(err.error.error.message === 'Error verifying token : jwt expired' && err.error.error.statusCode === 401) {
+          this._auth.logout();
+          this._router.navigate(['/']);
+        }
       }
     );
   }
@@ -153,25 +159,25 @@ export class DashboardComponent implements OnInit {
       this.suborderCount = this.dashboard.TotalSubOrders;
       this.bidCount = this.dashboard.TotalBids;
       this.tripCount = this.dashboard.TotalTrips;
-      this.orders =  new MatTableDataSource(this.dashboard.Orders);
+      this.orders = new MatTableDataSource(this.dashboard.Orders);
       this.suborders = new MatTableDataSource(this.dashboard.SubOrders);
       this.bids = new MatTableDataSource(this.dashboard.Bids);
-      this.trips = new MatTableDataSource(this.dashboard.Trips); 
+      this.trips = new MatTableDataSource(this.dashboard.Trips);
     } else if (this.roleId === 4 || this.roleId === 7 || this.roleId === 8 || this.roleId === 9) {
       this.orderCount = this.dashboard.TotalOrders;
       this.tripCount = this.dashboard.TotalTrips;
       this.orders = new MatTableDataSource(this.dashboard.Orders);
-      this.trips =  new MatTableDataSource(this.dashboard.Trips);
+      this.trips = new MatTableDataSource(this.dashboard.Trips);
     } else if (this.roleId === 5) {
       this.suborderCount = this.dashboard.TotalSubOrders;
       this.bidCount = this.dashboard.TotalBids;
       this.tripCount = this.dashboard.TotalTrips;
       this.suborders = new MatTableDataSource(this.dashboard.SubOrders);
       this.bids = new MatTableDataSource(this.dashboard.Bids);
-      this.trips =  new MatTableDataSource(this.dashboard.Trips);
+      this.trips = new MatTableDataSource(this.dashboard.Trips);
     } else if (this.roleId === 6) {
       this.tripCount = this.dashboard.TotalTrips;
-      this.trips =  new MatTableDataSource(this.dashboard.Trips);
+      this.trips = new MatTableDataSource(this.dashboard.Trips);
     }
   }
 
