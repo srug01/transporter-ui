@@ -102,7 +102,7 @@
                         <p>Trips</p>
                     </div>
                     <mat-menu #trips="matMenu">
-                        <button mat-menu-item>Trips</button>
+                        <button routerLink='/default/transporter/trips' mat-menu-item>Trips</button>
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 1" class="menu-item">
