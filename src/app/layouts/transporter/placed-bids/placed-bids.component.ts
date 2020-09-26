@@ -17,6 +17,7 @@ import { BidUserMappingService } from '../services/bid-user-mapping.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StausEnum } from '../../../shared/Enum/statusEnum';
+import { BidRate } from 'src/app/shared/models/bidRate';
 
 @Component({
   selector: 'app-placed-bids',
@@ -73,7 +74,7 @@ export class PlacedBidsComponent implements OnInit {
 
   getAllPlacedBidsbyUserId() {
     this._bidService.getAllBidsforBidding(this.currentUser.userId).subscribe(
-      (bids: Bid[]) => {
+      (bids) => {
         this.bids = bids;
         console.log(this.bids);
         this.bids.forEach((bid) => {
@@ -100,8 +101,10 @@ export class PlacedBidsComponent implements OnInit {
   }
 
   updateBid(bid: any) {
-    const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
-    this._bidMappingService.updateBid(bidMapping).subscribe(
+     //const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
+    // this._bidMappingService.updateBid(bidMapping).subscribe(
+      const bidRate: BidRate = this.transformBidRateObj(bid);
+      this._bidService.savebidForTransporter(bidRate).subscribe(
       (res) => {
         console.log(res);
         const notification: Notification = {
@@ -160,6 +163,37 @@ export class PlacedBidsComponent implements OnInit {
     );
   } */
   confirmBid(bid: any) {
+    //const bidMapping: BidUserMapping = this.transformBidObj(bid, 'BID_USER_EDIT');
+    console.log(bid);
+    const bidRate: BidRate = this.transformBidRateObj(bid);
+    console.log(bidRate);
+    this._bidService.savebidForTransporter(bidRate).subscribe(
+      (res) => {
+        console.log(res);
+        const notification: Notification = {
+          orderId: 1,
+          assignedToRole: 1,
+          assignedToUser: null,
+          createdBy: this.currentUser.userId,
+          createdOn: new Date(),
+          isRead: false,
+          notificationDesc: `${this.currentUser.name} confirmed a bid on ${this.datePipe.transform(Date.now(), 'yyyy-MM-dd')}!`,
+          notificationId: null,
+          notificationType: 'orders'
+        };
+        this.saveNotification(notification);
+        this.openSnackBar('Success !', 'Order placed successfully');
+      },
+      (err) => {
+        if (err.error.error.message) {
+          this.openSnackBar('Failure !', `${err.error.error.message}`);
+        }
+        console.log();
+      },
+      () => {
+        this.getAllPlacedBidsbyUserId();
+      }
+    );
 
   }
   openSaveDialog(ev, bid: any) {
@@ -197,6 +231,16 @@ export class PlacedBidsComponent implements OnInit {
       userId: this.currentUser.userId,
       bidusermappingId: bid.bidusermappingId ? bid.bidusermappingId : 0
     } as BidUserMapping;
+  }
+
+  transformBidRateObj(bid: any): BidRate {
+    console.log(bid);
+    return {
+      suborderId: bid.subOrderId,
+      userId: this.currentUser.userId,
+      bidRate: bid.bidLowerLimit,
+      bidValue: bid.bidValue,
+    } as BidRate;
   }
 
   triggerResize() {

@@ -5,6 +5,7 @@ import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BidRate } from 'src/app/shared/models/bidRate';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,18 @@ export class BidsService {
 
   getAllBidsforBidding(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'GetBidsforBidding/' + id);
+  }
+
+  // savebidForTransporter(subOrderId, userId, bidValue): Observable<any> {
+  //   return this.http.get<any[]>(this.baseUrl + 'saveBidforTransporter/' + subOrderId + '/' + userId + '/' + bidValue);
+  // }
+
+  savebidForTransporter(bidRate: BidRate): Observable<any> {
+    // console.log("Filter : " + JSON.stringify(suborderFilter));
+    return this.http.post<any>(this.baseUrl + 'saveBidforTransporter',
+    JSON.stringify(bidRate),
+     this.HttpUploadOptions
+    );
   }
 
 }

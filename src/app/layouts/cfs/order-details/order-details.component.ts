@@ -15,6 +15,9 @@ import { CfsService } from '../../masters/services/cfs.service';
 import { SubOrderFilter } from 'src/app/shared/models/subOrderFilter';
 import * as _moment from 'moment';
 import { MatTableDataSource } from '@angular/material/table';
+import { BidFilter } from 'src/app/shared/models/bidFilter';
+import { TripFilter } from 'src/app/shared/models/tripFilter';
+import { TransporterRegistrationService } from '../../transporter/services/transporter-registration.service';
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
@@ -25,24 +28,40 @@ export class OrderDetailsComponent implements OnInit {
   public yardMasters: Yard[] = [];
   public portMasters: Port[] = [];
   public subOrderFilter: SubOrderFilter = new SubOrderFilter();
+  public bidFilter: BidFilter = new BidFilter();
+  public tripFilter: TripFilter = new TripFilter();
   public statuses: any;
+  public biduserstatuses: any;
+  public tripstatuses: any;
   public containerMasters: any;
   public weights: any;
   public order_Id: number;
+  public transporters: [];
   detailsAwaited = Constants.detailsAwaited;
   displayedColumns: string[] = [
     'From', 'To'
   ];
-  containerColumns: string[] = [
-    'Bid Name', 'Bid Value', 'Bid User Status', 'SubOrder Status'
+  bidColumns: string[] = [
+    'bidId','bidName','originalRate', 'bidValue', 'biduserStatus', 'CutOffTime',
+    'TranporterName'
   ];
   subOrderColumns: string[] = [
     'subOrderId', 'subOrderTotal', 'CutOffTime', 'suborderStatus',
     'containerMasterName','weightDesc','SubOrderDate'
   ];
 
+  tripColumns: string[] = [
+    'tripId','subOrderId','sourceName','destinationName',
+     'TransporterName', 'AssignedVehicle', 'AssignedDriver',
+    'TransporterContainer','TransporterWeight','OrderContainer',
+    'Orderweight','tripstatus','billedAmount','OrderDate',
+    'StartedBy','StartedAt','StoppedBy','StoppedAt'
+  ];
+
   public order: any;
   public suborders: MatTableDataSource<any>;
+  public bids: MatTableDataSource<any>;
+  public trips: MatTableDataSource<any>;
   public roleId = parseInt(localStorage.getItem('roleID'), 10);
   constructor(
     private _orderService: OrderService,
@@ -50,17 +69,24 @@ export class OrderDetailsComponent implements OnInit {
     private _portService: PortService,
     private _userService: UserService,
     private _yardService: YardService,
-    private _cfsService: CfsService
+    private _cfsService: CfsService,
+    private _transporterService: TransporterRegistrationService
   ) { }
 
   ngOnInit(): void {
     this.getAllContainerMasters();
     this.getAllStatus();
+    this.getAllBidStatus();
+    this.getAllTripStatus();
     this.getAllWeights();
     this.getAllCFS();
     this.getAllPorts();
     this.getAllYards();
+    this.getAllTransporters();
     this.getOrderDetails();
+    /* this.applyFilter();
+    this.applyBidFilter();
+    this.applyTripFilter(); */
 
 
   }
@@ -75,6 +101,41 @@ export class OrderDetailsComponent implements OnInit {
       }
     );
   }
+
+  getAllBidStatus() {
+    this._orderService.getAllBidUserStatuses().subscribe(
+      (biduserstatuses) => {
+        this.biduserstatuses = biduserstatuses;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getAllTripStatus() {
+    this._orderService.getAllTripStatuses().subscribe(
+      (tripstatuses) => {
+        this.tripstatuses = tripstatuses;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+getAllTransporters()
+{
+  this._transporterService.getAllTransporters().subscribe(
+    (transporters) => {
+      this.transporters = transporters;
+    },
+    (err) => {
+      console.log(err);
+
+    }
+  );
+}
 
 
   getAllWeights() {
@@ -109,6 +170,8 @@ export class OrderDetailsComponent implements OnInit {
             console.log(params.id);
             this.order_Id = parseInt(params.id) ;
             this.applyFilter();
+            this.applyBidFilter();
+            this.applyTripFilter();
             // console.log(this.order);
           },
           (err) => {
@@ -131,6 +194,8 @@ export class OrderDetailsComponent implements OnInit {
       weightType: this.subOrderFilter.weightType ? this.subOrderFilter.weightType : 0
     };
 
+
+
     // call suborder api for order along with this filter
 
     this._orderService.getSubOrderListForFilters(filter).subscribe(
@@ -144,8 +209,67 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
+  applyBidFilter() {
+
+    this.bidFilter.orderId = this.order_Id;
+    const filter: BidFilter = {
+      orderId: this.bidFilter.orderId ? this.bidFilter.orderId : 0,
+      transporterId: this.bidFilter.transporterId ? this.bidFilter.transporterId : 0,
+      bidUserStatusId: this.bidFilter.bidUserStatusId ? this.bidFilter.bidUserStatusId : 0
+    };
+
+
+
+    // call bid api for order along with this filter
+    console.log("Bid Filter : " + JSON.stringify(filter));
+    this._orderService.getBidListForFilters(filter).subscribe(
+      (bids) => {
+        this.bids = new MatTableDataSource(bids);
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  applyTripFilter() {
+
+    this.tripFilter.orderId = this.order_Id;
+    const filter: TripFilter = {
+      orderId: this.tripFilter.orderId ? this.tripFilter.orderId : 0,
+      sourceId: this.tripFilter.sourceId ? this.tripFilter.sourceId : 0,
+      destinationId: this.tripFilter.destinationId ? this.tripFilter.destinationId : 0,
+      containerType: this.tripFilter.containerType ? this.tripFilter.containerType : 0,
+      weightType: this.tripFilter.weightType ? this.tripFilter.weightType : 0,
+      tripStatus: this.tripFilter.tripStatus ? this.tripFilter.tripStatus : 0
+    };
+
+
+
+    // call bid api for order along with this filter
+
+    this._orderService.getTripListForFilters(filter).subscribe(
+      (trips) => {
+        this.trips = new MatTableDataSource(trips);
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
   resetFilter() {
     this.subOrderFilter = new SubOrderFilter();
+  }
+  resetBidFilter() {
+    this.bidFilter = new BidFilter();
+  }
+
+  resetTripFilter() {
+    this.tripFilter = new TripFilter();
   }
 
   getAllCFS() {

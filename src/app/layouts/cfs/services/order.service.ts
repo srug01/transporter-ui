@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
 import { User } from 'aws-sdk/clients/appstream';
 import { SubOrderFilter } from 'src/app/shared/models/subOrderFilter';
+import { BidFilter } from 'src/app/shared/models/bidFilter';
+import { TripFilter } from 'src/app/shared/models/tripFilter';
 
 
 @Injectable({
@@ -57,6 +59,26 @@ export class OrderService {
     const filter1 = {
       where: {
         statusMasterId: 4
+      }
+    };
+
+    return this.http.get(this.baseUrl + 'status-details?filter='+  JSON.stringify(filter1));
+  }
+
+  getAllBidUserStatuses(): Observable<any> {
+    const filter1 = {
+      where: {
+        statusMasterId: 2
+      }
+    };
+
+    return this.http.get(this.baseUrl + 'status-details?filter='+  JSON.stringify(filter1));
+  }
+
+  getAllTripStatuses(): Observable<any> {
+    const filter1 = {
+      where: {
+        statusMasterId: 5
       }
     };
 
@@ -114,6 +136,22 @@ export class OrderService {
     // console.log("Filter : " + JSON.stringify(suborderFilter));
     return this.http.post<any>(this.baseUrl + 'GetSubOrderListForFilters',
     JSON.stringify(suborderFilter),
+     this.HttpUploadOptions
+    );
+  }
+
+  getBidListForFilters(bidFilter: BidFilter): Observable<any> {
+    // console.log("Filter : " + JSON.stringify(suborderFilter));
+    return this.http.post<any>(this.baseUrl + 'GetBidListForFilters',
+    JSON.stringify(bidFilter),
+     this.HttpUploadOptions
+    );
+  }
+
+  getTripListForFilters(tripFilter: TripFilter): Observable<any> {
+    // console.log("Filter : " + JSON.stringify(suborderFilter));
+    return this.http.post<any>(this.baseUrl + 'GetTripsListForFilters',
+    JSON.stringify(tripFilter),
      this.HttpUploadOptions
     );
   }

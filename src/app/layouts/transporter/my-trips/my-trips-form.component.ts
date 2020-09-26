@@ -152,6 +152,7 @@ export class MyTripsFormComponent implements OnInit {
     if (this.tripForm.valid) {
 
       const trip: Trip = this.transformTripObj(this.tripForm.value);
+      console.log(trip);
       if(trip.assignedDriver > 0 && (trip.assignedVehicle == 0 || trip.assignedVehicle == null))
       {
         trip.tripstatus = 'TRIP_DRIVER_ASSIGNED';
@@ -173,6 +174,7 @@ export class MyTripsFormComponent implements OnInit {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }
   }
+
 
 
   updateTripMaster(trip: any) {
