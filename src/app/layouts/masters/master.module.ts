@@ -159,6 +159,7 @@ import { CfsyardrateEditComponent } from './cfsyardrate/cfsyardrate-edit.compone
 import { CfsyardrateDetailsComponent } from './cfsyardrate/cfsyardrate-details.component';
 import { CfsYardRateResolver } from './resolvers/cfsyardrate.resolver';
 import { PortCfsRateResolver } from './resolvers/portcfsrate.resolver';
+import { BatchUpdateComponent } from './batch-update/batch-update.component';
 
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -414,6 +415,7 @@ const routes: Routes = [
     ]
   },
   { path: 'state-master-list', component: StateMasterListComponent },
+  { path: 'batch-update', component: BatchUpdateComponent }
 ];
 
 @NgModule({
@@ -527,7 +529,8 @@ const routes: Routes = [
     CfsyardrateMasterListComponent,
     CfsyardrateFormComponent,
     CfsyardrateEditComponent,
-    CfsyardrateDetailsComponent
+    CfsyardrateDetailsComponent,
+    BatchUpdateComponent
 
   ],
   imports: [

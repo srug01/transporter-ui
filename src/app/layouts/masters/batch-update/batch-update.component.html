@@ -1,0 +1,14 @@
+<div fxLayout="column">
+    <div fxLayout="row">
+        <div fxFlex="30">
+            <mat-form-field class="demo-full-width">
+                <mat-label class="required">Select Source & Destination Types</mat-label>
+                <mat-select matNativeControl (valueChange)="masterTypeSelected($event)">
+                    <mat-option *ngFor="let masterType of masterTypes" [value]="masterType">
+                        {{masterType.sourceType + ' To ' + masterType.destinationType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

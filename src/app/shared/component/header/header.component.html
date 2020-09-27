@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" *ngIf="currentUser">
     <mat-toolbar-row>
-        <button routerLink='/default' mat-icon-button>
+        <a routerLink='/default' mat-icon-button>
             <mat-icon>person</mat-icon>
-        </button>
+        </a>
         <div routerLink='/default' class="header-brand" [ngSwitch]="currentUser.typeSyscode">
             <span *ngSwitchCase="1">
                 Administrator
@@ -39,8 +39,8 @@
                         <p>CFS</p>
                     </div>
                     <mat-menu #cfs="matMenu">
-                        <button mat-menu-item [matMenuTriggerFor]="cfsOrders">Orders</button>
-                        <button mat-menu-item [matMenuTriggerFor]="userRegistrations">Users</button>
+                        <a mat-menu-item [matMenuTriggerFor]="cfsOrders">Orders</a>
+                        <a mat-menu-item [matMenuTriggerFor]="userRegistrations">Users</a>
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 5" class="menu-item">
@@ -48,12 +48,12 @@
                         <p>Transporter</p>
                     </div>
                     <mat-menu #transporter="matMenu">
-                        <button mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</button>
-                        <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle
-                            Registration</button>
-                        <!-- <button mat-menu-item [matMenuTriggerFor]="transporterRegistrations">Transporters</button> -->
-                        <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver
-                            Registration</button>
+                        <a mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</a>
+                        <a mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle
+                            Registration</a>
+                        <!-- <a mat-menu-item [matMenuTriggerFor]="transporterRegistrations">Transporters</a> -->
+                        <a mat-menu-item routerLink='/default/transporter/register-driver'>Driver
+                            Registration</a>
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 5 || currentUser.typeSyscode === 6" class="menu-item">
@@ -61,7 +61,7 @@
                         <p>Trips</p>
                     </div>
                     <mat-menu #trips="matMenu">
-                        <button mat-menu-item routerLink='/default/transporter/my-trips'>My Trips</button>
+                        <a mat-menu-item routerLink='/default/transporter/my-trips'>My Trips</a>
                     </mat-menu>
                 </li>
             </ul>
@@ -71,8 +71,8 @@
                         <p>CFS</p>
                     </div>
                     <mat-menu #menu1="matMenu">
-                        <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
-                        <button mat-menu-item [matMenuTriggerFor]="userRegistrations">Users</button>
+                        <a mat-menu-item routerLink='/default/cfs/order-list'>List Orders</a>
+                        <a mat-menu-item [matMenuTriggerFor]="userRegistrations">Users</a>
                     </mat-menu>
                 </li>
                 <li class="menu-item">
@@ -80,11 +80,11 @@
                         <p>Transporter</p>
                     </div>
                     <mat-menu #menu7="matMenu">
-                        <button mat-menu-item routerLink='/default/transporter/bids'>Bids</button>
-                        <button mat-menu-item [matMenuTriggerFor]="vehicles">Vehicle</button>
-                        <button mat-menu-item [matMenuTriggerFor]="transporterRegistrations">Transporters</button>
-                        <button mat-menu-item routerLink='/default/transporter/register-driver'>Driver
-                            Registration</button>
+                        <a mat-menu-item routerLink='/default/transporter/bids'>Bids</a>
+                        <a mat-menu-item [matMenuTriggerFor]="vehicles">Vehicle</a>
+                        <a mat-menu-item [matMenuTriggerFor]="transporterRegistrations">Transporters</a>
+                        <a mat-menu-item routerLink='/default/transporter/register-driver'>Driver
+                            Registration</a>
                     </mat-menu>
                 </li>
                 <li class="menu-item">
@@ -92,9 +92,10 @@
                         <p>Masters</p>
                     </div>
                     <mat-menu #menu5="matMenu">
-                        <button mat-menu-item [matMenuTriggerFor]="configMasters">Configurations</button>
-                        <button mat-menu-item [matMenuTriggerFor]="rateMasters">Rate Masters</button>
-                        <button mat-menu-item [matMenuTriggerFor]="locationMasters">Location Masters</button>
+                        <a mat-menu-item [matMenuTriggerFor]="batchUpdate">Batch Operations</a>
+                        <a mat-menu-item [matMenuTriggerFor]="configMasters">Configurations</a>
+                        <a mat-menu-item [matMenuTriggerFor]="rateMasters">Rate Masters</a>
+                        <a mat-menu-item [matMenuTriggerFor]="locationMasters">Location Masters</a>
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 1" class="menu-item">
@@ -102,7 +103,7 @@
                         <p>Trips</p>
                     </div>
                     <mat-menu #trips="matMenu">
-                        <button routerLink='/default/transporter/trips' mat-menu-item>Trips</button>
+                        <a routerLink='/default/transporter/trips' mat-menu-item>Trips</a>
                     </mat-menu>
                 </li>
                 <li *ngIf="currentUser.typeSyscode === 1" class="menu-item">
@@ -110,7 +111,7 @@
                         <p>Reports</p>
                     </div>
                     <mat-menu #reports="matMenu">
-                        <button mat-menu-item routerLink='/default/reports'>Order Report</button>
+                        <a mat-menu-item routerLink='/default/reports'>Order Report</a>
                     </mat-menu>
                 </li>
             </ul>
@@ -118,35 +119,35 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li *ngIf="currentUser.typeSyscode===1">
-                    <button mat-button [matMenuTriggerFor]="settings">
+                    <a mat-button [matMenuTriggerFor]="settings">
                         <mat-icon>settings</mat-icon>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button mat-icon-button>
+                    <a mat-button>
                         <mat-icon>help_outline </mat-icon>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button mat-button [matMenuTriggerFor]="menu">
+                    <a mat-button [matMenuTriggerFor]="menu">
                         <mat-icon>person_outline</mat-icon>
-                    </button>
+                    </a>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="logOut()">
+                        <a mat-menu-item (click)="logOut()">
                             <mat-icon>exit_to_app</mat-icon>
                             <span>Sign out</span>
-                        </button>
-                        <button mat-menu-item routerLink="/default/profile/my-profile">
+                        </a>
+                        <a mat-menu-item routerLink="/default/profile/my-profile">
                             <mat-icon>person_outline</mat-icon>
                             <span>My Profile</span>
-                        </button>
+                        </a>
                     </mat-menu>
                 </li>
                 <li *ngIf="notifications.length>0" class="notification-box">
-                    <button mat-icon-button [matMenuTriggerFor]="menuNotifications">
+                    <a mat-button [matMenuTriggerFor]="menuNotifications">
                         <mat-icon>notifications</mat-icon>
                         <small class="notification-badge">{{notifications.length}}</small>
-                    </button>
+                    </a>
                     <mat-menu #menuNotifications="matMenu" class="my-menu">
                         <div style="text-align: right;color: blue;">
                             <a style="font-size: 14px;">Mark All as read</a>
@@ -165,54 +166,57 @@
 </mat-toolbar>
 
 <mat-menu #cfsOrders="matMenu">
-    <button mat-menu-item routerLink='/default/cfs/create-order'>Create Order</button>
-    <button mat-menu-item routerLink='/default/cfs/order-list'>List Orders</button>
+    <a mat-menu-item routerLink='/default/cfs/create-order'>Create Order</a>
+    <a mat-menu-item routerLink='/default/cfs/order-list'>List Orders</a>
 </mat-menu>
 <mat-menu #userRegistrations="matMenu">
-    <button mat-menu-item routerLink='/default/cfs/register-user'>User Registration</button>
-    <button mat-menu-item routerLink='/default/cfs/user-list'>User List</button>
+    <a mat-menu-item routerLink='/default/cfs/register-user'>User Registration</a>
+    <a mat-menu-item routerLink='/default/cfs/user-list'>User List</a>
 </mat-menu>
 
 <mat-menu #vehicles="matMenu">
-    <button mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</button>
-    <button mat-menu-item routerLink='/default/transporter/register-vehicle/list'>Vehicle List</button>
+    <a mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle Registration</a>
+    <a mat-menu-item routerLink='/default/transporter/register-vehicle/list'>Vehicle List</a>
 </mat-menu>
 
 <mat-menu #transporterRegistrations="matMenu">
-    <button mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter
-        Registration</button>
-    <button mat-menu-item routerLink='/default/transporter/transporter-list'>Transporter List</button>
+    <a mat-menu-item routerLink='/default/transporter/register-transporter'>Transporter
+        Registration</a>
+    <a mat-menu-item routerLink='/default/transporter/transporter-list'>Transporter List</a>
 </mat-menu>
 
 <mat-menu #rateMasters="matMenu">
-    <button mat-menu-item routerLink='/default/masters/cfs-port-rate/cfs-port-rate-list'>CFS Port Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/port-cfs-rate/port-cfs-rate-list'>Port CFS Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/yardcfsrate/yardcfsratelist'>Yard CFS Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/cfs-yard-rate/cfs-yard-rate-list'>CFS Yard Rate Master</button>
-    <button mat-menu-item routerLink='/default/masters/diesel/diesel-list'>Diesel Rate Master</button>
+    <a mat-menu-item routerLink='/default/masters/cfs-port-rate/cfs-port-rate-list'>CFS Port Rate Master</a>
+    <a mat-menu-item routerLink='/default/masters/port-cfs-rate/port-cfs-rate-list'>Port CFS Rate Master</a>
+    <a mat-menu-item routerLink='/default/masters/yardcfsrate/yardcfsratelist'>Yard CFS Rate Master</a>
+    <a mat-menu-item routerLink='/default/masters/cfs-yard-rate/cfs-yard-rate-list'>CFS Yard Rate Master</a>
+    <a mat-menu-item routerLink='/default/masters/diesel/diesel-list'>Diesel Rate Master</a>
+</mat-menu>
+<mat-menu #batchUpdate="matMenu">
+    <a mat-menu-item routerLink='/default/masters/batch-update'>Batch Rate update</a>
 </mat-menu>
 <mat-menu #locationMasters="matMenu">
-    <button mat-menu-item routerLink='/default/masters/location/location-list'>Location Master</button>
-    <button mat-menu-item routerLink='/default/masters/port/port-list'>Port Master</button>
-    <button mat-menu-item routerLink='/default/masters/portterminalmaster/list'>Port Terminal Master</button>
-    <button mat-menu-item routerLink='/default/masters/state-master-list'>State Master</button>
-    <button mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</button>
-    <button mat-menu-item routerLink='/default/masters/zone/list'>Zone Master</button>
-    <button mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</button>
+    <a mat-menu-item routerLink='/default/masters/location/location-list'>Location Master</a>
+    <a mat-menu-item routerLink='/default/masters/port/port-list'>Port Master</a>
+    <a mat-menu-item routerLink='/default/masters/portterminalmaster/list'>Port Terminal Master</a>
+    <a mat-menu-item routerLink='/default/masters/state-master-list'>State Master</a>
+    <a mat-menu-item routerLink='/default/masters/yard/list'>Yard Master</a>
+    <a mat-menu-item routerLink='/default/masters/zone/list'>Zone Master</a>
+    <a mat-menu-item routerLink='/default/masters/zone-day/list'>Zone Day Master</a>
 </mat-menu>
 <mat-menu #configMasters="matMenu">
-    <button mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</button>
-    <button mat-menu-item routerLink='/default/masters/container/list'>Container Master</button>
-    <button mat-menu-item routerLink='/default/masters/mileage/list'>Mileage Master</button>
-    <button mat-menu-item routerLink='/default/masters/weight/list'>Weight Master</button>
+    <a mat-menu-item routerLink='/default/masters/cfs/list'>CFS Master</a>
+    <a mat-menu-item routerLink='/default/masters/container/list'>Container Master</a>
+    <a mat-menu-item routerLink='/default/masters/mileage/list'>Mileage Master</a>
+    <a mat-menu-item routerLink='/default/masters/weight/list'>Weight Master</a>
 </mat-menu>
 <mat-menu #settings="matMenu">
-    <button mat-menu-item routerLink='/default/settings/configuration'>
+    <a mat-menu-item routerLink='/default/settings/configuration'>
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
-    </button>
-    <button mat-menu-item routerLink='/default/settings/user-management'>
+    </a>
+    <a mat-menu-item routerLink='/default/settings/user-management'>
         <mat-icon>person_outline</mat-icon>
         <span>User Management</span>
-    </button>
+    </a>
 </mat-menu>
