@@ -13,6 +13,7 @@ import { PortService } from '../services/port.service';
 import { LocationService } from '../services/location.service';
 import { StateMasterService } from '../services/state-master.service';
 import { User } from 'src/app/shared/models/user';
+import { LocationMaster } from 'src/app/shared/models/location';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CfsFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public cfsForm: FormGroup;
   public portMasters: Array<any> = [];
-  public locations: Array<any> = [];
+  public locations:  Array<LocationMaster> = [];
   public stateMasters: Array<any> = [];
   public currentUser: User;
   public mobileNumberPattern: string = Constants.mobNumberPattern;
@@ -44,7 +45,7 @@ export class CfsFormComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     this.getAllPortMasters();
-    this.getLocations();
+    //this.getLocations();
     this.getAllStateMasters();
     if (this.cfsData) {
       this.cfsForm = this.fb.group({
@@ -122,7 +123,18 @@ export class CfsFormComponent implements OnInit {
       }
     );
   }
-
+  getAllLocationsByStateId(stateMasterId: number) {
+    this._stateService.getAllLocationMastersByStateId(stateMasterId).subscribe(
+      (locations: Array<LocationMaster>) => {
+        this.locations = locations;
+      },
+      (err) => {
+      }
+    );
+  }
+  stateSelected(stateMasterId) {
+    this.getAllLocationsByStateId(stateMasterId);
+  }
   getAllPortMasters() {
     this._portService.getAllPortMasters().subscribe(
       (portMasters) => {

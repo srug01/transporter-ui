@@ -46,6 +46,17 @@
                             </mat-form-field>
                         </div>
                         <div fxFlex="50" fxFlex.lt-sm="100">
+                          <mat-form-field>
+                              <mat-label class="required">State</mat-label>
+                              <mat-select formControlName="stateMasterId" [errorStateMatcher]="matcher" (valueChange)="stateSelected($event)">
+                                  <mat-option *ngFor="let state of stateMasters" [value]="state.stateMasterId">
+                                      {{ state.stateName }}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="cfsForm.get('stateMasterId').errors !== null &&  cfsForm.get('stateMasterId').errors.required">Please Enter State</mat-error>
+                          </mat-form-field>
+                      </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <mat-label class="required">Location</mat-label>
                                 <mat-select formControlName="locationMasterId" [errorStateMatcher]="matcher">
@@ -56,17 +67,7 @@
                                 <mat-error *ngIf="cfsForm.get('locationMasterId').errors !== null &&  cfsForm.get('locationMasterId').errors.required">Please Enter Location</mat-error>
                             </mat-form-field>
                         </div>
-                        <div fxFlex="50" fxFlex.lt-sm="100">
-                            <mat-form-field>
-                                <mat-label class="required">State</mat-label>
-                                <mat-select formControlName="stateMasterId" [errorStateMatcher]="matcher">
-                                    <mat-option *ngFor="let state of stateMasters" [value]="state.stateMasterId">
-                                        {{ state.stateName }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="cfsForm.get('stateMasterId').errors !== null &&  cfsForm.get('stateMasterId').errors.required">Please Enter State</mat-error>
-                            </mat-form-field>
-                        </div>
+
                         <div fxFlex="50" fxFlex.lt-sm="100">
                             <mat-form-field>
                                 <input matInput placeholder="Latitude" formControlName="latitude" name="latitude" />
