@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { MasterType } from './../../../shared/models/masterType';
 import { Component, OnInit } from '@angular/core';
 import { MasterTypeService } from '../../cfs/services/master-type.service';
@@ -10,13 +11,29 @@ import { MasterTypeService } from '../../cfs/services/master-type.service';
 export class BatchUpdateComponent implements OnInit {
   public masterTypes: MasterType[] = [];
   public selectedMasterType: any;
+  public cfsId: number;
 
   constructor(
+    private _route: ActivatedRoute,
     private _masterTypeService: MasterTypeService
   ) { }
 
   ngOnInit(): void {
+    this.getCfsIdFromRouteParams();
     this.getMasterTypes();
+  }
+
+  getCfsIdFromRouteParams() {
+    this._route.params.subscribe(
+      (params) => {
+        this.cfsId = params.id;
+      }
+    );
+  }
+
+  getRateTableForCFS() {
+    console.log(this.cfsId);
+    console.log(this.selectedMasterType);
   }
 
   getMasterTypes() {
@@ -32,7 +49,7 @@ export class BatchUpdateComponent implements OnInit {
 
   masterTypeSelected(ev) {
     this.selectedMasterType = ev;
-    console.log(this.selectedMasterType);
+    this.getRateTableForCFS();
   }
 
 }
