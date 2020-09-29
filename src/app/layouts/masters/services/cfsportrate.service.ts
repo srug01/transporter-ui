@@ -25,7 +25,7 @@ export class CfsPortRateService {
   }
 
   updateCfsRateMaster(cfsportrate: CfsPortRateMaster): Observable<any> {
-    return this.http.put<CfsPortRateMaster>(
+    return this.http.patch<CfsPortRateMaster>(
       this.baseUrl + 'cfs-port-rate-masters/' + cfsportrate.cfsPortRateMasterId,
       JSON.stringify(cfsportrate), this.HttpUploadOptions
     );

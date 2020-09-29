@@ -23,7 +23,7 @@ export class CfsYardRateService {
   }
 
   updateCfsYardRateMaster(cfsyardrate: CfsYardRateMaster): Observable<any> {
-    return this.http.put<CfsYardRateMaster>(
+    return this.http.patch<CfsYardRateMaster>(
       this.baseUrl + 'cfs-yard-rate-masters/' + cfsyardrate.cfsYardRateMasterId,
       JSON.stringify(cfsyardrate), this.HttpUploadOptions
     );

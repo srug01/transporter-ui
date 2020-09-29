@@ -39,8 +39,8 @@ export class ContainerService {
     return this.http.get(this.baseUrl + 'container-masters/' + id);
   }
 
-  getAllContainersAndWeights(): Observable<any> {
-    return this.http.get<any>(this.baseUrl + 'GetAllCFSContainerAndWeights');
+  getAllContainersAndWeights(masterTypeId,cfsMasterId): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'GetAllCFSContainerAndWeights'+ '/' + masterTypeId + '/' + cfsMasterId);
   }
 
   deleteContainerMastersById(id: number): Observable<any> {

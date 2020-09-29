@@ -1,14 +1,94 @@
-<div fxLayout="column">
-    <div fxLayout="row">
-        <div fxFlex="30">
-            <mat-form-field class="demo-full-width">
-                <mat-label class="required">Select Source & Destination Types</mat-label>
-                <mat-select matNativeControl (valueChange)="masterTypeSelected($event)">
-                    <mat-option *ngFor="let masterType of masterTypes" [value]="masterType">
-                        {{masterType.sourceType + ' To ' + masterType.destinationType}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
+<div fxLayout="row wrap" class="matero-row">
+  <div class="matero-col">
+      <mat-card class="example-card">
+          <mat-card-header>
+              <mat-card-title>Rate Master</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <form fxLayout="row" fxLayoutGap="15px"  (ngSubmit)="submitRateForm($event)">
+                  <div fxLayout="row wrap" fxLayoutGap="8px grid">
+                      <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field class="demo-full-width">
+                          <mat-label class="required">Select Source & Destination Types</mat-label>
+                          <mat-select matNativeControl (valueChange)="masterTypeSelected($event)">
+                              <mat-option *ngFor="let masterType of masterTypes" [value]="masterType">
+                                  {{masterType.sourceType + ' To ' + masterType.destinationType}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      </div>
+                      <div>
+                        <table mat-table [dataSource]="rateMasters" class="mat-elevation-z8">
+
+                          <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="containerMasterName">
+                              <th mat-header-cell *matHeaderCellDef> Container </th>
+                              <td mat-cell class="table-cell" *matCellDef="let element">
+                                 {{element.containerMasterName}} </td>
+                          </ng-container>
+
+
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="weightDesc">
+                              <th mat-header-cell *matHeaderCellDef> Weight </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{element.weightDesc}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Rate">
+                              <th mat-header-cell *matHeaderCellDef> Rate </th>
+                              <td mat-cell *matCellDef="let element">
+                                  <mat-form-field>
+                                      <input matInput type="number"
+                                      [(ngModel)]="element.Rate" placeholder="Rate">
+                                  </mat-form-field>
+                              </td>
+                          </ng-container>
+                          <ng-container matColumnDef="BidRate">
+                            <th mat-header-cell *matHeaderCellDef> Bid Margin </th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field>
+                                    <input matInput type="number"
+                                    [(ngModel)]="element.BidRate" placeholder="Bid Margin">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="OrderRate">
+                          <th mat-header-cell *matHeaderCellDef> Order Rate </th>
+                          <td mat-cell *matCellDef="let element">
+                              <mat-form-field>
+                                  <input matInput type="number"
+                                  [(ngModel)]="element.OrderRate" placeholder="Order Margin">
+                              </mat-form-field>
+                          </td>
+                      </ng-container>
+
+                          <ng-container matColumnDef="Action">
+                              <th mat-header-cell *matHeaderCellDef> Action </th>
+                              <td mat-cell *matCellDef="let element">
+                                  <div fxLayout="row" fxLayoutGap="10px">
+                                      <button  mat-raised-button color="primary" class="confirm-btn" (click)="openUpdateDialog($event,element)">Update</button>
+                                      <!-- <button *ngIf="element.bidValue > 0 && currentUser.typeSyscode === 5" mat-raised-button color="primary" class="confirm-btn">Edit</button> -->
+                                  </div>
+                              </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
+                      </div>
+
+                      <div fxFlex="100" fxFlex.lt-sm="100">
+                        <button type="submit" mat-raised-button color="primary" class="m-t-8">
+            Submit
+          </button>
+                      </div>
+                  </div>
+              </form>
+          </mat-card-content>
+      </mat-card>
+  </div>
 </div>
