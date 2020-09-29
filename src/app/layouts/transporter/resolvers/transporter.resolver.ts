@@ -11,7 +11,6 @@ export class TransporterResolver implements Resolve<Transporter>{
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<Transporter>
     | Promise<Transporter> | Transporter {
-    console.log(route.params.id);
     return this._transporterRegistrationService.getTransporterById(route.params.id);
   }
 }

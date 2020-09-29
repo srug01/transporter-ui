@@ -35,7 +35,7 @@ export class CfsMasterListComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCfsMasters();
   }
-
+ 
   demo(ev) {
   }
   openDialog(ev, cfsId: number) {

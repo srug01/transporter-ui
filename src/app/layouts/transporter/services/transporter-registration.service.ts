@@ -30,6 +30,10 @@ export class TransporterRegistrationService {
   }
 
   getTransporterById(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + 'transporter-registrations/' + id, this.HttpUploadOptions);
+    return this.http.get(this.baseUrl + 'users/' + id, this.HttpUploadOptions);
+  }
+
+  deleteTransporterById(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'users/' + id);
   }
 }

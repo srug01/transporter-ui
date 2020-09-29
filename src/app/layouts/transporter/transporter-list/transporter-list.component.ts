@@ -1,5 +1,7 @@
 import { TransporterRegistrationService } from './../services/transporter-registration.service';
 import { Component, OnInit } from '@angular/core';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-transporter-list',
@@ -8,16 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransporterListComponent implements OnInit {
   displayedColumns: string[] = [
-   'serialnumber','email', 'Name', 'mobileNumber','action'  
+    'serialnumber', 'email', 'Name', 'mobileNumber', 'action'
   ];
   public transporters: [];
 
 
   constructor(
-    private _transporterService: TransporterRegistrationService
+    private _transporterService: TransporterRegistrationService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.getAllTransporters();
+  }
+
+  getAllTransporters() {
     this._transporterService.getAllTransporters().subscribe(
       (transporters) => {
         this.transporters = transporters;
@@ -25,6 +32,27 @@ export class TransporterListComponent implements OnInit {
       (err) => {
         console.log(err);
 
+      }
+    );
+  }
+
+  openDialog(ev, transporterId: number) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteTransporterById(transporterId);
+      }
+    });
+  }
+
+  deleteTransporterById(transporterId: number) {
+    this._transporterService.deleteTransporterById(transporterId).subscribe(
+      (res) => {
+        console.log(res);
+        this.getAllTransporters();
       }
     );
   }

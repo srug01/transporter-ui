@@ -176,11 +176,28 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'user-management';
         details.url = '/default/settings/user-management';
         break;
+      case 'trips':
+        details.label = 'Trips';
+        break;
       case 'order-details':
         details.label = 'order-details';
         break;
+      case 'trip-list':
+        details.label = 'Trip List';
+        details.url = '/default/transporter/trips/trip-list';
+        break;
+      case 'transporter-edit':
+        details.label = 'Edit Transporter';
+        break;
+      case 'trip-new':
+        details.label = 'New Trip';
+        details.url = '/default/transporter/trip-new';
+        break;
+      case 'trip-edit':
+        details.label = 'Edit Trip';
+        details.url = '/default/transporter/trip-edit';
+        break;
       default:
-        details.label = link;
         break;
     }
     return details;

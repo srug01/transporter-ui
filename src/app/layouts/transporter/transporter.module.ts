@@ -63,6 +63,7 @@ import { TripsListComponent } from './trips/trips-list.component';
 import { TripsNewComponent } from './trips/trips-new.component';
 import { TripsEditComponent } from './trips/trips-edit.component';
 import { TripsDetailsComponent } from './trips/trips-details.component';
+import { TransporterFormComponent } from './transporter-form/transporter-form.component';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent, data: { breadcrumb: 'home' } },
@@ -102,7 +103,7 @@ const routes: Routes = [
     data: { breadcrumb: 'transporter-list', roles: ['Transporter','Admin'] } },
   {
     path: 'transporter-edit/:id', component: EditTransporterComponent, resolve: { transporterResolver: TransporterResolver },
-    data: { breadcrumb: 'edit', roles: ['Transporter','Admin'] }
+    data: { breadcrumb: 'edit-transporter', roles: ['Transporter','Admin'] }
   },
   { path: 'placed-bids', component: PlacedBidsComponent, data: { breadcrumb: 'placed-bids', roles: ['Transporter','Admin'] } },
   { path: 'bids', component: BidsComponent, data: { breadcrumb: 'bids', roles: ['Transporter','Admin'] } },
@@ -192,7 +193,8 @@ const toasterConfig: MatSnackBarConfig = {
     TripsComponent,
     TripsListComponent,
     TripsEditComponent,
-    TripsDetailsComponent
+    TripsDetailsComponent,
+    TransporterFormComponent
   ],
   imports: [
     CommonModule,

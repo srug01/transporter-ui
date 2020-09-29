@@ -4,10 +4,6 @@
         <mat-card-subtitle>Users List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <mat-form-field>
-            <mat-label>Filter Users</mat-label>
-            <input matInput (keyup)="applyUsersFilter($event)" #orderInput>
-        </mat-form-field>
         <table mat-table [dataSource]="users" class="mat-elevation-z8">
             <!-- Position Column -->
             <ng-container matColumnDef="cfsUserRegistrationId">
