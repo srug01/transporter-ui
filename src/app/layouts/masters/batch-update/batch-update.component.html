@@ -37,27 +37,27 @@
                             {{element.weightDesc}}</td>
                     </ng-container>
 
-                    <ng-container matColumnDef="Rate">
+                    <ng-container matColumnDef="rate">
                         <th mat-header-cell *matHeaderCellDef> Rate </th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field>
-                                <input matInput type="number" [(ngModel)]="element.Rate" [ngModelOptions]="{standalone: true}" placeholder="Rate">
+                                <input matInput type="number" [(ngModel)]="element.rate" [ngModelOptions]="{standalone: true}" placeholder="Rate">
                             </mat-form-field>
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="BidRate">
+                    <ng-container matColumnDef="bidMarginRate">
                         <th mat-header-cell *matHeaderCellDef> Bid Margin </th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field>
-                                <input matInput type="number" [(ngModel)]="element.BidRate" [ngModelOptions]="{standalone: true}" placeholder="Bid Margin">
+                                <input matInput type="number" [(ngModel)]="element.bidMarginRate" [ngModelOptions]="{standalone: true}" placeholder="Bid Margin">
                             </mat-form-field>
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="OrderRate">
+                    <ng-container matColumnDef="orderMarginRate">
                         <th mat-header-cell *matHeaderCellDef> Order Rate </th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field>
-                                <input matInput type="number" [(ngModel)]="element.OrderRate" [ngModelOptions]="{standalone: true}" placeholder="Order Margin">
+                                <input matInput type="number" [(ngModel)]="element.orderMarginRate" [ngModelOptions]="{standalone: true}" placeholder="Order Margin">
                             </mat-form-field>
                         </td>
                     </ng-container>
@@ -76,6 +76,9 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
+                <div fxFlex="100" fxFlex.lt-sm="100">
+                  <button mat-raised-button color="primary" class="confirm-btn" (click)="openSubmitDialog($event)">Save</button>
+                </div>
             </form>
         </mat-card-content>
     </mat-card>

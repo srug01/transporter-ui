@@ -5,6 +5,7 @@ import { CfsYardRateMaster } from './../../../shared/models/cfsyardrate';
 import { YardCFSRate } from './../../../shared/models/yardcfsrate';
 import { CfsPortRateMaster } from './../../../shared/models/cfsportrate';
 import { PortCfsRateMaster } from './../../../shared/models/portcfsrate';
+import { BatchFilter } from './../../../shared/models/batchFilter';
 
 import { Component, OnInit } from '@angular/core';
 import { MasterTypeService } from '../../cfs/services/master-type.service';
@@ -13,6 +14,8 @@ import { CfsYardRateService } from '../../masters/services/cfsyardrate.service';
 import { YardCFSRateService } from '../../masters/services/yardcfsrate.service';
 import { CfsPortRateService } from '../../masters/services/cfsportrate.service';
 import { PortCfsRateService } from '../../masters/services/portcfsrate.service';
+import { BatchUpdateService } from '../../masters/services/batchupdate.service';
+
 import { NgZone, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -23,6 +26,7 @@ import { ConfirmBidDialogComponent } from '../../transporter/confirm-bid-dialog/
 import { take } from 'rxjs/operators';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormGroup } from '@angular/forms';
+import { Batch } from 'aws-sdk/clients/all';
 
 @Component({
   selector: 'app-batch-update',
@@ -32,8 +36,8 @@ import { FormGroup } from '@angular/forms';
 export class BatchUpdateComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   displayedColumns: string[] = [
-    'containerMasterName', 'weightDesc', 'Rate', 'BidRate',
-    'OrderRate', 'Action'
+    'containerMasterName', 'weightDesc', 'rate', 'bidMarginRate',
+    'orderMarginRate', 'Action'
   ];
   public rateForm: FormGroup;
   public masterTypes: MasterType[] = [];
@@ -45,7 +49,7 @@ export class BatchUpdateComponent implements OnInit {
   public _cfsportrate: CfsPortRateMaster;
   public _portcfsrate: PortCfsRateMaster;
   public userId = parseInt(localStorage.getItem('userID'), 10);
-
+  public batchFilter: BatchFilter = new BatchFilter();
   constructor(
     private _ngZone: NgZone,
     private _route: ActivatedRoute,
@@ -57,6 +61,7 @@ export class BatchUpdateComponent implements OnInit {
     private _yardcfsrateService: YardCFSRateService,
     private _cfsportrateService: CfsPortRateService,
     private _portcfsrateService: PortCfsRateService,
+    private _batchUpdateService: BatchUpdateService,
 
     private _snackBar: MatSnackBar,
     private _dialog: MatDialog
@@ -109,86 +114,87 @@ export class BatchUpdateComponent implements OnInit {
     console.log(rateMaster);
     // CFS to Yard
     if (this.selectedMasterType.masterTypeId === 1) {
-      this._cfsYardRate.cfsMasterId = this.cfsId;
-      this._cfsYardRate.yardMasterId = rateMaster.yardMasterId;
-      this._cfsYardRate.cfsYardRateMasterId = rateMaster.rateMasterId;
-      this._cfsYardRate.containerMasterId = rateMaster.containerMasterId;
-      this._cfsYardRate.weightMasterId = rateMaster.weightMasterId;
-      this._cfsYardRate.portMasterId = rateMaster.portMasterId;
-      this._cfsYardRate.rate = rateMaster.Rate;
-      this._cfsYardRate.bidMarginRate = rateMaster.BidRate;
-      this._cfsYardRate.orderMarginRate = rateMaster.OrderRate;
+      rateMaster.cfsMasterId = this.cfsId;
 
-      if (this._cfsYardRate.cfsYardRateMasterId === 0) {
-        this._cfsYardRate.createdBy = this.userId;
-        this._cfsYardRate.createdOn = new Date();
-        this._cfsyardrateService.saveCfsYardRateMaster(this._cfsYardRate);
+      if (rateMaster.cfsYardRateMasterId === 0) {
+        rateMaster.createdBy = this.userId;
+        rateMaster.createdOn = new Date();
+        this._cfsyardrateService.saveCfsYardRateMaster(rateMaster);
       } else {
-        this._cfsYardRate.modifiedBy = this.userId;
-        this._cfsYardRate.modifiedOn = new Date();
-        this._cfsyardrateService.updateCfsYardRateMaster(this._cfsYardRate);
+        rateMaster.modifiedBy = this.userId;
+        rateMaster.modifiedOn = new Date();
+        this._cfsyardrateService.updateCfsYardRateMaster(rateMaster);
       }
+      this.getRateTableForCFS(this.selectedMasterType);
     } else if (this.selectedMasterType.masterTypeId === 3) { //Yard to CFS
-      this._yardcfsrate.cfsMasterId = this.cfsId;
-      this._yardcfsrate.yardMasterId = rateMaster.yardMasterId;
-      this._yardcfsrate.yardCfsRateMasterId = rateMaster.rateMasterId;
-      this._yardcfsrate.containerMasterId = rateMaster.containerMasterId;
-      this._yardcfsrate.weightMasterId = rateMaster.weightMasterId;
-      this._yardcfsrate.portMasterId = rateMaster.portMasterId;
-      this._yardcfsrate.rate = rateMaster.Rate;
-      this._yardcfsrate.bidMarginRate = rateMaster.BidRate;
-      this._yardcfsrate.orderMarginRate = rateMaster.OrderRate;
+      rateMaster.cfsMasterId = this.cfsId;
 
-      if (this._yardcfsrate.yardCfsRateMasterId === 0) {
-        this._yardcfsrate.createdBy = this.userId;
-        this._yardcfsrate.createdOn = new Date();
-        this._yardcfsrateService.saveYardcfsrateMaster(this._yardcfsrate);
+
+      if (rateMaster.yardCfsRateMasterId === 0) {
+        rateMaster.createdBy = this.userId;
+        rateMaster.createdOn = new Date();
+        this._yardcfsrateService.saveYardcfsrateMaster(rateMaster);
       } else {
-        this._yardcfsrate.modifiedBy = this.userId;
-        this._yardcfsrate.modifiedOn = new Date().toString();
-        this._yardcfsrateService.updateYardcfsrateMaster(this._yardcfsrate);
+        rateMaster.modifiedBy = this.userId;
+        rateMaster.modifiedOn = new Date().toString();
+        this._yardcfsrateService.updateYardcfsrateMaster(rateMaster);
       }
+      this.getRateTableForCFS(this.selectedMasterType);
     } else if (this.selectedMasterType.masterTypeId === 4) { //Port to CFS
-      this._portcfsrate.cfsMasterId = this.cfsId;
-      this._portcfsrate.portCfsRateMasterId = rateMaster.rateMasterId;
-      this._portcfsrate.containerMasterId = rateMaster.containerMasterId;
-      this._portcfsrate.weightMasterId = rateMaster.weightMasterId;
-      this._portcfsrate.portMasterId = rateMaster.portMasterId;
-      this._portcfsrate.rate = rateMaster.Rate;
-      this._portcfsrate.bidMarginRate = rateMaster.BidRate;
-      this._portcfsrate.orderMarginRate = rateMaster.OrderRate;
+      rateMaster.cfsMasterId = this.cfsId;
 
-      if (this._portcfsrate.portCfsRateMasterId === 0) {
-        this._portcfsrate.createdBy = this.userId;
-        this._portcfsrate.createdOn = new Date();
-        this._portcfsrateService.savePortCfsRateMaster(this._portcfsrate);
+
+      if (rateMaster.portCfsRateMasterId === 0) {
+        rateMaster.createdBy = this.userId;
+        rateMaster.createdOn = new Date();
+        this._portcfsrateService.savePortCfsRateMaster(rateMaster);
       } else {
-        this._portcfsrate.modifiedBy = this.userId;
-        this._portcfsrate.modifiedOn = new Date();
-        this._portcfsrateService.updatePortCfsRateMaster(this._portcfsrate);
+        rateMaster.modifiedBy = this.userId;
+        rateMaster.modifiedOn = new Date();
+        this._portcfsrateService.updatePortCfsRateMaster(rateMaster);
       }
+      this.getRateTableForCFS(this.selectedMasterType);
     } else if (this.selectedMasterType.masterTypeId === 2) { // CFS to Port
-      this._cfsportrate.cfsMasterId = this.cfsId;
-      this._cfsportrate.cfsPortRateMasterId = rateMaster.rateMasterId;
-      this._cfsportrate.containerMasterId = rateMaster.containerMasterId;
-      this._cfsportrate.weightMasterId = rateMaster.weightMasterId;
-      this._cfsportrate.portMasterId = rateMaster.portMasterId;
-      this._cfsportrate.rate = rateMaster.Rate;
-      this._cfsportrate.bidMarginRate = rateMaster.BidRate;
-      this._cfsportrate.orderMarginRate = rateMaster.OrderRate;
+      rateMaster.cfsMasterId = this.cfsId;
 
-      if (this._cfsportrate.cfsPortRateMasterId === 0) {
-        this._cfsportrate.createdBy = this.userId;
-        this._cfsportrate.createdOn = new Date();
-        this._cfsportrateService.saveCfsRateMaster(this._cfsportrate);
+      if (rateMaster.cfsPortRateMasterId === 0) {
+        rateMaster.createdBy = this.userId;
+        rateMaster.createdOn = new Date();
+        this._cfsportrateService.saveCfsRateMaster(rateMaster);
       } else {
-        this._cfsportrate.modifiedBy = this.userId;
-        this._cfsportrate.modifiedOn = new Date();
-        this._cfsportrateService.updateCfsRateMaster(this._cfsportrate);
+        rateMaster.modifiedBy = this.userId;
+        rateMaster.modifiedOn = new Date();
+        this._cfsportrateService.updateCfsRateMaster(rateMaster);
       }
+      this.getRateTableForCFS(this.selectedMasterType);
     }
 
 
+  }
+
+
+
+  batchUpdate() {
+    console.log(this.rateMasters);
+    const filter: BatchFilter = {
+      masterTypeId: this.selectedMasterType.masterTypeId ? this.selectedMasterType.masterTypeId : 0,
+      isUpdate: false,
+      bulkData: this.rateMasters
+    };
+
+
+
+    // call bid api for order along with this filter
+    console.log("Batch Filter : " + JSON.stringify(filter));
+    this._batchUpdateService.saveBatchRate(filter).subscribe(
+      (bids) => {
+        //this.bids = new MatTableDataSource(bids);
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   submitRateForm(ev) {
@@ -215,6 +221,18 @@ export class BatchUpdateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.updateRate(rateMaster);
+      }
+    });
+  }
+
+  openSubmitDialog(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const dialogRef = this._dialog.open(ConfirmBidDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.batchUpdate();
       }
     });
   }
