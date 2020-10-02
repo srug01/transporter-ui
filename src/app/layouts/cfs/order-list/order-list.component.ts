@@ -89,7 +89,6 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     this._userRegistrationService.getAllCFSUsers().subscribe(
       (users) => {
         this.cfsUsers = users;
-        console.log(this.cfsUsers);
       }
     );
   }

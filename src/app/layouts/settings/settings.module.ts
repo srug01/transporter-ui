@@ -1,3 +1,4 @@
+import { ManagementComponent } from './management/management.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsComponent } from './settings.component';
 import { AppDateFormats } from './../../shared/date-formats';
@@ -35,10 +36,17 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { RoleGuardService } from 'src/app/services/role.guard.service';
+import { RoleManagementComponent } from './role-management/role-management.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { RoleDetailsComponent } from './role-details/role-details.component';
 
 const routes: Routes = [
   {
-    path: '', component: SettingsComponent, data: { breadcrumb: 'cfs', roles: ['Admin'] },
+    path: '', component: SettingsComponent, data: { breadcrumb: 'settings', roles: ['Admin'] },
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'management', component: ManagementComponent, data: { breadcrumb: 'management', roles: ['Admin'] },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
@@ -48,6 +56,14 @@ const routes: Routes = [
   {
     path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuardService, RoleGuardService],
     data: { breadcrumb: 'user-management', roles: ['Admin'] }
+  },
+  {
+    path: 'role-management', component: RoleManagementComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'role-management', roles: ['Admin'] }
+  },
+  {
+    path: 'role-details/:id', component: RoleDetailsComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'role-details', roles: ['Admin'] }
   }
 ];
 
@@ -61,7 +77,11 @@ const toasterConfig: MatSnackBarConfig = {
   declarations: [
     SettingsComponent,
     UserManagementComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    RoleManagementComponent,
+    UserListComponent,
+    ManagementComponent,
+    RoleDetailsComponent
   ],
   imports: [
     CommonModule,

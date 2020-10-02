@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { PortCfsRateService } from '../../masters/services/portcfsrate.service';
 import { Cfs } from 'src/app/shared/models/cfs';
+import { AlertService } from 'src/app/shared/services/alert.service';
 
 @Component({
   selector: 'app-portcfsrate-form',
@@ -39,7 +40,8 @@ export class PortcfsrateFormComponent implements OnInit {
     private _weightService: WeightService,
     private _cfsService: CfsService,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private _alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -98,24 +100,24 @@ export class PortcfsrateFormComponent implements OnInit {
     );
   }
 
-  cfsSelected(cfsId){
-    this.cfs = this.cfsMasters.find(a=> a.cfsMasterId == cfsId);
-   this.getPortMasterForCfs(this.cfs.portMasterId);
- }
+  cfsSelected(cfsId) {
+    this.cfs = this.cfsMasters.find(a => a.cfsMasterId == cfsId);
+    this.getPortMasterForCfs(this.cfs.portMasterId);
+  }
 
- getPortMasterForCfs(portId: number) {
-  this._portService.getAllPortMasters().subscribe(
-    (portMasters) => {
-      this.portMasters = portMasters;
-      this.portMasters = this.portMasters.filter(p=> p.portMasterId == portId);
-      this.portcfsrateForm.get('portMasterId').setValue(portId);
-    },
-    (err) => {
-    }
-  );
-}
+  getPortMasterForCfs(portId: number) {
+    this._portService.getAllPortMasters().subscribe(
+      (portMasters) => {
+        this.portMasters = portMasters;
+        this.portMasters = this.portMasters.filter(p => p.portMasterId == portId);
+        this.portcfsrateForm.get('portMasterId').setValue(portId);
+      },
+      (err) => {
+      }
+    );
+  }
 
-  getAllWeightMastersbyContainerID(id: number){
+  getAllWeightMastersbyContainerID(id: number) {
     this.weightMasters = [];
     this.weightMasters.length = 0;
 
@@ -172,7 +174,7 @@ export class PortcfsrateFormComponent implements OnInit {
     if (this.portcfsrateForm.valid) {
       const portcfsRate = this.transformCfsRateObj(this.portcfsrateForm.value);
       if (!this.portcfsrateData) {
-         this.savePortCfsrateMaster(portcfsRate);
+        this.savePortCfsrateMaster(portcfsRate);
       } else {
         this.updatePortCfsrateMaster(portcfsRate);
       }
@@ -184,12 +186,11 @@ export class PortcfsrateFormComponent implements OnInit {
   savePortCfsrateMaster(portcfsRate: PortCfsRateMaster) {
     this._portcfsrateService.savePortCfsRateMaster(portcfsRate).subscribe(
       (res) => {
-        this.openSnackBar('Success !', 'Port CFS Rate Master Created Successfully');
-        this._router.navigate(['/default/masters/port-cfs-rate/list']);
+        this._alertService.success('Port CFS Rate Master Created Successfully', 'Success !');
+        this._router.navigate(['/default/masters/port-cfs-rate/port-cfs-rate-list']);
       },
       (err) => {
-        console.log(err);
-        this.openSnackBar('Failure !', err.error.error.message);
+        this._alertService.error(err.error.error.message, 'Failure !');
       }
     );
   }
@@ -197,18 +198,16 @@ export class PortcfsrateFormComponent implements OnInit {
   updatePortCfsrateMaster(portcfsRate: PortCfsRateMaster) {
     this._portcfsrateService.updatePortCfsRateMaster(portcfsRate).subscribe(
       (res) => {
-        this.openSnackBar('Success !', 'Port CFS Rate Master Updated Successfully');
-        this._router.navigate(['/default/masters/port-cfs-rate/list']);
+        this._alertService.success('Port CFS Rate Master Updated Successfully', 'Success !');
+        this._router.navigate(['/default/masters/port-cfs-rate/port-cfs-rate-list']);
       },
       (err) => {
-        this.openSnackBar('Failure !', 'Could not update Port CFS Rate Master!');
+        this._alertService.error(err.error.error.message, 'Failure !');
       }
     );
   }
 
-  containerTypeSelected(containerTypeId)
-  {
-
+  containerTypeSelected(containerTypeId) {
     this.portcfsrateForm.get("weightMasterId").reset();
     this.getAllWeightMastersbyContainerID(containerTypeId);
   }

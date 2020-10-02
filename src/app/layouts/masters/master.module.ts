@@ -333,7 +333,7 @@ const routes: Routes = [
   {
     path: 'port-cfs-rate', component: PortcfsrateComponent,
     children: [
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'port-cfs-rate-list', pathMatch: 'full' },
       { path: 'port-cfs-rate-list', component: PortcfsrateMasterListComponent },
       { path: 'new', component: PortcfsrateNewComponent },
       {

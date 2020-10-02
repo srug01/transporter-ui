@@ -167,7 +167,6 @@ getAllTransporters()
         this._orderService.getOrderDetailsbyOrderId(params.id).subscribe(
           (order: any) => {
             this.order = order;
-            console.log(params.id);
             this.order_Id = parseInt(params.id) ;
             this.applyFilter();
             this.applyBidFilter();

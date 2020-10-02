@@ -47,7 +47,10 @@ export class BreadcrumbComponent implements OnInit {
     this.breadcrumbs = [];
     const links = path.split('/');
     links.forEach(link => {
-      this.breadcrumbs.push(this.returnLinkDetails(link));
+      const linkDetail = this.returnLinkDetails(link);
+      if (linkDetail.label) {
+        this.breadcrumbs.push(linkDetail);
+      }
     });
   }
 
@@ -166,15 +169,11 @@ export class BreadcrumbComponent implements OnInit {
         break;
       case 'settings':
         details.label = 'settings';
-        details.url = '/default/settings/configuration';
+        details.url = '/default/settings/management';
         break;
       case 'configuration':
         details.label = 'configuration';
         details.url = '/default/settings/configuration';
-        break;
-      case 'user-management':
-        details.label = 'user-management';
-        details.url = '/default/settings/user-management';
         break;
       case 'trips':
         details.label = 'Trips';
@@ -196,6 +195,22 @@ export class BreadcrumbComponent implements OnInit {
       case 'trip-edit':
         details.label = 'Edit Trip';
         details.url = '/default/transporter/trip-edit';
+        break;
+      case 'management':
+        details.label = 'Manage Settings';
+        details.url = '/default/settings/management';
+        break;
+      case 'user-management':
+        details.label = 'Manage Users';
+        details.url = '/default/settings/user-management';
+        break;
+      case 'role-management':
+        details.label = 'Manage Role';
+        details.url = '/default/settings/role-management';
+        break;
+      case 'role-details':
+        details.label = 'Role Details';
+        details.url = '/default/settings/role-details';
         break;
       default:
         break;
