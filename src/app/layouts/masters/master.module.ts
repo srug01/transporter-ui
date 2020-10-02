@@ -549,6 +549,7 @@ const routes: Routes = [
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatSlideToggleModule,
     MatSnackBarModule,
     MatTooltipModule
