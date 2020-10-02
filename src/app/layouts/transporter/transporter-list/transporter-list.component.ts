@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TransporterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'serialnumber', 'email', 'Name', 'mobileNumber', 'action'
+    'serialnumber', 'transporterEmail', 'transporterName', 'transporterMobileNumber', 'action'
   ];
   public transporters: [];
 

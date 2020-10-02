@@ -1,4 +1,5 @@
 import { Vehicle } from './../../../shared/models/vehicle';
+import { Transporter} from './../../../shared/models/transporter'
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -25,15 +26,24 @@ export class TransporterRegistrationService {
     return this.http.post<any>(this.baseUrl + 'transporter-registrations', JSON.stringify(transporter), this.HttpUploadOptions);
   }
 
+  updateTransporter(transporter: Transporter): Observable<any> {
+    return this.http.patch<Transporter>(
+      this.baseUrl + 'transporter-registrations/' + transporter.transporterId,
+      JSON.stringify(transporter), this.HttpUploadOptions
+    );
+  }
+
+
   getAllTransporters(): Observable<any> {
-    return this.http.get(this.baseUrl + 'GetAllTransporter');
+    // return this.http.get(this.baseUrl + 'GetAllTransporter');
+    return this.http.get(this.baseUrl + 'transporter-registrations');
   }
 
   getTransporterById(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + 'users/' + id, this.HttpUploadOptions);
+    return this.http.get(this.baseUrl + 'transporter-registrations/' + id);
   }
 
   deleteTransporterById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'users/' + id);
+    return this.http.delete(this.baseUrl + 'transporter-registrations/' + id);
   }
 }
