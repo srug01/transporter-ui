@@ -24,4 +24,8 @@ export class RoleService {
   getAllRoles(): Observable<any> {
     return this.http.get(this.baseUrl + 'userroles');
   }
+
+  getAllPermissions() {
+    return this.http.get(this.baseUrl + 'permissions');
+  }
 }

@@ -3,54 +3,59 @@
         <mat-card-title>Role Management</mat-card-title>
         <mat-card-subtitle>Manage Roles</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-        <table mat-table [dataSource]="roles" class="mat-elevation-z8">
-            <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
+    <mat-card-content fxLayout="column">
+        <div fxFlex="100%" class="create-btn-wrapper">
+            <a routerLink='/default/settings/create-role' mat-raised-button color="primary">Add Role</a>
+        </div>
+        <div fxFlex="100%">
+            <table mat-table [dataSource]="roles" class="mat-elevation-z8">
+                <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
 
-            <!-- Position Column -->
-            <ng-container matColumnDef="SrNo">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
-                <td mat-cell *matCellDef="let element" class="table-row"> {{element.roleId}} </td>
-            </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="SrNo">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
+                    <td mat-cell *matCellDef="let element" class="table-row"> {{element.roleId}} </td>
+                </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="roleName">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Role Name </th>
-                <td mat-cell *matCellDef="let element" class="table-row">{{element.roleName}}
-                </td>
-            </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="roleName">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Role Name </th>
+                    <td mat-cell *matCellDef="let element" class="table-row">{{element.roleName}}
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="createdBy">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Created By </th>
-                <td mat-cell *matCellDef="let element" class="table-row">{{element.created_by}} </td>
-            </ng-container>
+                <ng-container matColumnDef="createdBy">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Created By </th>
+                    <td mat-cell *matCellDef="let element" class="table-row">{{element.created_by}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="createdOn">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Created On </th>
-                <td mat-cell *matCellDef="let element" class="table-row">{{element.created_on}} </td>
-            </ng-container>
+                <ng-container matColumnDef="createdOn">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Created On </th>
+                    <td mat-cell *matCellDef="let element" class="table-row">{{element.created_on}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="active">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Active </th>
-                <td mat-cell *matCellDef="let element" class="table-row">
-                    <a *ngIf="element.is_active === true"><i class="fa fa-check" aria-hidden="true"></i></a>
-                    <a *ngIf="element.is_active !== true"><i class="fa fa-times" aria-hidden="true"></i></a>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="active">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Active </th>
+                    <td mat-cell *matCellDef="let element" class="table-row">
+                        <a *ngIf="element.is_active === true"><i class="fa fa-check" aria-hidden="true"></i></a>
+                        <a *ngIf="element.is_active !== true"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Action </th>
-                <td mat-cell class="table-row" *matCellDef="let element">
-                    <a><i class="material-icons md-24 p5" #tooltip="matTooltip" matTooltip="Edit CFS" [matTooltipPosition]="'below'"
-                            [routerLink]="['/default/settings/role-details',element.roleId]">create</i></a>
-                    <a><i class="material-icons md-24 p5" #tooltip1="matTooltip" matTooltip="Delete CFS" [matTooltipPosition]="'below'"
-                            (click)="openDialog($event,element.cfsMasterId)">delete_sweep</i></a>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="table-title"> Action </th>
+                    <td mat-cell class="table-row" *matCellDef="let element">
+                        <a><i class="material-icons md-24 p5" #tooltip="matTooltip" matTooltip="Edit CFS" [matTooltipPosition]="'below'"
+                                [routerLink]="['/default/settings/role-details',element.roleId]">create</i></a>
+                        <a><i class="material-icons md-24 p5" #tooltip1="matTooltip" matTooltip="Delete CFS" [matTooltipPosition]="'below'"
+                                (click)="openDialog($event,element.cfsMasterId)">delete_sweep</i></a>
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
     </mat-card-content>
 </mat-card>

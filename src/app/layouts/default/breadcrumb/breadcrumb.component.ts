@@ -168,7 +168,7 @@ export class BreadcrumbComponent implements OnInit {
         details.url = '/default/transporter/bids';
         break;
       case 'settings':
-        details.label = 'settings';
+        details.label = 'Settings';
         details.url = '/default/settings/management';
         break;
       case 'configuration':
@@ -212,6 +212,10 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Role Details';
         details.url = '/default/settings/role-details';
         break;
+        case 'create-role':
+          details.label = 'Create Role';
+          details.url = '/default/settings/create-role';
+          break;
       default:
         break;
     }

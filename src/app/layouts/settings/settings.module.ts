@@ -39,6 +39,7 @@ import { RoleGuardService } from 'src/app/services/role.guard.service';
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { RoleDetailsComponent } from './role-details/role-details.component';
+import { CreateRoleComponent } from './create-role/create-role.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
     data: { breadcrumb: 'role-management', roles: ['Admin'] }
   },
   {
+    path: 'create-role', component: CreateRoleComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'create-role', roles: ['Admin'] }
+  },
+  {
     path: 'role-details/:id', component: RoleDetailsComponent, canActivate: [AuthGuardService, RoleGuardService],
     data: { breadcrumb: 'role-details', roles: ['Admin'] }
   }
@@ -81,7 +86,8 @@ const toasterConfig: MatSnackBarConfig = {
     RoleManagementComponent,
     UserListComponent,
     ManagementComponent,
-    RoleDetailsComponent
+    RoleDetailsComponent,
+    CreateRoleComponent
   ],
   imports: [
     CommonModule,
