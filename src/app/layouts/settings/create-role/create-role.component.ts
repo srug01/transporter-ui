@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { RoleService } from '../services/role.service';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-role',
@@ -12,22 +15,36 @@ import { AlertService } from 'src/app/shared/services/alert.service';
 })
 export class CreateRoleComponent implements OnInit {
   public roleForm: FormGroup;
+  public roleId: number;
   cfsPermissions: Permission[] = [];
   transporterPermissions: Permission[] = [];
   adminPermissions: Permission[] = [];
+  submitPermissions: Permission[] = [];
   cfsToggleAll: boolean = false;
   transporterToggleAll: boolean = false;
   adminToggleAll: boolean = false;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private fb: FormBuilder,
     private _roleService: RoleService,
-    private _alertService: AlertService
+    private _alertService: AlertService,
+    private _route: ActivatedRoute,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
     this.initialiseForm();
     this.getAllPermissions();
+    this.getroleIdFromRouteParams();
+  }
+
+  getroleIdFromRouteParams() {
+    this._route.params.subscribe(
+      (params) => {
+        this.roleId = params.id;
+      }
+    );
   }
 
   getAllPermissions() {
@@ -68,11 +85,70 @@ export class CreateRoleComponent implements OnInit {
   }
 
   submitRoleForm(ev) {
-    if(this.roleForm.valid) {
+
+console.log(this.roleForm);
+if (ev) {
+  ev.preventDefault();
+}
+if (this.roleForm.valid) {
+  const formData = this.roleForm.value;
+if(this.roleId == 0)
+{
+  const userRole = {
+    roleName : formData.roleName,
+    created_by: this.userId,
+    created_on: new Date(),
+    is_active: true
+  } as Userrole;
+
+    this._roleService.addUserRole(userRole).subscribe(
+      (res) => {
+        console.log(res);
+        this.roleId = res.roleId;
+        this.savePermissions();
+      },
+      (err) => {
+        console.log(err);
+        this.openSnackBar('Failure !', err.error.error.message);
+      }
+    );
+
+}else {
+  this.openSnackBar('Invalid Form !', 'Please review all fields');
+}
+}
+
+
+
+
+
+ /*    if(this.roleForm.valid) {
 
     } else {
       this._alertService.error('Please review all fields', 'Invalid Form!');
-    }
+    } */
+  }
+
+  savePermissions(){
+    this.submitPermissions = this.adminPermissions.concat(this.cfsPermissions,this.transporterPermissions);
+    console.log(this.submitPermissions);
+const filter: ThreeparamObj = {
+  varOne: this.roleId ? this.roleId : 0,
+  varTwo: this.userId ? this.userId : 0,
+  varThree: this.submitPermissions
+};
+
+
+this._roleService.saveRolePermissions(filter).subscribe(
+  (permissions) => {
+    //this.bids = new MatTableDataSource(bids);
+
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
   }
 
   toggleAllCfs() {
@@ -92,6 +168,12 @@ export class CreateRoleComponent implements OnInit {
     this.adminToggleAll = !this.adminToggleAll;
     this.adminPermissions.forEach((adminPermission: Permission) => {
       adminPermission.isActive = this.adminToggleAll;
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
     });
   }
 
