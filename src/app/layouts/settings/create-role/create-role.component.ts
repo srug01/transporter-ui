@@ -70,9 +70,6 @@ export class CreateRoleComponent implements OnInit {
         this.adminPermissions.push(permission);
       }
     }
-    console.log(this.cfsPermissions);
-    console.log(this.adminPermissions);
-    console.log(this.transporterPermissions);
   }
 
   initialiseForm() {
@@ -85,69 +82,52 @@ export class CreateRoleComponent implements OnInit {
   }
 
   submitRoleForm(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    if (this.roleForm.valid) {
+      const formData = this.roleForm.value;
+      const userRole = {
+        roleName: formData.roleName,
+        created_by: this.userId,
+        created_on: new Date(),
+        is_active: formData.is_active
+      } as Userrole;
 
-console.log(this.roleForm);
-if (ev) {
-  ev.preventDefault();
-}
-if (this.roleForm.valid) {
-  const formData = this.roleForm.value;
-if(this.roleId == 0)
-{
-  const userRole = {
-    roleName : formData.roleName,
-    created_by: this.userId,
-    created_on: new Date(),
-    is_active: true
-  } as Userrole;
+      this._roleService.addUserRole(userRole).subscribe(
+        (res) => {
+          console.log(res);
+          this.roleId = res.roleId;
+          this.savePermissions();
+        },
+        (err) => {
+          console.log(err);
+          this.openSnackBar('Failure !', err.error.error.message);
+        }
+      );
+    } else {
+      console.log(this.roleForm);      
+      this.openSnackBar('Invalid Form !', 'Please review all fields');
+    }
+  }
 
-    this._roleService.addUserRole(userRole).subscribe(
-      (res) => {
-        console.log(res);
-        this.roleId = res.roleId;
-        this.savePermissions();
+  savePermissions() {
+    this.submitPermissions = this.adminPermissions.concat(this.cfsPermissions, this.transporterPermissions);
+    console.log(this.submitPermissions);
+    const filter: ThreeparamObj = {
+      varOne: this.roleId ? this.roleId : 0,
+      varTwo: this.userId ? this.userId : 0,
+      varThree: this.submitPermissions
+    };
+    this._roleService.saveRolePermissions(filter).subscribe(
+      (permissions) => {
+       this._alertService.success('Role Created Successfully','Success !');
       },
       (err) => {
         console.log(err);
-        this.openSnackBar('Failure !', err.error.error.message);
+        this._alertService.error('Role could not be created','Failure !');
       }
     );
-
-}else {
-  this.openSnackBar('Invalid Form !', 'Please review all fields');
-}
-}
-
-
-
-
-
- /*    if(this.roleForm.valid) {
-
-    } else {
-      this._alertService.error('Please review all fields', 'Invalid Form!');
-    } */
-  }
-
-  savePermissions(){
-    this.submitPermissions = this.adminPermissions.concat(this.cfsPermissions,this.transporterPermissions);
-    console.log(this.submitPermissions);
-const filter: ThreeparamObj = {
-  varOne: this.roleId ? this.roleId : 0,
-  varTwo: this.userId ? this.userId : 0,
-  varThree: this.submitPermissions
-};
-
-
-this._roleService.saveRolePermissions(filter).subscribe(
-  (permissions) => {
-    //this.bids = new MatTableDataSource(bids);
-
-  },
-  (err) => {
-    console.log(err);
-  }
-);
 
   }
 
