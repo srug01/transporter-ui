@@ -30,6 +30,13 @@
                     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
+              <ng-container matColumnDef="yardName" >
+                <th mat-header-cell *matHeaderCellDef> Yard </th>
+                <td mat-cell class="table-cell" *matCellDef="let element">
+                    {{element.yardName}} </td>
+            </ng-container>
+
+
                     <!-- Position Column -->
                     <ng-container matColumnDef="containerMasterName">
                         <th mat-header-cell *matHeaderCellDef> Container </th>

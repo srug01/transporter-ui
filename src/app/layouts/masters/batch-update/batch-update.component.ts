@@ -40,7 +40,7 @@ import { Batch } from 'aws-sdk/clients/all';
 export class BatchUpdateComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   displayedColumns: string[] = [
-    'containerMasterName', 'weightDesc', 'rate', 'bidMarginRate',
+    'yardName','containerMasterName', 'weightDesc', 'rate', 'bidMarginRate',
     'orderMarginRate', 'Action'
   ];
   public rateForm: FormGroup;
@@ -161,7 +161,7 @@ export class BatchUpdateComponent implements OnInit {
         this._cfsyardrateService.saveCfsYardRateMaster(cfsyardrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'CFS Yard Rate Master Created Successfully');
-
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             console.log(err);
@@ -175,6 +175,7 @@ export class BatchUpdateComponent implements OnInit {
         this._cfsyardrateService.updateCfsYardRateMaster(cfsyardrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'CFS Yard Rate Master Updated Successfully');
+            this.getRateTableForCFS(this.selectedMasterType);
 
           },
           (err) => {
@@ -184,13 +185,13 @@ export class BatchUpdateComponent implements OnInit {
         );
 
       }
-      this.getRateTableForCFS(this.selectedMasterType);
+
     } else if (this.selectedMasterType.masterTypeId === 3) { //Yard to CFS
       const yardcfsrate = {
         yardCfsRateMasterId: rateMaster.yardCfsRateMasterId,
         cfsMasterId: rateMaster.cfsMasterId,
         portMasterId: rateMaster.portMasterId,
-        yardMasterId: rateMaster.yardCfsRateMasterId,
+        yardMasterId: rateMaster.yardMasterId,
         weightMasterId: rateMaster.weightMasterId,
         rate: rateMaster.rate,
         bidMarginRate: rateMaster.bidMarginRate,
@@ -207,7 +208,7 @@ export class BatchUpdateComponent implements OnInit {
         this._yardcfsrateService.saveYardcfsrateMaster(yardcfsrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'Yard CFS Rate Master Created Successfully');
-
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             console.log(err);
@@ -217,13 +218,13 @@ export class BatchUpdateComponent implements OnInit {
 
       } else {
         yardcfsrate.modifiedBy = this.userId;
-        yardcfsrate.modifiedOn = new Date().toString();
+        yardcfsrate.modifiedOn = new Date();
         //this._yardcfsrateService.updateYardcfsrateMaster(rateMaster);
 
         this._yardcfsrateService.updateYardcfsrateMaster(yardcfsrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'Yard CFS Rate Master Updated Successfully');
-
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             console.log(err);
@@ -232,7 +233,7 @@ export class BatchUpdateComponent implements OnInit {
         );
 
       }
-      this.getRateTableForCFS(this.selectedMasterType);
+
     } else if (this.selectedMasterType.masterTypeId === 4) { //Port to CFS
       const portcfsrate = {
         portCfsRateMasterId: rateMaster.portCfsRateMasterId,
@@ -254,7 +255,7 @@ export class BatchUpdateComponent implements OnInit {
         this._portcfsrateService.savePortCfsRateMaster(portcfsrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'Port CFS Rate Master Created Successfully');
-
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             console.log(err);
@@ -269,7 +270,7 @@ export class BatchUpdateComponent implements OnInit {
         this._portcfsrateService.updatePortCfsRateMaster(portcfsrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'Port CFS Rate Master Updated Successfully');
-
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             console.log(err);
@@ -278,7 +279,7 @@ export class BatchUpdateComponent implements OnInit {
         );
 
       }
-      this.getRateTableForCFS(this.selectedMasterType);
+
     } else if (this.selectedMasterType.masterTypeId === 2) { // CFS to Port
 
       const cfsportrate = {
@@ -299,7 +300,7 @@ export class BatchUpdateComponent implements OnInit {
         this._cfsportrateService.saveCfsRateMaster(cfsportrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'CFS Port Rate Master Created Successfully');
-
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             console.log(err);
@@ -313,13 +314,14 @@ export class BatchUpdateComponent implements OnInit {
         this._cfsportrateService.updateCfsRateMaster(cfsportrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'CFS Port Rate Master Updated Successfully');
+            this.getRateTableForCFS(this.selectedMasterType);
           },
           (err) => {
             this.openSnackBar('Failure !', 'Could not update Port CFS Rate Master!');
           }
         );
       }
-      this.getRateTableForCFS(this.selectedMasterType);
+
     }
 
 
@@ -342,7 +344,8 @@ export class BatchUpdateComponent implements OnInit {
     this._batchUpdateService.saveBatchRate(filter).subscribe(
       (bids) => {
         //this.bids = new MatTableDataSource(bids);
-
+        this.openSnackBar('Success !', 'Successfully Updated');
+        this.getRateTableForCFS(this.selectedMasterType);
       },
       (err) => {
         console.log(err);

@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RoleDetailsComponent implements OnInit {
   public roleForm: FormGroup;
   public userrole: Userrole;
+  public roleId: number;
   cfsPermissions: Permission[] = [];
   transporterPermissions: Permission[] = [];
   adminPermissions: Permission[] = [];
@@ -36,6 +37,15 @@ export class RoleDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.userrole = this._route.snapshot.data['roleResolver'];
     this.initialiseForm();
+    this.getroleIdFromRouteParams();
+  }
+
+  getroleIdFromRouteParams() {
+    this._route.params.subscribe(
+      (params) => {
+        this.roleId = params.id;
+      }
+    );
   }
 
   getAllPermissionsForRole() {
@@ -73,7 +83,7 @@ export class RoleDetailsComponent implements OnInit {
     this.getAllPermissionsForRole();
   }
 
-  submitRoleForm(ev) {
+  /* submitRoleForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
@@ -101,23 +111,35 @@ export class RoleDetailsComponent implements OnInit {
       console.log(this.roleForm);
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }
-  }
+  } */
 
+  submitRoleForm(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    if (this.roleForm.valid) {
+          this.savePermissions();
+
+    } else {
+      console.log(this.roleForm);
+      this.openSnackBar('Invalid Form !', 'Please review all fields');
+    }
+  }
   savePermissions() {
     this.submitPermissions = this.adminPermissions.concat(this.cfsPermissions, this.transporterPermissions);
     console.log(this.submitPermissions);
     const filter: ThreeparamObj = {
-     // varOne: this.roleId ? this.roleId : 0,
+      varOne: this.roleId ? this.roleId : 0,
       varTwo: this.userId ? this.userId : 0,
       varThree: this.submitPermissions
     };
     this._roleService.saveRolePermissions(filter).subscribe(
       (permissions) => {
-        this._alertService.success('Role Created Successfully', 'Success !');
+        this._alertService.success('Permissions Updated Successfully', 'Success !');
       },
       (err) => {
         console.log(err);
-        this._alertService.error('Role could not be created', 'Failure !');
+        this._alertService.error('Permissions could not be created / updated', 'Failure !');
       }
     );
 

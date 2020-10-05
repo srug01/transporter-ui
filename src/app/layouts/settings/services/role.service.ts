@@ -37,7 +37,7 @@ export class RoleService {
   }
 
   saveRolePermissions(saveFilter: ThreeparamObj): Observable<any> {
-    // console.log("Filter : " + JSON.stringify(suborderFilter));
+    //  console.log("Filter For API : " + JSON.stringify(saveFilter));
     return this.http.post<any>(this.baseUrl + 'savePermissionRole',
       JSON.stringify(saveFilter),
       this.HttpUploadOptions
