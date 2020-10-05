@@ -1,1 +1,72 @@
-<p>role-details works!</p>
+<div fxLayout="row wrap">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Add Role</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form fxLayout="row" fxLayoutGap="15px" [formGroup]="roleForm" (ngSubmit)="submitRoleForm($event)">
+                <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput placeholder="Role Name" formControlName="roleName" name="roleName" required>
+                            <mat-error *ngIf="roleForm.get('roleName').errors !== null &&  roleForm.get('roleName').errors.required">
+                                Please Enter Role Name</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="10" class="activeToggle">
+                        <div fxFlex="100" fxFlex.lt-sm="100">
+                            <mat-slide-toggle formControlName="is_active">Active</mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxFlex="100%">
+                        <div fxFlex="100%">
+                            <div fxFlex="30%">
+                                <strong>CFS Permissions</strong>
+                                <mat-slide-toggle color="primary" class="allToggle" (toggleChange)="toggleAllCfs()">Toggle All</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="role-wrapper" fxLayout="row wrap" fxFlex="100%" *ngIf="cfsPermissions.length > 0">
+                            <div fxFlex="20%" *ngFor="let cfsPermission of cfsPermissions">
+                                <mat-slide-toggle color="primary" [(ngModel)]="cfsPermission.isActive" [ngModelOptions]="{standalone: true}">{{cfsPermission.permissionName}}
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxFlex="100%">
+                        <div fxFlex="100%">
+                            <div fxFlex="30%">
+                                <strong>Transporter Permissions</strong>
+                                <mat-slide-toggle color="primary" class="allToggle" (toggleChange)="toggleAllTransporter()">Toggle All</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="role-wrapper" fxLayout="row wrap" fxFlex="100%">
+                            <div fxFlex="20%" *ngFor="let transporterPermission of transporterPermissions">
+                                <mat-slide-toggle color="primary" [(ngModel)]="transporterPermission.isActive" [ngModelOptions]="{standalone: true}">{{transporterPermission.permissionName}}
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxFlex="100%">
+                        <div fxFlex="100%">
+                            <div fxFlex="30%">
+                                <strong>Admin Permissions</strong>
+                                <mat-slide-toggle color="primary" class="allToggle" (toggleChange)="toggleAllAdmin()">Toggle All</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="role-wrapper" fxLayout="row wrap" fxFlex="100%">
+                            <div fxFlex="20%" *ngFor="let adminPermission of adminPermissions">
+                                <mat-slide-toggle color="primary" [(ngModel)]="adminPermission.isActive" [ngModelOptions]="{standalone: true}">{{adminPermission.permissionName}}
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxFlex.lt-sm="100">
+                        <button type="submit" mat-raised-button color="primary" class="m-t-8">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

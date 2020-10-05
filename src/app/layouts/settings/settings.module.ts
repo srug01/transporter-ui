@@ -40,6 +40,7 @@ import { RoleManagementComponent } from './role-management/role-management.compo
 import { UserListComponent } from './user-list/user-list.component';
 import { RoleDetailsComponent } from './role-details/role-details.component';
 import { CreateRoleComponent } from './create-role/create-role.component';
+import { RoleResolver } from './services/role.resolver';
 
 const routes: Routes = [
   {
@@ -68,7 +69,7 @@ const routes: Routes = [
   },
   {
     path: 'role-details/:id', component: RoleDetailsComponent, canActivate: [AuthGuardService, RoleGuardService],
-    data: { breadcrumb: 'role-details', roles: ['Admin'] }
+    data: { breadcrumb: 'role-details', roles: ['Admin'] } , resolve: { roleResolver: RoleResolver }
   }
 ];
 
@@ -129,7 +130,8 @@ const toasterConfig: MatSnackBarConfig = {
     },
     {
       provide: MAT_DATE_FORMATS, useValue: AppDateFormats
-    }
+    },
+    RoleResolver
   ]
 })
 export class SettingsModule { }
