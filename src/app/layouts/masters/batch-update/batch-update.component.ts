@@ -40,7 +40,7 @@ import { Batch } from 'aws-sdk/clients/all';
 export class BatchUpdateComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   displayedColumns: string[] = [
-    'yardName','containerMasterName', 'weightDesc', 'rate', 'bidMarginRate',
+    'id', 'yardName','containerMasterName', 'weightDesc', 'rate', 'bidMarginRate',
     'orderMarginRate', 'Action'
   ];
   public rateForm: FormGroup;
@@ -90,19 +90,17 @@ export class BatchUpdateComponent implements OnInit {
     );
   }
 
-  exportAsXLSX(){
-    if(this.selectedMasterType == undefined)
-    {
+  exportAsXLSX() {
+    if (this.selectedMasterType == undefined) {
       this.openSnackBar('Info !', 'Please Select a Master Type.');
       return;
     }
-    if(this.selectedMasterType.masterTypeId == 0)
-    {
+    if (this.selectedMasterType.masterTypeId == 0) {
       this.openSnackBar('Info !', 'Please Select a Master Type.');
       return;
     }
     this._excelExpoertService.exportAsExcelFile(this.rateMasters, this.selectedMasterType.masterType);
-}
+  }
 
   getRateTableForCFS(masterType) {
 
@@ -333,7 +331,7 @@ export class BatchUpdateComponent implements OnInit {
     // console.log(this.IsUpdate);
     const filter: BatchFilter = {
       masterTypeId: this.selectedMasterType.masterTypeId ? this.selectedMasterType.masterTypeId : 0,
-      isUpdate: this.IsUpdate ,
+      isUpdate: this.IsUpdate,
       bulkData: this.rateMasters
     };
 

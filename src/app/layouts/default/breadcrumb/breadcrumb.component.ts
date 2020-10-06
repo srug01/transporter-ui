@@ -125,7 +125,7 @@ export class BreadcrumbComponent implements OnInit {
         break;
       case 'yardcfsrate':
         details.label = 'yardcfsrate';
-        details.url = '/default/masters/yardcfsrate/list';
+        details.url = '/default/masters/yardcfsrate/yardcfsratelist';
         break;
       case 'yardcfsratelist':
         details.label = 'yardcfsratelist';

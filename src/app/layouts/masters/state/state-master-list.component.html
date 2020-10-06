@@ -23,7 +23,7 @@
             <!-- Position Column -->
             <ng-container matColumnDef="stateMasterId">
                 <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element"> {{element.stateMasterId}} </td>
+                <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Name Column -->
@@ -31,7 +31,7 @@
                 <th mat-header-cell *matHeaderCellDef> State </th>
                 <td mat-cell *matCellDef="let element">
 
-                        {{element.stateName}}
+                    {{element.stateName}}
 
                 </td>
             </ng-container>

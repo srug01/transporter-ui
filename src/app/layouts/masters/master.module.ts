@@ -292,7 +292,7 @@ const routes: Routes = [
   {
     path: 'yardcfsrate', component: YardcfsrateComponent,
     children: [
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'yardcfsratelist', pathMatch: 'full' },
       { path: 'yardcfsratelist', component: YardcfsrateMasterListComponent },
       { path: 'new', component: YardcfsrateNewComponent },
       {

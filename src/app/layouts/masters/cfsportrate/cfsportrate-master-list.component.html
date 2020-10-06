@@ -23,7 +23,7 @@
             <!-- Position Column -->
             <ng-container matColumnDef="cfsPortRateMasterId">
                 <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element"> {{element.cfsPortRateMasterId}} </td>
+                <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Name Column -->

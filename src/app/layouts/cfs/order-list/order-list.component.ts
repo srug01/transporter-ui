@@ -1,6 +1,5 @@
-import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { OrderFilter } from './../../../shared/models/OrderFilter';
 import { MasterType } from './../../../shared/models/masterType';
 import { Yard } from 'src/app/shared/models/yard';
@@ -21,14 +20,29 @@ import { PortService } from '../../masters/services/port.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { YardService } from '../../masters/services/yard.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MasterTypeService } from '../services/master-type.service';
 import { UserRegistrationService } from '../services/user-registration.service';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
 
-const moment =  _moment;
+const moment = _moment;
+
+interface OrderDetails {
+  CreatedOn: any;
+  CustomerName: string;
+  OrderDate: string;
+  destinationName: string;
+  destinationType: string;
+  orderId: number;
+  orderRemarks: string;
+  orderStatus: string;
+  sourceName: string;
+  sourceType: string;
+  terminal: string;
+  totalRate: number;
+}
 
 @Component({
   selector: 'app-order-list',
@@ -38,11 +52,11 @@ const moment =  _moment;
 export class OrderListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
-    'orderId','sourceType', 'destinationType','sourceName','destinationName','CustomerName','OrderDate','orderRemarks',
-    'CreatedOn','orderStatus','Action'
+    'orderId', 'sourceType', 'destinationType', 'sourceName', 'destinationName', 'CustomerName', 'OrderDate', 'orderRemarks',
+    'CreatedOn', 'orderStatus', 'Action'
   ];
   public locations: Array<LocationMaster> = [];
-  public orders: MatTableDataSource<any>;
+  public orders: MatTableDataSource<OrderDetails>;
   public currentUser: User;
   public users: User[] = [];
   // public orderUserIds: Array<{ id: number }> = null;
@@ -56,7 +70,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   public destination: any;
   public cfsUsers: any;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public orderFilter: OrderFilter = new OrderFilter();
 
@@ -80,11 +94,13 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     this.getAllPorts();
     this.getAllYards();
     // this.getAllOrders();
-     this.applyFilter();
+    this.applyFilter();
   }
+
+
   ngAfterViewInit() {
-    // this.orders.sort = this.sort;
   }
+
   getAllCustomers() {
     this._userRegistrationService.getAllCFSUsers().subscribe(
       (users) => {
@@ -108,7 +124,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     const filter: OrderFilter = {
       custId: this.orderFilter.custId ? this.orderFilter.custId : 0,
       destinationId: this.orderFilter.destinationId ? this.orderFilter.destinationId : 0,
-      fromDate:  this.orderFilter.fromDate ? this.orderFilter.fromDate : "",
+      fromDate: this.orderFilter.fromDate ? this.orderFilter.fromDate : "",
       toDate: this.orderFilter.toDate ? this.orderFilter.toDate : "",
       orderStatus: this.orderFilter.orderStatus ? this.orderFilter.orderStatus : 0,
       orderType: this.orderFilter.orderType ? this.orderFilter.orderType : 0,
@@ -117,8 +133,8 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     // console.log(filter.fromDate);
     this._orderService.getOrderListForFilters(filter).subscribe(
       (orders) => {
-        this.orders = new MatTableDataSource(orders);
-
+        this.orders = new MatTableDataSource<OrderDetails>(orders);
+        this.orders.sort = this.sort;
       },
       (err) => {
         console.log(err);
@@ -324,4 +340,8 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     }
   }
 
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

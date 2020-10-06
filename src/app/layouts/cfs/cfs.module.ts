@@ -34,8 +34,39 @@ import { UserRegistrationEditComponent } from './user-registration-edit/user-reg
 import { UserRegistrationResolver } from './resolvers/user-registration.resolver';
 import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { RoleGuardService } from 'src/app/services/role.guard.service';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PortalModule } from '@angular/cdk/portal';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRippleModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTreeModule } from '@angular/material/tree';
+import { OverlayModule } from '@angular/cdk/overlay';
 
-import {MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import { MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatSortModule } from '@angular/material/sort';
 
 //import {NumbersOnly} from './../../shared/directives/numbersonly.directive';
 
@@ -53,8 +84,10 @@ const routes: Routes = [
     data: { breadcrumb: 'user-registration', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
   },
   {
-    path: 'user-list', component: UserRegistrationListComponent, data: { breadcrumb: 'user-list',
-    roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    path: 'user-list', component: UserRegistrationListComponent, data: {
+      breadcrumb: 'user-list',
+      roles: ['CFS Customer', 'CFS User admin', 'Admin']
+    },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
@@ -64,8 +97,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
-    path: 'order-list', component: OrderListComponent, data: { breadcrumb: 'order-list',
-    roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    path: 'order-list', component: OrderListComponent, data: {
+      breadcrumb: 'order-list',
+      roles: ['CFS Customer', 'CFS User admin', 'Admin']
+    },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
@@ -73,8 +108,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
-    path: ':id/order-details', component: OrderDetailsComponent, data: { breadcrumb: 'order-details',
-    roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    path: ':id/order-details', component: OrderDetailsComponent, data: {
+      breadcrumb: 'order-details',
+      roles: ['CFS Customer', 'CFS User admin', 'Admin']
+    },
     canActivate: [AuthGuardService, RoleGuardService]
   }
 ];
@@ -112,6 +149,50 @@ const routes: Routes = [
     MatIconModule,
     MatDividerModule,
     MatTooltipModule,
+    MatSortModule,
+    ClipboardModule,
+    CdkStepperModule,
+    CdkTableModule,
+    CdkTreeModule,
+    DragDropModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    OverlayModule,
+    PortalModule,
+    ScrollingModule,
     RouterModule.forChild(routes)
   ],
   providers: [
@@ -122,14 +203,14 @@ const routes: Routes = [
       provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
     },
     // Comment out the line below to turn off UTC:
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     // These should be provided by MatMomentDateModule, but it has never worked in stackblitz for some reason:
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
 
   ]
 })

@@ -13,11 +13,11 @@
             <!-- Position Column -->
             <ng-container matColumnDef="subOrderId">
                 <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell class="table-cell" *matCellDef="let element"> {{element.subOrderId}} </td>
+                <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Name Column -->
-<!--             <ng-container matColumnDef="Bid Name">
+            <!--             <ng-container matColumnDef="Bid Name">
                 <th mat-header-cell *matHeaderCellDef> Bid Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.bidName ? element.bidName : detailsAwaited}} </td>
             </ng-container> -->
