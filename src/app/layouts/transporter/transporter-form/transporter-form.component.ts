@@ -88,32 +88,32 @@ export class TransporterFormComponent implements OnInit {
 
   populateForm() {
     this.transporterForm = this.fb.group({
-      transporter_name: ['', Validators.required],
-      transporter_mobile_no: ['', Validators.required],
-      transporter_email: ['', Validators.required],
-      transporter_address: ['', Validators.required],
-      transporter_pincode: ['', Validators.required],
-      transporter_GSTIN: ['', Validators.required],
-      transporter_PAN: ['', Validators.required],
-      transporter_partner: ['', Validators.required],
-      transporter_partner_PAN: ['', Validators.required],
-      transporter_partner_address: ['', Validators.required],
-      transporter_bank_acno: ['', Validators.required],
-      confirm_transporter_bank_acno: ['', Validators.required],
-      transporter_ac_type: ['', Validators.required],
-      transporter_bank_name: ['', Validators.required],
-      transporter_bank_branch: ['', Validators.required],
-      transporter_bank_ifsc: ['', Validators.required],
-      transporter_pan_card: [''],
+      transporter_name: [this.transporterData.transporterName, Validators.required],
+      transporter_mobile_no: [this.transporterData.transporterMobileNumber, Validators.required],
+      transporter_email: [this.transporterData.transporterEmail, Validators.required],
+      transporter_address: [this.transporterData.transporterAddress, Validators.required],
+      transporter_pincode: [this.transporterData.transporterPincode, Validators.required],
+      transporter_GSTIN: [this.transporterData.transporterGSTIN, Validators.required],
+      transporter_PAN: [this.transporterData.transporterPAN, Validators.required],
+      transporter_partner: [this.transporterData.transporterPartner, Validators.required],
+      transporter_partner_PAN: [this.transporterData.transporterPartnerPAN, Validators.required],
+      transporter_partner_address: [this.transporterData.transporterPartnerAddress, Validators.required],
+      transporter_bank_acno: [this.transporterData.transporterBankAccNumber, Validators.required],
+      confirm_transporter_bank_acno: [this.transporterData.transporterBankAccNumber, Validators.required],
+      transporter_ac_type: [this.transporterData.transporterBankAccType, Validators.required],
+      transporter_bank_name: [this.transporterData.transporterBankName, Validators.required],
+      transporter_bank_branch: [this.transporterData.transporterBankBranch, Validators.required],
+      transporter_bank_ifsc: [this.transporterData.transporterBankIFSC, Validators.required],
+      transporter_pan_card: [this.transporterData.transporterPAN],
       transporter_permit_card: [''],
       transporter_license_card: [''],
       transporter_other_card: [''],
-      transporter_pan_card_file: ['', Validators.required],
-      transporter_permit_card_file: ['', Validators.required],
-      transporter_license_card_file: ['', Validators.required],
-      transporter_other_card_file: ['', Validators.required],
-      transporter_is_active: [false],
-      transporter_is_verify: [false]
+      transporter_pan_card_file: [this.transporterData.transporterPanFile, Validators.required],
+      transporter_permit_card_file: [this.transporterData.transporterPermitFile, Validators.required],
+      transporter_license_card_file: [this.transporterData.transporterLicenseFile, Validators.required],
+      transporter_other_card_file: [this.transporterData.transporterOtherFile, Validators.required],
+      transporter_is_active: [this.transporterData.isActive],
+      transporter_is_verify: [this.transporterData.isVerified]
     },
       {
         validator: this.checkAccountNumbers
@@ -127,12 +127,12 @@ export class TransporterFormComponent implements OnInit {
     }
     console.log(this.transporterForm);
     // this.uploadFiles(this.transporterForm.get('transporter_pan_card'));
-    if (this.transporterForm.valid) {
+    // if (this.transporterForm.valid) {
 
-      this.saveTransporter(this.transporterForm);
-    } else {
-      this.openSnackBar('Invalid Form !', 'Please Review All Fields');
-    }
+    //   this.saveTransporter(this.transporterForm);
+    // } else {
+    //   this.openSnackBar('Invalid Form !', 'Please Review All Fields');
+    // }
   }
 
 

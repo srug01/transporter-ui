@@ -30,8 +30,8 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell class="table-row" *matCellDef="let element">
-                    <a class="icon" #tooltip="matTooltip" [routerLink]="['/default/transporter/transporter-edit',element.userId]" matTooltip="Edit" [matTooltipPosition]="'below'"><i class="material-icons md-24 p5">create</i></a>
-                    <a class="icon" #tooltip2="matTooltip" matTooltip="Delete" (click)="openDialog($event,element.userId)" [matTooltipPosition]="'below'">
+                    <a class="icon" #tooltip="matTooltip" [routerLink]="['/default/transporter/transporter-edit',element.transporterId]" matTooltip="Edit" [matTooltipPosition]="'below'"><i class="material-icons md-24 p5">create</i></a>
+                    <a class="icon" #tooltip2="matTooltip" matTooltip="Delete" (click)="openDialog($event,element.transporterId)" [matTooltipPosition]="'below'">
                         <i class="material-icons md-24 p5">delete_sweep</i>
                     </a>
                 </td>
