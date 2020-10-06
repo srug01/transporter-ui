@@ -198,7 +198,7 @@ export class CfsportrateFormComponent implements OnInit {
     this._cfsrateService.saveCfsRateMaster(cfsRate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Rate Master Created Successfully');
-        this._router.navigate(['/default/masters/cfs-port-rate/list']);
+        this._router.navigate(['/default/masters/cfs-port-rate/cfs-port-rate-list']);
       },
       (err) => {
         console.log(err);
@@ -212,7 +212,7 @@ export class CfsportrateFormComponent implements OnInit {
     this._cfsrateService.updateCfsRateMaster(cfsRate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Rate Master Updated Successfully');
-        this._router.navigate(['/default/masters/cfs-port-rate/list']);
+        this._router.navigate(['/default/masters/cfs-port-rate/cfs-port-rate-list']);
       },
       (err) => {
         this.openSnackBar('Failure !', 'Could not update CFS Rate Master!');

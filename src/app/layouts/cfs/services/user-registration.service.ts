@@ -66,4 +66,9 @@ export class UserRegistrationService {
   deleteCfsUserRegistrationById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'cfs-user-registrations/' + id, this.HttpUploadOptions);
   }
+
+  deleteCfsUserById(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'cfs-user-registrations/' + id, this.HttpUploadOptions);
+  }
+
 }

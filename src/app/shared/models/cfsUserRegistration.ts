@@ -15,4 +15,5 @@ export interface CfsUserRegistration {
     createdOn?: Date;
     modifiedBy?: number;
     modifiedOn?: Date;
+    roleName?: string;
 }
