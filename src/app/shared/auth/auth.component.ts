@@ -25,8 +25,8 @@ export class AuthComponent implements OnInit {
     { value: 4, viewValue: 'CFS Customer' },
     { value: 5, viewValue: 'Transporter' },
     { value: 6, viewValue: 'Driver' },
-    { value: 7, viewValue: 'Administrator' },
-    { value: 8, viewValue: 'CFS User Admin' },
+    { value: 7, viewValue: 'CFS user Admin' },
+    { value: 8, viewValue: 'CFS User Super Admin' },
     { value: 9, viewValue: 'CFS User Viewer' }
   ];
   constructor(

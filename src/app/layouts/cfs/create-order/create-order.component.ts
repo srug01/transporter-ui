@@ -116,7 +116,6 @@ export class CreateOrderComponent implements OnInit {
       (masterType: MasterType) => {
         this.selectedMasterType = masterType;
         //this.getAllWeightsForCFS(masterTypeId);
-        console.log(this.userId);
         this.source = this.selectedMasterType.sourceType;
         this.orderForm.get('sourceType').setValue(this.source);
         this.destination = this.selectedMasterType.destinationType;
@@ -280,7 +279,7 @@ export class CreateOrderComponent implements OnInit {
       destinationId: ['', Validators.required],
       sourceType: [''],
       destinationType: [''],
-      orderRemarks: ['', Validators.required],
+      orderRemarks: [''],
       portTerminalId: [''],
       orderAddress: [''],
       isDeleted: [false, ''],
@@ -312,6 +311,9 @@ export class CreateOrderComponent implements OnInit {
       order.containers.forEach(container => {
         containers.push(this.transformOrderContainerObj(container));
       });
+    }
+    if (!order.containers[0].containerMasterId) {
+      delete order.containers;
     }
     return {
       orderId: null,
@@ -392,8 +394,7 @@ export class CreateOrderComponent implements OnInit {
     this._masterTypeService.getAllCFSContainersbyUserId(this.userId, type, portyardid).subscribe(
       (containerTypes) => {
         this.containerTypes = containerTypes;
-        if(this.containerTypes.length == 0)
-        {
+        if (this.containerTypes.length == 0) {
           this._alertService.error('No Containers Found', 'Missing Info!');
         }
       },
@@ -483,16 +484,13 @@ export class CreateOrderComponent implements OnInit {
   addCustomContainer = (term) => ({ id: term, value: term });
 
   submitOrderForm(ev) {
-    console.log(this.orderForm);
     if (ev) {
       ev.preventDefault();
     }
     if (this.orderForm.valid) {
       const order = this.transformOrderObj(this.orderForm.value, 'submitted');
-      // console.log(order);
-       this.saveOrder(order);
+      this.saveOrder(order);
     } else {
-      console.log(this.orderForm);
       this._alertService.error('please review all the fields', 'Invalid Form!');
     }
   }
@@ -539,11 +537,12 @@ export class CreateOrderComponent implements OnInit {
 
   transformOrderContainerObj(container: any): Container {
     const trucks: Array<Truck> = [];
-    console.log(container);
-    if (container.container_numbers.length > 0) {
-      container.container_numbers.forEach(truck => {
-        trucks.push(this.transformTruckObj(truck));
-      });
+    if (container.container_numbers) {
+      if (container.container_numbers.length > 0) {
+        container.container_numbers.forEach(truck => {
+          trucks.push(this.transformTruckObj(truck));
+        });
+      }
     }
     return {
       containerId: null,

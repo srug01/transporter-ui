@@ -65,106 +65,106 @@ export class BreadcrumbComponent implements OnInit {
         details.url = '/default';
         break;
       case 'cfs':
-        details.label = 'cfs';
+        details.label = 'CFS';
         details.url = '/default/cfs/order-list';
         break;
       case 'create-order':
-        details.label = 'create-order';
+        details.label = 'Create Order';
         details.url = '/default/cfs/create-order';
         break;
       case 'order-list':
-        details.label = 'order-list';
+        details.label = 'Order List';
         details.url = '/default/cfs/order-list';
         break;
       case 'register-user':
-        details.label = 'register-user';
+        details.label = 'Register User';
         details.url = '/default/cfs/register-user';
         break;
       case 'user-list-edit':
-        details.label = 'user-list-edit';
+        details.label = 'Edit User';
         details.url = '/default/cfs/user-list-edit';
       case 'user-list':
-        details.label = 'user-list';
+        details.label = 'Users List';
         details.url = '/default/cfs/user-list';
         break;
       case 'transporter':
-        details.label = 'transporter';
+        details.label = 'Transporter';
         details.url = '/transporter';
         break;
       case 'register-vehicle':
-        details.label = 'register-vehicle';
+        details.label = 'Register Vehicle';
         details.url = '/default/transporter/register-vehicle';
         break;
       case 'vehicle-list':
-        details.label = 'vehicle-list';
+        details.label = 'Vehicle List';
         details.url = '/default/transporter/register-vehicle/vehicle-list';
         break;
       case 'register-transporter':
-        details.label = 'register-transporter';
+        details.label = 'Register Transporter';
         details.url = '/default/transporter/register-transporter';
         break;
       case 'transporter-list':
-        details.label = 'transporter-list';
+        details.label = 'Transporter List';
         details.url = '/default/transporter/transporter-list';
         break;
       case 'bids':
-        details.label = 'bids';
+        details.label = 'Bids';
         details.url = '/default/transporter/bids';
         break;
       case 'masters':
-        details.label = 'masters';
+        details.label = 'Masters';
         details.url = '';
         break;
       case 'cfs-port-rate-list':
-        details.label = 'cfs-port-rate-list';
+        details.label = 'List';
         details.url = '/default/masters/cfs-port-rate/cfs-port-rate-list';
         break;
       case 'cfs-port-rate':
-        details.label = 'cfs-port-rate';
+        details.label = 'CFS Port Rate';
         details.url = '/default/masters/cfs-port-rate/cfs-port-rate-list';
         break;
       case 'yardcfsrate':
-        details.label = 'yardcfsrate';
+        details.label = 'Yard CFS Rate';
         details.url = '/default/masters/yardcfsrate/yardcfsratelist';
         break;
       case 'yardcfsratelist':
-        details.label = 'yardcfsratelist';
+        details.label = 'list';
         details.url = '/default/masters/yardcfsrate/yardcfsratelist';
         break;
       case 'cfs-yard-rate':
-        details.label = 'cfs-yard-rate';
+        details.label = 'CFS Yard Rate';
         details.url = '/default/masters/cfs-yard-rate/cfs-yard-rate-list';
         break;
       case 'cfs-yard-rate-list':
-        details.label = 'cfs-yard-rate-list';
+        details.label = 'list';
         details.url = '/default/masters/cfs-yard-rate/cfs-yard-rate-list';
         break;
       case 'diesel':
-        details.label = 'diesel';
+        details.label = 'Diesel';
         details.url = '/default/masters/diesel/diesel-list';
         break;
       case 'diesel-list':
-        details.label = 'diesel-list';
+        details.label = 'List';
         details.url = '/default/masters/diesel/diesel-list';
         break;
       case 'location':
-        details.label = 'location';
+        details.label = 'Location';
         details.url = '/default/masters/location/location-list';
         break;
       case 'location-list':
-        details.label = 'location-list';
+        details.label = 'List';
         details.url = '/default/masters/location/location-list';
         break;
       case 'bids':
-        details.label = 'bids';
+        details.label = 'Bids';
         details.url = '/default/transporter/bids';
         break;
       case 'port':
-        details.label = 'port';
+        details.label = 'Port';
         details.url = '/default/masters/port/port-list';
         break;
       case 'port-list':
-        details.label = 'port-list';
+        details.label = 'List';
         details.url = '/default/transporter/bids';
         break;
       case 'settings':
@@ -172,14 +172,14 @@ export class BreadcrumbComponent implements OnInit {
         details.url = '/default/settings/management';
         break;
       case 'configuration':
-        details.label = 'configuration';
+        details.label = 'Configuration';
         details.url = '/default/settings/configuration';
         break;
       case 'trips':
         details.label = 'Trips';
         break;
       case 'order-details':
-        details.label = 'order-details';
+        details.label = 'Order Details';
         break;
       case 'trip-list':
         details.label = 'Trip List';
