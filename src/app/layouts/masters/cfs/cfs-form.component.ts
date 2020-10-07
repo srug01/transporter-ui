@@ -54,7 +54,8 @@ export class CfsFormComponent implements OnInit {
         contactNumber: [this.cfsData.contactNumber ? this.cfsData.contactNumber : '',
           Validators.compose([Validators.pattern('[6-9]\\d{9}'), Validators.required])],
         email: [this.cfsData.email ? this.cfsData.email : '',
-          Validators.compose([Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.required])],
+          Validators.compose([Validators.pattern('^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([A-Za-z]{2,6}(?:\\.[A-Za-z]{2,6})?)$'), Validators.required])],
+
         address1: [this.cfsData.address1 ? this.cfsData.address1 : '', Validators.required],
         address2: [this.cfsData.address2 ? this.cfsData.address2 : ''],
         landmark: [this.cfsData.landmark ? this.cfsData.landmark : '', Validators.required],
@@ -82,7 +83,7 @@ export class CfsFormComponent implements OnInit {
         cfsMasterId: [''],
         cfsName: ['', Validators.required],
         contactNumber: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}'), Validators.required])],
-        email: ['',Validators.compose([Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.required])],
+        email: ['',Validators.compose([Validators.pattern('^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([A-Za-z]{2,6}(?:\\.[A-Za-z]{2,6})?)$'), Validators.required])],
         address1: ['', Validators.required],
         address2: [''],
         landmark: ['', Validators.required],
@@ -104,6 +105,7 @@ export class CfsFormComponent implements OnInit {
       });
     }
   }
+  //// Validators.compose([Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.required])],
 
   getUserInfo() {
     this._userService.getUsersInfo().subscribe(

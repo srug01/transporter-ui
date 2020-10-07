@@ -125,7 +125,7 @@ export class OrderService {
   /*  ************ Order Listing SPs ************** */
 
   getOrderListForFilters(orderFilter: OrderFilter): Observable<any> {
-    // console.log("Filter : " + orderFilter);
+     console.log("Filter : " + JSON.stringify(orderFilter));
     return this.http.post<any>(this.baseUrl + 'GetOrderListForFilters',
     JSON.stringify(orderFilter),
      this.HttpUploadOptions
@@ -133,7 +133,7 @@ export class OrderService {
   }
 
   getSubOrderListForFilters(suborderFilter: SubOrderFilter): Observable<any> {
-    // console.log("Filter : " + JSON.stringify(suborderFilter));
+    //  console.log("Filter : " + JSON.stringify(suborderFilter));
     return this.http.post<any>(this.baseUrl + 'GetSubOrderListForFilters',
     JSON.stringify(suborderFilter),
      this.HttpUploadOptions

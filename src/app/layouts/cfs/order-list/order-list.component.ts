@@ -69,7 +69,8 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   public source: any;
   public destination: any;
   public cfsUsers: any;
-
+  public userId = parseInt(localStorage.getItem('userID'), 10);
+  public roleId = parseInt(localStorage.getItem('roleID'), 10);
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public orderFilter: OrderFilter = new OrderFilter();
@@ -128,9 +129,10 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       toDate: this.orderFilter.toDate ? this.orderFilter.toDate : "",
       orderStatus: this.orderFilter.orderStatus ? this.orderFilter.orderStatus : 0,
       orderType: this.orderFilter.orderType ? this.orderFilter.orderType : 0,
-      sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : 0
+      sourceId: this.orderFilter.sourceId ? this.orderFilter.sourceId : 0,
+      currentUserId: this.userId
     };
-    // console.log(filter.fromDate);
+    //  console.log(JSON.stringify(filter));
     this._orderService.getOrderListForFilters(filter).subscribe(
       (orders) => {
         this.orders = new MatTableDataSource<OrderDetails>(orders);

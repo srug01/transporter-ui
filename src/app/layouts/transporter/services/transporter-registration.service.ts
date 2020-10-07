@@ -21,12 +21,13 @@ export class TransporterRegistrationService {
   ) { }
 
   saveTransporter(transporter: any): Observable<any> {
-    delete transporter.confirm_transporter_bank_acno;
-    delete transporter.transporter_syscode;
+    delete transporter.transporterConfirmBankAccNumber;
+    delete transporter.transporterId;
     return this.http.post<any>(this.baseUrl + 'transporter-registrations', JSON.stringify(transporter), this.HttpUploadOptions);
   }
 
-  updateTransporter(transporter: Transporter): Observable<any> {
+  updateTransporter(transporter: any): Observable<any> {
+    delete transporter.transporterConfirmBankAccNumber;
     return this.http.patch<Transporter>(
       this.baseUrl + 'transporter-registrations/' + transporter.transporterId,
       JSON.stringify(transporter), this.HttpUploadOptions

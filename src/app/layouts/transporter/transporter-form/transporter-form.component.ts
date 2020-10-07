@@ -4,10 +4,11 @@ import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
 import { User } from 'src/app/shared/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TransporterRegistrationService } from '../services/transporter-registration.service';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from 'src/app/shared/services/image-upload.service';
 import { UserService } from 'src/app/services/user.service';
 import { Transporter } from 'src/app/shared/models/transporter';
+
 
 @Component({
   selector: 'app-transporter-form',
@@ -21,6 +22,7 @@ export class TransporterFormComponent implements OnInit {
   confirmAccErrormatcher = new FormErrorStateMatcher();
   currentUser: User;
   files = [];
+  public transporterId: number;
 
   public accountTypes: Array<any> = [
     { value: 'saving', viewValue: 'Saving' },
@@ -34,7 +36,8 @@ export class TransporterFormComponent implements OnInit {
     private _transporterService: TransporterRegistrationService,
     private _router: Router,
     private _imageService: ImageUploadService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _route: ActivatedRoute,
   ) {
   }
 
@@ -50,36 +53,34 @@ export class TransporterFormComponent implements OnInit {
     } else {
       this.intitialiseForm();
     }
+    this.gettransporterIdFromRouteParams();
   }
 
   intitialiseForm() {
     this.transporterForm = this.fb.group({
-      transporter_name: ['', Validators.required],
-      transporter_mobile_no: ['', Validators.required],
-      transporter_email: ['', Validators.required],
-      transporter_address: ['', Validators.required],
-      transporter_pincode: ['', Validators.required],
-      transporter_GSTIN: ['', Validators.required],
-      transporter_PAN: ['', Validators.required],
-      transporter_partner: ['', Validators.required],
-      transporter_partner_PAN: ['', Validators.required],
-      transporter_partner_address: ['', Validators.required],
-      transporter_bank_acno: ['', Validators.required],
-      confirm_transporter_bank_acno: ['', Validators.required],
-      transporter_ac_type: ['', Validators.required],
-      transporter_bank_name: ['', Validators.required],
-      transporter_bank_branch: ['', Validators.required],
-      transporter_bank_ifsc: ['', Validators.required],
-      transporter_pan_card: [''],
-      transporter_permit_card: [''],
-      transporter_license_card: [''],
-      transporter_other_card: [''],
-      transporter_pan_card_file: ['', Validators.required],
-      transporter_permit_card_file: ['', Validators.required],
-      transporter_license_card_file: ['', Validators.required],
-      transporter_other_card_file: ['', Validators.required],
-      transporter_is_active: [false],
-      transporter_is_verify: [false]
+      transporterName: ['', Validators.required],
+      transporterMobileNumber: ['', Validators.required],
+      transporterEmail: ['', Validators.required],
+      transporterAddress: ['', Validators.required],
+      transporterPincode: ['', Validators.required],
+      transporterGSTIN: ['', Validators.required],
+      transporterPAN: ['', Validators.required],
+      transporterPartner: ['', Validators.required],
+      transporterPartnerPAN: ['', Validators.required],
+      transporterPartnerAddress: ['', Validators.required],
+      transporterBankAccNumber: ['', Validators.required],
+      transporterBankAccType: ['', Validators.required],
+      transporterBankName: ['', Validators.required],
+      transporterBankBranch: ['', Validators.required],
+      transporterBankIFSC: ['', Validators.required],
+      transporterAddressFile: [''],
+      transporterGstFile: [''],
+      transporterPanFile: [''],
+      transporterPermitFile: [''],
+      transporterLicenseFile: [''],
+      transporterOtherFile: [''],
+      isActive: [false],
+      isVerified: [false]
     },
       {
         validator: this.checkAccountNumbers
@@ -88,32 +89,28 @@ export class TransporterFormComponent implements OnInit {
 
   populateForm() {
     this.transporterForm = this.fb.group({
-      transporter_name: [this.transporterData.transporterName, Validators.required],
-      transporter_mobile_no: [this.transporterData.transporterMobileNumber, Validators.required],
-      transporter_email: [this.transporterData.transporterEmail, Validators.required],
-      transporter_address: [this.transporterData.transporterAddress, Validators.required],
-      transporter_pincode: [this.transporterData.transporterPincode, Validators.required],
-      transporter_GSTIN: [this.transporterData.transporterGSTIN, Validators.required],
-      transporter_PAN: [this.transporterData.transporterPAN, Validators.required],
-      transporter_partner: [this.transporterData.transporterPartner, Validators.required],
-      transporter_partner_PAN: [this.transporterData.transporterPartnerPAN, Validators.required],
-      transporter_partner_address: [this.transporterData.transporterPartnerAddress, Validators.required],
-      transporter_bank_acno: [this.transporterData.transporterBankAccNumber, Validators.required],
-      confirm_transporter_bank_acno: [this.transporterData.transporterBankAccNumber, Validators.required],
-      transporter_ac_type: [this.transporterData.transporterBankAccType, Validators.required],
-      transporter_bank_name: [this.transporterData.transporterBankName, Validators.required],
-      transporter_bank_branch: [this.transporterData.transporterBankBranch, Validators.required],
-      transporter_bank_ifsc: [this.transporterData.transporterBankIFSC, Validators.required],
-      transporter_pan_card: [this.transporterData.transporterPAN],
-      transporter_permit_card: [''],
-      transporter_license_card: [''],
-      transporter_other_card: [''],
-      transporter_pan_card_file: [this.transporterData.transporterPanFile, Validators.required],
-      transporter_permit_card_file: [this.transporterData.transporterPermitFile, Validators.required],
-      transporter_license_card_file: [this.transporterData.transporterLicenseFile, Validators.required],
-      transporter_other_card_file: [this.transporterData.transporterOtherFile, Validators.required],
-      transporter_is_active: [this.transporterData.isActive],
-      transporter_is_verify: [this.transporterData.isVerified]
+      transporterName: [this.transporterData.transporterName, Validators.required],
+      transporterMobileNumber: [this.transporterData.transporterMobileNumber, Validators.required],
+      transporterEmail: [this.transporterData.transporterEmail, Validators.required],
+      transporterAddress: [this.transporterData.transporterAddress, Validators.required],
+      transporterPincode: [this.transporterData.transporterPincode, Validators.required],
+      transporterGSTIN: [this.transporterData.transporterGSTIN, Validators.required],
+      transporterPAN: [this.transporterData.transporterPAN, Validators.required],
+      transporterPartner: [this.transporterData.transporterPartner, Validators.required],
+      transporterPartnerPAN: [this.transporterData.transporterPartnerPAN, Validators.required],
+      transporterPartnerAddress: [this.transporterData.transporterPartnerAddress, Validators.required],
+      transporterBankAccNumber: [this.transporterData.transporterBankAccNumber, Validators.required],
+      transporterConfirmBankAccNumber: [this.transporterData.transporterBankAccNumber, Validators.required],
+      transporterBankAccType: [this.transporterData.transporterBankAccType, Validators.required],
+      transporterBankName: [this.transporterData.transporterBankName, Validators.required],
+      transporterBankBranch: [this.transporterData.transporterBankBranch, Validators.required],
+      transporterBankIFSC: [this.transporterData.transporterBankIFSC, Validators.required],
+      transporterPanFile: [''],
+      transporterPermitFile: [''],
+      transporterLicenseFile: [''],
+      transporterOtherFile: [''],
+      isActive: [this.transporterData.isActive],
+      isVerified: [this.transporterData.isVerified]
     },
       {
         validator: this.checkAccountNumbers
@@ -126,6 +123,7 @@ export class TransporterFormComponent implements OnInit {
       ev.preventDefault();
     }
     console.log(this.transporterForm);
+    this.saveTransporter(this.transporterForm);
     // this.uploadFiles(this.transporterForm.get('transporter_pan_card'));
     // if (this.transporterForm.valid) {
 
@@ -134,38 +132,42 @@ export class TransporterFormComponent implements OnInit {
     //   this.openSnackBar('Invalid Form !', 'Please Review All Fields');
     // }
   }
-
+  gettransporterIdFromRouteParams() {
+    this._route.params.subscribe(
+      (params) => {
+        this.transporterId = parseInt(params.id,10);
+      }
+    );
+  }
 
   transformTransporterObj(transporter: any): Transporter {
     return {
-      created_by: this.currentUser.userId,
-      created_on: new Date(),
-      transporter_is_active: transporter.transporter_is_active,
-      transporter_is_verify: transporter.transporter_is_verify,
-      transporter_mobile_no: transporter.transporter_mobile_no,
-      modified_by: this.currentUser.userId,
-      modified_on: new Date(),
-      transporter_GSTIN: transporter.transporter_GSTIN,
-      transporter_PAN: transporter.transporter_PAN,
-      transporter_ac_type: transporter.transporter_ac_type,
-      transporter_address: transporter.transporter_address,
-      transporter_address_file: '',
-      transporter_bank_acno: transporter.transporter_bank_acno,
-      transporter_bank_branch: transporter.transporter_bank_branch,
-      transporter_bank_ifsc: transporter.transporter_bank_ifsc,
-      transporter_bank_name: transporter.transporter_bank_name,
-      transporter_email: transporter.transporter_email,
-      transporter_gst_file: '',
-      transporter_license_card: transporter.transporter_license_card,
-      transporter_name: transporter.transporter_name,
-      transporter_other_card: transporter.transporter_other_card,
-      transporter_pan_card: transporter.transporter_pan_card,
-      transporter_partner: transporter.transporter_partner,
-      transporter_partner_PAN: transporter.transporter_partner_address,
-      transporter_partner_address: transporter.transporter_partner_address,
-      transporter_permit_card: transporter.transporter_permit_card,
-      transporter_pincode: transporter.transporter_pincode,
-      transporter_syscode: null
+      //createdBy: this.currentUser.userId,
+      //createdOn: new Date().toString(),
+      isActive: transporter.isActive,
+      isVerified: transporter.isVerified,
+      transporterMobileNumber: transporter.transporterMobileNumber,
+      transporterGSTIN: transporter.transporterGSTIN,
+      transporterPAN: transporter.transporterPAN,
+      transporterBankAccType: transporter.transporterBankAccType,
+      transporterAddress: transporter.transporterAddress,
+      transporterAddressFile: '',
+      transporterBankAccNumber: transporter.transporterBankAccNumber,
+      transporterBankBranch: transporter.transporterBankBranch,
+      transporterBankIFSC: transporter.transporterBankIFSC,
+      transporterBankName: transporter.transporterBankName,
+      transporterEmail: transporter.transporterEmail,
+      transporterGstFile: '',
+      transporterLicenseFile: '',
+      transporterName: transporter.transporterName,
+      transporterOtherFile: '',
+      transporterPanFile: '',
+      transporterPartner: transporter.transporterPartner,
+      transporterPartnerPAN: transporter.transporterPartnerPAN,
+      transporterPartnerAddress: transporter.transporterPartnerAddress,
+      transporterPermitFile: '',
+      transporterPincode: transporter.transporterPincode,
+      transporterId:this.transporterId
     } as Transporter;
   }
 
@@ -188,20 +190,20 @@ export class TransporterFormComponent implements OnInit {
   }
 
   checkAccountNumbers(group: FormGroup) {
-    const transporterBankAcno = group.get('transporter_bank_acno').value;
-    const confirmTransporterBankAcno = group.get('confirm_transporter_bank_acno').value;
+    const transporterBankAcno = group.get('transporterBankAccNumber').value;
+    const confirmTransporterBankAcno = group.get('transporterConfirmBankAccNumber').value;
     return transporterBankAcno === confirmTransporterBankAcno ? null : { notSame: true };
   }
 
   saveTransporter(transporterForm: any) {
-    const panCard: any = transporterForm.get('transporter_pan_card_file');
-    const permitCard: any = transporterForm.get('transporter_permit_card_file');
-    const licenseCard: any = transporterForm.get('transporter_license_card_file');
-    const otherCard: any = transporterForm.get('transporter_other_card_file');
+    const panCard: any = transporterForm.get('transporterPanFile');
+    const permitCard: any = transporterForm.get('transporterPermitFile');
+    const licenseCard: any = transporterForm.get('transporterLicenseFile');
+    const otherCard: any = transporterForm.get('transporterOtherFile');
     const transporter = this.transformTransporterObj(transporterForm.value);
-    this._transporterService.saveTransporter(transporter).subscribe(
+    this._transporterService.updateTransporter(transporter).subscribe(
       (res: Transporter) => {
-        this.uploadFiles(panCard);
+        //this.uploadFiles(panCard);
         // this.uploadFiles(permitCard, String(res.transporter_syscode));
         // this.uploadFiles(licenseCard, String(res.transporter_syscode));
         // this.uploadFiles(otherCard, String(res.transporter_syscode));

@@ -27,4 +27,5 @@ export class Transporter {
       createdOn?: string;
       modifiedBy?: number;
       modifiedOn?: string;
+      userId?: number;
 }

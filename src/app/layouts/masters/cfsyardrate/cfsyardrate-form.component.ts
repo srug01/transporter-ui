@@ -234,7 +234,7 @@ export class CfsyardrateFormComponent implements OnInit {
     this._cfsyardrateService.saveCfsYardRateMaster(cfsyardrateForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Yard Rate Master Created Successfully');
-        this._router.navigate(['/default/masters/cfs-yard-rate/list']);
+        this._router.navigate(['/default/masters/cfs-yard-rate/cfs-yard-rate-list']);
       },
       (err) => {
         console.log('err');
@@ -247,7 +247,7 @@ export class CfsyardrateFormComponent implements OnInit {
     this._cfsyardrateService.updateCfsYardRateMaster(cfsyardrateForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Yard Rate Master Updated Successfully');
-        this._router.navigate(['/default/masters/cfs-yard-rate/list']);
+        this._router.navigate(['/default/masters/cfs-yard-rate/cfs-yard-rate-list']);
       },
       (err) => {
         console.log('err');

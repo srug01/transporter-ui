@@ -100,7 +100,7 @@
                 </mat-form-field>
             </div>
 
-            <div fxFlex="20" *ngIf="cfsUsers">
+            <div fxFlex="20" *ngIf="cfsUsers && roleId === 1">
                 <mat-form-field class="full-width">
                     <mat-label>User</mat-label>
                     <mat-select [(ngModel)]="orderFilter.custId">

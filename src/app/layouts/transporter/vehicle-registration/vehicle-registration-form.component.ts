@@ -89,8 +89,7 @@ export class VehicleRegistrationFormComponent implements OnInit {
         Validators.required],
         stateId: [this.vehicleMasterData.stateId ? this.vehicleMasterData.stateId : '',
         Validators.required],
-        owned: [this.vehicleMasterData.owned ? this.vehicleMasterData.owned : '',
-        Validators.required],
+        owned: [false],
         isActive: [true, Validators.required]
 
       });

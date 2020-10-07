@@ -5,5 +5,6 @@ export class OrderFilter {
     fromDate?: string;
     toDate?: string;
     orderStatus?: number;
-    custId?: number
+    custId?: number;
+    currentUserId?: number;
 }

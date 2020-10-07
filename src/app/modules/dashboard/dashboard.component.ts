@@ -83,8 +83,8 @@ export class DashboardComponent implements OnInit {
   ];
 
   displayedColumnsForBids: string[] = [
-    'bidId', 'bidName', 'subOrderId', 'bidStatus', 'originalRate', 'bidValue', 'AwardStatus', 'TransporterName',
-    'sourceType', 'destinationType', 'containerMasterName', 'weightDesc'
+    'bidId', 'bidName','TransporterName', 'SorurceName','destinationName','containerMasterName',
+    'weightDesc','originalRate','bidValue','biduserStatus'
   ];
 
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
