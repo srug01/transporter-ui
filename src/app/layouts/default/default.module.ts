@@ -42,7 +42,7 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
           {
             path: 'cfs', loadChildren: () => import('./../cfs/cfs.module').then(m => m.CfsModule),
             canActivate: [AuthGuardService, RoleGuardService],
-            data: { breadcrumb: 'cfs', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
+            data: { breadcrumb: 'cfs', roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer'] }
           },
           {
             path: 'transporter', loadChildren: () => import('./../transporter/transporter.module')

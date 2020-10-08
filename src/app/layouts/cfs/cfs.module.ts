@@ -72,45 +72,51 @@ import { MatSortModule } from '@angular/material/sort';
 
 const routes: Routes = [
   {
-    path: '', component: CfsComponent, data: { breadcrumb: 'cfs', roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    path: '', component: CfsComponent, data: { breadcrumb: 'cfs', roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS user Viewer'] },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'create-order', component: CreateOrderComponent, canActivate: [AuthGuardService, RoleGuardService],
-    data: { breadcrumb: 'create-order', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
+    data: { breadcrumb: 'create-order', roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer'] }
   },
   {
     path: 'register-user', component: UserRegistrationComponent, canActivate: [AuthGuardService, RoleGuardService],
-    data: { breadcrumb: 'user-registration', roles: ['CFS Customer', 'CFS User admin', 'Admin'] }
+    data: { breadcrumb: 'user-registration', roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer'] }
   },
   {
     path: 'user-list', component: UserRegistrationListComponent, data: {
       breadcrumb: 'user-list',
-      roles: ['CFS Customer', 'CFS User admin', 'Admin']
+      roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer']
     },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'user-list-edit/:id', component: UserRegistrationEditComponent, resolve: {
       userRegistrationResolver: UserRegistrationResolver
-    }, data: { breadcrumb: 'user-list-edit', roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    }, data: {
+      breadcrumb: 'user-list-edit',
+      roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer']
+    },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'order-list', component: OrderListComponent, data: {
       breadcrumb: 'order-list',
-      roles: ['CFS Customer', 'CFS User admin', 'Admin']
+      roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer']
     },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
-    path: ':id/edit', component: EditOrderComponent, data: { breadcrumb: 'edit-order', roles: ['CFS Customer', 'CFS User admin', 'Admin'] },
+    path: ':id/edit', component: EditOrderComponent, data: {
+      breadcrumb: 'edit-order',
+      roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer']
+    },
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: ':id/order-details', component: OrderDetailsComponent, data: {
       breadcrumb: 'order-details',
-      roles: ['CFS Customer', 'CFS User admin', 'Admin']
+      roles: ['CFS Customer', 'CFS User admin', 'Admin', 'CFS User Super admin', 'CFS User Viewer']
     },
     canActivate: [AuthGuardService, RoleGuardService]
   }
