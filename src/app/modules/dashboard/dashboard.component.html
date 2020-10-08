@@ -132,7 +132,7 @@
 
 
                     <ng-container matColumnDef="subOrderTotalMargin">
-                        <th mat-header-cell *matHeaderCellDef> Total </th>
+                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5"> Total </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.subOrderTotalMargin ? element.subOrderTotalMargin : 0}} </td>
                     </ng-container>
@@ -287,37 +287,37 @@
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.bidName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="TransporterName">
-                      <th mat-header-cell *matHeaderCellDef> Transporter </th>
-                      <td mat-cell class="table-row" *matCellDef="let element">
-                          {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
-                  </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> Transporter </th>
+                        <td mat-cell class="table-row" *matCellDef="let element">
+                            {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
+                    </ng-container>
                     <!-- Weight Column -->
                     <ng-container matColumnDef="SorurceName">
                         <th mat-header-cell *matHeaderCellDef> Source Name </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.SorurceName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="destinationName">
-                      <th mat-header-cell *matHeaderCellDef> Destination Name </th>
-                      <td mat-cell class="table-row" *matCellDef="let element"> {{element.destinationName}} </td>
-                  </ng-container>
-                  <ng-container matColumnDef="containerMasterName">
-                    <th mat-header-cell *matHeaderCellDef> Container </th>
-                    <td mat-cell class="table-row" *matCellDef="let element"> {{element.containerMasterName}} </td>
-                </ng-container>
-                <ng-container matColumnDef="weightDesc">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell class="table-row" *matCellDef="let element"> {{element.weightDesc}} </td>
-              </ng-container>
-              <ng-container matColumnDef="originalRate">
-                <th mat-header-cell *matHeaderCellDef> Rate </th>
-                <td mat-cell class="table-row" *matCellDef="let element">
-                    {{element.originalRate ? element.originalRate : detailsAwaited}} </td>
-            </ng-container>
-              <ng-container matColumnDef="bidValue">
-                <th mat-header-cell *matHeaderCellDef> Bid Value </th>
-                <td mat-cell class="table-row" *matCellDef="let element">
-                    {{element.bidValue ? element.bidValue : detailsAwaited}} </td>
-            </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> Destination Name </th>
+                        <td mat-cell class="table-row" *matCellDef="let element"> {{element.destinationName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="containerMasterName">
+                        <th mat-header-cell *matHeaderCellDef> Container </th>
+                        <td mat-cell class="table-row" *matCellDef="let element"> {{element.containerMasterName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="weightDesc">
+                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <td mat-cell class="table-row" *matCellDef="let element"> {{element.weightDesc}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="originalRate">
+                        <th mat-header-cell *matHeaderCellDef> Rate </th>
+                        <td mat-cell class="table-row" *matCellDef="let element">
+                            {{element.originalRate ? element.originalRate : detailsAwaited}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="bidValue">
+                        <th mat-header-cell *matHeaderCellDef> Bid Value </th>
+                        <td mat-cell class="table-row" *matCellDef="let element">
+                            {{element.bidValue ? element.bidValue : detailsAwaited}} </td>
+                    </ng-container>
 
                     <ng-container matColumnDef="biduserStatus">
                         <th mat-header-cell *matHeaderCellDef> Status </th>

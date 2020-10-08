@@ -124,8 +124,6 @@ export class MyTripsFormComponent implements OnInit {
 
   transformTripObj(trip: Trip): Trip {
     return {
-
-
       tripId: trip.tripId,
       subOrderId: trip.subOrderId,
       sourceId: trip.sourceId,
@@ -140,8 +138,8 @@ export class MyTripsFormComponent implements OnInit {
       createdOn: new Date(),
       modifiedBy: trip.modifiedBy ? trip.modifiedBy : this.currentUser.userId,
       modifiedOn: new Date(),
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: null,
+      endDate: null,
     } as Trip;
   }
 
