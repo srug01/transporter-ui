@@ -1,4 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmDialogModel, CommonConfirmdialogComponent } from '../../../shared/dialogs/common-confirmdialog.component';
 
 
 import { MasterType } from './../../../shared/models/masterType';
@@ -29,6 +30,7 @@ import { take } from 'rxjs/operators';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormGroup } from '@angular/forms';
 import { Batch } from 'aws-sdk/clients/all';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 
 
 
@@ -55,7 +57,7 @@ export class BatchUpdateComponent implements OnInit {
   public userId = parseInt(localStorage.getItem('userID'), 10);
   public batchFilter: BatchFilter = new BatchFilter();
   public IsUpdate: boolean = false;
-
+  public result: string = '';
   constructor(
     private _ngZone: NgZone,
     private _route: ActivatedRoute,
@@ -107,6 +109,8 @@ export class BatchUpdateComponent implements OnInit {
     this._containerService.getAllContainersAndWeights(masterType.masterTypeId, this.cfsId).subscribe(
       (rateMasters) => {
         this.rateMasters = rateMasters;
+        // const columns = this.getEmptyColumns();
+        // this.displayedColumns = this.displayedColumns.filter(col => !columns[col]);
       },
       (err) => {
         console.log(err);
@@ -368,28 +372,71 @@ export class BatchUpdateComponent implements OnInit {
   }
 
   openUpdateDialog(ev, rateMaster: any) {
-    if (ev) {
+   /*  if (ev) {
       ev.preventDefault();
     }
-    const dialogRef = this._dialog.open(ConfirmBidDialogComponent);
+    const dialogRef = this._dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log("Rate Master : " + JSON.stringify(rateMaster));
         this.updateRate(rateMaster);
       }
+    }); */
+    const message = `Are you sure you want to update this?`;
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this._dialog.open(CommonConfirmdialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
     });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      if (this.result) {
+        this.updateRate(rateMaster);
+      }
+    });
+
   }
 
   openSubmitDialog(ev) {
     if (ev) {
       ev.preventDefault();
     }
-    const dialogRef = this._dialog.open(ConfirmBidDialogComponent);
+    const dialogRef = this._dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.batchUpdate();
       }
     });
+  }
+  confirmDialog(): void {
+    const message = `Are you sure you want to update this?`;
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this._dialog.open(CommonConfirmdialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      if (this.result) {
+        this.batchUpdate();
+      }
+    });
+  }
+
+  public getEmptyColumns(): {[key: string]: boolean} {
+    const columns = {};
+
+    this.displayedColumns.forEach(col => {
+      columns[col] = this.rateMasters.every(element => {
+        return !element[col];
+      });
+    });
+
+    return columns;
   }
 
   triggerResize() {

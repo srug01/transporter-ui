@@ -37,8 +37,8 @@
                     </ng-container>
 
                     <ng-container matColumnDef="yardName">
-                        <th mat-header-cell *matHeaderCellDef> Yard </th>
-                        <td mat-cell class="table-cell" *matCellDef="let element">
+                        <th mat-header-cell *matHeaderCellDef > Yard </th>
+                        <td mat-cell class="table-cell" *matCellDef="let element" >
                             {{element.yardName}} </td>
                     </ng-container>
 
@@ -99,7 +99,7 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
                 <div fxFlex="100" fxFlex.lt-sm="100">
-                    <button mat-raised-button color="primary" class="confirm-btn" (click)="openSubmitDialog($event)">Save</button>
+                    <button mat-raised-button color="primary" class="confirm-btn" (click)="confirmDialog()">Save</button>
                 </div>
             </form>
         </mat-card-content>

@@ -12,6 +12,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { LocalStorageService } from './services/storage.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog.component';
+import { CommonConfirmdialogComponent } from './shared/dialogs/common-confirmdialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -45,7 +46,8 @@ const toasterConfig: MatSnackBarConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CommonConfirmdialogComponent
   ],
   imports: [
     BrowserModule,
