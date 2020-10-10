@@ -90,7 +90,6 @@ export class MyTripsListComponent implements OnInit {
     aTrip.tripstatus = 'TRIP_STARTED';
     aTrip.tripStatusId = StausEnum.TRIP_STARTED;
     aTrip.startedBy = this.currentUser.userId;
-
     delete aTrip.DriverName;
     delete aTrip.bidValue;
     this._tripService.updateMytripMaster(aTrip).subscribe(
@@ -106,7 +105,7 @@ export class MyTripsListComponent implements OnInit {
   stopTrip( trip: Trip) {
     const aTrip = {...trip};
     const stopTime = new Date().getTime();
-    aTrip.endDate = new Date(stopTime);
+    aTrip.endDate =new Date(stopTime);
     aTrip.tripstatus = 'TRIP_COMPLETED';
     aTrip.tripStatusId = StausEnum.TRIP_COMPLETED;
     aTrip.stoppeddBy = this.currentUser.userId;
