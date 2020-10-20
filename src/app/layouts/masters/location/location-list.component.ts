@@ -1,3 +1,4 @@
+import { LocationMaster } from './../../../shared/models/location';
 import { LocationService } from './../services/location.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -5,6 +6,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-location-list',
@@ -13,11 +16,11 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 })
 export class LocationListComponent implements OnInit {
   displayedColumns: string[] = [
-    'Location ID', 'Location Name', 'Created By', 'Created On', 'is Active', 'Action'
+    'Location ID', 'locationName', 'createdBy', 'createdOn', 'is Active', 'Action'
   ];
+  public locationMasters: MatTableDataSource<LocationMaster>;
+  @ViewChild(MatSort) locationMasterSort: MatSort;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
-  public locationMasters: [] =[];
 
   constructor(
     private _locationService: LocationService,
@@ -46,7 +49,8 @@ export class LocationListComponent implements OnInit {
   getAllLocationMasters() {
     this._locationService.getAllLocationMasters().subscribe(
       (locationMasters) => {
-        this.locationMasters = locationMasters;
+        this.locationMasters = new MatTableDataSource(locationMasters);
+        this.locationMasters.sort = this.locationMasterSort;
       },
       (err) => {
       }

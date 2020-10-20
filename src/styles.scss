@@ -38,6 +38,10 @@ table {
     padding: 5px;
 }
 
+th.mat-sort-header-sorted {
+    color: black;
+}
+
 $gutter: 16px !default;
 // TODO: Grid row
 .matero-row {

@@ -212,10 +212,17 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Role Details';
         details.url = '/default/settings/role-details';
         break;
-        case 'create-role':
-          details.label = 'Create Role';
-          details.url = '/default/settings/create-role';
-          break;
+      case 'create-role':
+        details.label = 'Create Role';
+        details.url = '/default/settings/create-role';
+        break;
+      case 'register-driver':
+        details.label = 'Register Driver';
+        details.url = '/default/transporter/register-driver';
+        break;
+      case 'list':
+        details.label = 'List';
+        break;
       default:
         break;
     }

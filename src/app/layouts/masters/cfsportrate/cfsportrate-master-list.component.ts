@@ -1,3 +1,4 @@
+import { CfsPortRateMaster } from './../../../shared/models/cfsportrate';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -11,6 +12,8 @@ import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -25,7 +28,8 @@ export class CfsportrateMasterListComponent implements OnInit {
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public containerMasters: Array<any> = [];
-  public cfsrateMasters: Array<any> = [];
+  public cfsrateMasters:MatTableDataSource<CfsPortRateMaster>;
+  @ViewChild(MatSort) csfPortRateMasterSort: MatSort;
   public Port: Array<any> = [];
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
@@ -140,7 +144,8 @@ export class CfsportrateMasterListComponent implements OnInit {
   getAllCfsRateMasters() {
     this._cfsrateService.getAllCfsRateMasters().subscribe(
       (cfsrateMasters) => {
-        this.cfsrateMasters = cfsrateMasters;
+        this.cfsrateMasters = new MatTableDataSource(cfsrateMasters);
+        this.cfsrateMasters.sort = this.csfPortRateMasterSort;
       },
       (err) => {
       }

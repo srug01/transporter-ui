@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-trips-list',
@@ -15,7 +17,6 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
   styleUrls: ['./trips-list.component.scss']
 })
 export class TripsListComponent implements OnInit {
-
   public currentUser: User;
   displayedColumns: string[] = [
     'tripId', 'subOrderId', 'sourceId', 'destinationId',
@@ -23,7 +24,8 @@ export class TripsListComponent implements OnInit {
     'tripstatus', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public tripMasters: Array<Trip> = [];
+  public tripMasters: MatTableDataSource<Trip>;
+  @ViewChild(MatSort) tripSort: MatSort;
 
   constructor(
     private _tripService: TripService,
@@ -41,7 +43,8 @@ export class TripsListComponent implements OnInit {
   getAllTrips() {
     this._tripService.getAllMytripMasters().subscribe(
       (trips) => {
-        this.tripMasters = trips;
+        this.tripMasters = new MatTableDataSource(trips);
+        this.tripMasters.sort = this.tripSort;
       },
       (err) => {
         console.log(err);

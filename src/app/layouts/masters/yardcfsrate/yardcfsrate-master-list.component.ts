@@ -1,3 +1,4 @@
+import { YardCFSRate } from './../../../shared/models/yardcfsrate';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -11,7 +12,9 @@ import { YardService } from '../services/yard.service';
 import { ContainerService } from '../services/container.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
-import { PortService} from '../services/port.service';
+import { PortService } from '../services/port.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-yardcfsrate-master-list',
@@ -20,11 +23,12 @@ import { PortService} from '../services/port.service';
 })
 export class YardcfsrateMasterListComponent implements OnInit {
   displayedColumns: string[] = [
-    'yardCfsRateMasterId','cfsMasterId' , 'portMasterId', 'rate', 'yardMasterId', 'containerMasterId',
+    'yardCfsRateMasterId', 'cfsMasterId', 'portMasterId', 'rate', 'yardMasterId', 'containerMasterId',
     'weightMasterId', 'isActive', 'action'
   ];
+  public yardcfsrateMasters: MatTableDataSource<YardCFSRate>;
+  @ViewChild(MatSort) yardcfsrateMasterSort: MatSort;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public yardcfsrateMasters: Array<any> = [];
   public cfsMasters: Array<any> = [];
   public yardMasters: Array<any> = [];
   public containerMasters: Array<any> = [];
@@ -123,8 +127,8 @@ export class YardcfsrateMasterListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllYardCFSRateMasters();
-   this.getAllWeightMasters();
-   this.getAllCFSMasters();
+    this.getAllWeightMasters();
+    this.getAllCFSMasters();
     this.getAllContainerMasters();
     this.getAllYardMasters();
     this.getAllPortMasters();
@@ -146,8 +150,8 @@ export class YardcfsrateMasterListComponent implements OnInit {
   getAllYardCFSRateMasters() {
     this._yardcfsrateService.getAllYardcfsrateMasters().subscribe(
       (yardcfsrateMasters) => {
-        console.log(yardcfsrateMasters);
-        this.yardcfsrateMasters = yardcfsrateMasters;
+        this.yardcfsrateMasters = new MatTableDataSource(yardcfsrateMasters);
+        this.yardcfsrateMasters.sort = this.yardcfsrateMasterSort;
       },
       (err) => {
         console.log('could not fetch Yard CFS Rate Masters');

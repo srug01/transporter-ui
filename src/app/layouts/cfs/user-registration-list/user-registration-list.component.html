@@ -4,39 +4,39 @@
         <mat-card-subtitle>Users List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <table mat-table [dataSource]="users" class="mat-elevation-z8">
+        <table mat-table [dataSource]="users" class="mat-elevation-z8" matSort>
             <!-- Position Column -->
             <ng-container matColumnDef="cfsUserRegistrationId">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
+                <th mat-header-cell *matHeaderCellDef> # </th>
                 <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="cfsUserName">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                 <td mat-cell *matCellDef="let element" class="table-row"> {{element.cfsUserName}} </td>
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="userTypeId">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> User Type </th>
+            <ng-container matColumnDef="roleName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> User Type </th>
                 <td mat-cell *matCellDef="let element" class="table-row"> {{element.roleName}} </td>
             </ng-container>
 
 
 
             <ng-container matColumnDef="cfsUserDesignation">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Designation </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Designation </th>
                 <td mat-cell *matCellDef="let element" class="table-row"> {{element.cfsUserDesignation}} </td>
             </ng-container>
 
             <ng-container matColumnDef="cfsUserDepartment">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Department </th>
+                <th mat-header-cell *matHeaderCellDef class="table-title" mat-sort-header> Department </th>
                 <td mat-cell *matCellDef="let element" class="table-row"> {{element.cfsUserDepartment}} </td>
             </ng-container>
 
             <ng-container matColumnDef="isActive">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Active </th>
+                <th mat-header-cell *matHeaderCellDef> Active </th>
                 <td mat-cell *matCellDef="let element" class="table-row">
                     <a *ngIf="element.isActive === true"><i class="fa fa-check" aria-hidden="true"></i></a>
                     <a *ngIf="element.isActive !== true"><i class="fa fa-times" aria-hidden="true"></i></a>
@@ -44,7 +44,7 @@
             </ng-container>
 
             <ng-container matColumnDef="isVerified">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Verified </th>
+                <th mat-header-cell *matHeaderCellDef> Verified </th>
                 <td mat-cell *matCellDef="let element" class="table-row">
                     <a *ngIf="element.isVerified === true"><i class="fa fa-check" aria-hidden="true"></i></a>
                     <a *ngIf="element.isVerified !== true"><i class="fa fa-times" aria-hidden="true"></i></a>
@@ -52,7 +52,7 @@
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef class="table-title"> Action </th>
+                <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element" class="table-row">
                     <a><i class="material-icons md-24 p5"
                             [routerLink]="['/default/cfs/user-list-edit',element.cfsUserRegistrationId]">create</i></a>

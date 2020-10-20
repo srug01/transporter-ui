@@ -17,6 +17,7 @@ import { AuthGuardService } from 'src/app/services/auth.guard.service';
 import { DashboardResolver } from '../masters/resolvers/dashboard.resolver';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { RoleGuardService } from 'src/app/services/role.guard.service';
+import { MatSortModule } from '@angular/material/sort';
 import { AuthComponent } from 'src/app/shared/auth/auth.component';
 import { AuthResolver } from 'src/app/services/auth.resolver';
 
@@ -92,7 +93,8 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatSortModule
   ],
   providers: [
     DashboardService,

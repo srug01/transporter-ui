@@ -161,6 +161,7 @@ import { CfsYardRateResolver } from './resolvers/cfsyardrate.resolver';
 import { PortCfsRateResolver } from './resolvers/portcfsrate.resolver';
 import { BatchUpdateComponent } from './batch-update/batch-update.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -552,7 +553,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule
   ],
   providers: [
     StateMasterService,

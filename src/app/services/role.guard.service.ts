@@ -20,9 +20,6 @@ export class RoleGuardService implements CanActivate {
 
     this.allowedRoles = route.data["roles"];
     const userRole = this.auth.getUserRole();
-    console.log(this.allowedRoles.includes(userRole));
-    console.log(this.allowedRoles);
-    console.log(userRole);   
     if (this.allowedRoles.includes(userRole)) {
       return true;
     } else {

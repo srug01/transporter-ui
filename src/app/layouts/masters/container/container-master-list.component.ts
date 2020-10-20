@@ -1,3 +1,4 @@
+import { ContainerMaster } from './../../../shared/models/containerMaster';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -7,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-container-master-list',
@@ -18,7 +21,8 @@ export class ContainerMasterListComponent implements OnInit {
     'containerMasterId', 'containerMasterName', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public containerMasters: Array<any> = [];
+  public containerMasters: MatTableDataSource<ContainerMaster>;
+  @ViewChild(MatSort) containerMasterSort: MatSort;
   constructor(
     private _containerService: ContainerService,
     private _snackBar: MatSnackBar,
@@ -45,7 +49,8 @@ export class ContainerMasterListComponent implements OnInit {
   getAllContainerMasters() {
     this._containerService.getAllContainerMasters().subscribe(
       (containerMasters) => {
-        this.containerMasters = containerMasters;
+        this.containerMasters = new MatTableDataSource(containerMasters);
+        this.containerMasters.sort = this.containerMasterSort;
       },
       (err) => {
       }

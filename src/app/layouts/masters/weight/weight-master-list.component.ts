@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -23,8 +25,10 @@ export class WeightMasterListComponent implements OnInit {
     'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public weightMasters: Array<Weight> = [];
+  public weightMasters: MatTableDataSource<Weight>;
+  @ViewChild(MatSort) weightMasterSort: MatSort;
   public containerMasters: Array<ContainerMaster> = [];
+
   constructor(
     private _weightService: WeightService,
     private _containerService: ContainerService,
@@ -54,7 +58,8 @@ export class WeightMasterListComponent implements OnInit {
   getAllWeightMasters() {
     this._weightService.getAllWeightMasters().subscribe(
       (weightMasters: Weight[]) => {
-        this.weightMasters = weightMasters;
+        this.weightMasters = new MatTableDataSource(weightMasters);
+        this.weightMasters.sort = this.weightMasterSort;
       },
       (err) => {
         console.log('could not fetch weight masters');

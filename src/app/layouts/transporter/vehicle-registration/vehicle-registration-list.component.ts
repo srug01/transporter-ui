@@ -1,3 +1,4 @@
+import { Vehicle } from './../../../shared/models/vehicle';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -7,8 +8,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
-import {StateMasterService} from '../../masters/services/state-master.service';
+import { StateMasterService } from '../../masters/services/state-master.service';
 import { State } from 'src/app/shared/models/state';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-vehicle-registration-list',
@@ -19,14 +22,15 @@ export class VehicleRegistrationListComponent implements OnInit {
 
   displayedColumns: string[] = [
     'vehicleMasterId', 'vehicleNumber', 'vehicleType', 'vehicleCapacity',
-    'weight','manufactureYear', 'state','owned','action'
+    'weight', 'manufactureYear', 'state', 'owned', 'action'
   ];
+  public vehicleMasters: MatTableDataSource<Vehicle>;
+  @ViewChild(MatSort) vehicleSort: MatSort;
   public dataSource: any[];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public vehicleMasters: Array<any> = [];
   public states: State[];
-  public userId = parseInt(localStorage.getItem('userID'),10);
-  public roleId = parseInt(localStorage.getItem('roleID'),10);
+  public userId = parseInt(localStorage.getItem('userID'), 10);
+  public roleId = parseInt(localStorage.getItem('roleID'), 10);
 
 
   constructor(
@@ -44,23 +48,23 @@ export class VehicleRegistrationListComponent implements OnInit {
   }
 
   getAllVehicleMasters() {
-    if(this.roleId == 1)
-    {
-    this._vehicleService.getAllVehicleMasters().subscribe(
-      (vehicleMasters) => {
-        // console.log(vehicleMasters);
-        this.vehicleMasters = vehicleMasters;
-      },
-      (err) => {
-        console.log('could not fetch vehicle masters');
-      }
-    );
+    if (this.roleId == 1) {
+      this._vehicleService.getAllVehicleMasters().subscribe(
+        (vehicleMasters) => {
+          // console.log(vehicleMasters);
+          this.vehicleMasters = new MatTableDataSource(vehicleMasters);
+          this.vehicleMasters.sort = this.vehicleSort;
+        },
+        (err) => {
+          console.log('could not fetch vehicle masters');
+        }
+      );
     }
-    else
-    {
+    else {
       this._vehicleService.getAllVehiclesbyUserId(this.userId).subscribe(
         (vehicleMasters) => {
-          this.vehicleMasters = vehicleMasters;
+          this.vehicleMasters = new MatTableDataSource(vehicleMasters);
+          this.vehicleMasters.sort = this.vehicleSort;
         },
         (err) => {
           console.log(err);
@@ -80,7 +84,7 @@ export class VehicleRegistrationListComponent implements OnInit {
   }
 
   getStatebyId(id): string {
-    if(this.states) {
+    if (this.states) {
       for (let i = 0; i < this.states.length; i++) {
         if (this.states[i].stateMasterId === id) {
           return this.states[i].stateName;

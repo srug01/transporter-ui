@@ -7,6 +7,8 @@ import { StateMasterService } from '../services/state-master.service';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-state-master-list',
@@ -16,10 +18,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StateMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'stateMasterId', 'state', 'is_active', 'action'
+    'stateMasterId', 'stateName', 'is_active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public stateMasters: Array<State> = [];
+  public stateMasters: MatTableDataSource<State>;
+  @ViewChild(MatSort) stateMasterSort: MatSort;
 
   constructor(
     private _stateService: StateMasterService,
@@ -47,7 +50,8 @@ export class StateMasterListComponent implements OnInit {
   getAllStateMasters() {
     this._stateService.getAllStateMasters().subscribe(
       (stateMasters: Array<State>) => {
-        this.stateMasters = stateMasters;
+        this.stateMasters = new MatTableDataSource(stateMasters);
+        this.stateMasters.sort = this.stateMasterSort;
       },
       (err) => {
         console.log('could not fetch state masters');

@@ -1,3 +1,4 @@
+import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { PortterminalmasterService } from './../services/portterminalmaster.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -21,7 +24,8 @@ export class PortterminalmasterListComponent implements OnInit {
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public portMasters: Array<any> = [];
-  public portterminalMasters: Array<any> = [];
+  public portterminalMasters: MatTableDataSource<PortTerminalMaster>;
+  @ViewChild(MatSort) portterminalMasterSort: MatSort;
 
   constructor(
     private _portService: PortService,
@@ -60,8 +64,8 @@ export class PortterminalmasterListComponent implements OnInit {
   getAllPortTerminalMasters() {
     this._portterminalService.getAllPortTerminalMaster().subscribe(
       (portterminalMasters) => {
-        this.portterminalMasters = portterminalMasters;
-        console.log(this.portterminalMasters);        
+        this.portterminalMasters = new MatTableDataSource(portterminalMasters);
+        this.portterminalMasters.sort = this.portterminalMasterSort;
       },
       (err) => {
       }
