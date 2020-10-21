@@ -102,7 +102,7 @@ export class BidlogicComponent implements OnInit {
     this._roleService.checkBidLogic(obj).subscribe(
       (res) => {
         console.log(res);
-        this.message = "Cutt Off Time for This Order Will be : " +  this.datePipe.transform(res[0].CutOffTime,"MMM d, y, h:mm:ss a");
+        this.message = "Cutt Off Time for This Order Will be : " +  this.datePipe.transform(res[0].CutOffTime,"MMM d, y, hh:mm a");
         // this._alertService.success('Permissions Updated Successfully', 'Success !');
       },
       (err) => {
