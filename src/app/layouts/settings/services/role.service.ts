@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
 import { Userrole } from 'src/app/shared/models/userrole';
+
 import { UserRole } from 'aws-sdk/clients/workmail';
 
 @Injectable({
@@ -53,6 +54,13 @@ export class RoleService {
     return this.http.post<Userrole>(this.baseUrl + 'userroles', JSON.stringify(userRole), this.HttpUploadOptions);
   }
 
+  checkBidLogic(params: ThreeparamObj): Observable<any> {
+    //  console.log("Filter For API : " + JSON.stringify(saveFilter));
+    return this.http.post<any>(this.baseUrl + 'getCuttOffTime',
+      JSON.stringify(params),
+      this.HttpUploadOptions
+    );
+  }
 
 
 }

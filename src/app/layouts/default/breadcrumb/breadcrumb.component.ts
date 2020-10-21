@@ -165,8 +165,17 @@ export class BreadcrumbComponent implements OnInit {
         break;
       case 'port-list':
         details.label = 'List';
-        details.url = '/default/transporter/bids';
+        details.url = '/default/masters/port/port-list';
         break;
+      case 'state':
+        details.label = 'State';
+        details.url = '/default/masters/state/state-list';
+        break;
+        case 'state-list':
+          details.label = 'List';
+          details.url = '/default/masters/state/state-list';
+          break;
+
       case 'settings':
         details.label = 'Settings';
         details.url = '/default/settings/management';

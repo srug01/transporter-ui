@@ -280,7 +280,7 @@ const routes: Routes = [
     path: 'state', component: StateComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: StateMasterListComponent },
+      { path: 'state-list', component: StateMasterListComponent },
       { path: 'new', component: StateNewComponent },
       {
         path: 'edit/:id', component: StateEditComponent,

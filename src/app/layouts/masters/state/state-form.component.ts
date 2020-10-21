@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
+import { now } from 'moment';
+import * as moment from 'moment';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class StateFormComponent implements OnInit {
 
   public stateForm: FormGroup;
   public stateMasters: Array<any> = [];
-
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -32,10 +34,11 @@ export class StateFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.stateData) {
+
       this.stateForm = this.fb.group({
         stateMasterId: [this.stateData.stateMasterId ? this.stateData.stateMasterId : ''],
         stateName: [this.stateData.stateName ? this.stateData.stateName : '', Validators.required],
-        isActive: [this.stateData.isActive ? this.stateData.isActive : true, Validators.required]
+        isActive: [this.stateData.isActive === false ? false  : true, Validators.required]
       });
     } else {
       this.stateForm = this.fb.group({
@@ -61,21 +64,34 @@ export class StateFormComponent implements OnInit {
       ev.preventDefault();
     }
     if (this.stateForm.valid) {
+      const state = this.transformStateObj(this.stateForm.value)
       if (!this.stateData) {
-        this.saveStateMaster(this.stateForm);
+        state.createdBy =  this.userId;
+        state.createdOn =  moment().format('YYYY-MM-DD h:mm:ss a').toString();
+         this.saveStateMaster(state);
       } else {
-        this.updateStateMaster(this.stateForm);
+        state.modifiedBy =  this.userId;
+        state.modifiedOn =  moment().format('YYYY-MM-DD h:mm:ss a').toString();
+        this.updateStateMaster(state);
       }
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }
   }
 
-  saveStateMaster(stateForm: any) {
-    this._stateService.saveStateMaster(stateForm.value).subscribe(
+  transformStateObj(state: State): State {
+    return {
+      stateMasterId : state.stateMasterId? state.stateMasterId : 0,
+      stateName : state.stateName ? state.stateName : '',
+      isActive : state.isActive? state.isActive : false,
+    } as State;
+  }
+
+  saveStateMaster(state: State) {
+    this._stateService.saveStateMaster(state).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'State Master Created Successfully');
-        this._router.navigate(['/default/masters/state/list']);
+        this._router.navigate(['/default/masters/state/state-list']);
       },
       (err) => {
         console.log('err');
@@ -84,11 +100,11 @@ export class StateFormComponent implements OnInit {
     );
   }
 
-  updateStateMaster(stateForm: any) {
-    this._stateService.updateStateMaster(stateForm.value).subscribe(
+  updateStateMaster(state: State) {
+    this._stateService.updateStateMaster(state).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'State Master Updated Successfully');
-        this._router.navigate(['/default/masters/State/list']);
+        this._router.navigate(['/default/masters/state/state-list']);
       },
       (err) => {
         console.log('err');

@@ -41,6 +41,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { RoleDetailsComponent } from './role-details/role-details.component';
 import { CreateRoleComponent } from './create-role/create-role.component';
 import { RoleResolver } from './services/role.resolver';
+import { BidlogicComponent } from './bidlogic/bidlogic.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService, RoleGuardService],
     data: { breadcrumb: 'configuration', roles: ['Admin'] }
+  },
+  {
+    path: 'bidlogic', component: BidlogicComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'bidlogic', roles: ['Admin'] }
   },
   {
     path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuardService, RoleGuardService],
@@ -88,7 +93,8 @@ const toasterConfig: MatSnackBarConfig = {
     UserListComponent,
     ManagementComponent,
     RoleDetailsComponent,
-    CreateRoleComponent
+    CreateRoleComponent,
+    BidlogicComponent
   ],
   imports: [
     CommonModule,
