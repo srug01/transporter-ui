@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { PortService } from '../services/port.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-portterminalmaster-form',
@@ -22,6 +23,7 @@ export class PortterminalmasterFormComponent implements OnInit {
   public portterminalmasterForm: FormGroup;
   public portMasters: Array<any> = [];
   public currentUser: User;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
 
   constructor(
@@ -47,8 +49,7 @@ export class PortterminalmasterFormComponent implements OnInit {
         latitude: [this.portterminalmasterData.latitude],
         longitude: [this.portterminalmasterData.longitude],
         terminal: [this.portterminalmasterData.terminal,Validators.required],
-        isActive: [this.portterminalmasterData.isActive ?
-          this.portterminalmasterData.isActive : true, Validators.required],
+        isActive: [this.portterminalmasterData.isActive === false ? false  : true, Validators.required],
         // createdBy: [],
         // createdOn: [],
         // modifiedBy: [],
@@ -90,12 +91,8 @@ export class PortterminalmasterFormComponent implements OnInit {
   transformTerminalObj(terminal: PortTerminalMaster): PortTerminalMaster {
     return {
       isActive: terminal.isActive,
-      createdBy: this.currentUser.userId,
-      createdOn: new Date(),
       latitude: terminal.latitude,
       longitude: terminal.longitude,
-      modifiedBy: this.currentUser.userId,
-      modifiedOn: new Date(),
       portMasterId: terminal.portMasterId,
       portTerminalId: terminal.portTerminalId ? terminal.portTerminalId : 0,
       terminal: terminal.terminal
@@ -109,8 +106,12 @@ export class PortterminalmasterFormComponent implements OnInit {
     if (this.portterminalmasterForm.valid) {
       const terminal: PortTerminalMaster = this.transformTerminalObj(this.portterminalmasterForm.value);
       if (!this.portterminalmasterData) {
+        terminal.createdBy = this.userId;
+        terminal.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.savePorTerminaltMaster(terminal);
       } else {
+        terminal.modifiedBy = this.userId;
+        terminal.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updatePorTerminaltMaster(terminal);
       }
     } else {

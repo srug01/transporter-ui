@@ -4,7 +4,7 @@ export interface LocationMaster {
     isActive?: boolean;
     stateMasterId: number;
     createdBy?: number;
-    createdOn?: Date;
+    createdOn?: string;
     modifiedBy?: number;
-    modifiedOn?: Date;
+    modifiedOn?: string;
 }

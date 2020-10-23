@@ -26,7 +26,7 @@ export class PortterminalmasterService {
   }
 
   updatePortTerminalMaster(portterminalmaster: PortTerminalMaster): Observable<any> {
-    return this.http.put<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters/' + portterminalmaster.portTerminalId,
+    return this.http.patch<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters/' + portterminalmaster.portTerminalId,
       JSON.stringify(portterminalmaster), this.HttpUploadOptions);
   }
 
@@ -49,7 +49,9 @@ export class PortterminalmasterService {
     return this.http.get(this.baseUrl + 'port-terminal-masters?filter=' + JSON.stringify(filter), this.HttpUploadOptions);
   }
 
-  deletePortTerminalMasterById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'port-terminal-masters/' + id);
+  deletePortTerminalMasterById(portterminalmaster: PortTerminalMaster): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'port-terminal-masters/' + id);
+    return this.http.patch<PortTerminalMaster>(this.baseUrl + 'port-terminal-masters/' + portterminalmaster.portTerminalId,
+      JSON.stringify(portterminalmaster), this.HttpUploadOptions);
   }
 }

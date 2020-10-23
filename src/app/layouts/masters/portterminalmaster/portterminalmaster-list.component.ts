@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { PortterminalmasterService } from './../services/portterminalmaster.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class PortterminalmasterListComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public portMasters: Array<any> = [];
   public portterminalMasters: Array<any> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _portService: PortService,
@@ -49,7 +51,10 @@ export class PortterminalmasterListComponent implements OnInit {
     });
 
   }
-  deletePortMasterById(porMastertId: number) {
+  deletePortMasterById(porMastertId: any) {
+    porMastertId.isActive = false;
+    porMastertId.modifiedBy = this.userId;
+    porMastertId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._portterminalService.deletePortTerminalMasterById(porMastertId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Terminal Master Deleted Successfully');
@@ -61,7 +66,7 @@ export class PortterminalmasterListComponent implements OnInit {
     this._portterminalService.getAllPortTerminalMaster().subscribe(
       (portterminalMasters) => {
         this.portterminalMasters = portterminalMasters;
-        console.log(this.portterminalMasters);        
+        console.log(this.portterminalMasters);
       },
       (err) => {
       }

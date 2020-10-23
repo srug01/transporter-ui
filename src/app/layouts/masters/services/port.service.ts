@@ -28,7 +28,7 @@ export class PortService {
   }
 
   updatePortMaster(port: Port): Observable<any> {
-    return this.http.put<Port>(this.baseUrl + 'port-masters/'+ port.portMasterId, JSON.stringify(port), this.HttpUploadOptions);
+    return this.http.patch<Port>(this.baseUrl + 'port-masters/'+ port.portMasterId, JSON.stringify(port), this.HttpUploadOptions);
   }
 
   getAllPortMasters(): Observable<any> {
@@ -50,7 +50,8 @@ export class PortService {
                );
    }
 
-  deletePortMastersById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'port-masters/' + id);
+  deletePortMastersById(port: Port): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'port-masters/' + id);
+    return this.http.patch<Port>(this.baseUrl + 'port-masters/'+ port.portMasterId, JSON.stringify(port), this.HttpUploadOptions);
   }
 }

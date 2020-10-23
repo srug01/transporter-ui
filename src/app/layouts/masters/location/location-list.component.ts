@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-location-list',
@@ -13,11 +14,12 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 })
 export class LocationListComponent implements OnInit {
   displayedColumns: string[] = [
-    'Location ID', 'Location Name', 'Created By', 'Created On', 'is Active', 'Action'
+    'Location ID', 'Location Name', 'Is Active', 'Action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   public locationMasters: [] =[];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _locationService: LocationService,
@@ -53,7 +55,10 @@ export class LocationListComponent implements OnInit {
     );
   }
 
-  deleteLocationById(locationMasterId: number) {
+  deleteLocationById(locationMasterId: any) {
+    locationMasterId.isActive = false;
+    locationMasterId.modifiedBy = this.userId;
+    locationMasterId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._locationService.deleteLocationMastersById(locationMasterId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Deleted Successfully');

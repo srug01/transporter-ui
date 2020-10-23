@@ -26,7 +26,7 @@ export class StateMasterService {
     return this.http.post<State>(this.baseUrl + 'state-masters', JSON.stringify(state), this.HttpUploadOptions);
   }
   updateStateMaster(state: State): Observable<any> {
-    return this.http.put<State>(this.baseUrl + 'state-masters/' + state.stateMasterId,
+    return this.http.patch<State>(this.baseUrl + 'state-masters/' + state.stateMasterId,
       JSON.stringify(state), this.HttpUploadOptions);
   }
 
@@ -42,7 +42,9 @@ export class StateMasterService {
     return this.http.get(this.baseUrl + 'state-masters/' + id);
   }
 
-  deleteStateMastersById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'state-masters/' + id);
+  deleteStateMastersById(state: State): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'state-masters/' + id);
+    return this.http.patch<State>(this.baseUrl + 'state-masters/' + state.stateMasterId,
+      JSON.stringify(state), this.HttpUploadOptions);
   }
 }

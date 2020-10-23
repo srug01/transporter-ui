@@ -7,6 +7,8 @@ import { StateMasterService } from '../services/state-master.service';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AnyLengthString } from 'aws-sdk/clients/comprehend';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-state-master-list',
@@ -16,11 +18,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StateMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'stateMasterId', 'state', 'is_active', 'action'
+    'stateMasterId', 'state', 'Is Active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public stateMasters: Array<State> = [];
-
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _stateService: StateMasterService,
     public dialog: MatDialog,
@@ -31,7 +33,7 @@ export class StateMasterListComponent implements OnInit {
     this.getAllStateMasters();
   }
 
-  openDialog(ev, stateId: number) {
+  openDialog(ev, stateId: AnyLengthString) {
     if (ev) {
       ev.preventDefault();
     }
@@ -55,7 +57,11 @@ export class StateMasterListComponent implements OnInit {
     );
   }
 
-  deleteStateById(stateId: number) {
+  deleteStateById(stateId: any) {
+
+    stateId.isActive = false;
+    stateId.modifiedBy = this.userId;
+    stateId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._stateService.deleteStateMastersById(stateId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'State Master Deleted Successfully');
