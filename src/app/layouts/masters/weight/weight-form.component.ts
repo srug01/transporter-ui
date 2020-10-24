@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { WeightService } from '../services/weight.service';
 import { User } from 'src/app/shared/models/user';
 import { ContainerService } from '../services/container.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class WeightFormComponent implements OnInit {
   public weightForm: FormGroup;
   public currentUser: User;
   public containerMasters: ContainerMaster[];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
+
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -42,7 +45,7 @@ export class WeightFormComponent implements OnInit {
       this.weightForm = this.fb.group({
         weightMasterId: [this.weightData.weightMasterId ? this.weightData.weightMasterId : ''],
         weightDesc: [this.weightData.weightDesc ? this.weightData.weightDesc : '', Validators.required],
-        isActive: [this.weightData.isActive ? this.weightData.isActive : true, Validators.required],
+        isActive: [this.weightData.isActive === false ? false  : true, Validators.required],
         createdBy: [this.weightData.createdBy ? this.weightData.createdBy : ''],
         createdOn: [this.weightData.createdOn ? this.weightData.createdOn : ''],
         modifiedBy: [this.weightData.modifiedBy ? this.weightData.modifiedBy : ''],
@@ -85,11 +88,7 @@ export class WeightFormComponent implements OnInit {
     return {
       weightMasterId: weight.weightMasterId ? weight.weightMasterId : 0,
       containerMasterId: weight.containerMasterId,
-      createdBy: this.currentUser.userId,
-      createdOn: new Date(),
       isActive: weight.isActive,
-      modifiedBy: this.currentUser.userId,
-      modifiedOn: new Date(),
       weightDesc: weight.weightDesc
     } as Weight;
   }
@@ -101,8 +100,12 @@ export class WeightFormComponent implements OnInit {
     if (this.weightForm.valid) {
       const weight: Weight = this.transformWeightMaster(this.weightForm.value);
       if (!this.weightData) {
+        weight.createdBy = this.userId;
+        weight.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.saveWeightMaster(weight);
       } else {
+        weight.modifiedBy = this.userId;
+        weight.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updateWeightMaster(weight);
       }
     } else {
@@ -114,7 +117,7 @@ export class WeightFormComponent implements OnInit {
     this._weightService.saveWeightMaster(weight).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Weight Master Created Successfully');
-        this._router.navigate(['/default/masters/weight/list']);
+        this._router.navigate(['/default/masters/weight/weight-list']);
       },
       (err) => {
         console.log('err');
@@ -127,7 +130,7 @@ export class WeightFormComponent implements OnInit {
     this._weightService.updateWeightMaster(weight).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Weight Master Updated Successfully');
-        this._router.navigate(['/default/masters/weight/list']);
+        this._router.navigate(['/default/masters/weight/weight-list']);
       },
       (err) => {
         console.log('err');

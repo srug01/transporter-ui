@@ -123,7 +123,7 @@ export class PortterminalmasterFormComponent implements OnInit {
     this._portterminalMasterService.savePortTerminalMaster(terminal).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Termianl Master Created Successfully');
-        this._router.navigate(['/default/masters/portterminalmaster/list']);
+        this._router.navigate(['/default/masters/portterminal/port-terminal-list']);
       },
       (err) => {
         console.log('err');
@@ -136,7 +136,7 @@ export class PortterminalmasterFormComponent implements OnInit {
     this._portterminalMasterService.updatePortTerminalMaster(terminal).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Termianl Master Updated Successfully');
-        this._router.navigate(['/default/masters/portterminalmaster/list']);
+        this._router.navigate(['/default/masters/portterminal/port-terminal-list']);
       },
       (err) => {
         console.log('err');

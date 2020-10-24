@@ -12,6 +12,7 @@ import { ContainerService } from '../services/container.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
 import { PortService} from '../services/port.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-yardcfsrate-master-list',
@@ -30,6 +31,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
   public containerMasters: Array<any> = [];
   public weightMasters: Array<any> = [];
   public portMasters: Array<any> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
 
   constructor(
@@ -130,7 +132,7 @@ export class YardcfsrateMasterListComponent implements OnInit {
     this.getAllPortMasters();
   }
 
-  openDialog(ev, yardCfsRateMasterId: number) {
+  openDialog(ev, yardCfsRateMasterId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -155,7 +157,10 @@ export class YardcfsrateMasterListComponent implements OnInit {
     );
   }
 
-  deleteYardCFSRateById(yardCfsRateMasterId: number) {
+  deleteYardCFSRateById(yardCfsRateMasterId: any) {
+    yardCfsRateMasterId.isActive = false;
+    yardCfsRateMasterId.modifiedBy = this.userId;
+    yardCfsRateMasterId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._yardcfsrateService.deleteYardcfsrateMasterById(yardCfsRateMasterId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard CFS Rate Master Deleted Successfully');

@@ -38,7 +38,7 @@ export class PortterminalmasterListComponent implements OnInit {
     this.getAllPortTerminalMasters();
   }
 
-  openDialog(ev, porMastertId: number) {
+  openDialog(ev, porMastertId: any) {
     if (ev) {
       ev.preventDefault();
     }

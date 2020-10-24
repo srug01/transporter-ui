@@ -59,7 +59,7 @@ export class PortMasterListComponent implements OnInit {
       }
     );
   }
-  openDialog(ev, portId: number) {
+  openDialog(ev, portId: any) {
     if (ev) {
       ev.preventDefault();
     }

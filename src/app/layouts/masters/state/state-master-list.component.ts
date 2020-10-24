@@ -33,7 +33,7 @@ export class StateMasterListComponent implements OnInit {
     this.getAllStateMasters();
   }
 
-  openDialog(ev, stateId: AnyLengthString) {
+  openDialog(ev, stateId: any) {
     if (ev) {
       ev.preventDefault();
     }

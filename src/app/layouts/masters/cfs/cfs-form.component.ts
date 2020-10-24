@@ -14,6 +14,7 @@ import { LocationService } from '../services/location.service';
 import { StateMasterService } from '../services/state-master.service';
 import { User } from 'src/app/shared/models/user';
 import { LocationMaster } from 'src/app/shared/models/location';
+import * as moment from 'moment';
 
 
 @Component({
@@ -30,6 +31,8 @@ export class CfsFormComponent implements OnInit {
   public stateMasters: Array<any> = [];
   public currentUser: User;
   public mobileNumberPattern: string = Constants.mobNumberPattern;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
+
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -76,7 +79,7 @@ export class CfsFormComponent implements OnInit {
         portMasterId: [this.cfsData.portMasterId ? this.cfsData.portMasterId : '', Validators.required],
         stateMasterId: [this.cfsData.stateMasterId ? this.cfsData.stateMasterId : '', Validators.required],
         locationMasterId: [this.cfsData.locationMasterId ? this.cfsData.locationMasterId : '', Validators.required],
-        isActive: [this.cfsData.isActive ? this.cfsData.isActive : true, Validators.required]
+        isActive: [this.cfsData.isActive === false ? false  : true, Validators.required]
       });
     } else {
       this.cfsForm = this.fb.group({
@@ -170,15 +173,11 @@ export class CfsFormComponent implements OnInit {
       locationMasterId: cfs.locationMasterId,
       cfsName: cfs.cfsName,
       contactNumber: cfs.contactNumber,
-      createdBy: this.currentUser.userId,
-      createdOn: new Date(),
       additionalContactName: cfs.additionalContactName,
       additionalContactNumber: cfs.additionalContactNumber,
       email: cfs.email,
       gstin: cfs.gstin,
       isActive: cfs.isActive,
-      modifiedBy: this.currentUser.userId,
-      modifiedOn: new Date(),
       pan: cfs.pan,
       pincode: cfs.pincode,
       portMasterId: cfs.portMasterId,
@@ -195,8 +194,12 @@ export class CfsFormComponent implements OnInit {
     if (this.cfsForm.valid) {
       const cfsMaster: Cfs = this.transformCfsObj(this.cfsForm.value);
       if (!this.cfsData) {
+        cfsMaster.createdBy = this.userId;
+        cfsMaster.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.saveCfsMaster(cfsMaster);
       } else {
+        cfsMaster.modifiedBy = this.userId;
+        cfsMaster.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updateCfsMaster(cfsMaster);
       }
     } else {
@@ -208,7 +211,7 @@ export class CfsFormComponent implements OnInit {
     this._cfsService.saveCfsMaster(cfsMaster).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Cfs Master Created Successfully');
-        this._router.navigate(['/default/masters/cfs/list']);
+        this._router.navigate(['/default/masters/cfs/cfs-list']);
       },
       (err) => {
         console.log('err');
@@ -221,7 +224,7 @@ export class CfsFormComponent implements OnInit {
     this._cfsService.updateCfsMaster(cfsMaster).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Cfs Master Updated Successfully');
-        this._router.navigate(['/default/masters/cfs/list']);
+        this._router.navigate(['/default/masters/cfs/cfs-list']);
       },
       (err) => {
         console.log('err');

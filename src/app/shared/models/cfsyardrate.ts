@@ -10,8 +10,8 @@ export interface CfsYardRateMaster {
   portMasterId?: number;
   isActive?: boolean;
   createdBy?: number;
-  createdOn?: Date;
+  createdOn?: string;
   modifiedBy?: number;
-  modifiedOn?: Date;
+  modifiedOn?: string;
 
 }

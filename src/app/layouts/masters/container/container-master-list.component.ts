@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-container-master-list',
@@ -19,6 +20,7 @@ export class ContainerMasterListComponent implements OnInit {
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public containerMasters: Array<any> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _containerService: ContainerService,
     private _snackBar: MatSnackBar,
@@ -30,7 +32,7 @@ export class ContainerMasterListComponent implements OnInit {
     this.getAllContainerMasters();
   }
 
-  openDialog(ev, containerId: number) {
+  openDialog(ev, containerId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -52,7 +54,10 @@ export class ContainerMasterListComponent implements OnInit {
     );
   }
 
-  deleteContainerById(containerId: number) {
+  deleteContainerById(containerId: any) {
+    containerId.isActive = false;
+    containerId.modifiedBy = this.userId;
+    containerId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._containerService.deleteContainerMastersById(containerId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Container Master Deleted Successfully');

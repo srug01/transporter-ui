@@ -37,8 +37,12 @@ export class CfsYardRateService {
     return this.http.get(this.baseUrl + 'cfs-yard-rate-masters/' + id);
   }
 
-  deleteCfsYardRateMastersById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'cfs-yard-rate-masters/' + id);
+  deleteCfsYardRateMastersById(cfsyardrate: CfsYardRateMaster): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'cfs-yard-rate-masters/' + id);
+    return this.http.patch<CfsYardRateMaster>(
+      this.baseUrl + 'cfs-yard-rate-masters/' + cfsyardrate.cfsYardRateMasterId,
+      JSON.stringify(cfsyardrate), this.HttpUploadOptions
+    );
   }
 
 }

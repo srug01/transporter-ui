@@ -30,7 +30,7 @@ export class WeightService {
   }
 
   updateWeightMaster(weight: Weight): Observable<any> {
-    return this.http.put<Weight>(this.baseUrl + 'weight-masters/'+ weight.weightMasterId, JSON.stringify(weight), this.HttpUploadOptions);
+    return this.http.patch<Weight>(this.baseUrl + 'weight-masters/'+ weight.weightMasterId, JSON.stringify(weight), this.HttpUploadOptions);
   }
 
   getAllWeightMasters(): Observable<any> {
@@ -41,8 +41,9 @@ export class WeightService {
     return this.http.get(this.baseUrl + 'weight-masters/' + id);
   }
 
-  deleteWeightMasterById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'weight-masters/' + id);
+  deleteWeightMasterById(weight: Weight): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'weight-masters/' + id);
+    return this.http.patch<Weight>(this.baseUrl + 'weight-masters/'+ weight.weightMasterId, JSON.stringify(weight), this.HttpUploadOptions);
   }
 
   getAllWeightMastersbyContainerID(id: number): Observable<Weight[]> {

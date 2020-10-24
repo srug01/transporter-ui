@@ -16,6 +16,7 @@ import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
 import { PortService } from '../services/port.service';
 import { Cfs } from 'src/app/shared/models/cfs';
+import * as moment from 'moment';
 
 
 
@@ -35,6 +36,7 @@ export class YardcfsrateFormComponent implements OnInit {
   public weightMaster: Array<any> = [];
   public portMasters: Array<any> = [];
   public cfs:Cfs;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -144,7 +146,7 @@ export class YardcfsrateFormComponent implements OnInit {
         rate: [this.yardcfsrateData.rate ? this.yardcfsrateData.rate : '', Validators.required],
         bidMarginRate: [this.yardcfsrateData.bidMarginRate ? this.yardcfsrateData.bidMarginRate : '', Validators.required],
         orderMarginRate: [this.yardcfsrateData.orderMarginRate ? this.yardcfsrateData.orderMarginRate : '', Validators.required],
-        isActive: [this.yardcfsrateData.isActive ? this.yardcfsrateData.isActive : true, Validators.required],
+        isActive: [this.yardcfsrateData.isActive === false ? false  : true, Validators.required],
         createdBy: [this.yardcfsrateData.createdBy ? this.yardcfsrateData.createdBy : 0]
       });
       this.getAllPortMasters(this.yardcfsrateData.portMasterId);
@@ -211,24 +213,44 @@ export class YardcfsrateFormComponent implements OnInit {
     return invalid;
   }
 
+  transformCfsRateObj(yardcfsRate: YardCFSRate): YardCFSRate {
+    return {
+      yardCfsRateMasterId: yardcfsRate.yardCfsRateMasterId ? yardcfsRate.yardCfsRateMasterId : 0,
+      cfsMasterId: yardcfsRate.cfsMasterId,
+      yardMasterId: yardcfsRate.yardMasterId,
+      portMasterId: yardcfsRate.portMasterId,
+      weightMasterId: yardcfsRate.weightMasterId,
+      containerMasterId: yardcfsRate.containerMasterId,
+      rate: yardcfsRate.rate,
+      bidMarginRate: yardcfsRate.bidMarginRate,
+      orderMarginRate: yardcfsRate.orderMarginRate,
+      isActive: yardcfsRate.isActive
+    } as YardCFSRate;
+  }
+
   submitYardCFSRateForm(ev) {
     if (ev) {
       ev.preventDefault();
     }
     //  this.findInvalidControls();
     if (this.yardcfsrateForm.valid) {
+      const yardcfsRate = this.transformCfsRateObj(this.yardcfsrateForm.value);
       if (!this.yardcfsrateData) {
-        this.saveYardCFSRateMaster(this.yardcfsrateForm);
+        yardcfsRate.createdBy = this.userId;
+        yardcfsRate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
+        this.saveYardCFSRateMaster(yardcfsRate);
       } else {
-        this.updateYardCFSRateMaster(this.yardcfsrateForm);
+        yardcfsRate.modifiedBy = this.userId;
+        yardcfsRate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
+        this.updateYardCFSRateMaster(yardcfsRate);
       }
     } else {
       this.openSnackBar('Invalid Form !', 'Please review all fields');
     }
   }
 
-  saveYardCFSRateMaster(yardcfsrateForm: any) {
-    this._yardcfsrateService.saveYardcfsrateMaster(yardcfsrateForm.value).subscribe(
+  saveYardCFSRateMaster(yardcfsrate: YardCFSRate) {
+    this._yardcfsrateService.saveYardcfsrateMaster(yardcfsrate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard CFS Rate Master Created Successfully');
         this._router.navigate(['/default/masters/yardcfsrate/yardcfsratelist']);
@@ -240,8 +262,8 @@ export class YardcfsrateFormComponent implements OnInit {
     );
   }
 
-  updateYardCFSRateMaster(yardcfsrateForm: any) {
-    this._yardcfsrateService.updateYardcfsrateMaster(yardcfsrateForm.value).subscribe(
+  updateYardCFSRateMaster(yardcfsrate: YardCFSRate) {
+    this._yardcfsrateService.updateYardcfsrateMaster(yardcfsrate).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard CFS Rate Master Updated Successfully');
         this._router.navigate(['/default/masters/yardcfsrate/yardcfsratelist']);

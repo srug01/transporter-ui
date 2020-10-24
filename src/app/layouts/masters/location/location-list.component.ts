@@ -32,7 +32,7 @@ export class LocationListComponent implements OnInit {
     this.getAllLocationMasters();
   }
 
-  openDialog(ev, locationMasterId: number) {
+  openDialog(ev, locationMasterId: any) {
     if (ev) {
       ev.preventDefault();
     }

@@ -176,7 +176,7 @@ const routes: Routes = [
     path: 'cfs', component: CfsComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: CfsMasterListComponent },
+      { path: 'cfs-list', component: CfsMasterListComponent },
       { path: 'new', component: CfsNewComponent },
       { path: 'edit/:id', component: CfsEditComponent, resolve: { cfsResolver: CfsResolver } },
       { path: 'details/:id', component: CfsDetailsComponent }
@@ -184,10 +184,10 @@ const routes: Routes = [
   },
 
   {
-    path: 'portterminalmaster', component: PortterminalmasterComponent,
+    path: 'portterminal', component: PortterminalmasterComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: PortterminalmasterListComponent },
+      { path: 'port-terminal-list', component: PortterminalmasterListComponent },
       { path: 'new', component: PortterminalmasterNewComponent },
       { path: 'edit/:id', component: PortterminalmasterEditComponent,
        resolve: { portTerminalMasterResolver : PortTerminalMasterResolver  } },
@@ -235,7 +235,7 @@ const routes: Routes = [
     path: 'yard', component: YardComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: YardMasterListComponent },
+      { path: 'yard-list', component: YardMasterListComponent },
       { path: 'new', component: YardNewComponent },
       { path: 'edit/:id', component: YardEditComponent, resolve: { yardsResolver: YardsResolver } },
       { path: 'details/:id', component: YardDetailsComponent }
@@ -259,7 +259,7 @@ const routes: Routes = [
     path: 'container', component: ContainerComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: ContainerMasterListComponent },
+      { path: 'container-list', component: ContainerMasterListComponent },
       { path: 'new', component: ContainerNewComponent },
       { path: 'edit/:id', component: ContainerEditComponent, resolve: { containerResolver: ContainerResolver } },
       { path: 'details/:id', component: ContainerDetailsComponent }
@@ -270,7 +270,7 @@ const routes: Routes = [
     path: 'weight', component: WeightComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: WeightMasterListComponent },
+      { path: 'weight-list', component: WeightMasterListComponent },
       { path: 'new', component: WeightNewComponent },
       { path: 'edit/:id', component: WeightEditComponent, resolve: { weightsResolver: WeightsResolver } },
       { path: 'details/:id', component: WeightDetailsComponent }

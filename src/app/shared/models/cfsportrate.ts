@@ -8,8 +8,8 @@ export interface CfsPortRateMaster {
   orderMarginRate?: number;
   isActive?: boolean;
   createdBy?: number;
-  createdOn?: Date;
+  createdOn?: string;
   modifiedBy?: number;
-  modifiedOn?: Date;
+  modifiedOn?: string;
   containerMasterId?: number;
 }

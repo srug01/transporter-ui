@@ -21,8 +21,8 @@ export interface Cfs {
   additionalContactNumber?: string;
   portMasterId?: number;
   createdBy?: number;
-  createdOn?: Date;
+  createdOn?: string;
   modifiedBy?: number;
-  modifiedOn?: Date;
+  modifiedOn?: string;
   isActive?: boolean;
 }

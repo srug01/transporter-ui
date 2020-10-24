@@ -1,9 +1,9 @@
-export interface ContainerMaster { 
+export interface ContainerMaster {
   containerMasterId?: number;
   containerMasterName?: string;
   isActive?: boolean;
   createdBy?: number;
-  createdOn?: Date;
+  createdOn?: string;
   modifiedBy?: number;
-  modifiedOn?: Date;
+  modifiedOn?: string;
 }

@@ -66,8 +66,12 @@ export class BreadcrumbComponent implements OnInit {
         break;
       case 'cfs':
         details.label = 'CFS';
-        details.url = '/default/cfs/order-list';
+        details.url = '/default/masters/cfs/cfs-list';
         break;
+        case 'cfs-list':
+          details.label = 'List';
+          details.url = '/default/masters/cfs/cfs-list';
+          break;
       case 'create-order':
         details.label = 'Create Order';
         details.url = '/default/cfs/create-order';
@@ -128,7 +132,7 @@ export class BreadcrumbComponent implements OnInit {
         details.url = '/default/masters/yardcfsrate/yardcfsratelist';
         break;
       case 'yardcfsratelist':
-        details.label = 'list';
+        details.label = 'List';
         details.url = '/default/masters/yardcfsrate/yardcfsratelist';
         break;
       case 'cfs-yard-rate':
@@ -136,7 +140,7 @@ export class BreadcrumbComponent implements OnInit {
         details.url = '/default/masters/cfs-yard-rate/cfs-yard-rate-list';
         break;
       case 'cfs-yard-rate-list':
-        details.label = 'list';
+        details.label = 'List';
         details.url = '/default/masters/cfs-yard-rate/cfs-yard-rate-list';
         break;
       case 'diesel':
@@ -167,13 +171,45 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'List';
         details.url = '/default/masters/port/port-list';
         break;
+        case 'yard':
+          details.label = 'Yard';
+          details.url = '/default/masters/yard/yard-list';
+          break;
+        case 'yard-list':
+          details.label = 'List';
+          details.url = '/default/masters/yard/yard-list';
+          break;
       case 'state':
         details.label = 'State';
         details.url = '/default/masters/state/state-list';
         break;
-        case 'state-list':
+      case 'state-list':
+        details.label = 'List';
+        details.url = '/default/masters/state/state-list';
+        break;
+      case 'portterminal':
+        details.label = 'PortTerminal';
+        details.url = '/default/masters/portterminal/port-terminal-list';
+        break;
+      case 'port-terminal-list':
+        details.label = 'List';
+        details.url = '/default/masters/portterminal/port-terminal-list';
+        break;
+      case 'container':
+        details.label = 'Container';
+        details.url = '/default/masters/container/container-list';
+        break;
+      case 'container-list':
+        details.label = 'List';
+        details.url = '/default/masters/container/container-list';
+        break;
+      case 'weight':
+        details.label = 'Weight';
+        details.url = '/default/masters/weight/weight-list';
+        break;
+        case 'weight-list':
           details.label = 'List';
-          details.url = '/default/masters/state/state-list';
+          details.url = '/default/masters/weight/weight-list';
           break;
 
       case 'settings':

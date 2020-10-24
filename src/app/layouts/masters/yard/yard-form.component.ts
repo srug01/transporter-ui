@@ -231,7 +231,7 @@ export class YardFormComponent implements OnInit {
     this._yardService.saveYardMaster(yard).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard Master Created Successfully');
-        this._router.navigate(['/default/masters/yard/list']);
+        this._router.navigate(['/default/masters/yard/yard-list']);
       },
       (err) => {
         console.log('err');
@@ -244,7 +244,7 @@ export class YardFormComponent implements OnInit {
     this._yardService.updateYardMaster(yard).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard Master Updated Successfully');
-        this._router.navigate(['/default/masters/yard/list']);
+        this._router.navigate(['/default/masters/yard/yard-list']);
       },
       (err) => {
         console.log('err');

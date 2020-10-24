@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import * as moment from 'moment';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class WeightMasterListComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public weightMasters: Array<Weight> = [];
   public containerMasters: Array<ContainerMaster> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _weightService: WeightService,
     private _containerService: ContainerService,
@@ -38,7 +40,7 @@ export class WeightMasterListComponent implements OnInit {
     this.getAllContainerMasters();
 
   }
-  openDialog(ev, weightId: number) {
+  openDialog(ev, weightId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -84,7 +86,10 @@ export class WeightMasterListComponent implements OnInit {
 
 
 
-  deleteWeightById(weightId: number) {
+  deleteWeightById(weightId: any) {
+    weightId.isActive = false;
+    weightId.modifiedBy = this.userId;
+    weightId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._weightService.deleteWeightMasterById(weightId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Weight Master Deleted Successfully');

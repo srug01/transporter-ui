@@ -39,7 +39,7 @@ export class YardMasterListComponent implements OnInit {
     this.getAllPortMasters();
   }
 
-  openDialog(ev, yardId: number) {
+  openDialog(ev, yardId: any) {
     if (ev) {
       ev.preventDefault();
     }
