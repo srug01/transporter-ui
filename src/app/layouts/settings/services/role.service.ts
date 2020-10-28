@@ -7,6 +7,8 @@ import { Userrole } from 'src/app/shared/models/userrole';
 
 import { UserRole } from 'aws-sdk/clients/workmail';
 
+import { CutOff } from 'src/app/shared/models/CutOff';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -54,9 +56,9 @@ export class RoleService {
     return this.http.post<Userrole>(this.baseUrl + 'userroles', JSON.stringify(userRole), this.HttpUploadOptions);
   }
 
-  checkBidLogic(params: ThreeparamObj): Observable<any> {
-    //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + 'getCuttOffTime',
+  checkBidLogic(params: CutOff): Observable<any> {
+      console.log("Filter For API : " + JSON.stringify(params));
+    return this.http.post<any>(this.baseUrl + '/getCuttOffTimeScheduler',
       JSON.stringify(params),
       this.HttpUploadOptions
     );
