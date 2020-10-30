@@ -88,7 +88,7 @@ export class StateFormComponent implements OnInit {
     this._stateService.updateStateMaster(stateForm.value).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'State Master Updated Successfully');
-        this._router.navigate(['/default/masters/State/list']);
+        this._router.navigate(['/default/masters/state/list']);
       },
       (err) => {
         console.log('err');

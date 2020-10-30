@@ -64,9 +64,8 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Home';
         details.url = '/default';
         break;
-      case 'cfs':
-        details.label = 'CFS';
-        details.url = '/default/cfs/order-list';
+      case 'edit':
+        details.label = 'Edit';
         break;
       case 'create-order':
         details.label = 'Create Order';
@@ -219,6 +218,10 @@ export class BreadcrumbComponent implements OnInit {
       case 'register-driver':
         details.label = 'Register Driver';
         details.url = '/default/transporter/register-driver';
+        break;
+      case 'container':
+        details.label = 'Container';
+        details.url = '/default/masters/container/list';
         break;
       case 'list':
         details.label = 'List';

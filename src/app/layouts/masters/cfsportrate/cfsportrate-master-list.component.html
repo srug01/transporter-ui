@@ -30,7 +30,7 @@
 
             <ng-container matColumnDef="cfsMasterId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>CFS</th>
-                <td mat-cell *matCellDef="let element"> {{getCFSbyId(element.cfsMasterId)}} </td>
+                <td mat-cell *matCellDef="let element"> {{getCFSbyId(element.cfsMasterId) | uppercase}} </td>
             </ng-container>
 
             <ng-container matColumnDef="portMasterId">

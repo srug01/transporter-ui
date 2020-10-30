@@ -72,7 +72,7 @@ export class ConfigurationComponent implements OnInit {
   transformSetting(settingRow: Setting): Setting {
     return {
       settingsId: settingRow.settingsId,
-      isActive: settingRow.isActive ? settingRow.isActive : false,
+      isActive: settingRow.isActive ? settingRow.isActive : true,
       settingsName: settingRow.settingsName ? settingRow.settingsName : '',
       settingsValue: settingRow.settingsValue ? settingRow.settingsValue : ''
     } as Setting;
@@ -128,7 +128,7 @@ export class ConfigurationComponent implements OnInit {
       settingsId: [''],
       settingsName: [''],
       settingsValue: [''],
-      isActive: [null]
+      isActive: [true]
     });
     settingsArray.insert(arraylen, settingRow);
   }

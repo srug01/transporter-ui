@@ -153,7 +153,6 @@ export class PortFormComponent implements OnInit {
     if (this.portForm.valid) {
       const port: Port = this.transformPortObj(this.portForm.value);
       if (!this.portData) {
-        console.log(port);
         this.savePortMaster(port);
       } else {
         this.updatePortMaster(port);
@@ -167,7 +166,7 @@ export class PortFormComponent implements OnInit {
     this._portService.savePortMaster(port).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Master Created Successfully');
-        this._router.navigate(['/default/masters/port/list']);
+        this._router.navigate(['/default/masters/port/port-list']);
       },
       (err) => {
         console.log('err');
@@ -180,7 +179,7 @@ export class PortFormComponent implements OnInit {
     this._portService.updatePortMaster(port).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Master Updated Successfully');
-        this._router.navigate(['/default/masters/port/list']);
+        this._router.navigate(['/default/masters/port/port-list']);
       },
       (err) => {
         console.log('err');

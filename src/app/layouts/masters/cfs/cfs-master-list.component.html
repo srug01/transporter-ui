@@ -30,7 +30,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="cfsName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Cfs Name </th>
-                <td mat-cell *matCellDef="let element">{{element.cfsName}}
+                <td mat-cell *matCellDef="let element">{{element.cfsName | uppercase}}
                 </td>
             </ng-container>
 

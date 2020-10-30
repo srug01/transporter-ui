@@ -33,7 +33,7 @@
             <ng-container matColumnDef="cfsMasterId">
                 <th mat-header-cell *matHeaderCellDef>CFS</th>
                 <td mat-cell *matCellDef="let element">
-                    {{getCFSbyId(element.cfsMasterId)}} </td>
+                    {{getCFSbyId(element.cfsMasterId) | uppercase}} </td>
             </ng-container>
 
             <ng-container matColumnDef="portMasterId">

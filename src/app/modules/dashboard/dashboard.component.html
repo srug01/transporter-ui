@@ -115,7 +115,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="subOrderId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SubOrderID </th>
+                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5" mat-sort-header> SubOrderID </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.subOrderId}} </td>
                     </ng-container>
                     <ng-container matColumnDef="subOrderTotalMargin">
@@ -172,7 +172,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="subOrderId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SubOrder ID </th>
+                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5" mat-sort-header> SubOrder ID </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.subOrderId}} </td>
                     </ng-container>
 

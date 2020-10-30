@@ -12,7 +12,7 @@
                             <mat-label class="required">CFS Name</mat-label>
                             <mat-select matNativeControl formControlName="cfsMasterId" [errorStateMatcher]="cfsTypeErrormatcher">
                                 <mat-option *ngFor="let cfs of cfsTypes" [value]="cfs.cfsMasterId">
-                                    {{cfs.cfsName}}
+                                    {{cfs.cfsName | uppercase}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="userForm.controls['cfsMasterId'].hasError('required')">You must make a selection
@@ -103,7 +103,7 @@
                 </div>
                 <div fxLayout="row" fxLayoutGap="10px">
                     <button type="submit" mat-raised-button color="primary">Save</button>
-                    <button mat-raised-button color="warn">Cancel</button>
+                    <button type="button" mat-raised-button color="warn" (click)="cancel($event)">Cancel</button>
                 </div>
             </div>
         </form>
