@@ -14,6 +14,7 @@ import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class CfsportrateMasterListComponent implements OnInit {
   public Port: Array<any> = [];
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
+
   constructor(
     private _containerService: ContainerService,
     private _cfsrateService: CfsPortRateService,
@@ -152,10 +155,13 @@ export class CfsportrateMasterListComponent implements OnInit {
     );
   }
 
-  deletePortById(cfsrateId: number) {
+  deletePortById(cfsrateId: any) {
+    cfsrateId.isActive = false;
+    cfsrateId.modifiedBy = this.userId;
+    cfsrateId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._cfsrateService.deleteCfsRateMastersById(cfsrateId).subscribe(
       (res) => {
-        this.openSnackBar('Success !', 'CFS Rate Master Deleted Successfully');
+        this.openSnackBar('Success !', 'CFS Port Rate Master Deleted Successfully');
         this.getAllCfsRateMasters();
       }
     );

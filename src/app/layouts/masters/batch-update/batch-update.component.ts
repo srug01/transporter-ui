@@ -31,6 +31,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormGroup } from '@angular/forms';
 import { Batch } from 'aws-sdk/clients/all';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import * as moment from 'moment';
 
 
 
@@ -159,7 +160,7 @@ export class BatchUpdateComponent implements OnInit {
 
       if (cfsyardrate.cfsYardRateMasterId === 0) {
         cfsyardrate.createdBy = this.userId;
-        cfsyardrate.createdOn = new Date();
+        cfsyardrate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this._cfsyardrateService.saveCfsYardRateMaster(cfsyardrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'CFS Yard Rate Master Created Successfully');
@@ -173,7 +174,7 @@ export class BatchUpdateComponent implements OnInit {
 
       } else {
         cfsyardrate.modifiedBy = this.userId;
-        cfsyardrate.modifiedOn = new Date();
+        cfsyardrate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this._cfsyardrateService.updateCfsYardRateMaster(cfsyardrate).subscribe(
           (res) => {
             this.openSnackBar('Success !', 'CFS Yard Rate Master Updated Successfully');
@@ -205,7 +206,7 @@ export class BatchUpdateComponent implements OnInit {
 
       if (yardcfsrate.yardCfsRateMasterId === 0) {
         yardcfsrate.createdBy = this.userId;
-        yardcfsrate.createdOn = new Date();
+        yardcfsrate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         //this._yardcfsrateService.saveYardcfsrateMaster(rateMaster);
         this._yardcfsrateService.saveYardcfsrateMaster(yardcfsrate).subscribe(
           (res) => {
@@ -220,7 +221,7 @@ export class BatchUpdateComponent implements OnInit {
 
       } else {
         yardcfsrate.modifiedBy = this.userId;
-        yardcfsrate.modifiedOn = new Date();
+        yardcfsrate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         //this._yardcfsrateService.updateYardcfsrateMaster(rateMaster);
 
         this._yardcfsrateService.updateYardcfsrateMaster(yardcfsrate).subscribe(
@@ -252,7 +253,7 @@ export class BatchUpdateComponent implements OnInit {
 
       if (portcfsrate.portCfsRateMasterId === 0) {
         portcfsrate.createdBy = this.userId;
-        portcfsrate.createdOn = new Date();
+        portcfsrate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         // this._portcfsrateService.savePortCfsRateMaster(rateMaster);
         this._portcfsrateService.savePortCfsRateMaster(portcfsrate).subscribe(
           (res) => {
@@ -267,7 +268,7 @@ export class BatchUpdateComponent implements OnInit {
 
       } else {
         portcfsrate.modifiedBy = this.userId;
-        portcfsrate.modifiedOn = new Date();
+        portcfsrate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         // this._portcfsrateService.updatePortCfsRateMaster(rateMaster);
         this._portcfsrateService.updatePortCfsRateMaster(portcfsrate).subscribe(
           (res) => {
@@ -297,7 +298,7 @@ export class BatchUpdateComponent implements OnInit {
       } as CfsPortRateMaster;
       if (cfsportrate.cfsPortRateMasterId === 0) {
         cfsportrate.createdBy = this.userId;
-        cfsportrate.createdOn = new Date();
+        cfsportrate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
 
         this._cfsportrateService.saveCfsRateMaster(cfsportrate).subscribe(
           (res) => {
@@ -311,7 +312,7 @@ export class BatchUpdateComponent implements OnInit {
         );
       } else {
         cfsportrate.modifiedBy = this.userId;
-        cfsportrate.modifiedOn = new Date();
+        cfsportrate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
 
         this._cfsportrateService.updateCfsRateMaster(cfsportrate).subscribe(
           (res) => {

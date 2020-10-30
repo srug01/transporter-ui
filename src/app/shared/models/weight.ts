@@ -3,8 +3,8 @@ export interface Weight {
   weightDesc?: string;
   isActive?: boolean;
   createdBy?: number;
-  createdOn?: Date;
+  createdOn?: string;
   modifiedBy?: number;
-  modifiedOn?: Date;
+  modifiedOn?: string;
   containerMasterId?: number;
 }

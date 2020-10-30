@@ -27,7 +27,7 @@ export class CfsService {
   }
 
   updateCfsMaster(cfs: Cfs): Observable<any> {
-    return this.http.put<Cfs>(this.baseUrl + 'cfs-masters/' + cfs.cfsMasterId,
+    return this.http.patch<Cfs>(this.baseUrl + 'cfs-masters/' + cfs.cfsMasterId,
       JSON.stringify(cfs), this.HttpUploadOptions);
   }
 
@@ -45,8 +45,11 @@ export class CfsService {
     return this.http.get(this.baseUrl + 'cfs-masters/' + id);
   }
 
-  deleteCfsMasterById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'cfs-masters/' + id);
+  deleteCfsMasterById(cfs: Cfs): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'cfs-masters/' + id);
+    return this.http.patch<Cfs>(this.baseUrl + 'cfs-masters/' + cfs.cfsMasterId,
+    JSON.stringify(cfs), this.HttpUploadOptions);
+
   }
 }
 

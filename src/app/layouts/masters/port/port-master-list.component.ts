@@ -14,6 +14,7 @@ import { State } from 'src/app/shared/models/state';
 import { LocationMaster } from 'src/app/shared/models/location';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-port-master-list',
@@ -29,6 +30,7 @@ export class PortMasterListComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public states: Array<State> = [];
   public locations: Array<LocationMaster> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _portService: PortService,
@@ -60,7 +62,7 @@ export class PortMasterListComponent implements OnInit {
       }
     );
   }
-  openDialog(ev, portId: number) {
+  openDialog(ev, portId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -100,7 +102,10 @@ export class PortMasterListComponent implements OnInit {
       }
     }
   }
-  deletePortById(portId: number) {
+  deletePortById(portId: any) {
+    portId.isActive = false;
+    portId.modifiedBy = this.userId;
+    portId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._portService.deletePortMastersById(portId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Master Deleted Successfully');

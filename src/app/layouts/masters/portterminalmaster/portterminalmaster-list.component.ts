@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { PortterminalmasterService } from './../services/portterminalmaster.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class PortterminalmasterListComponent implements OnInit {
   public portMasters: Array<any> = [];
   public portterminalMasters: MatTableDataSource<PortTerminalMaster>;
   @ViewChild(MatSort) portterminalMasterSort: MatSort;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _portService: PortService,
@@ -40,7 +42,7 @@ export class PortterminalmasterListComponent implements OnInit {
     this.getAllPortTerminalMasters();
   }
 
-  openDialog(ev, porMastertId: number) {
+  openDialog(ev, porMastertId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -53,7 +55,10 @@ export class PortterminalmasterListComponent implements OnInit {
     });
 
   }
-  deletePortMasterById(porMastertId: number) {
+  deletePortMasterById(porMastertId: any) {
+    porMastertId.isActive = false;
+    porMastertId.modifiedBy = this.userId;
+    porMastertId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._portterminalService.deletePortTerminalMasterById(porMastertId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Port Terminal Master Deleted Successfully');

@@ -26,7 +26,7 @@ export class LocationService {
   }
 
   updateLocationMaster(location: LocationMaster): Observable<any> {
-    return this.http.put<LocationMaster>(
+    return this.http.patch<LocationMaster>(
       this.baseUrl + 'location-masters/' + location.locationMasterId,
       JSON.stringify(location),
       this.HttpUploadOptions
@@ -41,7 +41,12 @@ export class LocationService {
     return this.http.get(this.baseUrl + 'location-masters/' + id);
   }
 
-  deleteLocationMastersById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'location-masters/' + id);
+  deleteLocationMastersById(location: LocationMaster): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'location-masters/' + id);
+    return this.http.patch<LocationMaster>(
+      this.baseUrl + 'location-masters/' + location.locationMasterId,
+      JSON.stringify(location),
+      this.HttpUploadOptions
+    );
   }
 }

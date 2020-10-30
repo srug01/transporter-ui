@@ -14,6 +14,7 @@ import { User } from 'src/app/shared/models/user';
 import { PortCfsRateService } from '../../masters/services/portcfsrate.service';
 import { Cfs } from 'src/app/shared/models/cfs';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-portcfsrate-form',
@@ -30,6 +31,7 @@ export class PortcfsrateFormComponent implements OnInit {
   public containerMaster: Array<any> = [];
   public currentUser: User;
   public cfs: Cfs;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -60,7 +62,7 @@ export class PortcfsrateFormComponent implements OnInit {
         rate: [this.portcfsrateData.rate ? this.portcfsrateData.rate : 0, Validators.required],
         bidMarginRate: [this.portcfsrateData.bidMarginRate ? this.portcfsrateData.bidMarginRate : 0, Validators.required],
         orderMarginRate: [this.portcfsrateData.orderMarginRate ? this.portcfsrateData.orderMarginRate : 0, Validators.required],
-        isActive: [this.portcfsrateData.isActive ? this.portcfsrateData.isActive : true, Validators.required]
+        isActive: [this.portcfsrateData.isActive === false ? false  : true, Validators.required]
       });
       this.getPortMasterForCfs(this.portcfsrateData.portMasterId);
       this.getAllWeightMastersbyContainerID(this.portcfsrateData.containerMasterId);
@@ -159,10 +161,6 @@ export class PortcfsrateFormComponent implements OnInit {
       rate: portcfsRate.rate,
       bidMarginRate: portcfsRate.bidMarginRate,
       orderMarginRate: portcfsRate.orderMarginRate,
-      createdBy: this.currentUser.userId,
-      modifiedBy: this.currentUser.userId,
-      createdOn: new Date(),
-      modifiedOn: new Date(),
       isActive: portcfsRate.isActive
     } as PortCfsRateMaster;
   }
@@ -174,8 +172,12 @@ export class PortcfsrateFormComponent implements OnInit {
     if (this.portcfsrateForm.valid) {
       const portcfsRate = this.transformCfsRateObj(this.portcfsrateForm.value);
       if (!this.portcfsrateData) {
+        portcfsRate.createdBy = this.userId;
+        portcfsRate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.savePortCfsrateMaster(portcfsRate);
       } else {
+        portcfsRate.modifiedBy = this.userId;
+        portcfsRate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updatePortCfsrateMaster(portcfsRate);
       }
     } else {

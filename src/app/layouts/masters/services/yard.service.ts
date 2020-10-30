@@ -26,7 +26,7 @@ export class YardService {
   }
 
   updateYardMaster(yard: Yard): Observable<any> {
-    return this.http.put<Yard>(this.baseUrl + 'yard-masters/'+ yard.yardMasterId, JSON.stringify(yard), this.HttpUploadOptions);
+    return this.http.patch<Yard>(this.baseUrl + 'yard-masters/'+ yard.yardMasterId, JSON.stringify(yard), this.HttpUploadOptions);
   }
 
   getAllYardMasters(): Observable<any> {
@@ -41,8 +41,9 @@ export class YardService {
     return this.http.get(this.baseUrl + 'yard-masters/' + id);
   }
 
-  deleteYardMasterById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'yard-masters/' + id);
+  deleteYardMasterById(yard: Yard): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'yard-masters/' + id);
+    return this.http.patch<Yard>(this.baseUrl + 'yard-masters/'+ yard.yardMasterId, JSON.stringify(yard), this.HttpUploadOptions);
   }
 
 }

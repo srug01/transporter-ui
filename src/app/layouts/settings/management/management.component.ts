@@ -22,12 +22,17 @@ export class ManagementComponent implements OnInit {
       name:'Configurations',
       icon: 'assignment',
       url: '/default/settings/configuration'
+    },
+    {
+      name:'Bid Logic',
+      icon: 'assignment_turned_in',
+      url: '/default/settings/bidlogic'
     }
   ];
 
   constructor() { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
   }
 
 }

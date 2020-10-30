@@ -25,7 +25,7 @@ export class ContainerService {
   }
 
   updateContainerMaster(container: ContainerMaster): Observable<ContainerMaster> {
-    return this.http.put<ContainerMaster>(
+    return this.http.patch<ContainerMaster>(
       this.baseUrl + 'container-masters/' + container.containerMasterId, JSON.stringify(container),
       this.HttpUploadOptions
     );
@@ -43,8 +43,12 @@ export class ContainerService {
     return this.http.get<any>(this.baseUrl + 'GetAllCFSContainerAndWeights'+ '/' + masterTypeId + '/' + cfsMasterId);
   }
 
-  deleteContainerMastersById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'container-masters/' + id);
+  deleteContainerMastersById(container: ContainerMaster): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'container-masters/' + id);
+    return this.http.patch<ContainerMaster>(
+      this.baseUrl + 'container-masters/' + container.containerMasterId, JSON.stringify(container),
+      this.HttpUploadOptions
+    );
   }
 
 }

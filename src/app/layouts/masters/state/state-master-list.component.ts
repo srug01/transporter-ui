@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { AnyLengthString } from 'aws-sdk/clients/comprehend';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-state-master-list',
@@ -18,11 +20,12 @@ import { MatSort } from '@angular/material/sort';
 export class StateMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'stateMasterId', 'stateName', 'is_active', 'action'
+    'stateMasterId', 'state', 'Is Active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public stateMasters: MatTableDataSource<State>;
   @ViewChild(MatSort) stateMasterSort: MatSort;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _stateService: StateMasterService,
@@ -34,7 +37,7 @@ export class StateMasterListComponent implements OnInit {
     this.getAllStateMasters();
   }
 
-  openDialog(ev, stateId: number) {
+  openDialog(ev, stateId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -59,7 +62,11 @@ export class StateMasterListComponent implements OnInit {
     );
   }
 
-  deleteStateById(stateId: number) {
+  deleteStateById(stateId: any) {
+
+    stateId.isActive = false;
+    stateId.modifiedBy = this.userId;
+    stateId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._stateService.deleteStateMastersById(stateId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'State Master Deleted Successfully');

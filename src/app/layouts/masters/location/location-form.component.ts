@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { LocationService } from '../services/location.service';
 import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
 import { User } from 'src/app/shared/models/user';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-location-form',
@@ -41,7 +42,7 @@ export class LocationFormComponent implements OnInit {
         locationMasterId: [this.locationData.locationMasterId ? this.locationData.locationMasterId : ''],
         locationName: [this.locationData.locationName ? this.locationData.locationName : '', Validators.required],
         stateMasterId: [this.locationData.stateMasterId ? this.locationData.stateMasterId : '', Validators.required],
-        isActive: [this.locationData.isActive ? this.locationData.isActive : true, Validators.required]
+        isActive: [this.locationData.isActive === false ? false  : true, Validators.required]
       });
     } else {
       this.locationForm = this.fb.group({
@@ -77,8 +78,7 @@ export class LocationFormComponent implements OnInit {
       locationName: location.locationName,
       isActive: location.isActive,
       stateMasterId: location.stateMasterId,
-      createdBy: this.currentUser.userId,
-      createdOn: new Date()
+
     } as LocationMaster;
   }
 
@@ -89,8 +89,12 @@ export class LocationFormComponent implements OnInit {
     if (this.locationForm.valid) {
       const location: LocationMaster = this.transformLocationObj(this.locationForm.value);
       if (!this.locationData) {
+        location.createdBy= this.currentUser.userId;
+        location.createdOn= moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.saveLocationMaster(location);
       } else {
+        location.modifiedBy= this.currentUser.userId;
+        location.modifiedOn= moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updateLocationMaster(location);
       }
     } else {
@@ -102,7 +106,7 @@ export class LocationFormComponent implements OnInit {
     this._locationService.saveLocationMaster(location).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Created Successfully');
-        this._router.navigate(['/default/masters/location/list']);
+        this._router.navigate(['/default/masters/location/location-list']);
       },
       (err) => {
         this.openSnackBar('Failure !', 'Could not create Location!');
@@ -114,7 +118,7 @@ export class LocationFormComponent implements OnInit {
     this._locationService.updateLocationMaster(location).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Updated Successfully');
-        this._router.navigate(['/default/masters/location/list']);
+        this._router.navigate(['/default/masters/location/location-list']);
       },
       (err) => {
         this.openSnackBar('Failure !', 'Could not update Location!');

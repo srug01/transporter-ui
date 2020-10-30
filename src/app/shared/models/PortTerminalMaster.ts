@@ -6,8 +6,8 @@ export interface PortTerminalMaster {
     latitude?: string;
     isActive:boolean;
     createdBy?: number;
-    createdOn?: Date;
+    createdOn?: string;
     modifiedBy?: number;
-    modifiedOn?: Date;
+    modifiedOn?: string;
 
 }

@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-location-list',
@@ -16,11 +17,12 @@ import { MatSort } from '@angular/material/sort';
 })
 export class LocationListComponent implements OnInit {
   displayedColumns: string[] = [
-    'Location ID', 'locationName', 'createdBy', 'createdOn', 'is Active', 'Action'
+    'Location ID', 'Location Name', 'Is Active', 'Action'
   ];
   public locationMasters: MatTableDataSource<LocationMaster>;
   @ViewChild(MatSort) locationMasterSort: MatSort;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _locationService: LocationService,
@@ -33,7 +35,7 @@ export class LocationListComponent implements OnInit {
     this.getAllLocationMasters();
   }
 
-  openDialog(ev, locationMasterId: number) {
+  openDialog(ev, locationMasterId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -57,7 +59,10 @@ export class LocationListComponent implements OnInit {
     );
   }
 
-  deleteLocationById(locationMasterId: number) {
+  deleteLocationById(locationMasterId: any) {
+    locationMasterId.isActive = false;
+    locationMasterId.modifiedBy = this.userId;
+    locationMasterId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._locationService.deleteLocationMastersById(locationMasterId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Location Master Deleted Successfully');

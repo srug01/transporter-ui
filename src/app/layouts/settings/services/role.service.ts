@@ -4,7 +4,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
 import { Userrole } from 'src/app/shared/models/userrole';
+
 import { UserRole } from 'aws-sdk/clients/workmail';
+
+import { CutOff } from 'src/app/shared/models/CutOff';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +56,13 @@ export class RoleService {
     return this.http.post<Userrole>(this.baseUrl + 'userroles', JSON.stringify(userRole), this.HttpUploadOptions);
   }
 
+  checkBidLogic(params: CutOff): Observable<any> {
+      console.log("Filter For API : " + JSON.stringify(params));
+    return this.http.post<any>(this.baseUrl + '/getCuttOffTimeScheduler',
+      JSON.stringify(params),
+      this.HttpUploadOptions
+    );
+  }
 
 
 }

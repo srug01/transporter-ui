@@ -13,8 +13,8 @@ export interface Yard {
   longitude?: string;
   createdBy?: number;
   modifiedBy?: number;
-  createdOn?: Date;
-  modifiedOn?: Date;
+  createdOn?: string;
+  modifiedOn?: string;
   primarycontactperson?: string;
   primarycontactnumber?: string;
 

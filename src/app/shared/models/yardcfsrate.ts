@@ -10,7 +10,7 @@ export interface YardCFSRate {
   isActive?: boolean;
   createdBy?: number;
   modifiedBy?: number;
-  createdOn?: Date;
-  modifiedOn?: Date;
+  createdOn?: string;
+  modifiedOn?: string;
   portMasterId?: number;
 }

@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
 
 
 @Component({
@@ -20,11 +21,12 @@ import { MatTableDataSource } from '@angular/material/table';
 export class CfsMasterListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'cfsMasterId', 'cfsName', 'contactNumber', 'email',
-    'address', 'isActive', 'createdBy', 'action'
+    'address', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild(MatSort) csfMasterSort: MatSort;
   public cfsMasters: MatTableDataSource<CfsMaster>;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   searchList: any = [
     { cfsMasterId: 1, cfs_name: 'value' }
   ];
@@ -46,7 +48,7 @@ export class CfsMasterListComponent implements OnInit, AfterViewInit {
 
   demo(ev) {
   }
-  openDialog(ev, cfsId: number) {
+  openDialog(ev, cfsId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -69,7 +71,10 @@ export class CfsMasterListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  deleteCfsById(cfsId: number) {
+  deleteCfsById(cfsId: any) {
+    cfsId.isActive = false;
+    cfsId.modifiedBy = this.userId;
+    cfsId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._cfsService.deleteCfsMasterById(cfsId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Master Deleted Successfully');

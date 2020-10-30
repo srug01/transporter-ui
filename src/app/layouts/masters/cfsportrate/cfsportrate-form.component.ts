@@ -13,6 +13,7 @@ import { ContainerService } from '../services/container.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { Cfs } from 'src/app/shared/models/cfs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-cfsportrate-form',
@@ -29,6 +30,7 @@ export class CfsportrateFormComponent implements OnInit {
   public containerMaster: Array<any> = [];
   public cfs: Cfs;
   public currentUser: User;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -57,7 +59,7 @@ export class CfsportrateFormComponent implements OnInit {
         rate: [this.cfsportrateData.rate ? this.cfsportrateData.rate : 0, Validators.required],
         bidMarginRate: [this.cfsportrateData.bidMarginRate ? this.cfsportrateData.bidMarginRate : 0, Validators.required],
         orderMarginRate: [this.cfsportrateData.orderMarginRate ? this.cfsportrateData.orderMarginRate : 0, Validators.required],
-        isActive: [this.cfsportrateData.isActive ? this.cfsportrateData.isActive : true, Validators.required]
+        isActive: [this.cfsportrateData.isActive === false ? false  : true, Validators.required]
       });
       this.getPortMasterForCfs(this.cfsportrateData.portMasterId);
       this.getAllWeightMastersbyContainerID(this.cfsportrateData.containerMasterId);
@@ -170,10 +172,6 @@ export class CfsportrateFormComponent implements OnInit {
       rate: cfsRate.rate,
       orderMarginRate : cfsRate.orderMarginRate,
       bidMarginRate: cfsRate.bidMarginRate,
-      createdBy: this.currentUser.userId,
-      modifiedBy: this.currentUser.userId,
-      createdOn: new Date(),
-      modifiedOn: new Date(),
       isActive: cfsRate.isActive
     } as CfsPortRateMaster;
   }
@@ -185,8 +183,12 @@ export class CfsportrateFormComponent implements OnInit {
     if (this.cfsrateForm.valid) {
       const cfsRate = this.transformCfsRateObj(this.cfsrateForm.value);
       if (!this.cfsportrateData) {
+        cfsRate.createdBy = this.userId;
+        cfsRate.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
          this.saveCfsrateMaster(cfsRate);
       } else {
+        cfsRate.modifiedBy = this.userId;
+        cfsRate.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updateCfsrateMaster(cfsRate);
       }
     } else {

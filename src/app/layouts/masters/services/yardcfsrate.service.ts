@@ -21,7 +21,7 @@ export class YardCFSRateService {
 
   saveYardcfsrateMaster(yardcfsrate: YardCFSRate): Observable<any> {
     delete yardcfsrate.yardCfsRateMasterId;
-    yardcfsrate.createdOn = new Date();
+    // yardcfsrate.createdOn = new Date();
     return this.http.post<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters',
       JSON.stringify(yardcfsrate), this.HttpUploadOptions);
   }
@@ -39,7 +39,9 @@ export class YardCFSRateService {
     return this.http.get(this.baseUrl + 'yard-cfs-rate-masters/' + id);
   }
 
-  deleteYardcfsrateMasterById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'yard-cfs-rate-masters/' + id);
+  deleteYardcfsrateMasterById(yardcfsrate: YardCFSRate): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'yard-cfs-rate-masters/' + id);
+    return this.http.patch<YardCFSRate>(this.baseUrl + 'yard-cfs-rate-masters/' +
+    yardcfsrate.yardCfsRateMasterId, JSON.stringify(yardcfsrate), this.HttpUploadOptions);
   }
 }

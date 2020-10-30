@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ContainerService } from '../services/container.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
+import * as moment from 'moment';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ContainerFormComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   public currentUser: User;
   public containerForm: FormGroup;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _ngZone: NgZone,
     private fb: FormBuilder,
@@ -35,9 +37,9 @@ export class ContainerFormComponent implements OnInit {
     if (this.containerData) {
       this.containerForm = this.fb.group({
         containerMasterId: [this.containerData.containerMasterId ? this.containerData.containerMasterId : ''],
-        containerMasterName: [this.containerData.containerMasterName ? this.containerData.containerMasterName : '', 
+        containerMasterName: [this.containerData.containerMasterName ? this.containerData.containerMasterName : '',
           Validators.compose([Validators.required, Validators.maxLength(30)])],
-        isActive: [this.containerData.isActive ? this.containerData.isActive : true, Validators.required],
+        isActive: [this.containerData.isActive === false ? false  : true, Validators.required],
         createdBy: [this.containerData.createdBy ? this.containerData.createdBy : ''],
         createdOn: [this.containerData.createdOn ? this.containerData.createdOn : ''],
         modifiedBy: [this.containerData.modifiedBy ? this.containerData.modifiedBy : ''],
@@ -69,11 +71,7 @@ export class ContainerFormComponent implements OnInit {
     return {
       containerMasterId: container.containerMasterId,
       containerMasterName: container.containerMasterName,
-      createdBy: this.currentUser.userId,
-      createdOn: new Date(),
       isActive: container.isActive,
-      modifiedBy: this.currentUser.userId,
-      modifiedOn: new Date()
     } as ContainerMaster;
   }
 
@@ -84,8 +82,12 @@ export class ContainerFormComponent implements OnInit {
     if (this.containerForm.valid) {
       const containerMaster: ContainerMaster = this.transformContainerObj(this.containerForm.value);
       if (!this.containerData) {
+        containerMaster.createdBy = this.userId;
+        containerMaster.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.saveContainerMaster(containerMaster);
       } else {
+        containerMaster.modifiedBy = this.userId;
+        containerMaster.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updateContainerMaster(containerMaster);
       }
     } else {
@@ -97,7 +99,7 @@ export class ContainerFormComponent implements OnInit {
     this._containereService.saveContainerMaster(containerMaster).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Container Master Created Successfully');
-        this._router.navigate(['/default/masters/container/list']);
+        this._router.navigate(['/default/masters/container/container-list']);
       },
       (err) => {
         console.log('err');
@@ -110,7 +112,7 @@ export class ContainerFormComponent implements OnInit {
     this._containereService.updateContainerMaster(containerMaster).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Container Master Updated Successfully');
-        this._router.navigate(['/default/masters/container/list']);
+        this._router.navigate(['/default/masters/container/container-list']);
       },
       (err) => {
         console.log('err');

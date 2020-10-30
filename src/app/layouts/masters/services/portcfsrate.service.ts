@@ -37,8 +37,12 @@ export class PortCfsRateService {
     return this.http.get(this.baseUrl + 'port-cfs-rate-masters/' + id);
   }
 
-  deletePortCfsRateMastersById(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'port-cfs-rate-masters/' + id);
+  deletePortCfsRateMastersById(portcfsrate: PortCfsRateMaster): Observable<any> {
+    // return this.http.delete(this.baseUrl + 'port-cfs-rate-masters/' + id);
+    return this.http.patch<PortCfsRateMaster>(
+      this.baseUrl + 'port-cfs-rate-masters/' + portcfsrate.portCfsRateMasterId,
+      JSON.stringify(portcfsrate), this.HttpUploadOptions
+    );
   }
 
 }

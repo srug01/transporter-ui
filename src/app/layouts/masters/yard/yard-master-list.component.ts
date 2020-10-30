@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import { PortService } from '../services/port.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-yard-master-list',
@@ -26,6 +27,7 @@ export class YardMasterListComponent implements OnInit {
   public portMasters: Array<any> = [];
   public yardMasters: MatTableDataSource<Yard>;
   @ViewChild(MatSort) yardSort: MatSort;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _yardService: YardService,
     private _snackBar: MatSnackBar,
@@ -40,7 +42,7 @@ export class YardMasterListComponent implements OnInit {
     this.getAllPortMasters();
   }
 
-  openDialog(ev, yardId: number) {
+  openDialog(ev, yardId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -80,8 +82,10 @@ export class YardMasterListComponent implements OnInit {
       }
     }
   }
-  deleteYardById( yardId: number) {
-
+  deleteYardById(yardId: any) {
+    yardId.isActive = false;
+    yardId.modifiedBy = this.userId;
+    yardId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._yardService.deleteYardMasterById(yardId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Yard Master Deleted Successfully');

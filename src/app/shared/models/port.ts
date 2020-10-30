@@ -5,9 +5,9 @@ export interface Port {
     locationMasterId?: string;
     isActive?: boolean;
     createdBy?: number;
-    createdOn?: Date;
+    createdOn?: string;
     modifiedBy?: number;
-    modifiedOn?: Date;
+    modifiedOn?: string;
     latitude?: string;
     longitude?: string;
     address1?: string;
@@ -16,5 +16,6 @@ export interface Port {
     pincode?: string;
     primarycontactperson?: string;
     primarycontactnumber?: string;
+
 
 }

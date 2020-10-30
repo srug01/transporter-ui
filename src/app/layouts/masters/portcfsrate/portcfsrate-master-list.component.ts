@@ -14,6 +14,7 @@ import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-portcfsrate-master-list',
@@ -33,6 +34,7 @@ export class PortcfsrateMasterListComponent implements OnInit {
   public Port: Array<any> = [];
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _containerService: ContainerService,
     private _portcfsrateService: PortCfsRateService,
@@ -73,7 +75,7 @@ export class PortcfsrateMasterListComponent implements OnInit {
 
 
 
-  openDialog(ev, portId: number) {
+  openDialog(ev, portId: any) {
     if (ev) {
       ev.preventDefault();
     }
@@ -152,7 +154,10 @@ export class PortcfsrateMasterListComponent implements OnInit {
     );
   }
 
-  deletePortById(portcfsrateId: number) {
+  deletePortById(portcfsrateId: any) {
+    portcfsrateId.isActive = false;
+    portcfsrateId.modifiedBy = this.userId;
+    portcfsrateId.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     this._portcfsrateService.deletePortCfsRateMastersById(portcfsrateId).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'CFS Rate Master Deleted Successfully');

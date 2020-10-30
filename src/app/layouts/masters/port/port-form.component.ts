@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StateMasterService } from '../services/state-master.service';
 import { PortService } from '../services/port.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-port-form',
   templateUrl: './port-form.component.html',
@@ -26,7 +27,7 @@ export class PortFormComponent implements OnInit {
   public stateMasters: Array<State> = [];
   public locationMasters: Array<LocationMaster> = [];
   public currentUser: User;
-
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _ngZone: NgZone,
@@ -64,7 +65,7 @@ export class PortFormComponent implements OnInit {
         longitude: [this.portData.longitude ? this.portData.longitude : ''],
         stateMasterId: [this.portData.stateMasterId ? this.portData.stateMasterId : '', Validators.required],
         locationMasterId: [this.portData.locationMasterId ? this.portData.locationMasterId : '', Validators.required],
-        isActive: [this.portData.isActive ? this.portData.isActive :true, Validators.required],
+        isActive: [this.portData.isActive === false ? false  : true, Validators.required],
         primarycontactperson: [this.portData.primarycontactperson ? this.portData.primarycontactperson : '', Validators.required],
         primarycontactnumber: [this.portData.primarycontactnumber ? this.portData.primarycontactnumber : '', Validators.required],
 
@@ -127,14 +128,10 @@ export class PortFormComponent implements OnInit {
   transformPortObj(port: any): Port {
     return {
       portMasterId: port.portMasterId ? port.portMasterId : 0,
-      createdBy: this.currentUser.userId,
-      createdOn: new Date(),
       isActive: port.isActive,
       latitude: port.latitude,
       longitude: port.longitude,
       locationMasterId: port.locationMasterId,
-      modifiedBy: this.currentUser.userId,
-      modifiedOn: new Date(),
       portName: port.portName,
       address1:port.address1 ,
       address2: port.address2 ,
@@ -153,8 +150,12 @@ export class PortFormComponent implements OnInit {
     if (this.portForm.valid) {
       const port: Port = this.transformPortObj(this.portForm.value);
       if (!this.portData) {
+        port.createdBy = this.userId;
+        port.createdOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.savePortMaster(port);
       } else {
+        port.modifiedBy = this.userId;
+        port.modifiedOn = moment().format('YYYY-MM-DD h:mm:ss a').toString();
         this.updatePortMaster(port);
       }
     } else {
