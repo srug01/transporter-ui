@@ -1,7 +1,10 @@
+import { Transporter } from 'src/app/shared/models/transporter';
 import { TransporterRegistrationService } from './../services/transporter-registration.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-transporter-list',
@@ -12,9 +15,8 @@ export class TransporterListComponent implements OnInit {
   displayedColumns: string[] = [
     'serialnumber', 'transporterEmail', 'transporterName', 'transporterMobileNumber', 'action'
   ];
-  public transporters: [];
-
-
+  public transporters: MatTableDataSource<Transporter>;
+  @ViewChild(MatSort) transporterSort: MatSort;
   constructor(
     private _transporterService: TransporterRegistrationService,
     public dialog: MatDialog
@@ -27,11 +29,11 @@ export class TransporterListComponent implements OnInit {
   getAllTransporters() {
     this._transporterService.getAllTransporters().subscribe(
       (transporters) => {
-        this.transporters = transporters;
+        this.transporters = new MatTableDataSource(transporters);
+        this.transporters.sort = this.transporterSort;
       },
       (err) => {
         console.log(err);
-
       }
     );
   }
@@ -51,7 +53,6 @@ export class TransporterListComponent implements OnInit {
   deleteTransporterById(transporterId: number) {
     this._transporterService.deleteTransporterById(transporterId).subscribe(
       (res) => {
-        console.log(res);
         this.getAllTransporters();
       }
     );

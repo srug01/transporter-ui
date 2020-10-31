@@ -1,3 +1,4 @@
+import { PortCfsRateMaster } from './../../../shared/models/portcfsrate';
 import { Component, OnInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
@@ -11,6 +12,8 @@ import { PortService } from '../services/port.service';
 import { WeightService } from '../services/weight.service';
 import { CfsService } from '../services/cfs.service';
 import { ContainerService } from '../services/container.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import * as moment from 'moment';
 
 @Component({
@@ -24,9 +27,10 @@ export class PortcfsrateMasterListComponent implements OnInit {
     'portCfsRateMasterId', 'cfsMasterId', 'portMasterId', 'weightMasterId',
     'containerMasterId', 'rate', 'isActive', 'action'
   ];
+  public portcfsrateMasters: MatTableDataSource<PortCfsRateMaster>;
+  @ViewChild(MatSort) portcfsrateMasterSort: MatSort;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public containerMasters: Array<any> = [];
-  public portcfsrateMasters: Array<any> = [];
   public Port: Array<any> = [];
   public Weight: Array<any> = [];
   public CFS: Array<any> = [];
@@ -142,7 +146,8 @@ export class PortcfsrateMasterListComponent implements OnInit {
   getAllPortCfsRateMasters() {
     this._portcfsrateService.getAllPortCfsRateMasters().subscribe(
       (portcfsrateMasters) => {
-        this.portcfsrateMasters = portcfsrateMasters;
+        this.portcfsrateMasters = new MatTableDataSource(portcfsrateMasters);
+        this.portcfsrateMasters.sort = this.portcfsrateMasterSort;
       },
       (err) => {
       }

@@ -12,7 +12,7 @@
                                 <mat-label>CFS</mat-label>
                                 <mat-select formControlName="cfsMasterId" [errorStateMatcher]="matcher" (valueChange)="cfsSelected($event)">
                                     <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
-                                        {{ cfs.cfsName }}
+                                        {{ cfs.cfsName | uppercase }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>

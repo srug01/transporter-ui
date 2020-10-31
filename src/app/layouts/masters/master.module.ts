@@ -161,6 +161,7 @@ import { CfsYardRateResolver } from './resolvers/cfsyardrate.resolver';
 import { PortCfsRateResolver } from './resolvers/portcfsrate.resolver';
 import { BatchUpdateComponent } from './batch-update/batch-update.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -200,7 +201,7 @@ const routes: Routes = [
   {
     path: 'port', component: PortComponent,
     children: [
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'port-list', pathMatch: 'full' },
       { path: 'port-list', component: PortMasterListComponent },
       { path: 'new', component: PortNewComponent },
       { path: 'edit/:id', component: PortEditComponent, resolve: { portsResolver: PortsResolver } },
@@ -210,7 +211,7 @@ const routes: Routes = [
   {
     path: 'location', component: PortComponent,
     children: [
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'location-list', pathMatch: 'full' },
       { path: 'location-list', component: LocationListComponent },
       { path: 'new', component: LocationNewComponent },
       { path: 'edit/:id', component: LocationEditComponent, resolve: { locationResolver: LocationResolver } },
@@ -552,7 +553,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule
   ],
   providers: [
     StateMasterService,

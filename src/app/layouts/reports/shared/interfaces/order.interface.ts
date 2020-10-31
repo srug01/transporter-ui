@@ -10,11 +10,13 @@ export interface subOrder {
 }
 
 export interface Bid {
-  ['Bid ID']: number;
-  bidName: string;
-  bidValue: number;
-  biduserStatus: string;
-  bidStatus: string;
+  ['Bid ID']?: number;
+  bidName?: string;
+  bidValue?: number;
+  biduserStatus?: string;
+  bidStatus?: string;
+  bidId?: number;
+  bidRate? : number;
 }
 
 export interface KidRecord {

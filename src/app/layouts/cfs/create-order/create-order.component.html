@@ -53,7 +53,7 @@
                                     <mat-label class="required">CFS</mat-label>
                                     <mat-select matNativeControl formControlName="sourceId" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
-                                            {{cfs.cfsName}}
+                                            {{cfs.cfsName | uppercase}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['sourceId'].hasError('required')">You must make a selection
@@ -122,7 +122,7 @@
                                     <mat-label class="required">CFS</mat-label>
                                     <mat-select matNativeControl formControlName="destinationId" [errorStateMatcher]="errorStateMatcher">
                                         <mat-option *ngFor="let cfs of cfsMasters" [value]="cfs.cfsMasterId">
-                                            {{cfs.cfsName}}
+                                            {{cfs.cfsName | uppercase}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="orderForm.controls['destinationId'].hasError('required')">You must make a selection

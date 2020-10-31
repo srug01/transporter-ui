@@ -14,8 +14,9 @@ import { User } from 'src/app/shared/models/user';
 import { BidUserMappingService } from '../services/bid-user-mapping.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginComponent } from 'src/app/default/welcome/login/login.component';
 import { StausEnum } from '../../../shared/Enum/statusEnum';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-bids',
@@ -24,18 +25,17 @@ import { StausEnum } from '../../../shared/Enum/statusEnum';
 })
 export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid Mapping ID', 'Bid Name', 'Bid Status',
-    'SourceName','destinationName','containerMasterName', 'weightDesc',
-    'BidValue','originalRate', 'Details'
+    'Bid Mapping ID', 'bidName', 'biduserStatus',
+    'sourceName', 'destinationName', 'containerMasterName', 'weightDesc',
+    'bidValue', 'originalRate', 'Details'
   ];
-  bids: BidUserMapping[] = [];
-  id:number;
+  public bids: MatTableDataSource<Bid>;
+  @ViewChild(MatSort) bidsSort: MatSort;
+  id: number;
   public currentUser: User;
-  public userid=localStorage.getItem('userID');
+  public userid = localStorage.getItem('userID');
   public detailsAwaited = Constants.detailsAwaited;
-
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
   constructor(
     private _ngZone: NgZone,
     private _bidService: BidsService,
@@ -49,8 +49,8 @@ export class BidsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserInfo();
-   //this.getAllConfirmedBids();
-   this.getAllBidsByUserID();
+    //this.getAllConfirmedBids();
+    this.getAllBidsByUserID();
   }
 
   getUserInfo() {
@@ -64,7 +64,8 @@ export class BidsComponent implements OnInit {
   getAllConfirmedBids() {
     this._bidMappingService.getAllConfirmedBids().subscribe(
       (bids: BidUserMapping[]) => {
-        this.bids = bids;
+        this.bids = new MatTableDataSource(bids);
+        this.bids.sort = this.bidsSort;
       },
       (err) => {
         console.log(err);
@@ -72,11 +73,11 @@ export class BidsComponent implements OnInit {
     );
   }
 
-  GetBidDetailsByBidId(id:number) {
-
+  GetBidDetailsByBidId(id: number) {
     this._bidMappingService.GetBidDetailsByBidId(id).subscribe(
-      (bids: BidUserMapping[]) => {
-        this.bids = bids;
+      (bids: any) => {
+        this.bids = new MatTableDataSource(bids);
+        this.bids.sort = this.bidsSort;
       },
       (err) => {
         console.log(err);
@@ -85,12 +86,10 @@ export class BidsComponent implements OnInit {
   }
 
   getAllBidsByUserID() {
-    console.log(localStorage.getItem('userID'));
-
     this._bidMappingService.GetBidsbyUserId(Number(this.userid)).subscribe(
-      (bids: BidUserMapping[]) => {
-        this.bids = bids;
-        console.log(this.bids);
+      (bids: any) => {
+        this.bids = new MatTableDataSource(bids);
+        this.bids.sort = this.bidsSort;
       },
       (err) => {
         console.log(err);

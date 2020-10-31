@@ -4,7 +4,7 @@ import { FormErrorStateMatcher } from 'src/app/shared/matchers/error.matcher';
 import { User } from 'src/app/shared/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TransporterRegistrationService } from '../services/transporter-registration.service';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from 'src/app/shared/services/image-upload.service';
 import { UserService } from 'src/app/services/user.service';
 import { Transporter } from 'src/app/shared/models/transporter';
@@ -47,6 +47,7 @@ export class TransporterFormComponent implements OnInit {
         this.currentUser = user;
       }
     );
+    console.log(this.transporterData);
     if (this.transporterData) {
       // the api is not getting all the data for transporter in order to edit
       this.populateForm();
@@ -69,6 +70,7 @@ export class TransporterFormComponent implements OnInit {
       transporterPartnerPAN: ['', Validators.required],
       transporterPartnerAddress: ['', Validators.required],
       transporterBankAccNumber: ['', Validators.required],
+      transporterConfirmBankAccNumber: ['', Validators.required],
       transporterBankAccType: ['', Validators.required],
       transporterBankName: ['', Validators.required],
       transporterBankBranch: ['', Validators.required],
@@ -79,7 +81,7 @@ export class TransporterFormComponent implements OnInit {
       transporterPermitFile: [''],
       transporterLicenseFile: [''],
       transporterOtherFile: [''],
-      isActive: [false],
+      isActive: [true],
       isVerified: [false]
     },
       {
@@ -122,20 +124,12 @@ export class TransporterFormComponent implements OnInit {
     if (ev) {
       ev.preventDefault();
     }
-    console.log(this.transporterForm);
     this.saveTransporter(this.transporterForm);
-    // this.uploadFiles(this.transporterForm.get('transporter_pan_card'));
-    // if (this.transporterForm.valid) {
-
-    //   this.saveTransporter(this.transporterForm);
-    // } else {
-    //   this.openSnackBar('Invalid Form !', 'Please Review All Fields');
-    // }
   }
   gettransporterIdFromRouteParams() {
     this._route.params.subscribe(
       (params) => {
-        this.transporterId = parseInt(params.id,10);
+        this.transporterId = parseInt(params.id, 10);
       }
     );
   }
@@ -167,7 +161,7 @@ export class TransporterFormComponent implements OnInit {
       transporterPartnerAddress: transporter.transporterPartnerAddress,
       transporterPermitFile: '',
       transporterPincode: transporter.transporterPincode,
-      transporterId:this.transporterId
+      transporterId: this.transporterId
     } as Transporter;
   }
 
@@ -190,6 +184,7 @@ export class TransporterFormComponent implements OnInit {
   }
 
   checkAccountNumbers(group: FormGroup) {
+    console.log(group);
     const transporterBankAcno = group.get('transporterBankAccNumber').value;
     const confirmTransporterBankAcno = group.get('transporterConfirmBankAccNumber').value;
     return transporterBankAcno === confirmTransporterBankAcno ? null : { notSame: true };

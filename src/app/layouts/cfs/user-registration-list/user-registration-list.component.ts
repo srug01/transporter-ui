@@ -1,6 +1,7 @@
+import { MatSort } from '@angular/material/sort';
 import { Cfs } from './../../../shared/models/cfs';
 import { UserRegistrationService } from './../services/user-registration.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CfsService } from '../../masters/services/cfs.service';
 import { User } from 'src/app/shared/models/user';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,9 +15,9 @@ import { AlertService } from 'src/app/shared/services/alert.service';
   templateUrl: './user-registration-list.component.html',
   styleUrls: ['./user-registration-list.component.scss']
 })
-export class UserRegistrationListComponent implements OnInit {
+export class UserRegistrationListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'cfsUserRegistrationId', 'cfsUserName', 'userTypeId',
+    'cfsUserRegistrationId', 'cfsUserName', 'roleName',
     'cfsUserDesignation', 'cfsUserDepartment', 'isActive',
     'isVerified', 'action'
   ];
@@ -25,6 +26,7 @@ export class UserRegistrationListComponent implements OnInit {
   public cfsMasters: Cfs[] = [];
   public currentCFSUser: any;
   public cfsUsers: Array<any> = [];
+  @ViewChild(MatSort) userSort: MatSort;
   constructor(
     private _userregistrationService: UserRegistrationService,
     private _cfsService: CfsService,
@@ -36,6 +38,9 @@ export class UserRegistrationListComponent implements OnInit {
     this.getAllCfsUsers();
   }
 
+  ngAfterViewInit() {
+  }
+
   getAllCfsUsers() {
     this._userregistrationService.getAllCfsUserRegistration().subscribe(
       (users) => {
@@ -45,6 +50,7 @@ export class UserRegistrationListComponent implements OnInit {
           users = users.filter(m => m.cfsMasterId == this.currentCFSUser[0].cfsMasterId)
         }
         this.users = new MatTableDataSource(users);
+        this.users.sort = this.userSort;
       },
       (err) => {
         console.log(err);

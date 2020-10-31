@@ -182,6 +182,13 @@ export class UserRegistrationEditComponent implements OnInit {
     const confirmpassword = group.get('cfsUserConfirmPassword').value;
     return password === confirmpassword ? null : { notSame: true };
   }
+
+  cancel(ev) {
+    if(ev){
+      ev.preventDefault();
+    }
+    this._router.navigate(['/default/cfs/user-list']);
+  }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,

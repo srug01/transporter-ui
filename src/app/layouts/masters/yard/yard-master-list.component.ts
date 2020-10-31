@@ -9,6 +9,8 @@ import { Yard } from 'src/app/shared/models/yard';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
 import { PortService } from '../services/port.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import * as moment from 'moment';
 
 @Component({
@@ -22,8 +24,9 @@ export class YardMasterListComponent implements OnInit {
     'port','address1','address2','isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public yardMasters: Array<any> = [];
   public portMasters: Array<any> = [];
+  public yardMasters: MatTableDataSource<Yard>;
+  @ViewChild(MatSort) yardSort: MatSort;
   public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _yardService: YardService,
@@ -44,7 +47,6 @@ export class YardMasterListComponent implements OnInit {
       ev.preventDefault();
     }
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteYardById(yardId);
@@ -65,8 +67,8 @@ export class YardMasterListComponent implements OnInit {
   getAllYardMasters() {
     this._yardService.getAllYardMasters().subscribe(
       (yardMasters) => {
-        console.log(yardMasters);
-        this.yardMasters = yardMasters;
+        this.yardMasters = new MatTableDataSource(yardMasters);
+        this.yardMasters.sort = this.yardSort;
       },
       (err) => {
         console.log('could not fetch port masters');

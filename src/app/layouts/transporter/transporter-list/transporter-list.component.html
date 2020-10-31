@@ -4,7 +4,7 @@
         <mat-card-subtitle>Transporters List</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <table mat-table [dataSource]="transporters" class="mat-elevation-z8">
+        <table mat-table [dataSource]="transporters" class="mat-elevation-z8" matSort>
             <ng-container matColumnDef="serialnumber">
                 <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
                 <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
@@ -12,18 +12,18 @@
 
             <!-- Name Column -->
             <ng-container matColumnDef="transporterEmail">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
                 <td mat-cell class="table-row" *matCellDef="let element"> {{element.transporterEmail}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="transporterName">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                 <td mat-cell class="table-row" *matCellDef="let element"> {{element.transporterName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="transporterMobileNumber">
-                <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile Number </th>
                 <td mat-cell class="table-row" *matCellDef="let element"> {{element.transporterMobileNumber}} </td>
             </ng-container>
 

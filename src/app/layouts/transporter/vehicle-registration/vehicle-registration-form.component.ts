@@ -177,6 +177,13 @@ export class VehicleRegistrationFormComponent implements OnInit {
     return invalid;
   }
 
+  cancel(ev) {
+    if(ev){
+      ev.preventDefault();
+    }
+    this._router.navigate(['/default/transporter/register-vehicle/list']);
+  }
+
 
 
   submitVehicleForm(ev) {

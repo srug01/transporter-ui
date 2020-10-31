@@ -16,20 +16,20 @@
                 <a><i class="fa fa-search" aria-hidden="true"></i></a>
             </div>
         </div>
-        <table mat-table [dataSource]="containerMasters" class="mat-elevation-z8">
+        <table mat-table [dataSource]="containerMasters" class="mat-elevation-z8" matSort>
             <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
             <ng-container matColumnDef="containerMasterId">
-                <th mat-header-cell *matHeaderCellDef> # </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
                 <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="containerMasterName">
-                <th mat-header-cell *matHeaderCellDef> Container </th>
-                <td mat-cell *matCellDef="let element"><a [routerLink]="['/default/masters/container/details/',element.containerMasterId]">{{element.containerMasterName}}</a> </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Container </th>
+                <td mat-cell *matCellDef="let element">{{element.containerMasterName}}</td>
             </ng-container>
 
 

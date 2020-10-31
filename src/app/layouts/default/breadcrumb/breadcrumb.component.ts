@@ -64,14 +64,13 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Home';
         details.url = '/default';
         break;
-      case 'cfs':
-        details.label = 'CFS';
+      case 'edit':
+        details.label = 'Edit';
+        break;
+      case 'cfs-list':
+        details.label = 'List';
         details.url = '/default/masters/cfs/cfs-list';
         break;
-        case 'cfs-list':
-          details.label = 'List';
-          details.url = '/default/masters/cfs/cfs-list';
-          break;
       case 'create-order':
         details.label = 'Create Order';
         details.url = '/default/cfs/create-order';
@@ -171,14 +170,14 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'List';
         details.url = '/default/masters/port/port-list';
         break;
-        case 'yard':
-          details.label = 'Yard';
-          details.url = '/default/masters/yard/yard-list';
-          break;
-        case 'yard-list':
-          details.label = 'List';
-          details.url = '/default/masters/yard/yard-list';
-          break;
+      case 'yard':
+        details.label = 'Yard';
+        details.url = '/default/masters/yard/yard-list';
+        break;
+      case 'yard-list':
+        details.label = 'List';
+        details.url = '/default/masters/yard/yard-list';
+        break;
       case 'state':
         details.label = 'State';
         details.url = '/default/masters/state/state-list';
@@ -207,10 +206,10 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Weight';
         details.url = '/default/masters/weight/weight-list';
         break;
-        case 'weight-list':
-          details.label = 'List';
-          details.url = '/default/masters/weight/weight-list';
-          break;
+      case 'weight-list':
+        details.label = 'List';
+        details.url = '/default/masters/weight/weight-list';
+        break;
 
       case 'settings':
         details.label = 'Settings';
@@ -257,10 +256,21 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Role Details';
         details.url = '/default/settings/role-details';
         break;
-        case 'create-role':
-          details.label = 'Create Role';
-          details.url = '/default/settings/create-role';
-          break;
+      case 'create-role':
+        details.label = 'Create Role';
+        details.url = '/default/settings/create-role';
+        break;
+      case 'register-driver':
+        details.label = 'Register Driver';
+        details.url = '/default/transporter/register-driver';
+        break;
+      case 'container':
+        details.label = 'Container';
+        details.url = '/default/masters/container/list';
+        break;
+      case 'list':
+        details.label = 'List';
+        break;
       default:
         break;
     }

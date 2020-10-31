@@ -22,14 +22,10 @@
         <!--
           Order List for admin
       -->
-        <div fxFlex="100" *ngIf="roleId === 1 || roleId === 4 || roleId === 7 || roleId === 8 || roleId === 9">
+        <div fxFlex="100" [hidden]="roleId === 2 || roleId === 3 || roleId === 5 || roleId === 6">
             <h3>All Order Summary</h3>
-            <mat-form-field>
-                <mat-label>Filter Orders</mat-label>
-                <input matInput (keyup)="applyAdminOrdersFilter($event)" #orderInput>
-            </mat-form-field>
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="orders">
+                <table mat-table [dataSource]="orders" #orderSort="matSort" matSort>
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="orderId">
@@ -38,45 +34,45 @@
                     </ng-container>
 
                     <ng-container matColumnDef="sourceType">
-                        <th mat-header-cell *matHeaderCellDef> Source </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.sourceType ? element.sourceType : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="destinationType">
-                        <th mat-header-cell *matHeaderCellDef> Destination </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.destinationType ? element.destinationType : detailsAwaited}} </td>
                     </ng-container>
                     <!-- Name Column -->
                     <ng-container matColumnDef="sourceName">
-                        <th mat-header-cell *matHeaderCellDef> Source </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.sourceName ? element.sourceName : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
                     <ng-container matColumnDef="destinationName">
-                        <th mat-header-cell *matHeaderCellDef> Destination </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.destinationName ? element.destinationName : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="terminal">
-                        <th mat-header-cell *matHeaderCellDef> Terminal </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Terminal </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.terminal ? element.terminal : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="orderRemarks">
-                        <th mat-header-cell *matHeaderCellDef> Remarks </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Remarks </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.orderRemarks ? element.orderRemarks : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="totalRate">
-                        <th mat-header-cell *matHeaderCellDef> TotalRate </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TotalRate </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.totalRate ? element.totalRate : 0}} </td>
                     </ng-container>
@@ -84,17 +80,17 @@
 
 
                     <ng-container matColumnDef="orderStatus">
-                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.orderStatus ? element.orderStatus : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="OrderDate">
-                        <th mat-header-cell *matHeaderCellDef> Order Date </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.OrderDate ? element.OrderDate : detailsAwaited }} </td>
                     </ng-container>
                     <ng-container matColumnDef="CreatedOn">
-                        <th mat-header-cell *matHeaderCellDef> Created On </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.CreatedOn ? element.CreatedOn : detailsAwaited}} </td>
                     </ng-container>
@@ -102,23 +98,16 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminOrders"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsForAdminOrders;"></tr>
                 </table>
-
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
             </div>
             <br>
             <mat-divider></mat-divider>
             <br>
         </div>
 
-        <div fxFlex="100" *ngIf="roleId === 1 || roleId === 5">
+        <div fxFlex="100" [hidden]="roleId === 2 || roleId === 3 || roleId === 4 || roleId === 6 || roleId === 7 || roleId === 8 || roleId === 9">
             <h3>All Sub Order Summary</h3>
-            <div class="mat-elevation-z8" *ngIf="suborders.data.length > 0">
-                <mat-form-field>
-                    <mat-label>Filter Sub Orders</mat-label>
-                    <input matInput (keyup)="applyAdminSubOrdersFilter($event)" #subOrderInput>
-                </mat-form-field>
-                <table mat-table [dataSource]="suborders">
-
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="suborders" #subOrderSort="matSort" matSort>
                     <!-- Position Column -->
                     <ng-container matColumnDef="orderId">
                         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -126,58 +115,45 @@
                     </ng-container>
 
                     <ng-container matColumnDef="subOrderId">
-                        <th mat-header-cell *matHeaderCellDef> SubOrderID </th>
+                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5" mat-sort-header> SubOrderID </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.subOrderId}} </td>
                     </ng-container>
-
-
                     <ng-container matColumnDef="subOrderTotalMargin">
-                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5"> Total </th>
+                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5" mat-sort-header> Total </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.subOrderTotalMargin ? element.subOrderTotalMargin : 0}} </td>
                     </ng-container>
-
                     <ng-container matColumnDef="CutOffTime">
-                        <th mat-header-cell *matHeaderCellDef> CutOffTime </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CutOffTime </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.CutOffTime ? element.CutOffTime : detailsAwaited}} </td>
                     </ng-container>
                     <!-- Name Column -->
                     <ng-container matColumnDef="suborderStatus">
-                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.suborderStatus ? element.suborderStatus : detailsAwaited}} </td>
                     </ng-container>
-
                     <!-- Weight Column -->
                     <ng-container matColumnDef="containerMasterName">
-                        <th mat-header-cell *matHeaderCellDef> Cotainer </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cotainer </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.containerMasterName ? element.containerMasterName : detailsAwaited}} </td>
                     </ng-container>
-
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="weightDesc">
-                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.weightDesc ? element.weightDesc : detailsAwaited}} </td>
                     </ng-container>
-
                     <ng-container matColumnDef="SubOrderDate">
-                        <th mat-header-cell *matHeaderCellDef> Created On </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.SubOrderDate ? element.SubOrderDate : detailsAwaited}} </td>
                     </ng-container>
-
-
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForAdminSubOrders"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsForAdminSubOrders;"></tr>
                 </table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-            </div>
-            <div *ngIf="suborders.data.length < 1">
-                <h4>No Records Found</h4>
             </div>
             <br>
             <mat-divider></mat-divider>
@@ -186,12 +162,8 @@
 
         <div fxFlex="100">
             <h3>Trips</h3>
-            <mat-form-field>
-                <mat-label>Filter Trips</mat-label>
-                <input matInput (keyup)="applyAdminTripsFilter($event)" #tripInput>
-            </mat-form-field>
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="trips">
+                <table mat-table [dataSource]="trips" #tripSort="matSort" matSort>
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="tripId">
@@ -200,56 +172,53 @@
                     </ng-container>
 
                     <ng-container matColumnDef="subOrderId">
-                        <th mat-header-cell *matHeaderCellDef> SubOrder ID </th>
+                        <th mat-header-cell *matHeaderCellDef [hidden]="roleId === 5" mat-sort-header> SubOrder ID </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.subOrderId}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="TransporterName">
-                        <th mat-header-cell *matHeaderCellDef>Transporter Name</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transporter Name</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="AssignedVehicle">
-                        <th mat-header-cell *matHeaderCellDef> Assigned Vehicle </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Vehicle </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.AssignedVehicle ? element.AssignedVehicle : detailsAwaited}} </td>
                     </ng-container>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="AssignedDriver">
-                        <th mat-header-cell *matHeaderCellDef>Assigned Driver</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned Driver</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.AssignedDriver ? element.AssignedDriver : detailsAwaited}} </td>
                     </ng-container>
-
-                    <!-- Weight Column -->
-
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="TransporterContainer">
-                        <th mat-header-cell *matHeaderCellDef>Transporter Container</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transporter Container</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.TransporterContainer ? element.TransporterContainer : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="TransporterWeight">
-                        <th mat-header-cell *matHeaderCellDef>Transporter Weight</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transporter Weight</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.TransporterWeight ? element.TransporterWeight : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="OrderContainer">
-                        <th mat-header-cell *matHeaderCellDef>Order Container</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Container</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.OrderContainer ? element.OrderContainer : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Orderweight">
-                        <th mat-header-cell *matHeaderCellDef>Order Weight</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Weight</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.Orderweight ? element.Orderweight : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="tripstatus">
-                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.tripstatus ? element.tripstatus : detailsAwaited}} </td>
                     </ng-container>
@@ -257,8 +226,6 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForTrips"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsForTrips;"></tr>
                 </table>
-
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
             </div>
             <br>
             <mat-divider></mat-divider>
@@ -266,14 +233,10 @@
         </div>
 
 
-        <div fxFlex="100" *ngIf="roleId === 1 || roleId === 5">
+        <div fxFlex="100" [hidden]="roleId === 2 || roleId === 3 || roleId === 4 || roleId === 6 || roleId === 7 || roleId === 8 || roleId === 9">
             <h3>Bids</h3>
-            <mat-form-field>
-                <mat-label>Filter Trips</mat-label>
-                <input matInput (keyup)="applyAdminBidsFilter($event)" #tripInput>
-            </mat-form-field>
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="bids">
+                <table mat-table [dataSource]="bids" #bidSort="matSort" matSort>
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="bidId">
@@ -283,58 +246,51 @@
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="bidName">
-                        <th mat-header-cell *matHeaderCellDef> Bid </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bid </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.bidName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="TransporterName">
-                        <th mat-header-cell *matHeaderCellDef> Transporter </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transporter </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
                     </ng-container>
                     <!-- Weight Column -->
                     <ng-container matColumnDef="SorurceName">
-                        <th mat-header-cell *matHeaderCellDef> Source Name </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Source Name </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.SorurceName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="destinationName">
-                        <th mat-header-cell *matHeaderCellDef> Destination Name </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination Name </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.destinationName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="containerMasterName">
-                        <th mat-header-cell *matHeaderCellDef> Container </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Container </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.containerMasterName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="weightDesc">
-                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
                         <td mat-cell class="table-row" *matCellDef="let element"> {{element.weightDesc}} </td>
                     </ng-container>
                     <ng-container matColumnDef="originalRate">
-                        <th mat-header-cell *matHeaderCellDef> Rate </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.originalRate ? element.originalRate : detailsAwaited}} </td>
                     </ng-container>
                     <ng-container matColumnDef="bidValue">
-                        <th mat-header-cell *matHeaderCellDef> Bid Value </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bid Value </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.bidValue ? element.bidValue : detailsAwaited}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="biduserStatus">
-                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                         <td mat-cell class="table-row" *matCellDef="let element">
                             {{element.biduserStatus ? element.biduserStatus : detailsAwaited}} </td>
                     </ng-container>
-
-
-
-
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsForBids"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsForBids;" [ngClass]="{'confirmed-bid': row.AwardStatus === 'BID_USER_CONFIRMED' }">
                     </tr>
                 </table>
-
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
             </div>
         </div>
     </div>

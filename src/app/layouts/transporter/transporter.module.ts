@@ -64,6 +64,7 @@ import { TripsNewComponent } from './trips/trips-new.component';
 import { TripsEditComponent } from './trips/trips-edit.component';
 import { TripsDetailsComponent } from './trips/trips-details.component';
 import { TransporterFormComponent } from './transporter-form/transporter-form.component';
+import { MatSortModule } from '@angular/material/sort';
 
 const routes: Routes = [
   { path: '', component: TransporterComponent, data: { breadcrumb: 'home' } },
@@ -219,7 +220,8 @@ const toasterConfig: MatSnackBarConfig = {
     MatIconModule,
     MatTooltipModule,
     RouterModule.forChild(routes,),
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
   ],
   providers: [
     VehicleService,

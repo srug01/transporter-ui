@@ -12,6 +12,8 @@ import { StateMasterService } from './../services/state-master.service';
 import { LocationService } from './../services/location.service';
 import { State } from 'src/app/shared/models/state';
 import { LocationMaster } from 'src/app/shared/models/location';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import * as moment from 'moment';
 
 @Component({
@@ -23,8 +25,9 @@ export class PortMasterListComponent implements OnInit {
   displayedColumns: string[] = [
     'portMasterId', 'portName', 'stateMasterId', 'locationMasterId', 'isActive', 'action'
   ];
+  public portMasters: MatTableDataSource<Port>;
+  @ViewChild(MatSort) portMasterSort: MatSort;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public portMasters: Array<Port> = [];
   public states: Array<State> = [];
   public locations: Array<LocationMaster> = [];
   public userId = parseInt(localStorage.getItem('userID'), 10);
@@ -75,7 +78,8 @@ export class PortMasterListComponent implements OnInit {
   getAllPortMasters() {
     this._portService.getAllPortMasters().subscribe(
       (portMasters: Port[]) => {
-        this.portMasters = portMasters;
+        this.portMasters = new MatTableDataSource(portMasters);
+        this.portMasters.sort = this.portMasterSort;
       },
       (err) => {
       }

@@ -84,6 +84,13 @@ export class UserRegistrationComponent implements OnInit {
     );
   }
 
+  cancel(ev) {
+    if(ev){
+      ev.preventDefault();
+    }
+    this._router.navigate(['/default/cfs/user-list']);
+  }
+
   getAllCFSbyUserId() {
     this._masterTypeService.getAllCFSbyUserId(this.userId).subscribe(
       (cfsMasters) => {
@@ -139,7 +146,7 @@ export class UserRegistrationComponent implements OnInit {
       cfsUserEmail: cfsUserRegistration.cfsUserEmail,
       cfsUserPassword: cfsUserRegistration.cfsUserPassword,
       userId: 0,
-      isActive: cfsUserRegistration.isActive ? cfsUserRegistration.isActive : false,
+      isActive: cfsUserRegistration.isActive ? cfsUserRegistration.isActive : true,
       isVerified: cfsUserRegistration.isVerified,
       createdBy: this.currentUser.userId,
       createdOn: new Date(),

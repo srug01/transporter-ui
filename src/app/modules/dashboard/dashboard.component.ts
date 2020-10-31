@@ -5,7 +5,7 @@ import { Order } from './../../shared/models/order';
 import { Trip } from './../../shared/models/mytrip';
 import { TripService } from './../../layouts/transporter/services/trip.service';
 import { OrderService } from './../../layouts/cfs/services/order.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,6 +15,7 @@ import { Dashboard } from 'src/app/shared/models/dashboard';
 import { mapTo } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MatSort } from '@angular/material/sort';
 
 export interface PeriodicElement {
   name: string;
@@ -51,7 +52,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   currentUser: User;
   roleId: number = 0;
   bigChart = [];
@@ -83,11 +84,9 @@ export class DashboardComponent implements OnInit {
   ];
 
   displayedColumnsForBids: string[] = [
-    'bidId', 'bidName','TransporterName', 'SorurceName','destinationName','containerMasterName',
-    'weightDesc','originalRate','bidValue','biduserStatus'
+    'bidId', 'bidName', 'TransporterName', 'SorurceName', 'destinationName', 'containerMasterName',
+    'weightDesc', 'originalRate', 'bidValue', 'biduserStatus'
   ];
-
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   dashboard: Dashboard;
@@ -95,6 +94,10 @@ export class DashboardComponent implements OnInit {
   suborders: MatTableDataSource<SubOrder>;
   bids: MatTableDataSource<Bid>;
   trips: MatTableDataSource<Trip>;
+  @ViewChild('orderSort') orderSort: MatSort;
+  @ViewChild('subOrderSort') subOrderSort: MatSort;
+  @ViewChild('bidSort') bidSort: MatSort;
+  @ViewChild('tripSort') tripSort: MatSort;
 
 
   constructor(
@@ -115,7 +118,13 @@ export class DashboardComponent implements OnInit {
     this.bigChart = this.dashboardService.bigChart();
     this.cards = this.dashboardService.cards();
     this.pieData = this.dashboardService.pieData();
-    this.dataSource.paginator = this.paginator;
+  }
+
+  ngAfterViewInit() {
+    this.orders.sort = this.orderSort;
+    this.suborders.sort = this.subOrderSort;
+    this.bids.sort = this.bidSort;
+    this.trips.sort = this.tripSort;
   }
 
   getUserInfo() {
@@ -124,7 +133,7 @@ export class DashboardComponent implements OnInit {
         this.currentUser = loggedUser;
       },
       (err) => {
-        if(err.error.error.message === 'Error verifying token : jwt expired' && err.error.error.statusCode === 401) {
+        if (err.error.error.message === 'Error verifying token : jwt expired' && err.error.error.statusCode === 401) {
           this._auth.logout();
           this._router.navigate(['/']);
         }

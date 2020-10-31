@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CfsMaster } from './../../../shared/models/cfsMaster.model';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { NgZone, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
@@ -7,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 
 
@@ -15,13 +18,14 @@ import * as moment from 'moment';
   templateUrl: './cfs-master-list.component.html',
   styleUrls: ['./cfs-master-list.component.scss']
 })
-export class CfsMasterListComponent implements OnInit {
+export class CfsMasterListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'cfsMasterId', 'cfsName', 'contactNumber', 'email',
     'address', 'isActive', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public cfsMasters: Array<any> = [];
+  @ViewChild(MatSort) csfMasterSort: MatSort;
+  public cfsMasters: MatTableDataSource<CfsMaster>;
   public userId = parseInt(localStorage.getItem('userID'), 10);
   searchList: any = [
     { cfsMasterId: 1, cfs_name: 'value' }
@@ -36,6 +40,10 @@ export class CfsMasterListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCfsMasters();
+  }
+
+  ngAfterViewInit() {
+    // this.cfsMasters.sort = this.csfMasterSort;
   }
 
   demo(ev) {
@@ -55,8 +63,8 @@ export class CfsMasterListComponent implements OnInit {
   getAllCfsMasters() {
     this._cfsService.getAllCfsMasters().subscribe(
       (cfsMasters) => {
-        this.cfsMasters = cfsMasters;
-        console.log(this.cfsMasters);
+        this.cfsMasters = new MatTableDataSource(cfsMasters);
+        this.cfsMasters.sort = this.csfMasterSort;
       },
       (err) => {
       }
