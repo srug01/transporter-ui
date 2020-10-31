@@ -57,7 +57,6 @@ export class RoleService {
   }
 
   checkBidLogic(params: CutOff): Observable<any> {
-      console.log("Filter For API : " + JSON.stringify(params));
     return this.http.post<any>(this.baseUrl + '/getCuttOffTimeScheduler',
       JSON.stringify(params),
       this.HttpUploadOptions

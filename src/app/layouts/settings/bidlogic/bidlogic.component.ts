@@ -126,14 +126,21 @@ export class BidlogicComponent implements OnInit {
       cutOffTime: this.datePipe.transform(this.orderForm.value.cutOffDate,"yyyy-MM-dd"),
       cutOffSlot: this.orderForm.value.cutOfftimeSlotId,
     };
-    console.log(JSON.stringify(filter));
-    //  this.runCheck(filter);
+    // console.log(JSON.stringify(filter));
+     this.runCheck(filter);
   }
   runCheck(obj: CutOff) {
     this._roleService.checkBidLogic(obj).subscribe(
       (res) => {
         console.log(res);
+        if(obj.runScheduler === 0)
+        {
         this.message = "Cutt Off Time for This Order Will be : " +  this.datePipe.transform(res[0].CutOffTime,"MMM d, y, hh:mm a");
+        }
+        else
+        {
+          this.message = "Scheduler Run Successfully.";
+        }
         // this._alertService.success('Permissions Updated Successfully', 'Success !');
       },
       (err) => {

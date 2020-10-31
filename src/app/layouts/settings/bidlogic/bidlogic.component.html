@@ -68,9 +68,10 @@
           <mat-error *ngIf="orderForm.controls['cutOfftimeSlotId'].hasError('required')">You must make a selection
           </mat-error>
       </mat-form-field>
-  </div>
+  </div >
+  <div fxLayout="row" fxLayoutGap="10px">
       <button type="button" mat-raised-button color="primary" (click)="runScheduler($event)">Run Scheduler</button>
-
+    </div>
   </div>
     </div>
     </form>
