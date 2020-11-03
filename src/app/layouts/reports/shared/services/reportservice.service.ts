@@ -25,8 +25,9 @@ export class ReportsService {
   //   return this.http.get(this.baseUrl + 'repTreeViewOrder');
   // }
 
-  repTreeViewOrder(): Observable<Order[]> {
-    return this.http.get<Order[]>('assets/data.json');
+  repTreeViewOrder(): Observable<any> {
+    // return this.http.get<Order[]>('assets/data.json');
+    return this.http.get(this.baseUrl + 'repTreeViewOrder');
   }
 
 }

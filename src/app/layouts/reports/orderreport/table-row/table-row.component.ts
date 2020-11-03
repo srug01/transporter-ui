@@ -20,10 +20,15 @@ export class TableRowComponent {
   @Output() deleteUser: EventEmitter<number> = new EventEmitter<number>();
 
   expandedId: string = '';
-  constructor() { }
+  constructor() { 
+    
+  }
 
   toggleExpandableSymbol(id: string): void {
     this.expandedId = this.expandedId === id ? '' : id;
+  }
+  getElem(e) {
+    console.log(e);
   }
 
 }

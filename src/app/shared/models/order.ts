@@ -24,4 +24,5 @@ export interface Order {
     containers?: any;
     portTerminalId?: number;
     timeslotMasterId?: number;
+
 }

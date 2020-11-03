@@ -6,6 +6,7 @@ export interface BidUserMapping {
     biduserStatus?: string;
     biduserStatusId?: number;
     bidName?: string;
+    bidSeq?: string;
     /* bidLowerLimit:string;
     SourceName:string;
     destinationName:string;

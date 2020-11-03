@@ -19,4 +19,5 @@ export interface TripDetails {
     subOrderId: number;
     tripId: number;
     tripstatus: string;
+    tripSeq?: string;
 }

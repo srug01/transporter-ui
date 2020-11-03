@@ -8,14 +8,14 @@
                   [matColumnDef]="key">
       <mat-header-cell *matHeaderCellDef>{{ key.includes('Icon') ? '' : key }}</mat-header-cell>
 
-      <mat-cell *matCellDef="let element; let i = dataIndex">
+      <mat-cell *matCellDef="let element; let i = dataIndex" (click)="getElem(element)">
 
-        <span *ngIf="!key.includes('Icon'); else icon">{{ element.data[key] }}</span>
+        <span *ngIf="!key.includes('Icon'); else icon">{{ element[key] }}</span>
 
         <ng-template #icon>
-          <mat-icon *ngIf="element.kids[iconKeyReference] && key === 'expandIcon'"
-                    [class.active]="element.data[referenceId] === expandedId"
-                    (click)="toggleExpandableSymbol(element.data[referenceId])">play_arrow</mat-icon>
+          <mat-icon *ngIf="element[iconKeyReference].length > 0 && key === 'expandIcon'"
+                    [class.active]="element[referenceId] === expandedId"
+                    (click)="toggleExpandableSymbol(element[referenceId])">play_arrow</mat-icon>
 
           <mat-icon *ngIf="!title && key === 'deleteIcon'"
                     (click)="deleteUser.next(i)">delete_forever</mat-icon>
@@ -27,18 +27,17 @@
      <!-- EXPANDABLE ROW -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element"
-               [@expandableRow]="element.data[referenceId] === expandedId ? 'expanded' : 'collapsed'">
+               [@expandableRow]="element[referenceId] === expandedId ? 'expanded' : 'collapsed'">
 
-      <div *ngIf="element.data[referenceId] === expandedId"
+      <div *ngIf="element[referenceId] === expandedId"
            class="width-100"
            [ngSwitch]="renderTemplate">
 
-        <app-bids *ngSwitchCase="'bid'"
-                             [bids]="element.kids.has_bids.records"></app-bids>
+        <app-bids *ngSwitchCase="'bids'"
+                             [bids]="element.bids" [trip]="element.trip"></app-bids>
 
-        <app-suborders *ngSwitchCase="'subOrder'"
-                            [subOrders]="element.kids.has_SubOrders.records"></app-suborders>
-
+        <app-suborders *ngSwitchCase="'subOrders'"
+                            [subOrders]="element.subOrders"></app-suborders>
       </div>
 
     </mat-cell>

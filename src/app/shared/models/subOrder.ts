@@ -15,5 +15,6 @@ export interface SubOrder {
     suborderStatus?: string;
     suborderStatusId?: number;
     bidLimit?: number;
+    subOrderSeq?: string;
 
 }

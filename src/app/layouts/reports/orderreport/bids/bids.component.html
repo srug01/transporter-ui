@@ -1,5 +1,6 @@
 <app-table-row [dataSource]="bids"
                [displayedColumns]="displayedColumns"
-               [referenceId]="'Bid ID'"
+               [referenceId]="'bids'"
                [title]="'has_bids'">
 </app-table-row>
+<app-trip *ngIf="trip.length > 0" [trip]="trip"></app-trip>

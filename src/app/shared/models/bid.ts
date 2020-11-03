@@ -1,6 +1,6 @@
 
 export interface Bid {
-    bidName?: string;
+
     bidId?: number;
     originalRate?: number;
     exhibitionDate?: string;
@@ -19,4 +19,5 @@ export interface Bid {
     bidStatusId?: number;
     BidScheduleId?: number;
     CutOffTime?: Date;
+
 }

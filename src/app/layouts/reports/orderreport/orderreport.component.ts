@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { ReportsService, expandableTableRowAnimation, Order,OrderData,OrderRecord,subOrder } from '../shared/index';
+import { ReportsService, expandableTableRowAnimation, Order } from '../shared/index';
 
 
 @Component({
@@ -12,10 +12,7 @@ import { ReportsService, expandableTableRowAnimation, Order,OrderData,OrderRecor
 })
 export class OrderreportComponent implements OnInit {
 
-  public orders: Order[];
-  public orderdata: OrderData[];
-  public orderrecord: OrderRecord[];
-  public suborder: subOrder[];
+  orders: Order[];
 
   displayedColumns: string[] = [
     'expandIcon',
@@ -35,9 +32,6 @@ export class OrderreportComponent implements OnInit {
     this.reportService
       .repTreeViewOrder()
       .subscribe(data => this.orders = data);
-
-
-
   }
 
   /* deleteUser(index: number): void {

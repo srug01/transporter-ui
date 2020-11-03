@@ -1,369 +1,467 @@
 [
   {
-     "data":{
-        "orderId":"2",
-        "Source":"CFS",
-        "Destination":"PORT",
-        "OrderDate":"2020-09-04 10:00:00",
-        "OrderTotal":"1000",
-        "Remarks":"4 SEP 10 - 11 AM",
-        "orderStatus": "ORDER_DELIVERED"
-     },
-     "kids":{
-        "has_SubOrders":{
-           "records":[
-              {
-                 "data":{
-                    "SubOrder ID":"3",
-                    "orderId":"2",
-                    "subOrderTotal":"450",
-                    "CutOffTime":"2020-09-01 02:25:25",
-                    "containerMasterName":"10 FT",
-                    "weightDesc":"10 Ton",
-                    "suborderStatus":"SUB_ORDER_BID_ASSIGNED"
-                 },
-                 "kids":{
-                    "has_bids":{
-                       "records":[
-                          {
-                             "data":{
-                              "Bid ID":"9",
-                              "SubOrder ID":"3",
-                                "bidName":"BID00000001",
-                                "bidValue":"430",
-                                "biduserStatus":"BID_USER_CONFIRMED",
-                                "bidStatus": "BID_ASSIGNED"
-                             },
-                             "kids":{
-
-                             }
-                          }
-                       ]
-                    }
-                 }
-              }
-           ]
-        }
-     }
+    "orderId": 21,
+    "Source": "YARD",
+    "Destination": "CFS",
+    "Remarks": "31 Oct 4 AM 5 AM",
+    "OrderDate": "31-Oct-2020",
+    "OrderTotal": 1800,
+    "orderStatus": "ORDER_ACCEPTED",
+    "subOrders": [
+      {
+        "orderId": 21,
+        "subOrderId": 56,
+        "subOrderTotalMargin": 368,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "40FT",
+        "weightDesc": "40 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000001",
+            "exhibitionDate": "",
+            "subOrderId": 56,
+            "bidValue": 345,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 368
+          },
+          {
+            "bidName": "BID00000001",
+            "exhibitionDate": "",
+            "subOrderId": 56,
+            "bidValue": 343,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 368
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 56,
+            "sourceId": 2,
+            "destinationId": 2,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 6,
+            "createdOn": "2020-10-28T17:40:09.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 16,
+            "TransporterName": "Transporter2 ALC",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "40FT",
+            "Orderweight": "40 Ton",
+            "sourceName": "CH Yard",
+            "destinationName": "Gaurav CFS"
+          }
+        ]
+      },
+      {
+        "orderId": 21,
+        "subOrderId": 57,
+        "subOrderTotalMargin": 595,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "20 FT",
+        "weightDesc": "20 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000026",
+            "exhibitionDate": "",
+            "subOrderId": 57,
+            "bidValue": 500,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 595
+          },
+          {
+            "bidName": "BID00000026",
+            "exhibitionDate": "",
+            "subOrderId": 57,
+            "bidValue": 495,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 595
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 57,
+            "sourceId": 2,
+            "destinationId": 2,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 6,
+            "createdOn": "2020-10-28T17:40:09.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 17,
+            "TransporterName": "Transporter2 ALC",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "20 FT",
+            "Orderweight": "20 Ton",
+            "sourceName": "CH Yard",
+            "destinationName": "Gaurav CFS"
+          }
+        ]
+      },
+      {
+        "orderId": 21,
+        "subOrderId": 58,
+        "subOrderTotalMargin": 595,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "20 FT",
+        "weightDesc": "20 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000027",
+            "exhibitionDate": "",
+            "subOrderId": 58,
+            "bidValue": 480,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 595
+          },
+          {
+            "bidName": "BID00000027",
+            "exhibitionDate": "",
+            "subOrderId": 58,
+            "bidValue": 560,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 595
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 58,
+            "sourceId": 2,
+            "destinationId": 2,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 5,
+            "createdOn": "2020-10-28T17:40:09.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 15,
+            "TransporterName": "Transporter ALC",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "20 FT",
+            "Orderweight": "20 Ton",
+            "sourceName": "CH Yard",
+            "destinationName": "Gaurav CFS"
+          }
+        ]
+      }
+    ]
   },
   {
-     "data":{
-      "orderId":"3",
-      "Source":"CFS",
-      "Destination":"PORT",
-      "OrderDate":"2020-09-04 10:00:00",
-      "OrderTotal":"1000",
-      "Remarks":"4 SEP 10 - 11 AM",
-      "orderStatus": "ORDER_DELIVERED"
-     },
-     "kids":{
-
-     }
+    "orderId": 22,
+    "Source": "CFS",
+    "Destination": "PORT",
+    "Remarks": "5 Nov 12 AM 1 AM",
+    "OrderDate": "05-Nov-2020",
+    "OrderTotal": 850,
+    "orderStatus": "ORDER_ACCEPTED",
+    "subOrders": [
+      {
+        "orderId": 22,
+        "subOrderId": 59,
+        "subOrderTotalMargin": 276,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "10 FT",
+        "weightDesc": "10 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000030",
+            "exhibitionDate": "",
+            "subOrderId": 59,
+            "bidValue": 263,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 276
+          },
+          {
+            "bidName": "BID00000030",
+            "exhibitionDate": "",
+            "subOrderId": 59,
+            "bidValue": 275,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 276
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 59,
+            "sourceId": 1,
+            "destinationId": 1,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 15,
+            "createdOn": "2020-10-28T18:24:07.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 21,
+            "TransporterName": "Transporter Third",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "10 FT",
+            "Orderweight": "10 Ton",
+            "sourceName": "CFS All Cargo",
+            "destinationName": "JNPT"
+          }
+        ]
+      },
+      {
+        "orderId": 22,
+        "subOrderId": 60,
+        "subOrderTotalMargin": 276,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "10 FT",
+        "weightDesc": "10 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000031",
+            "exhibitionDate": "",
+            "subOrderId": 60,
+            "bidValue": 276,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 276
+          },
+          {
+            "bidName": "BID00000031",
+            "exhibitionDate": "",
+            "subOrderId": 60,
+            "bidValue": 276,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 276
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 60,
+            "sourceId": 1,
+            "destinationId": 1,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 15,
+            "createdOn": "2020-10-28T18:24:07.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 22,
+            "TransporterName": "Transporter Third",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "10 FT",
+            "Orderweight": "10 Ton",
+            "sourceName": "CFS All Cargo",
+            "destinationName": "JNPT"
+          }
+        ]
+      },
+      {
+        "orderId": 22,
+        "subOrderId": 61,
+        "subOrderTotalMargin": 238,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "20 FT",
+        "weightDesc": "20 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000032",
+            "exhibitionDate": "",
+            "subOrderId": 61,
+            "bidValue": 238,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 238
+          },
+          {
+            "bidName": "BID00000032",
+            "exhibitionDate": "",
+            "subOrderId": 61,
+            "bidValue": 238,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 238
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 61,
+            "sourceId": 1,
+            "destinationId": 1,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 15,
+            "createdOn": "2020-10-28T18:24:07.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 23,
+            "TransporterName": "Transporter Third",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "20 FT",
+            "Orderweight": "20 Ton",
+            "sourceName": "CFS All Cargo",
+            "destinationName": "JNPT"
+          }
+        ]
+      }
+    ]
   },
   {
-     "data":{
-      "orderId":"4",
-      "Source":"CFS",
-      "Destination":"PORT",
-      "OrderDate":"2020-09-04 10:00:00",
-      "OrderTotal":"1000",
-      "Remarks":"4 SEP 10 - 11 AM",
-      "orderStatus": "ORDER_DELIVERED"
-     },
-     "kids":{
-        "has_SubOrders":{
-           "records":[
-              {
-                 "data":{
-                  "SubOrder ID":"5",
-                  "orderId":"4",
-                  "subOrderTotal":"450",
-                  "CutOffTime":"2020-09-01 02:25:25",
-                  "containerMasterName":"10 FT",
-                  "weightDesc":"10 Ton",
-                  "suborderStatus":"SUB_ORDER_BID_ASSIGNED"
-                 },
-                 "kids":{
-                    "has_bids":{
-                       "records":[
-                          {
-                             "data":{
-                              "Bid ID":"10",
-                              "SubOrder ID":"5",
-                              "bidName":"BID00000010",
-                              "bidValue":"430",
-                              "biduserStatus":"BID_USER_CONFIRMED",
-                              "bidStatus": "BID_ASSIGNED"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"11",
-                              "SubOrder ID":"5",
-                              "bidName":"BID00000011",
-                              "bidValue":"380",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          }
-                       ]
-                    }
-                 }
-              },
-              {
-                 "data":{
-                  "SubOrder ID":"6",
-                  "orderId":"4",
-                  "subOrderTotal":"550",
-                  "CutOffTime":"2020-09-10 02:25:25",
-                  "containerMasterName":"20 FT",
-                  "weightDesc":"20 Ton",
-                  "suborderStatus":"SUB_ORDER_PENDING"
-                 },
-                 "kids":{
-                    "has_bids":{
-                       "records":[
-                          {
-                             "data":{
-                              "Bid ID":"12",
-                              "SubOrder ID":"6",
-                              "bidName":"BID00000012",
-                              "bidValue":"380",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"13",
-                              "SubOrder ID":"6",
-                              "bidName":"BID00000013",
-                              "bidValue":"380",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          }
-                       ]
-                    }
-                 }
-              },
-              {
-                 "data":{
-                  "SubOrder ID":"7",
-                  "orderId":"4",
-                  "subOrderTotal":"650",
-                  "CutOffTime":"2020-09-10 02:25:25",
-                  "containerMasterName":"40 FT",
-                  "weightDesc":"40 Ton",
-                  "suborderStatus":"SUB_ORDER_PENDING"
-                 },
-                 "kids":{
-                    "has_bids":{
-                       "records":[
-                          {
-                             "data":{
-                              "Bid ID":"15",
-                              "SubOrder ID":"7",
-                              "bidName":"BID00000015",
-                              "bidValue":"380",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"18",
-                              "SubOrder ID":"7",
-                              "bidName":"BID00000018",
-                              "bidValue":"380",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          }
-                       ]
-                    }
-                 }
-              }
-           ]
-        }
-     }
-  },
-  {
-     "data":{
-      "orderId":"7",
-      "Source":"YARD",
-      "Destination":"CFS",
-      "OrderDate":"2020-09-12 10:00:00",
-      "OrderTotal":"1000",
-      "Remarks":"12 SEP 10 - 11 AM",
-      "orderStatus": "ORDER_ASSIGNED"
-     },
-     "kids":{
-        "has_SubOrders":{
-           "records":[
-              {
-                 "data":{
-                  "SubOrder ID":"10",
-                  "orderId":"7",
-                  "subOrderTotal":"650",
-                  "CutOffTime":"2020-09-10 02:25:25",
-                  "containerMasterName":"40 FT",
-                  "weightDesc":"40 Ton",
-                  "suborderStatus":"SUB_ORDER_PENDING"
-                 },
-                 "kids":{
-                    "has_bids":{
-                       "records":[
-                          {
-                             "data":{
-                              "Bid ID":"20",
-                              "SubOrder ID":"10",
-                              "bidName":"BID00000020",
-                              "bidValue":"550",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"21",
-                              "SubOrder ID":"10",
-                              "bidName":"BID00000021",
-                              "bidValue":"540",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"22",
-                              "SubOrder ID":"10",
-                              "bidName":"BID00000022",
-                              "bidValue":"530",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"22",
-                              "SubOrder ID":"10",
-                              "bidName":"BID00000022",
-                              "bidValue":"520",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          }
-                       ]
-                    }
-                 }
-              }
-           ]
-        }
-     }
-  },
-
-  {
-     "data":{
-      "orderId":"9",
-      "Source":"CFS",
-      "Destination":"YARD",
-      "OrderDate":"2020-09-12 10:00:00",
-      "OrderTotal":"1000",
-      "Remarks":"12 SEP 13 - 14 PM",
-      "orderStatus": "ORDER_PENDING"
-     },
-     "kids":{
-        "has_SubOrders":{
-           "records":[
-              {
-                 "data":{
-                  "SubOrder ID":"25",
-                  "orderId":"9",
-                  "subOrderTotal":"650",
-                  "CutOffTime":"2020-09-10 02:25:25",
-                  "containerMasterName":"30 FT",
-                  "weightDesc":"30 Ton",
-                  "suborderStatus":"SUB_ORDER_PENDING"
-                 },
-                 "kids":{
-                    "has_bids":{
-                       "records":[
-                          {
-                             "data":{
-                              "Bid ID":"33",
-                              "SubOrder ID":"25",
-                              "bidName":"BID00000033",
-                              "bidValue":"450",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"34",
-                              "SubOrder ID":"25",
-                              "bidName":"BID00000034",
-                              "bidValue":"440",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          },
-                          {
-                             "data":{
-                              "Bid ID":"38",
-                              "SubOrder ID":"25",
-                              "bidName":"BID00000038",
-                              "bidValue":"400",
-                              "biduserStatus":"BID_USER_PENDING",
-                              "bidStatus": "BID_PENDING"
-                             },
-                             "kids":{
-
-                             }
-                          }
-                       ]
-                    }
-                 }
-              }
-           ]
-        }
-     }
+    "orderId": 23,
+    "Source": "CFS",
+    "Destination": "YARD",
+    "Remarks": "31 OCT 23 PM 12 AM",
+    "OrderDate": "31-Oct-2020",
+    "OrderTotal": 1000,
+    "orderStatus": "ORDER_ACCEPTED",
+    "subOrders": [
+      {
+        "orderId": 23,
+        "subOrderId": 62,
+        "subOrderTotalMargin": 460,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "40FT",
+        "weightDesc": "40 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000028",
+            "exhibitionDate": "",
+            "subOrderId": 62,
+            "bidValue": 440,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 460
+          },
+          {
+            "bidName": "BID00000028",
+            "exhibitionDate": "",
+            "subOrderId": 62,
+            "bidValue": 438,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 460
+          },
+          {
+            "bidName": "BID00000028",
+            "exhibitionDate": "",
+            "subOrderId": 62,
+            "bidValue": 437,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 460
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 62,
+            "sourceId": 1,
+            "destinationId": 1,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 15,
+            "createdOn": "2020-10-28T18:06:06.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 19,
+            "TransporterName": "Transporter Third",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "40FT",
+            "Orderweight": "40 Ton",
+            "sourceName": "CFS All Cargo",
+            "destinationName": "Yard1"
+          }
+        ]
+      },
+      {
+        "orderId": 23,
+        "subOrderId": 63,
+        "subOrderTotalMargin": 460,
+        "suborderStatus": "SUB_ORDER_BID_ASSIGNED",
+        "containerMasterName": "40FT",
+        "weightDesc": "40 Ton",
+        "SubOrderDate": "28-Oct-2020",
+        "bids": [
+          {
+            "bidName": "BID00000029",
+            "exhibitionDate": "",
+            "subOrderId": 63,
+            "bidValue": 445,
+            "biduserStatus": "BID_USER_CONFIRMED",
+            "originalRate": 460
+          },
+          {
+            "bidName": "BID00000029",
+            "exhibitionDate": "",
+            "subOrderId": 63,
+            "bidValue": 450,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 460
+          },
+          {
+            "bidName": "BID00000029",
+            "exhibitionDate": "",
+            "subOrderId": 63,
+            "bidValue": 460,
+            "biduserStatus": "BID_USER_DISCARD",
+            "originalRate": 460
+          }
+        ],
+        "trip": [
+          {
+            "subOrderId": 63,
+            "sourceId": 1,
+            "destinationId": 1,
+            "assignedVehicle": null,
+            "assignedDriver": null,
+            "tripstatus": "TRIP_TRANSPORTER_ASSIGNED",
+            "startDate": null,
+            "endDate": null,
+            "billedAmount": null,
+            "createdBy": 5,
+            "createdOn": "2020-10-28T18:06:06.000Z",
+            "DriverName": null,
+            "vehicleNumber": null,
+            "tripId": 18,
+            "TransporterName": "Transporter ALC",
+            "TransporterContainer": null,
+            "TransporterWeight": null,
+            "OrderContainer": "40FT",
+            "Orderweight": "40 Ton",
+            "sourceName": "CFS All Cargo",
+            "destinationName": "Yard1"
+          }
+        ]
+      }
+    ]
   }
 ]

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Bid } from '../../shared/index';
+import { Bid, Trip } from '../../shared/index';
 
 
 @Component({
@@ -8,20 +8,22 @@ import { Bid } from '../../shared/index';
   templateUrl: './bids.component.html',
   styleUrls: ['./bids.component.scss']
 })
-export class BidsComponent{
+export class BidsComponent  implements OnInit{
 
   @Input() bids: Bid[];
+  @Input() trip: Trip[];
 
   displayedColumns: string[] = [
-    'Bid ID',
-    'SubOrder ID',
-    'bidName',
+    'subOrderId',
+    'bidSeq',
     'bidValue',
     'biduserStatus',
-    'bidStatus'
-
+    'originalRate',
+    'exhibitionDate'
   ];
   constructor() { }
 
-
+  ngOnInit() {
+    console.log(this.trip);
+  }
 }

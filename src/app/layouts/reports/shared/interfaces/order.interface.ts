@@ -4,19 +4,26 @@ export interface subOrder {
   ['subOrderTotal']: number;
   ['CutOffTime']: string;
   containerMasterName: string;
+  subOrderSeq: string;
   weightDesc: string;
   suborderStatus: string;
 
 }
 
 export interface Bid {
-  ['Bid ID']?: number;
-  bidName?: string;
-  bidValue?: number;
-  biduserStatus?: string;
-  bidStatus?: string;
-  bidId?: number;
-  bidRate? : number;
+  ['Bid ID']: number;
+  bidSeq: string;
+  bidValue: number;
+  biduserStatus: string;
+  bidStatus: string;
+}
+
+export interface Trip {
+  subOrderId: number;
+  tripstatus: string;
+  tripId: number;
+  transporterName: string;
+  transporterContainer: string;
 }
 
 export interface KidRecord {

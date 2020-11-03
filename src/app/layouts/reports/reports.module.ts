@@ -6,10 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { OrderreportComponent } from './orderreport/orderreport.component';
 import { SubordersComponent } from './orderreport/suborders/suborders.component';
 import { BidsComponent } from './orderreport/bids/bids.component';
+
 import { TableRowComponent } from './orderreport/table-row/table-row.component';
 import { ReportsService} from './shared/services/reportservice.service';
 
 import { ReportsMaterialModule } from './reports-material.module';
+import { TripComponent } from './orderreport/trip/trip.component';
 
 const routes: Routes = [
   { path: '', component: OrderreportComponent }
@@ -20,7 +22,8 @@ const routes: Routes = [
     OrderreportComponent,
     SubordersComponent,
     BidsComponent,
-    TableRowComponent
+    TableRowComponent,
+    TripComponent
   ],
   imports: [
     CommonModule,

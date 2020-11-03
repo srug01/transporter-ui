@@ -120,7 +120,7 @@ export class BidsComponent implements OnInit {
   transformBidObj(bid: Bid, action: string): BidUserMapping {
     return {
       bidId: bid.bidId,
-      bidName: bid.bidName,
+      // bidName: bid.bidName,
       biduserStatus: action,
       biduserStatusId: StausEnum.BID_USER_EDIT,
       bidValue: bid.bidRate,
