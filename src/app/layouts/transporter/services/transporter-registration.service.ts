@@ -44,6 +44,16 @@ export class TransporterRegistrationService {
     return this.http.get(this.baseUrl + 'transporter-registrations/' + id);
   }
 
+  getTransporterByUserId(id: number): Observable<any> {
+    const filter = {
+      where: {
+        userId: id
+      }
+    }
+    return this.http.get(this.baseUrl + 'transporter-registrations?filter=' + JSON.stringify(filter));
+  }
+
+
   deleteTransporterById(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'transporter-registrations/' + id);
   }

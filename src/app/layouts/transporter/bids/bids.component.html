@@ -13,9 +13,9 @@
                 <td mat-cell *matCellDef="let i=index"> {{i+ 1}} </td>
             </ng-container>
             <!-- Name Column -->
-            <ng-container matColumnDef="bidName">
+            <ng-container matColumnDef="bidSeq">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Bid Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.bidName ? element.bidName : detailsAwaited}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.bidSeq ? element.bidSeq : detailsAwaited}} </td>
             </ng-container>
             <!-- Symbol Column -->
             <ng-container matColumnDef="biduserStatus">
@@ -46,6 +46,11 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>OriginalRate</th>
                 <td mat-cell *matCellDef="let element"> {{element.originalRate ? element.originalRate : detailsAwaited}} </td>
             </ng-container>
+            <ng-container matColumnDef="TransporterName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Transporter Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.TransporterName ? element.TransporterName : detailsAwaited}} </td>
+          </ng-container>
+
             <ng-container matColumnDef="Details">
                 <th mat-header-cell *matHeaderCellDef> Details </th>
                 <td mat-cell *matCellDef="let element">

@@ -48,7 +48,7 @@
                         <p>Transporter</p>
                     </div>
                     <mat-menu #transporter="matMenu">
-                        <a mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</a>
+                        <a  *ngIf="iseligible" mat-menu-item routerLink='/default/transporter/placed-bids'>Placed Bids</a>
                         <a mat-menu-item routerLink='/default/transporter/register-vehicle'>Vehicle
                             Registration</a>
                         <!-- <a mat-menu-item [matMenuTriggerFor]="transporterRegistrations">Transporters</a> -->

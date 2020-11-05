@@ -25,9 +25,9 @@ import { MatSort } from '@angular/material/sort';
 })
 export class BidsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Bid Mapping ID', 'bidName', 'biduserStatus',
+    'Bid Mapping ID', 'bidSeq', 'biduserStatus',
     'sourceName', 'destinationName', 'containerMasterName', 'weightDesc',
-    'bidValue', 'originalRate', 'Details'
+    'bidValue', 'originalRate','TransporterName', 'Details'
   ];
   public bids: MatTableDataSource<Bid>;
   @ViewChild(MatSort) bidsSort: MatSort;

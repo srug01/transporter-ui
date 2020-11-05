@@ -69,12 +69,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ];
   displayedColumnsForAdminOrders: string[] = [
-    'orderId', 'sourceType', 'destinationType', 'sourceName', 'destinationName', 'terminal',
+    'ID','orderId', 'sourceType', 'destinationType', 'sourceName', 'destinationName', 'terminal',
     'orderRemarks', 'totalRate', 'orderStatus', 'OrderDate', 'CreatedOn'
 
   ];
   displayedColumnsForAdminSubOrders: string[] = [
-    'orderId', 'subOrderId', 'subOrderTotalMargin', 'CutOffTime', 'suborderStatus', 'containerMasterName',
+    'orderId', 'subOrderId','subOrderSeq', 'subOrderTotalMargin', 'CutOffTime', 'suborderStatus', 'containerMasterName',
     'weightDesc', 'SubOrderDate'
 
   ];
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ];
 
   displayedColumnsForBids: string[] = [
-    'bidId', 'bidName', 'TransporterName', 'SorurceName', 'destinationName', 'containerMasterName',
+    'bidId', 'bidSeq', 'TransporterName', 'SorurceName', 'destinationName', 'containerMasterName',
     'weightDesc', 'originalRate', 'bidValue', 'biduserStatus'
   ];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -170,6 +170,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.tripCount = this.dashboard.TotalTrips;
       this.orders = new MatTableDataSource(this.dashboard.Orders);
       this.suborders = new MatTableDataSource(this.dashboard.SubOrders);
+      console.log(this.suborders);
       this.bids = new MatTableDataSource(this.dashboard.Bids);
       this.trips = new MatTableDataSource(this.dashboard.Trips);
     } else if (this.roleId === 4 || this.roleId === 7 || this.roleId === 8 || this.roleId === 9) {

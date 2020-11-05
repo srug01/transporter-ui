@@ -17,7 +17,7 @@ import * as moment from 'moment';
 })
 export class LocationListComponent implements OnInit {
   displayedColumns: string[] = [
-    'Location ID', 'Location Name', 'Is Active', 'Action'
+    'Location ID', 'locationName', 'Is Active', 'Action'
   ];
   public locationMasters: MatTableDataSource<LocationMaster>;
   @ViewChild(MatSort) locationMasterSort: MatSort;
