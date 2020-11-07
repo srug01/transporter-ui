@@ -42,7 +42,7 @@ export class OrderDetailsComponent implements OnInit {
     'From', 'To'
   ];
   bidColumns: string[] = [
-    'bidId','bidName','originalRate', 'bidValue', 'biduserStatus', 'CutOffTime',
+    'bidId','bidSeq','originalRate', 'bidValue', 'biduserStatus', 'CutOffTime',
     'TranporterName'
   ];
   subOrderColumns: string[] = [
