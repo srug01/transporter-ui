@@ -1,5 +1,5 @@
-import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Constants } from './../../../shared/constants/constants';
 import { Port } from './../../../shared/models/port';
 import { Yard } from './../../../shared/models/yard';
@@ -18,10 +18,33 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BidFilter } from 'src/app/shared/models/bidFilter';
 import { TripFilter } from 'src/app/shared/models/tripFilter';
 import { TransporterRegistrationService } from '../../transporter/services/transporter-registration.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
+
+export interface PeriodicElement {
+  SubOrderDate: string;
+  bids: Array<any>;
+  containerMasterName: string;
+  orderId: number;
+  subOrderId: number;
+  subOrderSeq: string;
+  subOrderTotalMargin: number;
+  suborderStatus: string;
+  trip: any;
+  weightDesc: string;
+}
+
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
+  styleUrls: ['./order-details.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class OrderDetailsComponent implements OnInit {
   public cfsMasters: Cfs[] = [];
@@ -38,24 +61,25 @@ export class OrderDetailsComponent implements OnInit {
   public order_Id: number;
   public transporters: [];
   detailsAwaited = Constants.detailsAwaited;
+  expandedElement: PeriodicElement | null;
   displayedColumns: string[] = [
     'From', 'To'
   ];
   bidColumns: string[] = [
-    'bidId','bidSeq','originalRate', 'bidValue', 'biduserStatus', 'CutOffTime',
+    'bidId', 'bidSeq', 'originalRate', 'bidValue', 'biduserStatus', 'CutOffTime',
     'TranporterName'
   ];
   subOrderColumns: string[] = [
     'subOrderId', 'subOrderTotal', 'CutOffTime', 'suborderStatus',
-    'containerMasterName','weightDesc','SubOrderDate'
+    'containerMasterName', 'weightDesc', 'SubOrderDate'
   ];
 
   tripColumns: string[] = [
-    'tripId','subOrderId','sourceName','destinationName',
-     'TransporterName', 'AssignedVehicle', 'AssignedDriver',
-    'TransporterContainer','TransporterWeight','OrderContainer',
-    'Orderweight','tripstatus','billedAmount','OrderDate',
-    'StartedBy','StartedAt','StoppedBy','StoppedAt'
+    'tripId', 'subOrderId', 'sourceName', 'destinationName',
+    'TransporterName', 'AssignedVehicle', 'AssignedDriver',
+    'TransporterContainer', 'TransporterWeight', 'OrderContainer',
+    'Orderweight', 'tripstatus', 'billedAmount', 'OrderDate',
+    'StartedBy', 'StartedAt', 'StoppedBy', 'StoppedAt'
   ];
 
   public order: any;
@@ -124,18 +148,17 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
-getAllTransporters()
-{
-  this._transporterService.getAllTransporters().subscribe(
-    (transporters) => {
-      this.transporters = transporters;
-    },
-    (err) => {
-      console.log(err);
+  getAllTransporters() {
+    this._transporterService.getAllTransporters().subscribe(
+      (transporters) => {
+        this.transporters = transporters;
+      },
+      (err) => {
+        console.log(err);
 
-    }
-  );
-}
+      }
+    );
+  }
 
 
   getAllWeights() {
@@ -167,7 +190,7 @@ getAllTransporters()
         this._orderService.getOrderDetailsbyOrderId(params.id).subscribe(
           (order: any) => {
             this.order = order;
-            this.order_Id = parseInt(params.id) ;
+            this.order_Id = parseInt(params.id);
             this.applyFilter();
             this.applyBidFilter();
             this.applyTripFilter();
