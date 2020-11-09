@@ -11,7 +11,7 @@
                         <h3>Order Date & Status</h3>
                     </div>
                     <div fxFlex="100%">
-                        <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="33%" fxLayout="column">
                             <div fxFlex="100%">
                                 <p><strong>Order Date</strong></p>
                             </div>
@@ -19,7 +19,16 @@
                                 {{order.orderDate}}
                             </div>
                         </div>
-                        <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="33%" fxLayout="column">
+                          <div fxFlex="100%">
+                              <p><strong>CutOff Date</strong></p>
+                          </div>
+                          <div fxFlex="100%">
+                              {{order.cutOffTime}}
+                          </div>
+                      </div>
+
+                        <div fxFlex="33%" fxLayout="column">
                             <div fxFlex="100%">
                                 <p><strong>Status</strong></p>
                             </div>
@@ -28,32 +37,26 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <span layout="row" class="separator">
-                    <hr flex /></span>
-                <div fxLayout="column">
-                    <div fxFlex="100%">
-                        <h3>Source & Destination</h3>
-                    </div>
-                    <div fxFlex="100%">
-                        <div fxFlex="50%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>From</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.sourceType ? order.sourceType : detailsAwaited }} - {{order.sourceName ? order.sourceName : detailsAwaited}}
-                            </div>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                      <div fxFlex="33%" fxLayout="column">
+                        <div fxFlex="100%">
+                            <p><strong>From</strong></p>
                         </div>
-                        <div fxFlex="50%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>To</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.destinationType ? order.destinationType : detailsAwaited}} - {{order.destinationName ? order.destinationName : detailsAwaited}}
-                            </div>
+                        <div fxFlex="100%">
+                            {{order.sourceType ? order.sourceType : detailsAwaited }} - {{order.sourceName ? order.sourceName : detailsAwaited}}
                         </div>
                     </div>
+                    <div fxFlex="33%" fxLayout="column">
+                      <div fxFlex="100%">
+                          <p><strong>To</strong></p>
+                      </div>
+                      <div fxFlex="100%">
+                          {{order.destinationType ? order.destinationType : detailsAwaited}} - {{order.destinationName ? order.destinationName : detailsAwaited}}
+                      </div>
+                  </div>
+                    </div>
                 </div>
+
                 <span layout="row" class="separator">
                     <hr flex /></span>
                 <div fxLayout="column" *ngIf="suborders">

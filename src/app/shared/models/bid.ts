@@ -19,5 +19,6 @@ export interface Bid {
     bidStatusId?: number;
     BidScheduleId?: number;
     CutOffTime?: Date;
+    bidusermappingId?: number;
 
 }

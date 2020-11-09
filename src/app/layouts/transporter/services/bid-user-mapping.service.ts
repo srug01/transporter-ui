@@ -41,4 +41,9 @@ export class BidUserMappingService {
   GetBidsbyUserId(id: number): Observable<any> {
     return this.http.get<BidUserMapping[]>(this.baseUrl + 'GetBidsByUserId/' + id);
   }
+  AwardBidbymappingId(mappingid: number,subOrderId: number): Observable<any> {
+    return this.http.post<BidUserMapping[]>(this.baseUrl + 'AwardBidbymappingId/' + mappingid + '/' + subOrderId, this.HttpUploadOptions);
+  }
+
+
 }

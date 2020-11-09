@@ -55,7 +55,8 @@
                 <th mat-header-cell *matHeaderCellDef> Details </th>
                 <td mat-cell *matCellDef="let element">
                     <div fxLayout="row" fxLayoutGap="10px" *ngIf="currentUser">
-                        <a mat-raised-button color="primary" [routerLink]="['/default/transporter/bids',element.bidId]" *ngIf="currentUser.typeSyscode === 1">Details</a>
+                        <!-- <a mat-raised-button color="primary" [routerLink]="['/default/transporter/bids',element.bidId]" *ngIf="currentUser.typeSyscode === 1">Details</a> -->
+                        <button type="button" mat-raised-button color="warn" (click)="opendialogueBid($event,element)">Award</button>
                     </div>
                 </td>
             </ng-container>
