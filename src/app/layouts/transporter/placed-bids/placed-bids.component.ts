@@ -238,8 +238,9 @@ export class PlacedBidsComponent implements OnInit {
     return {
       suborderId: bid.subOrderId,
       userId: this.currentUser.userId,
-      bidRate: bid.bidLowerLimit,
+      bidLowerLimit: bid.bidLowerLimit,
       bidValue: bid.bidValue,
+      bidOriginalRate: bid.originalRate
     } as BidRate;
   }
 
