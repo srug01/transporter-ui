@@ -1,217 +1,406 @@
 <div class="card">
-    <mat-card fxFlex="70%" *ngIf="order">
-        <mat-card-header>
-            <mat-card-title>Order Details</mat-card-title>
-            <mat-card-subtitle>Order Information</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content class="field-title">
-            <div class="container" fxLayout="column" fxLayoutGap="20px">
-                <div fxLayout="column">
-                    <div fxFlex="100%">
-                        <h3>Order Date & Status</h3>
-                    </div>
-                    <div fxFlex="100%">
-                        <div fxFlex="33%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>Order Date</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.orderDate}}
-                            </div>
-                        </div>
-                        <div fxFlex="33%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>Status</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.orderStatus}}
-                            </div>
-                        </div>
-                        <div fxFlex="33%" fxLayout="column">
-                          <div fxFlex="100%">
-                              <p><strong>CutOff Date</strong></p>
-                          </div>
-                          <div fxFlex="100%">
-                              {{order.cutOffTime ? order.cutOffTime : detailsAwaited}}
-                          </div>
-                      </div>
-                    </div>
-                    <div fxLayout="column">
-                      <div fxFlex="100%">
-                          <div fxFlex="33%" fxLayout="column">
-                              <div fxFlex="100%">
-                                  <p><strong>From</strong></p>
-                              </div>
-                              <div fxFlex="100%">
-                                  {{order.sourceType ? order.sourceType : detailsAwaited }} - {{order.sourceName ? order.sourceName : detailsAwaited}}
-                              </div>
-                          </div>
-                          <div fxFlex="33%" fxLayout="column">
-                              <div fxFlex="100%">
-                                  <p><strong>To</strong></p>
-                              </div>
-                              <div fxFlex="100%">
-                                  {{order.destinationType ? order.destinationType : detailsAwaited}} - {{order.destinationName ? order.destinationName : detailsAwaited}}
-                              </div>
-                          </div>
-                          <div fxFlex="33%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>Order Total</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.totalRate ? order.totalRate : detailsAwaited}}
-                            </div>
-                        </div>
-                      </div>
-                  </div>
+  <mat-card fxFlex="70%" *ngIf="order">
+    <mat-card-header>
+      <mat-card-title>Order Details</mat-card-title>
+      <mat-card-subtitle>Order Information</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="field-title">
+      <div class="container" fxLayout="column" fxLayoutGap="20px">
+        <div fxLayout="column">
+          <div fxFlex="100%">
+            <h3>Order Date & Status</h3>
+          </div>
+          <div fxFlex="100%">
+            <div fxFlex="33%" fxLayout="column">
+              <div fxFlex="100%">
+                <p><strong>Order Date</strong></p>
+              </div>
+              <div fxFlex="100%">
+                {{ order.orderDate }}
+              </div>
+            </div>
+            <div fxFlex="33%" fxLayout="column">
+              <div fxFlex="100%">
+                <p><strong>Status</strong></p>
+              </div>
+              <div fxFlex="100%">
+                {{ order.orderStatus }}
+              </div>
+            </div>
+            <div fxFlex="33%" fxLayout="column">
+              <div fxFlex="100%">
+                <p><strong>CutOff Date</strong></p>
+              </div>
+              <div fxFlex="100%">
+                {{ order.cutOffTime ? order.cutOffTime : detailsAwaited }}
+              </div>
+            </div>
+          </div>
+          <div fxLayout="column">
+            <div fxFlex="100%">
+              <div fxFlex="33%" fxLayout="column">
+                <div fxFlex="100%">
+                  <p><strong>From</strong></p>
                 </div>
+                <div fxFlex="100%">
+                  {{ order.sourceType ? order.sourceType : detailsAwaited }} -
+                  {{ order.sourceName ? order.sourceName : detailsAwaited }}
+                </div>
+              </div>
+              <div fxFlex="33%" fxLayout="column">
+                <div fxFlex="100%">
+                  <p><strong>To</strong></p>
+                </div>
+                <div fxFlex="100%">
+                  {{
+                    order.destinationType
+                      ? order.destinationType
+                      : detailsAwaited
+                  }}
+                  -
+                  {{
+                    order.destinationName
+                      ? order.destinationName
+                      : detailsAwaited
+                  }}
+                </div>
+              </div>
+              <div fxFlex="33%" fxLayout="column">
+                <div fxFlex="100%">
+                  <p><strong>Order Total</strong></p>
+                </div>
+                <div fxFlex="100%">
+                  {{ order.totalRate ? order.totalRate : detailsAwaited }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <span layout="row" class="separator">
-                    <hr flex /></span>
-                <div fxLayout="column" *ngIf="suborders">
-                    <div fxFlex="100%">
-                        <h3>Suborders</h3>
-                    </div>
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxFlex="20">
-                            <mat-form-field color="accent" class="full-width">
-                                <mat-label>Cut Off Date</mat-label>
-                                <input matInput [matDatepicker]="picker1" placeholder="Moment.js datepicker" [(ngModel)]="subOrderFilter.cutOffTime">
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="20">
-                            <mat-form-field class="full-width">
-                                <mat-label>Status</mat-label>
-                                <mat-select [(ngModel)]="subOrderFilter.subOrderStatus">
-                                    <mat-option *ngFor="let status of statuses" [value]="status.statusDetailsId">
-                                        {{status.statusDetailsName}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="20">
-                            <mat-form-field class="full-width">
-                                <mat-label>ContainerMasterName</mat-label>
-                                <mat-select [(ngModel)]="subOrderFilter.containerType">
-                                    <mat-option *ngFor="let containerMaster of containerMasters" [value]="containerMaster.containerMasterId">
-                                        {{containerMaster.containerMasterName}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="20" class="filter-wrapper">
-                            <button mat-button (click)="applyFilter()">
-                                <mat-icon>filter_list</mat-icon>
-                            </button>
-                            <button mat-button (click)="resetFilter()">
-                                <mat-icon>clear</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxFlex="20">
-                            <mat-form-field color="accent" class="full-width">
-                                <mat-label>SubOrder Date</mat-label>
-                                <input matInput [matDatepicker]="picker2" placeholder="Moment.js datepicker" [(ngModel)]="subOrderFilter.subOrderDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="20">
-                            <mat-form-field class="full-width">
-                                <mat-label>Weight</mat-label>
-                                <mat-select [(ngModel)]="subOrderFilter.weightType">
-                                    <mat-option *ngFor="let weight of weights" [value]="weight.weightMasterId">
-                                        {{weight.weightDesc}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div>
-                        Total SubOrders Found : {{order.subOrders.length}}
-                    </div>
-                    <div fxFlex="100%">
-                        <table mat-table [dataSource]="order.subOrders" multiTemplateDataRows class="mat-elevation-z8">
-                            <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of subOrderColumns">
+        <span layout="row" class="separator"> <hr flex /></span>
+        <div fxLayout="column" *ngIf="suborders">
+          <div fxFlex="100%">
+            <h3>Suborders</h3>
+          </div>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div fxFlex="20">
+              <mat-form-field color="accent" class="full-width">
+                <mat-label>Cut Off Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  placeholder="Moment.js datepicker"
+                  [(ngModel)]="subOrderFilter.cutOffTime"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="20">
+              <mat-form-field class="full-width">
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="subOrderFilter.subOrderStatus">
+                  <mat-option
+                    *ngFor="let status of statuses"
+                    [value]="status.statusDetailsId"
+                  >
+                    {{ status.statusDetailsName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="20">
+              <mat-form-field class="full-width">
+                <mat-label>ContainerMasterName</mat-label>
+                <mat-select [(ngModel)]="subOrderFilter.containerType">
+                  <mat-option
+                    *ngFor="let containerMaster of containerMasters"
+                    [value]="containerMaster.containerMasterId"
+                  >
+                    {{ containerMaster.containerMasterName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="20" class="filter-wrapper">
+              <button mat-button (click)="applyFilter()">
+                <mat-icon>filter_list</mat-icon>
+              </button>
+              <button mat-button (click)="resetFilter()">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div fxFlex="20">
+              <mat-form-field color="accent" class="full-width">
+                <mat-label>SubOrder Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker2"
+                  placeholder="Moment.js datepicker"
+                  [(ngModel)]="subOrderFilter.subOrderDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="20">
+              <mat-form-field class="full-width">
+                <mat-label>Weight</mat-label>
+                <mat-select [(ngModel)]="subOrderFilter.weightType">
+                  <mat-option
+                    *ngFor="let weight of weights"
+                    [value]="weight.weightMasterId"
+                  >
+                    {{ weight.weightDesc }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>Total SubOrders Found : {{ order.subOrders.length }}</div>
+          <div fxFlex="100%">
+            <table
+              mat-table
+              [dataSource]="order.subOrders"
+              multiTemplateDataRows
+              class="mat-elevation-z8"
+            >
+              <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of subOrderColumns">
                                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
                                 <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
                             </ng-container> -->
-                            <ng-container matColumnDef="subOrderId">
-                              <th mat-header-cell *matHeaderCellDef> suOrder ID</th>
-                              <td mat-cell *matCellDef="let element"> {{element.subOrderId}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="subOrderSeq">
-                              <th mat-header-cell *matHeaderCellDef> suOrder Seq</th>
-                              <td mat-cell *matCellDef="let element"> {{element.subOrderSeq}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="containerMasterName">
-                              <th mat-header-cell *matHeaderCellDef> Container</th>
-                              <td mat-cell *matCellDef="let element"> {{element.containerMasterName}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="weightDesc">
-                              <th mat-header-cell *matHeaderCellDef> Weight</th>
-                              <td mat-cell *matCellDef="let element"> {{element.weightDesc}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="subOrderTotalMargin">
-                              <th mat-header-cell *matHeaderCellDef> Total</th>
-                              <td mat-cell *matCellDef="let element"> {{element.subOrderTotalMargin}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="suborderStatus">
-                              <th mat-header-cell *matHeaderCellDef> Status</th>
-                              <td mat-cell *matCellDef="let element"> {{element.suborderStatus}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="TotalBids">
-                              <th mat-header-cell *matHeaderCellDef> Total Bids</th>
-                              <td mat-cell *matCellDef="let element"> {{element.bids.length}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="expandedDetail">
-                                <td mat-cell *matCellDef="let element" [attr.colspan]="subOrderColumns.length">
-                                    <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                        <div class="example-element-description">
-                                            <table mat-table [dataSource]="element.bids" class="mat-elevation-z8">
-                                                <ng-container matColumnDef="bidId">
-                                                    <th mat-header-cell *matHeaderCellDef> Bid ID</th>
-                                                    <td mat-cell *matCellDef="let i=index"> {{i+ 1}}</td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="bidSeq">
-                                                    <th mat-header-cell *matHeaderCellDef>Bid Seq</th>
-                                                    <td mat-cell *matCellDef="let element">{{element.bidSeq}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="originalRate">
-                                                    <th mat-header-cell *matHeaderCellDef> Bid Original Rate </th>
-                                                    <td mat-cell *matCellDef="let element">{{element.originalRate}}</td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="bidValue">
-                                                    <th mat-header-cell *matHeaderCellDef>Bid Value</th>
-                                                    <td mat-cell *matCellDef="let element">{{element.bidValue ? element.bidValue : detailsAwaited}}</td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="biduserStatus">
-                                                    <th mat-header-cell *matHeaderCellDef>Bid User Status</th>
-                                                    <td mat-cell *matCellDef="let element">{{element.biduserStatus}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="TransporterName">
-                                                    <th mat-header-cell *matHeaderCellDef>TransporterName </th>
-                                                    <td mat-cell *matCellDef="let element">{{element.TransporterName}} </td>
-                                                </ng-container>
-                                                <tr mat-header-row *matHeaderRowDef="bidColumns"></tr>
-                                                <tr mat-row *matRowDef="let row; columns: bidColumns;"></tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="subOrderColumns"></tr>
-                            <tr mat-row *matRowDef="let element; columns: subOrderColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
-                            </tr>
-                            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
-                            </tr>
-                        </table>
+              <ng-container matColumnDef="subOrderId">
+                <th mat-header-cell *matHeaderCellDef>suOrder ID</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.subOrderId }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="subOrderSeq">
+                <th mat-header-cell *matHeaderCellDef>suOrder Seq</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.subOrderSeq }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="containerMasterName">
+                <th mat-header-cell *matHeaderCellDef>Container</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.containerMasterName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="weightDesc">
+                <th mat-header-cell *matHeaderCellDef>Weight</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.weightDesc }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="subOrderTotalMargin">
+                <th mat-header-cell *matHeaderCellDef>Total</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.subOrderTotalMargin }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="suborderStatus">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.suborderStatus }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="TotalBids">
+                <th mat-header-cell *matHeaderCellDef>Total Bids</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.bids.length }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <div fxLayout="row" fxLayoutGap="10px" *ngIf="element.bidAwarded">
+                        <!-- <a mat-raised-button color="primary" [routerLink]="['/default/transporter/bids',element.bidId]" *ngIf="currentUser.typeSyscode === 1">Details</a> -->
+                        <button type="button" mat-raised-button color="warn" (click)="opendialogueRevokeBid($event,element)">Revoke Awarded</button>
                     </div>
-                </div>
-                <!-- <span layout="row" class="separator">
+                </td>
+            </ng-container>
+              <ng-container matColumnDef="expandedDetail">
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  [attr.colspan]="subOrderColumns.length"
+                >
+                  <div
+                    class="example-element-detail"
+                    [@detailExpand]="
+                      element == expandedElement ? 'expanded' : 'collapsed'
+                    "
+                  >
+                    <div class="example-element-description">
+                      <table
+                        mat-table
+                        [dataSource]="element.bids"
+                        class="mat-elevation-z8"
+                      >
+                        <ng-container matColumnDef="bidId">
+                          <th mat-header-cell *matHeaderCellDef>Bid ID</th>
+                          <td mat-cell *matCellDef="let i = index">
+                            {{ i + 1 }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="bidSeq">
+                          <th mat-header-cell *matHeaderCellDef>Bid Seq</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.bidSeq }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="originalRate">
+                          <th mat-header-cell *matHeaderCellDef>
+                            Bid Original Rate
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.originalRate }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="bidValue">
+                          <th mat-header-cell *matHeaderCellDef>Bid Value</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{
+                              element.bidValue
+                                ? element.bidValue
+                                : detailsAwaited
+                            }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="biduserStatus">
+                          <th mat-header-cell *matHeaderCellDef>
+                            Bid User Status
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.biduserStatus }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="TransporterName">
+                          <th mat-header-cell *matHeaderCellDef>
+                            TransporterName
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.TransporterName }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Action">
+                          <th mat-header-cell *matHeaderCellDef> Details </th>
+                          <td mat-cell *matCellDef="let element">
+                              <div fxLayout="row" fxLayoutGap="10px" *ngIf="element.biduserStatusId === 4" >
+                                  <!-- <a mat-raised-button color="primary" [routerLink]="['/default/transporter/bids',element.bidId]" *ngIf="currentUser.typeSyscode === 1">Details</a> -->
+                                  <button type="button" mat-raised-button color="warn" (click)="opendialogueBid($event,element)">Award</button>
+                              </div>
+                          </td>
+                      </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="bidColumns"></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: bidColumns"
+                        ></tr>
+                      </table>
+                      <table
+                        mat-table
+                        [dataSource]="element.trip"
+                        class="mat-elevation-z8"
+                      >
+                        <ng-container matColumnDef="tripId">
+                          <th mat-header-cell *matHeaderCellDef>TripId</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.tripId }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="sourceName">
+                          <th mat-header-cell *matHeaderCellDef>Source</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.sourceName }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="destinationName">
+                          <th mat-header-cell *matHeaderCellDef>Destination</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.destinationName }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="OrderContainer">
+                          <th mat-header-cell *matHeaderCellDef>Container</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.OrderContainer }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Orderweight">
+                          <th mat-header-cell *matHeaderCellDef>Weight</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.Orderweight }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="TransporterName">
+                          <th mat-header-cell *matHeaderCellDef>Transporter</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.TransporterName }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="AssignedDriver">
+                          <th mat-header-cell *matHeaderCellDef>Driver</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.AssignedDriver }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="AssignedVehicle">
+                          <th mat-header-cell *matHeaderCellDef>Vehicle</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.AssignedVehicle }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="tripstatus">
+                          <th mat-header-cell *matHeaderCellDef>Status</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.tripstatus }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="billedAmount">
+                          <th mat-header-cell *matHeaderCellDef>Bill Amount</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.billedAmount }}
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="tripColumns"></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: tripColumns"
+                        ></tr>
+                      </table>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="subOrderColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: subOrderColumns"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="
+                  expandedElement = expandedElement === element ? null : element
+                "
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: ['expandedDetail']"
+                class="example-detail-row"
+              ></tr>
+            </table>
+          </div>
+        </div>
+        <!-- <span layout="row" class="separator">
                     <hr flex /></span>
                 <div fxLayout="column" *ngIf="bids && (roleId == 1) ">
                     <div fxFlex="100%">
@@ -293,173 +482,231 @@
                         </table>
                     </div>
                 </div> -->
-                <span layout="row" class="separator">
-                    <hr flex /></span>
-                <div fxLayout="column" *ngIf="trips">
-                    <div fxFlex="100%">
-                        <h3>Trips For the Order</h3>
-                    </div>
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxFlex="20">
-                            <mat-form-field class="full-width">
-                                <mat-label>ContainerMasterName</mat-label>
-                                <mat-select [(ngModel)]="tripFilter.containerType">
-                                    <mat-option *ngFor="let containerMaster of containerMasters" [value]="containerMaster.containerMasterId">
-                                        {{containerMaster.containerMasterName}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="20">
-                            <mat-form-field class="full-width">
-                                <mat-label>Weight</mat-label>
-                                <mat-select [(ngModel)]="tripFilter.weightType">
-                                    <mat-option *ngFor="let weight of weights" [value]="weight.weightMasterId">
-                                        {{weight.weightDesc}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex="20">
-                            <mat-form-field class="full-width">
-                                <mat-label>Status</mat-label>
-                                <mat-select [(ngModel)]="tripFilter.tripStatus">
-                                    <mat-option *ngFor="let status of tripstatuses" [value]="status.statusDetailsId">
-                                        {{status.statusDetailsName}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-
-                        <div fxFlex="20" class="filter-wrapper">
-                            <button mat-button (click)="applyTripFilter()">
-                                <mat-icon>filter_list</mat-icon>
-                            </button>
-                            <button mat-button (click)="resetTripFilter()">
-                                <mat-icon>clear</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        Total Trips Found : {{trips.data.length}}
-                    </div>
-                    <div fxFlex="100%">
-                        <table mat-table [dataSource]="trips" class="mat-elevation-z8">
-                            <ng-container matColumnDef="tripId">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Trip ID </th>
-                                <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="subOrderId">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> SubOrder ID </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.subOrderId}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="sourceName">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Source Name </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.sourceName}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="destinationName">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Destination Name </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.destinationName}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="TransporterName">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Transporter Name </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.TransporterName}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="AssignedVehicle">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Assigned Vehicle </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.AssignedVehicle}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="AssignedDriver">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Assigned Driver </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.AssignedDriver}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="TransporterContainer">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Transporter Container </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.TransporterContainer}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="TransporterWeight">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Transporter Weight</th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.TransporterWeight}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="OrderContainer">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Order Container</th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.OrderContainer}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="Orderweight">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Order Weight</th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.Orderweight}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="tripstatus">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Trip Status</th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.tripstatus}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="billedAmount">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Billed Amount </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.billedAmount}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="OrderDate">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Order Date </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.OrderDate}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="StartedBy">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Started By </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.StartedBy}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="StartedAt">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Started At </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.StartedAt}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="StoppedBy">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Stopped By </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.StoppedBy}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="StoppedAt">
-                                <th mat-header-cell *matHeaderCellDef class="table-title"> Stopped At </th>
-                                <td mat-cell *matCellDef="let element" class="table-row">
-                                    {{element.StoppedAt}} </td>
-                            </ng-container>
-
-
-                            <tr mat-header-row *matHeaderRowDef="tripColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: tripColumns;"></tr>
-                        </table>
-                    </div>
-                </div>
-                <span layout="row" class="separator">
-                    <hr flex /></span>
-                <div fxLayout="column">
-                    <div fxFlex="100%">
-                        <h3>Additional Information</h3>
-                    </div>
-                    <div fxFlex="100%">
-                        <div fxFlex="50%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>Remarks</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.orderRemarks ? order.orderRemarks : detailsAwaited}}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <span layout="row" class="separator"> <hr flex /></span>
+        <div fxLayout="column" *ngIf="trips">
+          <div fxFlex="100%">
+            <h3>Trips For the Order</h3>
+          </div>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div fxFlex="20">
+              <mat-form-field class="full-width">
+                <mat-label>ContainerMasterName</mat-label>
+                <mat-select [(ngModel)]="tripFilter.containerType">
+                  <mat-option
+                    *ngFor="let containerMaster of containerMasters"
+                    [value]="containerMaster.containerMasterId"
+                  >
+                    {{ containerMaster.containerMasterName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-        </mat-card-content>
-    </mat-card>
+            <div fxFlex="20">
+              <mat-form-field class="full-width">
+                <mat-label>Weight</mat-label>
+                <mat-select [(ngModel)]="tripFilter.weightType">
+                  <mat-option
+                    *ngFor="let weight of weights"
+                    [value]="weight.weightMasterId"
+                  >
+                    {{ weight.weightDesc }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="20">
+              <mat-form-field class="full-width">
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="tripFilter.tripStatus">
+                  <mat-option
+                    *ngFor="let status of tripstatuses"
+                    [value]="status.statusDetailsId"
+                  >
+                    {{ status.statusDetailsName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="20" class="filter-wrapper">
+              <button mat-button (click)="applyTripFilter()">
+                <mat-icon>filter_list</mat-icon>
+              </button>
+              <button mat-button (click)="resetTripFilter()">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div>Total Trips Found : {{ trips.data.length }}</div>
+          <div fxFlex="100%">
+            <table mat-table [dataSource]="trips" class="mat-elevation-z8">
+              <ng-container matColumnDef="tripId">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Trip ID
+                </th>
+                <td mat-cell class="table-row" *matCellDef="let i = index">
+                  {{ i + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="subOrderId">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  SubOrder ID
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.subOrderId }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="sourceName">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Source Name
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.sourceName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="destinationName">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Destination Name
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.destinationName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="TransporterName">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Transporter Name
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.TransporterName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="AssignedVehicle">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Assigned Vehicle
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.AssignedVehicle }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="AssignedDriver">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Assigned Driver
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.AssignedDriver }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="TransporterContainer">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Transporter Container
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.TransporterContainer }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="TransporterWeight">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Transporter Weight
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.TransporterWeight }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="OrderContainer">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Order Container
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.OrderContainer }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Orderweight">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Order Weight
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.Orderweight }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="tripstatus">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Trip Status
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.tripstatus }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="billedAmount">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Billed Amount
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.billedAmount }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="OrderDate">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Order Date
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.OrderDate }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="StartedBy">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Started By
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.StartedBy }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="StartedAt">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Started At
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.StartedAt }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="StoppedBy">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Stopped By
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.StoppedBy }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="StoppedAt">
+                <th mat-header-cell *matHeaderCellDef class="table-title">
+                  Stopped At
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-row">
+                  {{ element.StoppedAt }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="tripColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: tripColumns"></tr>
+            </table>
+          </div>
+        </div>
+        <span layout="row" class="separator"> <hr flex /></span>
+        <div fxLayout="column">
+          <div fxFlex="100%">
+            <h3>Additional Information</h3>
+          </div>
+          <div fxFlex="100%">
+            <div fxFlex="50%" fxLayout="column">
+              <div fxFlex="100%">
+                <p><strong>Remarks</strong></p>
+              </div>
+              <div fxFlex="100%">
+                {{ order.orderRemarks ? order.orderRemarks : detailsAwaited }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

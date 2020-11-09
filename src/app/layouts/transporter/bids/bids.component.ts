@@ -103,14 +103,15 @@ export class BidsComponent implements OnInit {
 
   AwardBid(bid: any)
   {
-    this._bidMappingService.AwardBidbymappingId(bid.bidusermappingId,bid.subOrderId).subscribe(
-      (bids: any) => {
-        console.log(bids);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    console.log(bid);
+    // this._bidMappingService.AwardBidbymappingId(bid.bidusermappingId,bid.subOrderId).subscribe(
+    //   (bids: any) => {
+    //     console.log(bids);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
   }
 
 

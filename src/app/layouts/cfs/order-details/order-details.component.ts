@@ -19,6 +19,10 @@ import { BidFilter } from 'src/app/shared/models/bidFilter';
 import { TripFilter } from 'src/app/shared/models/tripFilter';
 import { TransporterRegistrationService } from '../../transporter/services/transporter-registration.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonConfirmdialogComponent, ConfirmDialogModel } from 'src/app/shared/dialogs/common-confirmdialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { BidUserMappingService } from '../../../layouts/transporter/services/bid-user-mapping.service';
+import { BidAction } from 'src/app/shared/models/bidAction';
 
 
 export interface PeriodicElement {
@@ -60,6 +64,7 @@ export class OrderDetailsComponent implements OnInit {
   public weights: any;
   public order_Id: number;
   public transporters: [];
+  public result: string = '';
   detailsAwaited = Constants.detailsAwaited;
   expandedElement: PeriodicElement | null;
   displayedColumns: string[] = [
@@ -67,7 +72,7 @@ export class OrderDetailsComponent implements OnInit {
   ];
   bidColumns: string[] = [
     'bidId', 'bidSeq', 'originalRate', 'bidValue', 'biduserStatus',
-    'TransporterName'
+    'TransporterName','Action'
   ];
   // subOrderColumns: string[] = [
   //   'subOrderId', 'subOrderTotal', 'CutOffTime', 'suborderStatus',
@@ -75,14 +80,12 @@ export class OrderDetailsComponent implements OnInit {
   // ];
   subOrderColumns: string[] = [
     'subOrderId','subOrderSeq','containerMasterName', 'weightDesc','subOrderTotalMargin'
-    ,'suborderStatus','TotalBids'
+    ,'suborderStatus','TotalBids','Action'
   ];
   tripColumns: string[] = [
-    'tripId', 'subOrderId', 'sourceName', 'destinationName',
+    'tripId',  'sourceName', 'destinationName',
     'TransporterName', 'AssignedVehicle', 'AssignedDriver',
-    'TransporterContainer', 'TransporterWeight', 'OrderContainer',
-    'Orderweight', 'tripstatus', 'billedAmount', 'OrderDate',
-    'StartedBy', 'StartedAt', 'StoppedBy', 'StoppedAt'
+    'OrderContainer', 'Orderweight','tripstatus', 'billedAmount'
   ];
 
   public order: any;
@@ -97,7 +100,9 @@ export class OrderDetailsComponent implements OnInit {
     private _userService: UserService,
     private _yardService: YardService,
     private _cfsService: CfsService,
-    private _transporterService: TransporterRegistrationService
+    private _transporterService: TransporterRegistrationService,
+    private _dialog: MatDialog,
+    private _bidMappingService: BidUserMappingService,
   ) { }
 
   ngOnInit(): void {
@@ -353,6 +358,79 @@ export class OrderDetailsComponent implements OnInit {
         return this.yardMasters[i].yardName;
       }
     }
+  }
+
+  opendialogueBid(ev,bid: any)
+  {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const message = `Are you sure you want to Award this Bid?`;
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this._dialog.open(CommonConfirmdialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      if (this.result) {
+        this.AwardBid(bid);
+      }
+    });
+  }
+
+  AwardBid(bid: any)
+  {
+    const transformObj: BidAction = {
+      biduserMappingId: bid.bidusermappingId,
+      subOrderId: bid.subOrderId
+    };
+    this._bidMappingService.AwardBidbymappingId(transformObj).subscribe(
+      (bids: any) => {
+        this.getOrderDetails();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  opendialogueRevokeBid(ev,bid: any)
+  {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const message = `Are you sure you want to Revoke Awarded Bid?`;
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this._dialog.open(CommonConfirmdialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      if (this.result) {
+        this.RevokedBid(bid);
+      }
+    });
+  }
+
+  RevokedBid(bid: any)
+  {
+    const transformObj: BidAction = {
+      subOrderId: bid.subOrderId
+    };
+    this._bidMappingService.RevokebidbysubOrderId(transformObj).subscribe(
+      (bids: any) => {
+        this.getOrderDetails();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }

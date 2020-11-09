@@ -21,9 +21,5 @@ export enum StausEnum{
   TRIP_COMPLETED = 20,
   TRIP_DRIVER_VEHICLE_ASSIGNED = 21,
   BID_USER_DISCARD = 22,
-  Excellent = 23,
-  Better = 24,
-  Good =25,
-  Average = 26,
-  Poor = 27,
+  TRIP_DISCARD_ADMIN = 23,
 };

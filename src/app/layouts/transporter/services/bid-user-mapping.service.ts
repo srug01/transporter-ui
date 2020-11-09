@@ -3,6 +3,7 @@ import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BidAction } from 'src/app/shared/models/bidAction';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,13 @@ export class BidUserMappingService {
   GetBidsbyUserId(id: number): Observable<any> {
     return this.http.get<BidUserMapping[]>(this.baseUrl + 'GetBidsByUserId/' + id);
   }
-  AwardBidbymappingId(mappingid: number,subOrderId: number): Observable<any> {
-    return this.http.post<BidUserMapping[]>(this.baseUrl + 'AwardBidbymappingId/' + mappingid + '/' + subOrderId, this.HttpUploadOptions);
+  AwardBidbymappingId(bidAction: BidAction): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'AwardBidbymappingId/' ,
+    JSON.stringify(bidAction), this.HttpUploadOptions);
+  }
+  RevokebidbysubOrderId(bidAction: BidAction): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'RevokebidbysubOrderId/',
+    JSON.stringify(bidAction), this.HttpUploadOptions);
   }
 
 
