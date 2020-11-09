@@ -11,7 +11,7 @@
                         <h3>Order Date & Status</h3>
                     </div>
                     <div fxFlex="100%">
-                        <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="33%" fxLayout="column">
                             <div fxFlex="100%">
                                 <p><strong>Order Date</strong></p>
                             </div>
@@ -19,41 +19,53 @@
                                 {{order.orderDate}}
                             </div>
                         </div>
-                        <div fxFlex="50%" fxLayout="column">
+                        <div fxFlex="33%" fxLayout="column">
                             <div fxFlex="100%">
                                 <p><strong>Status</strong></p>
                             </div>
                             <div fxFlex="100%">
-                                {{order.orderStatus ? order.orderStatus : detailsAwaited}}
+                                {{order.orderStatus}}
                             </div>
                         </div>
+                        <div fxFlex="33%" fxLayout="column">
+                          <div fxFlex="100%">
+                              <p><strong>CutOff Date</strong></p>
+                          </div>
+                          <div fxFlex="100%">
+                              {{order.cutOffTime ? order.cutOffTime : detailsAwaited}}
+                          </div>
+                      </div>
                     </div>
+                    <div fxLayout="column">
+                      <div fxFlex="100%">
+                          <div fxFlex="33%" fxLayout="column">
+                              <div fxFlex="100%">
+                                  <p><strong>From</strong></p>
+                              </div>
+                              <div fxFlex="100%">
+                                  {{order.sourceType ? order.sourceType : detailsAwaited }} - {{order.sourceName ? order.sourceName : detailsAwaited}}
+                              </div>
+                          </div>
+                          <div fxFlex="33%" fxLayout="column">
+                              <div fxFlex="100%">
+                                  <p><strong>To</strong></p>
+                              </div>
+                              <div fxFlex="100%">
+                                  {{order.destinationType ? order.destinationType : detailsAwaited}} - {{order.destinationName ? order.destinationName : detailsAwaited}}
+                              </div>
+                          </div>
+                          <div fxFlex="33%" fxLayout="column">
+                            <div fxFlex="100%">
+                                <p><strong>Order Total</strong></p>
+                            </div>
+                            <div fxFlex="100%">
+                                {{order.totalRate ? order.totalRate : detailsAwaited}}
+                            </div>
+                        </div>
+                      </div>
+                  </div>
                 </div>
-                <span layout="row" class="separator">
-                    <hr flex /></span>
-                <div fxLayout="column">
-                    <div fxFlex="100%">
-                        <h3>Source & Destination</h3>
-                    </div>
-                    <div fxFlex="100%">
-                        <div fxFlex="50%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>From</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.sourceType ? order.sourceType : detailsAwaited }} - {{order.sourceName ? order.sourceName : detailsAwaited}}
-                            </div>
-                        </div>
-                        <div fxFlex="50%" fxLayout="column">
-                            <div fxFlex="100%">
-                                <p><strong>To</strong></p>
-                            </div>
-                            <div fxFlex="100%">
-                                {{order.destinationType ? order.destinationType : detailsAwaited}} - {{order.destinationName ? order.destinationName : detailsAwaited}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <span layout="row" class="separator">
                     <hr flex /></span>
                 <div fxLayout="column" *ngIf="suborders">
@@ -123,9 +135,37 @@
                     </div>
                     <div fxFlex="100%">
                         <table mat-table [dataSource]="order.subOrders" multiTemplateDataRows class="mat-elevation-z8">
-                            <ng-container matColumnDef="{{column}}" *ngFor="let column of subOrderColumns">
+                            <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of subOrderColumns">
                                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
                                 <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                            </ng-container> -->
+                            <ng-container matColumnDef="subOrderId">
+                              <th mat-header-cell *matHeaderCellDef> suOrder ID</th>
+                              <td mat-cell *matCellDef="let element"> {{element.subOrderId}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="subOrderSeq">
+                              <th mat-header-cell *matHeaderCellDef> suOrder Seq</th>
+                              <td mat-cell *matCellDef="let element"> {{element.subOrderSeq}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="containerMasterName">
+                              <th mat-header-cell *matHeaderCellDef> Container</th>
+                              <td mat-cell *matCellDef="let element"> {{element.containerMasterName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="weightDesc">
+                              <th mat-header-cell *matHeaderCellDef> Weight</th>
+                              <td mat-cell *matCellDef="let element"> {{element.weightDesc}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="subOrderTotalMargin">
+                              <th mat-header-cell *matHeaderCellDef> Total</th>
+                              <td mat-cell *matCellDef="let element"> {{element.subOrderTotalMargin}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="suborderStatus">
+                              <th mat-header-cell *matHeaderCellDef> Status</th>
+                              <td mat-cell *matCellDef="let element"> {{element.suborderStatus}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="TotalBids">
+                              <th mat-header-cell *matHeaderCellDef> Total Bids</th>
+                              <td mat-cell *matCellDef="let element"> {{element.bids.length}} </td>
                             </ng-container>
                             <ng-container matColumnDef="expandedDetail">
                                 <td mat-cell *matCellDef="let element" [attr.colspan]="subOrderColumns.length">
@@ -152,13 +192,9 @@
                                                     <th mat-header-cell *matHeaderCellDef>Bid User Status</th>
                                                     <td mat-cell *matCellDef="let element">{{element.biduserStatus}} </td>
                                                 </ng-container>
-                                                <ng-container matColumnDef="CutOffTime">
-                                                    <th mat-header-cell *matHeaderCellDef>CutOffTime </th>
-                                                    <td mat-cell *matCellDef="let element">{{element.CutOffTime ? element.CutOffTime : detailsAwaited}}</td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="TranporterName">
-                                                    <th mat-header-cell *matHeaderCellDef>TranporterName </th>
-                                                    <td mat-cell *matCellDef="let element">{{element.TranporterName}} </td>
+                                                <ng-container matColumnDef="TransporterName">
+                                                    <th mat-header-cell *matHeaderCellDef>TransporterName </th>
+                                                    <td mat-cell *matCellDef="let element">{{element.TransporterName}} </td>
                                                 </ng-container>
                                                 <tr mat-header-row *matHeaderRowDef="bidColumns"></tr>
                                                 <tr mat-row *matRowDef="let row; columns: bidColumns;"></tr>

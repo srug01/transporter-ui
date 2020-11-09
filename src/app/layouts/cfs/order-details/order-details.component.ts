@@ -66,14 +66,17 @@ export class OrderDetailsComponent implements OnInit {
     'From', 'To'
   ];
   bidColumns: string[] = [
-    'bidId', 'bidSeq', 'originalRate', 'bidValue', 'biduserStatus', 'CutOffTime',
-    'TranporterName'
+    'bidId', 'bidSeq', 'originalRate', 'bidValue', 'biduserStatus',
+    'TransporterName'
   ];
+  // subOrderColumns: string[] = [
+  //   'subOrderId', 'subOrderTotal', 'CutOffTime', 'suborderStatus',
+  //   'containerMasterName', 'weightDesc', 'SubOrderDate'
+  // ];
   subOrderColumns: string[] = [
-    'subOrderId', 'subOrderTotal', 'CutOffTime', 'suborderStatus',
-    'containerMasterName', 'weightDesc', 'SubOrderDate'
+    'subOrderId','subOrderSeq','containerMasterName', 'weightDesc','subOrderTotalMargin'
+    ,'suborderStatus','TotalBids'
   ];
-
   tripColumns: string[] = [
     'tripId', 'subOrderId', 'sourceName', 'destinationName',
     'TransporterName', 'AssignedVehicle', 'AssignedDriver',
@@ -190,6 +193,7 @@ export class OrderDetailsComponent implements OnInit {
         this._orderService.getOrderDetailsbyOrderId(params.id).subscribe(
           (order: any) => {
             this.order = order;
+            console.log(order);
             this.order_Id = parseInt(params.id);
             this.applyFilter();
             this.applyBidFilter();
