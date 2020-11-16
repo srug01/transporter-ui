@@ -206,7 +206,7 @@ const routes: Routes = [
     DatePipe,
     UserRegistrationResolver,
     {
-      provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE, Platform]
+      provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE,  Platform]
     },
     // Comment out the line below to turn off UTC:
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
@@ -214,6 +214,7 @@ const routes: Routes = [
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
+
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }

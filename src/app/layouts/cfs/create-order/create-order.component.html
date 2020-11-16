@@ -22,7 +22,7 @@
                     <div fxFlex="30%">
                         <mat-form-field color="accent">
                             <mat-label class="required">Date</mat-label>
-                            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Moment.js datepicker" formControlName="orderDate">
+                            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Order Date" formControlName="orderDate">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                             <mat-error *ngIf="orderForm.controls['orderDate'].hasError('matDatepickerParse')">Date must be in format (DD/MMM/YYYY)
