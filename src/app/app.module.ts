@@ -35,6 +35,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ToastrModule } from 'ngx-toastr';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import { BidlogicComponent } from './default/settings/bidlogic/bidlogic.component';
+import { PaymentsComponent } from './layouts/payments/payments.component';
 //import {NumbersOnly} from './directives/numbersonly.directive';
 
 
@@ -49,7 +50,8 @@ const toasterConfig: MatSnackBarConfig = {
     AppComponent,
     ConfirmDialogComponent,
     CommonConfirmdialogComponent,
-    BidlogicComponent
+    BidlogicComponent,
+    PaymentsComponent
   ],
   imports: [
     BrowserModule,
