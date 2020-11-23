@@ -3,7 +3,7 @@ export interface Paymentreceived{
   userId: number;
   receivedDate: string;
   Amount: number;
-  paymentMode: string;
+  paymentMode: number;
   TransactionId?: string;
   Remarks?: string;
   createdBy: number;

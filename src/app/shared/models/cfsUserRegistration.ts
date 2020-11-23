@@ -1,3 +1,7 @@
+import { Paymenthistory } from './paymenthistory';
+import { Paymentreceived } from './paymentreceived';
+import { Payments } from './payments';
+
 export interface CfsUserRegistration {
     cfsUserRegistrationId?: number;
     cfsMasterId?: number;
@@ -16,4 +20,7 @@ export interface CfsUserRegistration {
     modifiedBy?: number;
     modifiedOn?: Date;
     roleName?: string;
+    payments?: Payments[];
+    paymentsReceived?: Paymentreceived[];
+    paymenthistories?: Paymenthistory[];
 }
