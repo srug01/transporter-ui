@@ -1,1 +1,158 @@
-<p>user-details works!</p>
+<div fxLayout="row wrap">
+    <mat-card fxFlex="50" fxLayout="column">
+        <mat-card-header>
+            <mat-card-title>Update User</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxFlex="100" fxLayout="column">
+            <form fxLayout="column" [formGroup]="userForm" (ngSubmit)="submitUserForm($event)">
+                <div fxFlex="100" fxLayout="row" fxLayoutGap="15px">
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput placeholder="User Name" formControlName="cfsUserName" name="cfsUserName" required>
+                            <mat-error *ngIf="userForm.get('cfsUserName').errors !== null &&  userForm.get('cfsUserName').errors.required">
+                                Please Enter User Name</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+                    </div>
+                </div>
+                <div fxFlex="100" fxLayout="row" fxLayoutGap="15px">
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput placeholder="User Email" formControlName="cfsUserEmail" name="cfsUserEmail" required>
+                            <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.required">
+                                Please Enter User Name</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput placeholder="User Mobile Number" formControlName="cfsUserMobileNumber" name="cfsUserMobileNumber" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxLayout="row" fxLayoutGap="15px">
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput placeholder="User cfsUserDepartment" formControlName="cfsUserDepartment" name="cfsUserDepartment" required>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput placeholder="cfsUserDesignationr" formControlName="cfsUserDesignation" name="cfsUserDesignation" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.lt-sm="100">
+                    <button type="submit" mat-raised-button color="primary" class="m-t-8">
+                        Save
+                    </button>
+                </div>
+            </form>
+            <div class="paymenthistories">
+                <h4>Payment History</h4>
+                <table mat-table [dataSource]="currentUser.paymenthistories" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="#">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
+                        <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="AvailableLimit">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> AvailableLimit </th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.AvailableLimit}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="creditLimit">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> creditLimit</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.creditLimit}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="PaymentDate">
+                        <th mat-header-cell *matHeaderCellDef class="table-title">PaymentDate</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.PaymentDate}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="paymentHistoriesColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: paymentHistoriesColumns;"></tr>
+                </table>
+            </div>
+            <div class="payments">
+                <h4>Payments</h4>
+                <table mat-table [dataSource]="currentUser.payments" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="#">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
+                        <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="creditLimit">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> creditLimit </th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.creditLimit}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef class="table-title">PaymentDate</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.date}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="paymentColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: paymentColumns;"></tr>
+                </table>
+            </div>
+            <div class="paymentsReceived">
+                <h4>Payment Received</h4>
+                <table mat-table [dataSource]="currentUser.paymentsReceived" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="#">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
+                        <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="TransactionId">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> TransactionId </th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.TransactionId}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Amount">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> Amount</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.Amount}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="paymentMode">
+                        <th mat-header-cell *matHeaderCellDef class="table-title">paymentMode</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.paymentMode}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="receivedDate">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> receivedDate</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.receivedDate}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Remarks">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> Remarks</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.Remarks}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="paymentsReceivedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: paymentsReceivedColumns;"></tr>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

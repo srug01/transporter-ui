@@ -45,6 +45,8 @@ import { BidlogicComponent } from './bidlogic/bidlogic.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserResolver } from './services/user.resolver';
+import { MatSortModule } from '@angular/material/sort';
+import { CommonSharedModule } from 'src/app/shared/common.shared.module';
 
 const routes: Routes = [
   {
@@ -105,20 +107,23 @@ const toasterConfig: MatSnackBarConfig = {
     ManagementComponent,
     RoleDetailsComponent,
     CreateRoleComponent,
-    BidlogicComponent
+    BidlogicComponent,
+    CreateUserComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
-    MatSnackBarModule,
     HttpClientModule,
     RouterModule,
-    MatDialogModule,
-    MatDividerModule,
     MatToolbarModule,
     MatMenuModule,
     MatListModule,
     HighchartsChartModule,
     MatProgressSpinnerModule,
+    RouterModule.forChild(routes),
+    CommonSharedModule,
+    MatSnackBarModule,
+    MaterialFileInputModule,
     MatCardModule,
     MatTableModule,
     MatFormFieldModule,
@@ -126,6 +131,7 @@ const toasterConfig: MatSnackBarConfig = {
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDividerModule,
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
@@ -135,7 +141,9 @@ const toasterConfig: MatSnackBarConfig = {
     FormsModule,
     MatIconModule,
     MatTooltipModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes,),
+    MatDialogModule,
+    MatSortModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: toasterConfig },
