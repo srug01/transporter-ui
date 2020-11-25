@@ -1,4 +1,4 @@
-export interface Payments {
+export interface PaymentCreditLimit {
   paymentId?: number;
   userId: number;
   date?: string;

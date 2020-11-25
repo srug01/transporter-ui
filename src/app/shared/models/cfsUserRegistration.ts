@@ -1,6 +1,6 @@
 import { Paymenthistory } from './paymenthistory';
 import { Paymentreceived } from './paymentreceived';
-import { Payments } from './payments';
+import { PaymentCreditLimit } from './paymentcreditlimit';
 
 export interface CfsUserRegistration {
     cfsUserRegistrationId?: number;
@@ -20,7 +20,8 @@ export interface CfsUserRegistration {
     modifiedBy?: number;
     modifiedOn?: Date;
     roleName?: string;
-    payments?: Payments[];
+    paymentcreditlimit?: PaymentCreditLimit[];
     paymentsReceived?: Paymentreceived[];
     paymenthistories?: Paymenthistory[];
+    paymentData?: Paymenthistory;
 }
