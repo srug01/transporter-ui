@@ -42,6 +42,9 @@ import { RoleDetailsComponent } from './role-details/role-details.component';
 import { CreateRoleComponent } from './create-role/create-role.component';
 import { RoleResolver } from './services/role.resolver';
 import { BidlogicComponent } from './bidlogic/bidlogic.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserResolver } from './services/user.resolver';
 
 const routes: Routes = [
   {
@@ -63,6 +66,14 @@ const routes: Routes = [
   {
     path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuardService, RoleGuardService],
     data: { breadcrumb: 'user-management', roles: ['Admin'] }
+  },
+  {
+    path: 'create-user', component: CreateUserComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'create-user', roles: ['Admin'] }
+  },
+  {
+    path: 'user-details/:id', component: UserDetailsComponent, canActivate: [AuthGuardService, RoleGuardService],
+    data: { breadcrumb: 'user-details', roles: ['Admin'] } , resolve: { userResolver: UserResolver }
   },
   {
     path: 'role-management', component: RoleManagementComponent, canActivate: [AuthGuardService, RoleGuardService],
@@ -137,7 +148,8 @@ const toasterConfig: MatSnackBarConfig = {
     {
       provide: MAT_DATE_FORMATS, useValue: AppDateFormats
     },
-    RoleResolver
+    RoleResolver,
+    UserResolver
   ]
 })
 export class SettingsModule { }

@@ -5,9 +5,6 @@ import { Observable } from 'rxjs';
 import { FourParamObj } from 'src/app/shared/models/FourParamObj';
 import { CfsUserRegistration } from 'src/app/shared/models/cfsUserRegistration';
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
