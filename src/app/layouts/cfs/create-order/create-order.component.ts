@@ -5,6 +5,8 @@ import { Port } from './../../../shared/models/port';
 import { Yard } from 'src/app/shared/models/yard';
 import { Cfs } from './../../../shared/models/cfs';
 import { LocationMaster } from './../../../shared/models/location';
+
+import { CfsUserRegistration } from './../../../shared/models/cfsUserRegistration';
 import { PortService } from './../../masters/services/port.service';
 import { LocationService } from './../../masters/services/location.service';
 import { MasterType } from './../../../shared/models/masterType';
@@ -32,6 +34,7 @@ import { PortTerminalMaster } from 'src/app/shared/models/PortTerminalMaster';
 import { async } from 'rxjs/internal/scheduler/async';
 import { TimeSlot } from 'src/app/shared/models/timeslot';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import {UserManagementService} from '../../settings/services/usermanagement.service';
 import * as _moment from 'moment';
 
 @Component({
@@ -66,6 +69,9 @@ export class CreateOrderComponent implements OnInit {
   public minDate: Date;
   public maxDate: Date;
   public userId = parseInt(localStorage.getItem('userID'), 10);
+  public cfsUser: CfsUserRegistration;
+  public userLimitAvailable: boolean = true;
+
 
   displayedColumns: string[] = [
     'position', 'Type', 'Weight', 'NoOfTrucks', 'ContainerNo'
@@ -92,7 +98,8 @@ export class CreateOrderComponent implements OnInit {
     private _weightService: WeightService,
     private _containerService: ContainerService,
     private _portTerminalService: PortterminalmasterService,
-    private _alertService: AlertService
+    private _alertService: AlertService,
+    private _userManagementService : UserManagementService,
   ) { }
 
 
@@ -107,6 +114,26 @@ export class CreateOrderComponent implements OnInit {
     this.getMasterTypes();
     this.initialiseOrderForm();
     this.getAllTimeSlots();
+    this.checkAvailableLimit();
+  }
+
+
+
+  checkAvailableLimit()
+  {
+    this._userManagementService.getcfsUserDetailsbyUserId(this.userId).subscribe(
+      (cfsUser: CfsUserRegistration) => {
+        this.cfsUser = cfsUser;
+        if(this.cfsUser.paymentData.AvailableLimit < 0)
+        {
+          this.userLimitAvailable = false;
+          this._alertService.error('please contact Admin for Order Placement', 'Insufficient Funds!');
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   masterTypeSelected(masterTypeId) {
