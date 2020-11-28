@@ -4,6 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {UserManagementService} from '../services/usermanagement.service';
+import { PaymentCreditLimit } from 'src/app/shared/models/paymentcreditlimit';
+import { Paymenthistory } from 'src/app/shared/models/paymenthistory';
+import { Paymentreceived } from 'src/app/shared/models/paymentreceived';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 export interface CreditData {
   currentUser: CfsUserRegistration;
@@ -36,6 +42,7 @@ export class UserDetailsComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
+
   ) { }
 
   ngOnInit(): void {
@@ -104,11 +111,14 @@ export class UserDetailsComponent implements OnInit {
 export class AppCreditModalComponent implements OnInit {
   creditForm: FormGroup;
   currentUser: CfsUserRegistration;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     public dialogRef: MatDialogRef<AppCreditModalComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: CreditData,
     private _snackBar: MatSnackBar,
+    private datePipe: DatePipe,
+    private _userManageService: UserManagementService,
     private fb: FormBuilder) {
   }
 
@@ -128,6 +138,67 @@ export class AppCreditModalComponent implements OnInit {
     console.log(this.data.currentUser);
 
     // Call Credit API here
+    const userCreditData = {
+      userId: this.data.currentUser.userId,
+      date: moment(this.creditForm.value.creditDate).format('YYYY-MM-DD').toString(),
+      creditLimit: this.creditForm.value.creditAmount,
+      createdBy: this.userId,
+      createdOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+
+    } as PaymentCreditLimit;
+    this._userManageService.addUserCredit(userCreditData).subscribe(
+      (res) => {
+        console.log(res);
+        const paymenthistory = {
+          userId: userCreditData.userId,
+          adminUserId: this.userId,
+          isCredit: true,
+          amount: userCreditData.creditLimit,
+          creditLimit: 0,
+          AvailableLimit : 0,
+          createdBy:this.userId,
+          createdOn: ""
+
+        } as Paymenthistory;
+        this.addPaymentHistory(paymenthistory);
+        //(userCreditData.userId);
+
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
+
+  }
+
+  addPaymentHistory(paymentHistory: Paymenthistory)
+  {
+    this._userManageService.savePaymentHistory(paymentHistory).subscribe(
+      (res) => {
+        console.log(res);
+        // this.getUserInfo(userCreditData.userId);
+
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
+  }
+
+  getUserInfo(id: number)
+  {
+    this._userManageService.getcfsUserDetailsbyUserId(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.currentUser=  res;
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
   }
 
   onNoClick(): void {
@@ -148,23 +219,70 @@ export class AppCreditModalComponent implements OnInit {
 export class AppPaymentCreditModalComponent {
   paymentForm: FormGroup;
   currentUser: CfsUserRegistration;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     public dialogRef: MatDialogRef<AppPaymentCreditModalComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: PaymentData,
     private _snackBar: MatSnackBar,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private _userManageService:UserManagementService) {
     this.initialisePaymentForm();
   }
 
   submitPaymentForm(ev) {
     console.log(this.paymentForm.value);
     console.log(this.data.currentUser);
-
-
     // Call Payment API here
-  }
 
+    const userCreditData = {
+      userId: this.data.currentUser.userId,
+      receivedDate: moment(this.paymentForm.value.receivedDate).format('YYYY-MM-DD').toString(),
+      Amount: this.paymentForm.value.Amount,
+      createdBy: this.userId,
+      createdOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+
+    } as Paymentreceived;
+    this._userManageService.addPaymentReceived(userCreditData).subscribe(
+      (res) => {
+        console.log(res);
+        const paymenthistory = {
+          userId: userCreditData.userId,
+          adminUserId: this.userId,
+          isCredit: false,
+          amount: userCreditData.Amount,
+          creditLimit: 0,
+          AvailableLimit : 0,
+          createdBy:this.userId,
+          createdOn: ""
+
+        } as Paymenthistory;
+        this.addPaymentHistory(paymenthistory);
+        //(userCreditData.userId);
+
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
+
+
+  }
+  addPaymentHistory(paymentHistory: Paymenthistory)
+  {
+    this._userManageService.savePaymentHistory(paymentHistory).subscribe(
+      (res) => {
+        console.log(res);
+        // this.getUserInfo(userCreditData.userId);
+
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
+  }
   initialisePaymentForm() {
     this.paymentForm = this.fb.group({
       paymentAmount: ['', Validators.required],

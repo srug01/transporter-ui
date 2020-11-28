@@ -8,4 +8,6 @@ export interface Paymenthistory{
   modifiedBy?: number;
   modifiedOn?: string;
   Outstanding?: number;
+  isCredit?: boolean;
+  amount?: number;
 }
