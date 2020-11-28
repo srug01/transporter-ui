@@ -6,13 +6,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface CreditData {
-  creditAmount: string;
-  creditDate: string;
+  currentUser: CfsUserRegistration;
 }
 
 export interface PaymentData {
-  paymentAmount: string;
-  paymentDate: string;
+  currentUser: CfsUserRegistration;
 }
 
 @Component({
@@ -23,10 +21,6 @@ export interface PaymentData {
 export class UserDetailsComponent implements OnInit {
   public currentUser: CfsUserRegistration;
   public userForm: FormGroup;
-  creditAmount: number;
-  creditDate: string;
-  paymentAmount: number;
-  paymentDate: string;
   public paymentHistoriesColumns: string[] = [
     '#', 'Outstanding', 'AvailableLimit', 'creditLimit', 'createdOn'
   ];
@@ -49,6 +43,7 @@ export class UserDetailsComponent implements OnInit {
     this.initialiseForm();
   }
 
+
   initialiseForm() {
     this.userForm = this.fb.group({
       cfsUserName: [this.currentUser.cfsUserName, Validators.required],
@@ -60,50 +55,33 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+
+
   openDialog(ev) {
     if (ev) {
       ev.preventDefault();
     }
-    this.creditAmount = 0;
-    this.creditDate = "";
     const dialogRef = this.dialog.open(AppCreditModalComponent, {
       width: '350px',
-      data: { creditAmount: this.creditAmount, creditDate: this.creditDate }
+      data: { currentUser: this.currentUser }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.creditAmount = result;
-      this.creditDate = result;
-
-      if(this.creditAmount ===0)
-      {
-       // ev.preventDefault();
-        //this.openSnackBar('Success !', 'Order placed successfully');
-      }
-
-      // Call Credit Saving API here
     });
   }
+
+
 
   openPaymentDialog(ev) {
     if (ev) {
       ev.preventDefault();
     }
-    this.paymentDate = "";
-    this.paymentAmount = 0;
     const dialogRef = this.dialog.open(AppPaymentCreditModalComponent, {
       width: '350px',
-      data: { paymentDate: this.paymentDate, paymentAmount: this.paymentAmount }
+      data: { currentUser: this.currentUser }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.paymentAmount = result;
-      this.paymentDate = result;
-
-
-      // Call Payment Saving APi here
     });
   }
 
@@ -123,13 +101,32 @@ export class UserDetailsComponent implements OnInit {
   selector: 'app-credit-modal',
   templateUrl: 'credit-modal.component.html',
 })
-export class AppCreditModalComponent {
-
+export class AppCreditModalComponent implements OnInit {
+  creditForm: FormGroup;
+  currentUser: CfsUserRegistration;
   constructor(
     public dialogRef: MatDialogRef<AppCreditModalComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: CreditData,
-    private _snackBar: MatSnackBar,) {}
+    private _snackBar: MatSnackBar,
+    private fb: FormBuilder) {
+  }
+
+  ngOnInit() {
+    this.initialiseCreditForm();
+  }
+
+  initialiseCreditForm() {
+    this.creditForm = this.fb.group({
+      creditAmount: ['', Validators.required],
+      creditDate: ['', Validators.required],
+    });
+  }
+
+  submitCreditForm(ev) {
+    console.log(this.creditForm.value);
+    console.log(this.data.currentUser);
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -147,12 +144,28 @@ export class AppCreditModalComponent {
   templateUrl: 'credit-payment-modal.component.html',
 })
 export class AppPaymentCreditModalComponent {
-
+  paymentForm: FormGroup;
+  currentUser: CfsUserRegistration;
   constructor(
     public dialogRef: MatDialogRef<AppPaymentCreditModalComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: PaymentData,
-    private _snackBar: MatSnackBar,) {}
+    private _snackBar: MatSnackBar,
+    private fb: FormBuilder) {
+    this.initialisePaymentForm();
+  }
+
+  submitPaymentForm(ev) {
+    console.log(this.paymentForm.value);
+    console.log(this.data.currentUser);
+  }
+
+  initialisePaymentForm() {
+    this.paymentForm = this.fb.group({
+      paymentAmount: ['', Validators.required],
+      paymentDate: ['', Validators.required],
+    });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -162,7 +175,6 @@ export class AppPaymentCreditModalComponent {
       duration: 2000,
     });
   }
-
 
 }
 
