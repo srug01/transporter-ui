@@ -7,4 +7,5 @@ export interface Paymenthistory{
   createdOn: string;
   modifiedBy?: number;
   modifiedOn?: string;
+  Outstanding?: number;
 }

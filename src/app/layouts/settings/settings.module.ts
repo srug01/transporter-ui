@@ -43,7 +43,7 @@ import { CreateRoleComponent } from './create-role/create-role.component';
 import { RoleResolver } from './services/role.resolver';
 import { BidlogicComponent } from './bidlogic/bidlogic.component';
 import { CreateUserComponent } from './create-user/create-user.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserDetailsComponent, AppCreditModalComponent, AppPaymentCreditModalComponent } from './user-details/user-details.component';
 import { UserResolver } from './services/user.resolver';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonSharedModule } from 'src/app/shared/common.shared.module';
@@ -109,7 +109,9 @@ const toasterConfig: MatSnackBarConfig = {
     CreateRoleComponent,
     BidlogicComponent,
     CreateUserComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    AppCreditModalComponent,
+    AppPaymentCreditModalComponent
   ],
   imports: [
     CommonModule,
@@ -158,6 +160,10 @@ const toasterConfig: MatSnackBarConfig = {
     },
     RoleResolver,
     UserResolver
+  ],
+  entryComponents:[
+    AppCreditModalComponent,
+    AppPaymentCreditModalComponent
   ]
 })
 export class SettingsModule { }

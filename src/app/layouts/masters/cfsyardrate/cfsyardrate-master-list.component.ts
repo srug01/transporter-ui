@@ -44,8 +44,6 @@ export class CfsyardrateMasterListComponent implements OnInit {
     private _yardService: YardService,
     private _cfsService: CfsService,
     private _portService: PortService,
-
-
     private _snackBar: MatSnackBar,
     private _router: Router,
     public dialog: MatDialog

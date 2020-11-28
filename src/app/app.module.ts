@@ -51,7 +51,6 @@ const toasterConfig: MatSnackBarConfig = {
     ConfirmDialogComponent,
     CommonConfirmdialogComponent,
     BidlogicComponent
-
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
-<div fxLayout="row wrap">
-    <mat-card fxFlex="50" fxLayout="column">
+<div fxLayout="row wrap" class="p10">
+    <mat-card fxFlex="100" fxLayout="column">
         <mat-card-header>
             <mat-card-title>Update User</mat-card-title>
         </mat-card-header>
@@ -14,15 +14,18 @@
                         </mat-form-field>
                     </div>
                     <div fxFlex="50" fxFlex.lt-sm="100">
-                        <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+                        <mat-form-field>
+                            <input matInput placeholder="User Email" formControlName="cfsUserEmail" name="cfsUserEmail" required>
+                            <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.required">
+                                Please Enter User Name</mat-error>
+                        </mat-form-field>
+
                     </div>
                 </div>
                 <div fxFlex="100" fxLayout="row" fxLayoutGap="15px">
                     <div fxFlex="50" fxFlex.lt-sm="100">
                         <mat-form-field>
-                            <input matInput placeholder="User Email" formControlName="cfsUserEmail" name="cfsUserEmail" required>
-                            <mat-error *ngIf="userForm.get('cfsUserEmail').errors !== null &&  userForm.get('cfsUserEmail').errors.required">
-                                Please Enter User Name</mat-error>
+                            <input matInput placeholder="cfsUserDesignationr" formControlName="cfsUserDesignation" name="cfsUserDesignation" required>
                         </mat-form-field>
                     </div>
                     <div fxFlex="50" fxFlex.lt-sm="100">
@@ -38,9 +41,8 @@
                         </mat-form-field>
                     </div>
                     <div fxFlex="50" fxFlex.lt-sm="100">
-                        <mat-form-field>
-                            <input matInput placeholder="cfsUserDesignationr" formControlName="cfsUserDesignation" name="cfsUserDesignation" required>
-                        </mat-form-field>
+                        <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.lt-sm="100">
@@ -49,41 +51,37 @@
                     </button>
                 </div>
             </form>
-            <div class="paymenthistories">
-                <h4>Payment History</h4>
-                <table mat-table [dataSource]="currentUser.paymenthistories" class="mat-elevation-z8">
-                    <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="#">
-                        <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
-                        <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
-                    </ng-container>
-
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="AvailableLimit">
-                        <th mat-header-cell *matHeaderCellDef class="table-title"> AvailableLimit </th>
-                        <td mat-cell *matCellDef="let element" class="table-row">{{element.AvailableLimit}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="creditLimit">
-                        <th mat-header-cell *matHeaderCellDef class="table-title"> creditLimit</th>
-                        <td mat-cell *matCellDef="let element" class="table-row">{{element.creditLimit}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="PaymentDate">
-                        <th mat-header-cell *matHeaderCellDef class="table-title">PaymentDate</th>
-                        <td mat-cell *matCellDef="let element" class="table-row">{{element.PaymentDate}} </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="paymentHistoriesColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: paymentHistoriesColumns;"></tr>
-                </table>
+            <div fxFlex="100%">
+                <div fxFlex="33%" fxLayout="column">
+                    <div fxFlex="100%">
+                        <p><strong>Credit Limit</strong></p>
+                    </div>
+                    <div fxFlex="100%">
+                        Rs. {{ currentUser.paymentData.creditLimit }}
+                    </div>
+                </div>
+                <div fxFlex="33%" fxLayout="column">
+                    <div fxFlex="100%">
+                        <p><strong>Available Limit</strong></p>
+                    </div>
+                    <div fxFlex="100%">
+                        Rs. {{ currentUser.paymentData.AvailableLimit }}
+                    </div>
+                </div>
+                <div fxFlex="33%" fxLayout="column">
+                    <div fxFlex="100%">
+                        <p><strong>Outstanding</strong></p>
+                    </div>
+                    <div fxFlex="100%">
+                        Rs. {{ currentUser.paymentData.Outstanding }}
+                    </div>
+                </div>
             </div>
-            <div class="payments">
-                <h4>Payments</h4>
+            <div>
+                <h4>Credits</h4>
+                <div class="add-btn">
+                    <a mat-raised-button color="primary" (click)="openDialog($event)">Add Credit</a>
+                </div>
                 <table mat-table [dataSource]="currentUser.paymentcreditlimit" class="mat-elevation-z8">
                     <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
@@ -97,7 +95,7 @@
                     <!-- Name Column -->
                     <ng-container matColumnDef="creditLimit">
                         <th mat-header-cell *matHeaderCellDef class="table-title"> creditLimit </th>
-                        <td mat-cell *matCellDef="let element" class="table-row">{{element.creditLimit}}
+                        <td mat-cell *matCellDef="let element" class="table-row">Rs.{{element.creditLimit}}
                         </td>
                     </ng-container>
 
@@ -110,8 +108,50 @@
                     <tr mat-row *matRowDef="let row; columns: paymentColumns;"></tr>
                 </table>
             </div>
-            <div class="paymentsReceived">
+            <div>
+                <h4>Payments</h4>
+                <table mat-table [dataSource]="currentUser.paymenthistories" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="#">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> # </th>
+                        <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Outstanding">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> Outstanding </th>
+                        <td mat-cell *matCellDef="let element" class="table-row">Rs. {{element.Outstanding}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="AvailableLimit">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> AvailableLimit </th>
+                        <td mat-cell *matCellDef="let element" class="table-row">Rs. {{element.AvailableLimit}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="creditLimit">
+                        <th mat-header-cell *matHeaderCellDef class="table-title"> creditLimit</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">Rs. {{element.creditLimit}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="createdOn">
+                        <th mat-header-cell *matHeaderCellDef class="table-title">PaymentDate</th>
+                        <td mat-cell *matCellDef="let element" class="table-row">{{element.createdOn}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="paymentHistoriesColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: paymentHistoriesColumns;"></tr>
+                </table>
+            </div>
+            <div>
                 <h4>Payment Received</h4>
+                <div class="add-btn">
+                    <a mat-raised-button color="primary" (click)="openPaymentDialog($event)">Add Payment</a>
+                </div>
                 <table mat-table [dataSource]="currentUser.paymentsReceived" class="mat-elevation-z8">
                     <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
@@ -131,7 +171,7 @@
 
                     <ng-container matColumnDef="Amount">
                         <th mat-header-cell *matHeaderCellDef class="table-title"> Amount</th>
-                        <td mat-cell *matCellDef="let element" class="table-row">{{element.Amount}} </td>
+                        <td mat-cell *matCellDef="let element" class="table-row">Rs. {{element.Amount}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="paymentMode">
