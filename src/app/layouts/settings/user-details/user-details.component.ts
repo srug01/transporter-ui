@@ -126,6 +126,8 @@ export class AppCreditModalComponent implements OnInit {
   submitCreditForm(ev) {
     console.log(this.creditForm.value);
     console.log(this.data.currentUser);
+
+    // Call Credit API here
   }
 
   onNoClick(): void {
@@ -158,6 +160,9 @@ export class AppPaymentCreditModalComponent {
   submitPaymentForm(ev) {
     console.log(this.paymentForm.value);
     console.log(this.data.currentUser);
+
+
+    // Call Payment API here
   }
 
   initialisePaymentForm() {
