@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface CreditData {
   creditAmount: string;
@@ -39,7 +40,8 @@ export class UserDetailsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -62,15 +64,23 @@ export class UserDetailsComponent implements OnInit {
     if (ev) {
       ev.preventDefault();
     }
+    this.creditAmount = 0;
+    this.creditDate = "";
     const dialogRef = this.dialog.open(AppCreditModalComponent, {
       width: '350px',
       data: { creditAmount: this.creditAmount, creditDate: this.creditDate }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);      
+      console.log(result);
       this.creditAmount = result;
       this.creditDate = result;
+
+      if(this.creditAmount ===0)
+      {
+       // ev.preventDefault();
+        //this.openSnackBar('Success !', 'Order placed successfully');
+      }
 
       // Call Credit Saving API here
     });
@@ -80,13 +90,15 @@ export class UserDetailsComponent implements OnInit {
     if (ev) {
       ev.preventDefault();
     }
+    this.paymentDate = "";
+    this.paymentAmount = 0;
     const dialogRef = this.dialog.open(AppPaymentCreditModalComponent, {
       width: '350px',
       data: { paymentDate: this.paymentDate, paymentAmount: this.paymentAmount }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);      
+      console.log(result);
       this.paymentAmount = result;
       this.paymentDate = result;
 
@@ -98,8 +110,14 @@ export class UserDetailsComponent implements OnInit {
   submitUserForm(ev) {
     console.log(this.userForm);
   }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
 }
+
 
 @Component({
   selector: 'app-credit-modal',
@@ -109,10 +127,17 @@ export class AppCreditModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AppCreditModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CreditData) {}
+    @Inject(MAT_DIALOG_DATA)
+    public data: CreditData,
+    private _snackBar: MatSnackBar,) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  openSnackBarCredit(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }
@@ -125,10 +150,19 @@ export class AppPaymentCreditModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AppPaymentCreditModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PaymentData) {}
+    @Inject(MAT_DIALOG_DATA)
+    public data: PaymentData,
+    private _snackBar: MatSnackBar,) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+  openSnackBarPayment(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
 
 }
+

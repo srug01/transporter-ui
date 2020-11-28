@@ -36,5 +36,12 @@ export class UserManagementService {
     return this.http.get(this.baseUrl + 'cfs-user-registrationsbyUserId' + '/' + id);
   }
 
+  // addUserCredit(id: number): Observable<any> {
+  //   //  console.log("Filter For API : " + JSON.stringify(saveFilter));
+  //   return this.http.post<any>(this.baseUrl + 'getUsersListDetails',
+  //     JSON.stringify(searchFilter),
+  //     this.HttpUploadOptions
+  //   );
+  //}
 
 }

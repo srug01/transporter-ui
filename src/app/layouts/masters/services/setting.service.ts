@@ -27,8 +27,8 @@ export class SettingService {
   }
 
   updateSetting(setting: Setting): Observable<any> {
-    return this.http.put<Setting>(this.baseUrl + 'settings/' + setting.settingsId,
-      JSON.stringify(setting));
+    return this.http.patch<Setting>(this.baseUrl + 'settings/' + setting.settingsId,
+      JSON.stringify(setting), this.HttpUploadOptions);
   }
 
   getAllSetting(): Observable<any> {
