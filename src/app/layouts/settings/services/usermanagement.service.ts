@@ -42,7 +42,7 @@ export class UserManagementService {
 
   addUserCredit(creditData: PaymentCreditLimit): Observable<any> {
     //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + '/cfs-user-registrations/'+ creditData.userId + '/paymentcreditlimit'
+    return this.http.post<any>(this.baseUrl + 'cfs-user-registrations/'+ creditData.userId + '/paymentcreditlimit'
     ,JSON.stringify(creditData),this.HttpUploadOptions
     );
   }
