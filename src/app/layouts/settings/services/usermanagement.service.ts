@@ -41,21 +41,20 @@ export class UserManagementService {
 
   addUserCredit(creditData: PaymentCreditLimit): Observable<any> {
     //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + '/cfs-user-registrations/'+ creditData.userId + '/paymentcreditlimit'
-    ,JSON.stringify(creditData),this.HttpUploadOptions
+    return this.http.post<any>(this.baseUrl + 'cfs-user-registrations/'+ creditData.userId + '/paymentcreditlimit'
+    ,JSON.stringify(creditData),this.HttpUploadOptions 
     );
   }
 
   savePaymentHistory(creditData: Paymenthistory): Observable<any> {
     //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + '/savePaymentHistory'
-    ,JSON.stringify(creditData),this.HttpUploadOptions
+    return this.http.post<any>(this.baseUrl + 'savePaymentHistory',JSON.stringify(creditData),this.HttpUploadOptions
     );
   }
 
   addPaymentReceived(creditData: Paymentreceived): Observable<any> {
     //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + '/cfs-user-registrations/'+ creditData.userId + '/paymentreceiveds'
+    return this.http.post<any>(this.baseUrl + 'cfs-user-registrations/'+ creditData.userId + '/paymentreceiveds'
     ,JSON.stringify(creditData),this.HttpUploadOptions
     );
   }
