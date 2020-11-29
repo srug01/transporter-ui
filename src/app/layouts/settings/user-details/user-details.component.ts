@@ -10,6 +10,7 @@ import { Paymenthistory } from 'src/app/shared/models/paymenthistory';
 import { Paymentreceived } from 'src/app/shared/models/paymentreceived';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { PaymenthistoryFilter } from 'src/app/shared/models/paymenthistoryFilter';
 
 export interface CreditData {
   currentUser: CfsUserRegistration;
@@ -140,7 +141,7 @@ export class AppCreditModalComponent implements OnInit {
     // Call Credit API here
     const userCreditData = {
       userId: this.data.currentUser.userId,
-      date: moment(this.creditForm.value.creditDate).format('YYYY-MM-DD').toString(),
+      creditDate: moment(this.creditForm.value.creditDate).format('YYYY-MM-DD').toString(),
       creditLimit: this.creditForm.value.creditAmount,
       createdBy: this.userId,
       createdOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
@@ -150,16 +151,12 @@ export class AppCreditModalComponent implements OnInit {
       (res) => {
         console.log(res);
         const paymenthistory = {
-          userId: userCreditData.userId,
-          adminUserId: this.userId,
-          isCredit: true,
+          cfsuserId: userCreditData.userId,
           amount: userCreditData.creditLimit,
-          creditLimit: 0,
-          AvailableLimit : 0,
-          createdBy:this.userId,
-          createdOn: ""
-
-        } as Paymenthistory;
+          dateVal: userCreditData.creditDate,
+          paymentType: 1,
+          adminuserId:this.userId,
+        } as PaymenthistoryFilter;
         this.addPaymentHistory(paymenthistory);
         //(userCreditData.userId);
 
@@ -172,7 +169,7 @@ export class AppCreditModalComponent implements OnInit {
 
   }
 
-  addPaymentHistory(paymentHistory: Paymenthistory)
+  addPaymentHistory(paymentHistory: PaymenthistoryFilter)
   {
     this._userManageService.savePaymentHistory(paymentHistory).subscribe(
       (res) => {
@@ -237,27 +234,25 @@ export class AppPaymentCreditModalComponent {
 
     const userCreditData = {
       userId: this.data.currentUser.userId,
-      receivedDate: moment(this.paymentForm.value.receivedDate).format('YYYY-MM-DD').toString(),
-      Amount: this.paymentForm.value.Amount,
+      receivedDate: moment(this.paymentForm.value.paymentDate).format('YYYY-MM-DD').toString(),
+      Amount: this.paymentForm.value.paymentAmount,
       createdBy: this.userId,
       createdOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+      paymentMode: 3
 
     } as Paymentreceived;
     this._userManageService.addPaymentReceived(userCreditData).subscribe(
       (res) => {
         console.log(res);
         const paymenthistory = {
-          userId: userCreditData.userId,
-          adminUserId: this.userId,
-          isCredit: false,
+          cfsuserId: userCreditData.userId,
+          adminuserId: this.userId,
           amount: userCreditData.Amount,
-          creditLimit: 0,
-          AvailableLimit : 0,
-          createdBy:this.userId,
-          createdOn: ""
+          dateVal:userCreditData.receivedDate,
+          paymentType: 3
+        } as PaymenthistoryFilter;
 
-        } as Paymenthistory;
-        this.addPaymentHistory(paymenthistory);
+         this.addPaymentHistory(paymenthistory);
         //(userCreditData.userId);
 
       },
@@ -269,7 +264,7 @@ export class AppPaymentCreditModalComponent {
 
 
   }
-  addPaymentHistory(paymentHistory: Paymenthistory)
+  addPaymentHistory(paymentHistory: PaymenthistoryFilter)
   {
     this._userManageService.savePaymentHistory(paymentHistory).subscribe(
       (res) => {

@@ -7,6 +7,7 @@ import { CfsUserRegistration } from 'src/app/shared/models/cfsUserRegistration';
 import { PaymentCreditLimit } from 'src/app/shared/models/paymentcreditlimit';
 import { Paymenthistory } from 'src/app/shared/models/paymenthistory';
 import { Paymentreceived } from 'src/app/shared/models/paymentreceived';
+import { PaymenthistoryFilter } from 'src/app/shared/models/paymenthistoryFilter';
 
 @Injectable({
   providedIn: 'root'
@@ -46,16 +47,16 @@ export class UserManagementService {
     );
   }
 
-  savePaymentHistory(creditData: Paymenthistory): Observable<any> {
+  savePaymentHistory(creditData: PaymenthistoryFilter): Observable<any> {
     //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + '/savePaymentHistory'
+    return this.http.post<PaymenthistoryFilter>(this.baseUrl + 'savePaymentHistory'
     ,JSON.stringify(creditData),this.HttpUploadOptions
     );
   }
 
   addPaymentReceived(creditData: Paymentreceived): Observable<any> {
     //  console.log("Filter For API : " + JSON.stringify(saveFilter));
-    return this.http.post<any>(this.baseUrl + '/cfs-user-registrations/'+ creditData.userId + '/paymentreceiveds'
+    return this.http.post<any>(this.baseUrl + 'cfs-user-registrations/'+ creditData.userId + '/paymentreceiveds'
     ,JSON.stringify(creditData),this.HttpUploadOptions
     );
   }

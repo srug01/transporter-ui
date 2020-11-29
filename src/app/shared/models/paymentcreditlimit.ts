@@ -1,7 +1,7 @@
 export interface PaymentCreditLimit {
   paymentId?: number;
   userId: number;
-  date?: string;
+  creditDate?: string;
   creditLimit: number;
   createdBy: number;
   createdOn: string;
