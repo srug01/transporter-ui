@@ -117,6 +117,7 @@ export class AppCreditModalComponent implements OnInit {
     public dialogRef: MatDialogRef<AppCreditModalComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: CreditData,
+    private _route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
     private _userManageService: UserManagementService,
@@ -124,6 +125,7 @@ export class AppCreditModalComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.initialiseCreditForm();
   }
 
@@ -174,7 +176,7 @@ export class AppCreditModalComponent implements OnInit {
     this._userManageService.savePaymentHistory(paymentHistory).subscribe(
       (res) => {
         console.log(res);
-        // this.getUserInfo(userCreditData.userId);
+          this.getUserInfo(paymentHistory.cfsuserId);
 
       },
       (err) => {
@@ -269,8 +271,21 @@ export class AppPaymentCreditModalComponent {
     this._userManageService.savePaymentHistory(paymentHistory).subscribe(
       (res) => {
         console.log(res);
-        // this.getUserInfo(userCreditData.userId);
+         this.getUserInfo(paymentHistory.cfsuserId);
 
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
+  }
+  getUserInfo(id: number)
+  {
+    this._userManageService.getcfsUserDetailsbyUserId(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.currentUser=  res;
       },
       (err) => {
         console.log(err);

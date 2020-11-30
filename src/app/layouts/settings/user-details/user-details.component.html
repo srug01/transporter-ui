@@ -52,7 +52,7 @@
                 </div>
             </form>
             <div fxFlex="100%">
-                <div fxFlex="33%" fxLayout="column">
+                <div fxFlex="25%" fxLayout="column">
                     <div fxFlex="100%">
                         <p><strong>Credit Limit</strong></p>
                     </div>
@@ -60,7 +60,7 @@
                         Rs. {{ currentUser.paymentData.creditLimit }}
                     </div>
                 </div>
-                <div fxFlex="33%" fxLayout="column">
+                <div fxFlex="25%" fxLayout="column">
                     <div fxFlex="100%">
                         <p><strong>Available Limit</strong></p>
                     </div>
@@ -68,7 +68,7 @@
                         Rs. {{ currentUser.paymentData.AvailableLimit }}
                     </div>
                 </div>
-                <div fxFlex="33%" fxLayout="column">
+                <div fxFlex="25%" fxLayout="column">
                     <div fxFlex="100%">
                         <p><strong>Outstanding</strong></p>
                     </div>
@@ -76,6 +76,14 @@
                         Rs. {{ currentUser.paymentData.Outstanding }}
                     </div>
                 </div>
+                <div fxFlex="25%" fxLayout="column">
+                  <div fxFlex="100%">
+                      <p><strong>Balance</strong></p>
+                  </div>
+                  <div fxFlex="100%">
+                      Rs. {{ currentUser.paymentData.balanceAmount? currentUser.paymentData.balanceAmount : 0  }}
+                  </div>
+              </div>
             </div>
             <div>
                 <h4>Credits</h4>
