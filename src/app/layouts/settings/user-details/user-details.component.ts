@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {UserManagementService} from '../services/usermanagement.service';
+import { UserManagementService } from '../services/usermanagement.service';
 import { PaymentCreditLimit } from 'src/app/shared/models/paymentcreditlimit';
 import { Paymenthistory } from 'src/app/shared/models/paymenthistory';
 import { Paymentreceived } from 'src/app/shared/models/paymentreceived';
@@ -32,7 +32,7 @@ export class UserDetailsComponent implements OnInit {
     '#', 'Outstanding', 'AvailableLimit', 'creditLimit', 'createdOn'
   ];
   public paymentColumns: string[] = [
-    '#', 'creditLimit', 'date'
+    '#', 'creditLimit', 'creditDate'
   ];
   public paymentsReceivedColumns: string[] = [
     '#', 'TransactionId', 'Amount', 'paymentMode', 'receivedDate', 'Remarks'
@@ -43,7 +43,7 @@ export class UserDetailsComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-
+    private _userManageService: UserManagementService
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +75,23 @@ export class UserDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      setTimeout(() => {
+        this.getUserInfo(this.currentUser.userId);
+      }, 500);
     });
+  }
+
+  getUserInfo(id: number) {
+    this._userManageService.getcfsUserDetailsbyUserId(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.currentUser = res;
+      },
+      (err) => {
+        console.log(err);
+        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
+      }
+    );
   }
 
 
@@ -90,6 +106,9 @@ export class UserDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      setTimeout(() => {
+        this.getUserInfo(this.currentUser.userId);
+      }, 500);
     });
   }
 
@@ -125,7 +144,6 @@ export class AppCreditModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.initialiseCreditForm();
   }
 
@@ -137,9 +155,6 @@ export class AppCreditModalComponent implements OnInit {
   }
 
   submitCreditForm(ev) {
-    console.log(this.creditForm.value);
-    console.log(this.data.currentUser);
-
     // Call Credit API here
     const userCreditData = {
       userId: this.data.currentUser.userId,
@@ -151,13 +166,12 @@ export class AppCreditModalComponent implements OnInit {
     } as PaymentCreditLimit;
     this._userManageService.addUserCredit(userCreditData).subscribe(
       (res) => {
-        console.log(res);
         const paymenthistory = {
           cfsuserId: userCreditData.userId,
           amount: userCreditData.creditLimit,
           dateVal: userCreditData.creditDate,
           paymentType: 1,
-          adminuserId:this.userId,
+          adminuserId: this.userId,
         } as PaymenthistoryFilter;
         this.addPaymentHistory(paymenthistory);
         //(userCreditData.userId);
@@ -171,27 +185,9 @@ export class AppCreditModalComponent implements OnInit {
 
   }
 
-  addPaymentHistory(paymentHistory: PaymenthistoryFilter)
-  {
+  addPaymentHistory(paymentHistory: PaymenthistoryFilter) {
     this._userManageService.savePaymentHistory(paymentHistory).subscribe(
       (res) => {
-        console.log(res);
-          this.getUserInfo(paymentHistory.cfsuserId);
-
-      },
-      (err) => {
-        console.log(err);
-        // this._alertService.error('Permissions could not be created / updated', 'Failure !');
-      }
-    );
-  }
-
-  getUserInfo(id: number)
-  {
-    this._userManageService.getcfsUserDetailsbyUserId(id).subscribe(
-      (res) => {
-        console.log(res);
-        this.currentUser=  res;
       },
       (err) => {
         console.log(err);
@@ -225,15 +221,12 @@ export class AppPaymentCreditModalComponent {
     public data: PaymentData,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
-    private _userManageService:UserManagementService) {
+    private _userManageService: UserManagementService) {
     this.initialisePaymentForm();
   }
 
   submitPaymentForm(ev) {
-    console.log(this.paymentForm.value);
-    console.log(this.data.currentUser);
     // Call Payment API here
-
     const userCreditData = {
       userId: this.data.currentUser.userId,
       receivedDate: moment(this.paymentForm.value.paymentDate).format('YYYY-MM-DD').toString(),
@@ -250,11 +243,11 @@ export class AppPaymentCreditModalComponent {
           cfsuserId: userCreditData.userId,
           adminuserId: this.userId,
           amount: userCreditData.Amount,
-          dateVal:userCreditData.receivedDate,
+          dateVal: userCreditData.receivedDate,
           paymentType: 3
         } as PaymenthistoryFilter;
 
-         this.addPaymentHistory(paymenthistory);
+        this.addPaymentHistory(paymenthistory);
         //(userCreditData.userId);
 
       },
@@ -266,13 +259,9 @@ export class AppPaymentCreditModalComponent {
 
 
   }
-  addPaymentHistory(paymentHistory: PaymenthistoryFilter)
-  {
+  addPaymentHistory(paymentHistory: PaymenthistoryFilter) {
     this._userManageService.savePaymentHistory(paymentHistory).subscribe(
       (res) => {
-        console.log(res);
-         this.getUserInfo(paymentHistory.cfsuserId);
-
       },
       (err) => {
         console.log(err);
@@ -280,12 +269,11 @@ export class AppPaymentCreditModalComponent {
       }
     );
   }
-  getUserInfo(id: number)
-  {
+  getUserInfo(id: number) {
     this._userManageService.getcfsUserDetailsbyUserId(id).subscribe(
       (res) => {
         console.log(res);
-        this.currentUser=  res;
+        this.currentUser = res;
       },
       (err) => {
         console.log(err);
