@@ -24,5 +24,7 @@ export interface Trip {
     startedBy?: number;
     stoppeddBy?: number;
     isSelected? : boolean;
+    isInvoiceGenerated?: boolean;
+    invoiceId?: number;
 
 }

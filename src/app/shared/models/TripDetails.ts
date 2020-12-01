@@ -20,4 +20,6 @@ export interface TripDetails {
     tripId: number;
     tripstatus: string;
     tripSeq?: string;
+    isInvoiceGenerated?: boolean;
+    invoiceId?: number;
 }

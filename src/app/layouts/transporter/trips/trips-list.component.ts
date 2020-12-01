@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/shared/models/user';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { TripService } from '../services/trip.service';
+import { InvoiceService} from '../../invoice/service/tripinvoice.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,13 +27,15 @@ export class TripsListComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public tripMasters: MatTableDataSource<Trip>;
   @ViewChild(MatSort) tripSort: MatSort;
+  public userId = parseInt(localStorage.getItem('userID'), 10);
 
   constructor(
     private _tripService: TripService,
     private _snackBar: MatSnackBar,
     private _router: Router,
     public dialog: MatDialog,
-    public _userService: UserService
+    public _userService: UserService,
+    private _tripInvoiceService : InvoiceService,
   ) { }
 
   ngOnInit(): void {
@@ -42,14 +45,18 @@ export class TripsListComponent implements OnInit {
 
   generateInvoice() {
     const selectedTrips = this.tripMasters.data.filter((trip) => {
-      return trip.isSelected === true;
+      return trip.isInvoiceGenerated === true;
     });
+    for (let i = 0; i < selectedTrips.length; i++)
+    {
+
+    }
     console.log(selectedTrips);
   }
 
-  
+
   getAllTrips() {
-    this._tripService.getAllMytripMasters().subscribe(
+    this._tripService.getAllTripsbyUserId(this.userId).subscribe(
       (trips) => {
         this.tripMasters = new MatTableDataSource(trips);
         this.tripMasters.sort = this.tripSort;
