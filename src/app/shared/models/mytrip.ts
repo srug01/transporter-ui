@@ -23,5 +23,6 @@ export interface Trip {
     bidValue? :number;
     startedBy?: number;
     stoppeddBy?: number;
+    isSelected? : boolean;
 
 }

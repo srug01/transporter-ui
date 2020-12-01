@@ -19,7 +19,7 @@ import { MatSort } from '@angular/material/sort';
 export class TripsListComponent implements OnInit {
   public currentUser: User;
   displayedColumns: string[] = [
-    'tripId', 'subOrderId', 'sourceId', 'destinationId',
+    '#', 'tripId', 'subOrderId', 'sourceId', 'destinationId',
     'assignedVehicle', 'assignedDriver',
     'tripstatus', 'action'
   ];
@@ -40,6 +40,14 @@ export class TripsListComponent implements OnInit {
     this.getAllTrips();
   }
 
+  generateInvoice() {
+    const selectedTrips = this.tripMasters.data.filter((trip) => {
+      return trip.isSelected === true;
+    });
+    console.log(selectedTrips);
+  }
+
+  
   getAllTrips() {
     this._tripService.getAllMytripMasters().subscribe(
       (trips) => {

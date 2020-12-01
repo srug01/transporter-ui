@@ -13,11 +13,24 @@
                 <a><i class="fa fa-search" aria-hidden="true"></i></a>
             </div>
         </div>
+        <div fxFill="100%" class="action-wrapper">
+            <button type="button" mat-raised-button color="warn" (click)="generateInvoice()">Generate
+                Invoice</button>
+        </div>
         <table mat-table [dataSource]="tripMasters" class="mat-elevation-z8" matSort>
             <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
+            <ng-container matColumnDef="#">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-checkbox [(ngModel)]="element.isSelected">Checked</mat-checkbox>
+                    <!-- <mat-checkbox [(ngModel)]="checked">Checked</mat-checkbox> -->
+                </td>
+            </ng-container>
+
+
             <ng-container matColumnDef="tripId">
                 <th mat-header-cell *matHeaderCellDef> # </th>
                 <td mat-cell class="table-row" *matCellDef="let i=index"> {{i+ 1}} </td>
