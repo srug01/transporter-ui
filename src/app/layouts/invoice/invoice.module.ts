@@ -8,7 +8,10 @@ import { InvoiceService } from './service/tripinvoice.service';
 import { InvoiceMaterialModule } from './invoice-material.module';
 
 const routes: Routes = [
-  { path: '', component: GridComponent }
+  { path: 'edit/:id', component: GridComponent}
+  // children: [
+  //   { path: 'edit/:id', component: GridComponent },
+  // ] }
 ];
 
 @NgModule({
@@ -21,7 +24,7 @@ const routes: Routes = [
     HttpClientModule,
     HttpClientJsonpModule,
     InvoiceMaterialModule,
-    RouterModule.forChild(routes,),
+    RouterModule.forChild(routes),
 
   ],
   providers: [

@@ -86,7 +86,7 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
             path: 'invoice', loadChildren: () => import('./../invoice/invoice.module')
               .then(m => m.InvoiceModule),
             canActivate: [AuthGuardService, RoleGuardService],
-            data: { breadcrumb: 'reports', roles: ['Admin'] }
+            data: { breadcrumb: 'invoice', roles: ['Admin'] }
           }
         ]
       }

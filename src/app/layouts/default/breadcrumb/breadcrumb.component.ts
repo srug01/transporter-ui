@@ -268,6 +268,10 @@ export class BreadcrumbComponent implements OnInit {
         details.label = 'Container';
         details.url = '/default/masters/container/list';
         break;
+      case 'invoice':
+          details.label = 'Invoice';
+          details.url = '/default/invoice/edit';
+          break;
       case 'list':
         details.label = 'List';
         break;

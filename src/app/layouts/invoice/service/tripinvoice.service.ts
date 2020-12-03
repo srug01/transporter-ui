@@ -28,9 +28,8 @@ export class InvoiceService {
     return this.http.get<TripInvoice[]>('assets/data.json');
   }
 
-  savetripInvoice(trip: TripInvoice): Observable<any> {
-    delete trip.invoiceId;
-    return this.http.post<TripInvoice>(this.baseUrl + 'tripinvoices', JSON.stringify(trip),
+  savetripInvoices(trip: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'generatetripinvoices', JSON.stringify(trip),
       this.HttpUploadOptions);
   }
 

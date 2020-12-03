@@ -47,10 +47,16 @@ export class TripsListComponent implements OnInit {
     const selectedTrips = this.tripMasters.data.filter((trip) => {
       return trip.isInvoiceGenerated === true;
     });
-    for (let i = 0; i < selectedTrips.length; i++)
-    {
-
-    }
+    this._tripInvoiceService.savetripInvoices(selectedTrips).subscribe(
+      (invoice) => {
+        this.getAllTrips();
+        //this.tripMasters = new MatTableDataSource(trips);
+        //this.tripMasters.sort = this.tripSort;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
     console.log(selectedTrips);
   }
 
