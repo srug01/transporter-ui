@@ -118,7 +118,7 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef class="table-title"> Action </th>
                     <td mat-cell class="table-row" *matCellDef="let element">
-                        <a *ngIf="element.typeSyscode === 4"><i class="material-icons md-24 p5" #tooltip="matTooltip" matTooltip="Edit User"
+                        <a *ngIf="element.isEdit"><i class="material-icons md-24 p5" #tooltip="matTooltip" matTooltip="Edit User"
                                 [matTooltipPosition]="'below'"
                                 [routerLink]="['/default/settings/user-details',element.userId]">create</i></a>
                         <a><i class="material-icons md-24 p5" #tooltip1="matTooltip" matTooltip="Delete CFS"

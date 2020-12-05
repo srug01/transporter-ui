@@ -20,7 +20,7 @@ import * as moment from 'moment';
 export class StateMasterListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'stateMasterId', 'state', 'Is Active', 'action'
+    'stateMasterId', 'stateName', 'Is Active', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public stateMasters: MatTableDataSource<State>;

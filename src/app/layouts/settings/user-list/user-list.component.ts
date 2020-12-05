@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from 'src/app/services/user.service';
+
 import { User } from 'src/app/shared/models/user';
 import { UserManagementService } from '../services/usermanagement.service';
 import { FourParamObj } from 'src/app/shared/models/FourParamObj';
 import { RoleService } from '../services/role.service';
+import { UserroleService } from 'src/app/services/userrole.service';
+import { Userrole } from 'src/app/shared/models/userrole';
+
 
 @Component({
   selector: 'app-user-list',
@@ -15,23 +18,28 @@ export class UserListComponent implements OnInit {
   public searchFilter: FourParamObj = new FourParamObj();
   public users: MatTableDataSource<User>;
   public roles: [] = [];
+  public roleId = parseInt(localStorage.getItem('roleID'), 10);
+  public isRoleEditable: boolean;
+
   displayedColumns: string[] = [
     '#', 'email', 'firstName', 'lastName', 'mobileNumber', 'role', 'action'
   ];
 
   constructor(
-    private _userService: UserManagementService,
-    private roleService: RoleService
+    private _userManagementService: UserManagementService,
+    private roleService: RoleService,
+
   ) { }
 
   ngOnInit(): void {
     this.getAllUsers();
     this.getAllRoles();
+
   }
 
   applyFilter() {
     console.log(JSON.stringify(this.searchFilter));
-    this._userService.getUserLists(this.searchFilter).subscribe(
+    this._userManagementService.getUserLists(this.searchFilter).subscribe(
       (users) => {
         this.users = new MatTableDataSource<User>(users);
       },
@@ -52,14 +60,17 @@ export class UserListComponent implements OnInit {
     );
   }
 
+
+
   resetFilter() {
     this.searchFilter = new FourParamObj();
   }
 
   getAllUsers() {
-    this._userService.getUserLists(this.searchFilter).subscribe(
+    this._userManagementService.getUserLists(this.searchFilter).subscribe(
       (users) => {
         this.users = new MatTableDataSource<User>(users);
+
       },
       (err) => {
         console.log(err);
