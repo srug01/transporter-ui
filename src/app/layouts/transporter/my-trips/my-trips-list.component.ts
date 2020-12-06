@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { StartDialogComponent } from 'src/app/shared/startDialog/start-dialog.component';
 import { StausEnum } from '../../../shared/Enum/statusEnum';
+import * as moment from 'moment';
 @Component({
   selector: 'app-my-trips-list',
   templateUrl: './my-trips-list.component.html',
@@ -84,14 +85,22 @@ export class MyTripsListComponent implements OnInit {
 
   startTrip(trip: Trip) {
     // https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
-    const aTrip = {...trip};
-    const startTime = new Date().getTime();
-    aTrip.startDate = new Date(startTime);
+    const aTrip = {
+      tripId: trip.tripId,
+      startDate: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+      tripStatusId: StausEnum.TRIP_STARTED,
+      tripstatus: 'TRIP_STARTED',
+      modifiedBy : this.currentUser.userId,
+       modifiedOn : moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+       startedBy : this.currentUser.userId,
+    } as Trip;
+    /* const startTime = new Date().getTime();
+    aTrip.startDate = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     aTrip.tripstatus = 'TRIP_STARTED';
     aTrip.tripStatusId = StausEnum.TRIP_STARTED;
     aTrip.startedBy = this.currentUser.userId;
     delete aTrip.DriverName;
-    delete aTrip.bidValue;
+    delete aTrip.bidValue; */
     this._tripService.updateMytripMaster(aTrip).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Trip Started Successfully');
@@ -103,14 +112,24 @@ export class MyTripsListComponent implements OnInit {
   }
 
   stopTrip( trip: Trip) {
-    const aTrip = {...trip};
+    const aTrip = {
+      tripId: trip.tripId,
+      endDate: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+      tripStatusId: StausEnum.TRIP_COMPLETED,
+      tripstatus: 'TRIP_COMPLETED',
+      modifiedBy : this.currentUser.userId,
+      // modifiedOn : moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+       stoppeddBy : this.currentUser.userId,
+    } as Trip;
+    /* const aTrip = {...trip};
     const stopTime = new Date().getTime();
-    aTrip.endDate =new Date(stopTime);
+    aTrip.endDate = moment().format('YYYY-MM-DD h:mm:ss a').toString();
     aTrip.tripstatus = 'TRIP_COMPLETED';
     aTrip.tripStatusId = StausEnum.TRIP_COMPLETED;
     aTrip.stoppeddBy = this.currentUser.userId;
     delete aTrip.DriverName;
-    delete aTrip.bidValue;
+    delete aTrip.bidValue; */
+
     this._tripService.updateMytripMaster(aTrip).subscribe(
       (res) => {
         this.openSnackBar('Success !', 'Trip Completed Successfully');

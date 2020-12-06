@@ -13,7 +13,7 @@
                 <a><i class="fa fa-search" aria-hidden="true"></i></a>
             </div>
         </div>
-        <div fxFill="100%" class="action-wrapper">
+        <div *ngIf="tripMasters.data.length > 0" fxFill="100%" class="action-wrapper">
             <button type="button" mat-raised-button color="warn" (click)="generateInvoice()">Generate
                 Invoice</button>
         </div>

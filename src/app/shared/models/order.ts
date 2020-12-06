@@ -24,5 +24,7 @@ export interface Order {
     containers?: any;
     portTerminalId?: number;
     timeslotMasterId?: number;
+    isInvoiceGenerated?: boolean;
+    orderInvoiceId?: number;
 
 }

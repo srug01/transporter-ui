@@ -10,9 +10,9 @@ export interface Trip {
     createdBy?: number;
     createdOn?: Date;
     modifiedBy?: number;
-    modifiedOn?: Date;
-    startDate?: Date;
-    endDate?: Date;
+    modifiedOn?: string;
+    startDate?: string;
+    endDate?: string;
     billedAmount?: number;
     isActive: boolean;
     DriverName?: string;

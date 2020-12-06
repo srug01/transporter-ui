@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { DriverService } from '../services/driver.service';
 import {StausEnum} from '../../../shared/Enum/statusEnum';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-my-trips-form',
@@ -137,7 +138,7 @@ export class MyTripsFormComponent implements OnInit {
       createdBy: trip.createdBy ? trip.createdBy : this.currentUser.userId,
       createdOn: new Date(),
       modifiedBy: trip.modifiedBy ? trip.modifiedBy : this.currentUser.userId,
-      modifiedOn: new Date(),
+      modifiedOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
       startDate: null,
       endDate: null,
     } as Trip;

@@ -156,6 +156,9 @@ export class AppCreditModalComponent implements OnInit {
 
   submitCreditForm(ev) {
     // Call Credit API here
+
+    if(this.data.currentUser.paymentcreditlimit.length === 0) // Add Credit
+    {
     const userCreditData = {
       userId: this.data.currentUser.userId,
       creditDate: moment(this.creditForm.value.creditDate).format('YYYY-MM-DD').toString(),
@@ -164,6 +167,7 @@ export class AppCreditModalComponent implements OnInit {
       createdOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
 
     } as PaymentCreditLimit;
+    // console.log(JSON.stringify(userCreditData));
     this._userManageService.addUserCredit(userCreditData).subscribe(
       (res) => {
         const paymenthistory = {
@@ -182,6 +186,18 @@ export class AppCreditModalComponent implements OnInit {
         // this._alertService.error('Permissions could not be created / updated', 'Failure !');
       }
     );
+    }
+    else // Add Available Limit
+    {
+      const paymenthistory = {
+        cfsuserId: this.data.currentUser.userId,
+        amount: this.creditForm.value.creditAmount,
+        dateVal: moment(this.creditForm.value.creditDate).format('YYYY-MM-DD').toString(),
+        paymentType: 4,
+        adminuserId: this.userId,
+      } as PaymenthistoryFilter;
+      this.addPaymentHistory(paymenthistory);
+    }
 
   }
 

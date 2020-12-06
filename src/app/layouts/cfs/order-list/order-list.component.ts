@@ -24,6 +24,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MasterTypeService } from '../services/master-type.service';
 import { UserRegistrationService } from '../services/user-registration.service';
 import * as _moment from 'moment';
+import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
 // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
 
@@ -42,6 +43,9 @@ interface OrderDetails {
   sourceType: string;
   terminal: string;
   totalRate: number;
+  isInvoiceGenerated?: boolean;
+  orderInvoiceId?: number;
+
 }
 
 @Component({
@@ -52,7 +56,7 @@ interface OrderDetails {
 export class OrderListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
-    'orderId', 'sourceType', 'destinationType', 'sourceName', 'destinationName', 'CustomerName', 'OrderDate', 'orderRemarks',
+    '#','orderId', 'sourceType', 'destinationType', 'sourceName', 'destinationName', 'CustomerName', 'OrderDate', 'orderRemarks',
     'CreatedOn', 'orderStatus', 'Action'
   ];
   public locations: Array<LocationMaster> = [];
@@ -226,6 +230,29 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     );
   }
 
+  generateInvoice() {
+    const selectedOrders = this.orders.data.filter((order) => {
+      return order.isInvoiceGenerated === true;
+    });
+    const threeParam = {
+      varOne : selectedOrders,
+      varTwo : this.userId,
+      varThree : moment().format('YYYY-MM-DD h:mm:ss a').toString()
+
+    } as ThreeparamObj
+    console.log(threeParam);
+    /* this._orderService.saveorderInvoices(threeParam).subscribe(
+      (orders) => {
+        this.applyFilter();
+        //this.tripMasters = new MatTableDataSource(trips);
+        //this.tripMasters.sort = this.tripSort;
+      },
+      (err) => {
+        console.log(err);
+      }
+    ); */
+    console.log(selectedOrders);
+  }
   /* getAllOrders() {
     this._orderService.getAllOrders().subscribe(
       (orders: Order[]) => {

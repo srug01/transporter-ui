@@ -9,6 +9,7 @@ import { User } from 'aws-sdk/clients/appstream';
 import { SubOrderFilter } from 'src/app/shared/models/subOrderFilter';
 import { BidFilter } from 'src/app/shared/models/bidFilter';
 import { TripFilter } from 'src/app/shared/models/tripFilter';
+import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
 
 
 @Injectable({
@@ -156,6 +157,10 @@ export class OrderService {
     );
   }
 
+  saveorderInvoices(order: ThreeparamObj): Observable<any> {
+    return this.http.post<ThreeparamObj>(this.baseUrl + 'generateorderinvoices', JSON.stringify(order),
+      this.HttpUploadOptions);
+  }
 
   /*  ************ Order Listing SPs ************** */
 

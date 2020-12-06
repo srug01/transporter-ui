@@ -8,6 +8,7 @@ export interface TripInvoice {
     orderStatus: string;
     // For Table
     tripId: number;
+    subOrderId: number;
     invoiceId?: number;
     invoiceNumber?: string;
     originalamount: number;

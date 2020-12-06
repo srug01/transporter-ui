@@ -28,6 +28,7 @@ export class TripService {
   }
 
   updateMytripMaster(trip: Trip): Observable<any> {
+    console.log(trip);
     return this.http.patch<Trip>(this.baseUrl + 'trips/' + trip.tripId,
       JSON.stringify(trip), this.HttpUploadOptions);
   }
