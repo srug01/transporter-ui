@@ -138,9 +138,7 @@ export class MyTripsFormComponent implements OnInit {
       createdBy: trip.createdBy ? trip.createdBy : this.currentUser.userId,
       createdOn: new Date(),
       modifiedBy: trip.modifiedBy ? trip.modifiedBy : this.currentUser.userId,
-      modifiedOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
-      startDate: null,
-      endDate: null,
+      // modifiedOn: moment().format('YYYY-MM-DD h:mm:ss a').toString(),
     } as Trip;
   }
 
@@ -183,7 +181,7 @@ export class MyTripsFormComponent implements OnInit {
         this._router.navigate(['/default/transporter/my-trips/list']);
       },
       (err) => {
-        console.log('err');
+        console.log(err);
         this.openSnackBar('Failure !', 'Could not update Trip Master!');
       }
     );

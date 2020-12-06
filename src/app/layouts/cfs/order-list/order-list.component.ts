@@ -235,13 +235,13 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       return order.isInvoiceGenerated === true;
     });
     const threeParam = {
-      varOne : selectedOrders,
+      varOne : JSON.stringify(selectedOrders),
       varTwo : this.userId,
       varThree : moment().format('YYYY-MM-DD h:mm:ss a').toString()
 
     } as ThreeparamObj
     console.log(threeParam);
-    /* this._orderService.saveorderInvoices(threeParam).subscribe(
+    this._orderService.saveorderInvoices(threeParam).subscribe(
       (orders) => {
         this.applyFilter();
         //this.tripMasters = new MatTableDataSource(trips);
@@ -250,7 +250,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       (err) => {
         console.log(err);
       }
-    ); */
+    );
     console.log(selectedOrders);
   }
   /* getAllOrders() {

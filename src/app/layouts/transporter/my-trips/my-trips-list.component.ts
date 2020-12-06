@@ -91,7 +91,7 @@ export class MyTripsListComponent implements OnInit {
       tripStatusId: StausEnum.TRIP_STARTED,
       tripstatus: 'TRIP_STARTED',
       modifiedBy : this.currentUser.userId,
-       modifiedOn : moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+      //  modifiedOn : moment().format('YYYY-MM-DD h:mm:ss a').toString(),
        startedBy : this.currentUser.userId,
     } as Trip;
     /* const startTime = new Date().getTime();
@@ -118,7 +118,7 @@ export class MyTripsListComponent implements OnInit {
       tripStatusId: StausEnum.TRIP_COMPLETED,
       tripstatus: 'TRIP_COMPLETED',
       modifiedBy : this.currentUser.userId,
-      // modifiedOn : moment().format('YYYY-MM-DD h:mm:ss a').toString(),
+      //  modifiedOn : moment().format('YYYY-MM-DD h:mm:ss a').toString(),
        stoppeddBy : this.currentUser.userId,
     } as Trip;
     /* const aTrip = {...trip};
