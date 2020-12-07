@@ -19,6 +19,7 @@ import { DateFormatPipe } from './../../../shared/pipe/date-format.pipe';
 import { PortService } from '../../masters/services/port.service';
 import { CfsService } from '../../masters/services/cfs.service';
 import { YardService } from '../../masters/services/yard.service';
+import { InvoiceService} from '../../invoice/service/tripinvoice.service'
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MasterTypeService } from '../services/master-type.service';
@@ -88,7 +89,8 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     private _cfsService: CfsService,
     private _portService: PortService,
     private _masterTypeService: MasterTypeService,
-    private _userRegistrationService: UserRegistrationService
+    private _userRegistrationService: UserRegistrationService,
+    private _invoiceService: InvoiceService
 
   ) { }
 
@@ -241,7 +243,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
 
     } as ThreeparamObj
     console.log(threeParam);
-    this._orderService.saveorderInvoices(threeParam).subscribe(
+    this._invoiceService.saveorderInvoices(threeParam).subscribe(
       (orders) => {
         this.applyFilter();
         //this.tripMasters = new MatTableDataSource(trips);

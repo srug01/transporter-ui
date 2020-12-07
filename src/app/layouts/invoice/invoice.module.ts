@@ -6,9 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { GridComponent } from './component/grid.component';
 import { InvoiceService } from './service/tripinvoice.service';
 import { InvoiceMaterialModule } from './invoice-material.module';
+import { OrderinvoiceComponent } from './component/orderinvoice/orderinvoice.component';
 
 const routes: Routes = [
-  { path: 'edit/:id', component: GridComponent}
+  { path: 'edit/:id', component: GridComponent},
+  { path: 'order/edit/:id', component: OrderinvoiceComponent},
+
   // children: [
   //   { path: 'edit/:id', component: GridComponent },
   // ] }
@@ -17,7 +20,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     //TableRowComponent
-    GridComponent
+    GridComponent,
+    OrderinvoiceComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +34,6 @@ const routes: Routes = [
   providers: [
     InvoiceService
   ],
-  exports: [ GridComponent ],
+  exports: [ GridComponent,OrderinvoiceComponent ],
 })
 export class InvoiceModule { }

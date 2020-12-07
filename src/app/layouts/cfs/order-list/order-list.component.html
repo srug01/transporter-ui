@@ -208,7 +208,7 @@
                         </a>
                         <a *ngIf="element.isInvoiceGenerated  && this.roleId === 1 && element.orderInvoiceId > 0" class="icon" #tooltip="matTooltip" matTooltip="View Invoice" [matTooltipPosition]="'below'"><i
                           class="material-icons md-24 p5"
-                          [routerLink]="['/default/invoice/edit',element.orderInvoiceId]">receipt</i></a>
+                          [routerLink]="['/default/invoice/order/edit',element.orderInvoiceId]">receipt</i></a>
 
                         <!-- <a [routerLink]="['/default/cfs',element.orderId,'edit']" matTooltip="edit">
                             <i class="fas fa-edit fa-lg" aria-hidden="true"></i>

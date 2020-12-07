@@ -157,10 +157,7 @@ export class OrderService {
     );
   }
 
-  saveorderInvoices(order: ThreeparamObj): Observable<any> {
-    return this.http.post<ThreeparamObj>(this.baseUrl + 'generateorderinvoices', JSON.stringify(order),
-      this.HttpUploadOptions);
-  }
+
 
   /*  ************ Order Listing SPs ************** */
 

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TripInvoice } from '../../../shared/models/tripinvoice';
 import { environment } from 'src/environments/environment';
+import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,22 @@ export class InvoiceService {
       this.HttpUploadOptions);
   }
 
+  saveorderInvoices(order: ThreeparamObj): Observable<any> {
+    return this.http.post<ThreeparamObj>(this.baseUrl + 'generateorderinvoices', JSON.stringify(order),
+      this.HttpUploadOptions);
+  }
+
   gettripInvoicebyInvoiceId(id: number): Observable<any>{
     return this.http.get(this.baseUrl + 'getTripInvoicebyId/' + id);
   }
+
+  getorderInvoicedetailsbyInvoiceId(id: number): Observable<any>{
+    return this.http.get(this.baseUrl + 'getorderInvoicedetailsbyInvoiceId/' + id);
+  }
+
+  getorderInvoicebyInvoiceId(id: number): Observable<any>{
+    return this.http.get(this.baseUrl + 'orderinvoices/' + id);
+  }
+
 
 }
