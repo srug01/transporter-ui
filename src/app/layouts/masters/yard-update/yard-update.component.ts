@@ -35,14 +35,12 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog.co
 import * as moment from 'moment';
 import { CfsService } from '../services/cfs.service';
 
-
-
 @Component({
-  selector: 'app-batch-update',
-  templateUrl: './batch-update.component.html',
-  styleUrls: ['./batch-update.component.scss']
+  selector: 'app-yard-update',
+  templateUrl: './yard-update.component.html',
+  styleUrls: ['./yard-update.component.scss']
 })
-export class BatchUpdateComponent implements OnInit {
+export class YardUpdateComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   displayedColumns: string[] = [
     'id', 'yardName', 'containerMasterName', 'weightDesc', 'rate', 'bidMarginRate',

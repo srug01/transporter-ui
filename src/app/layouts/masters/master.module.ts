@@ -162,6 +162,7 @@ import { PortCfsRateResolver } from './resolvers/portcfsrate.resolver';
 import { BatchUpdateComponent } from './batch-update/batch-update.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
+import { YardUpdateComponent } from './yard-update/yard-update.component';
 
 
 // "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -417,7 +418,8 @@ const routes: Routes = [
     ]
   },
   { path: 'state-master-list', component: StateMasterListComponent },
-  { path: 'batch-update/:id', component: BatchUpdateComponent }
+  { path: 'batch-update/:id', component: BatchUpdateComponent },
+  { path: 'yard-update/:id', component: YardUpdateComponent }
 ];
 
 @NgModule({
@@ -532,7 +534,8 @@ const routes: Routes = [
     CfsyardrateFormComponent,
     CfsyardrateEditComponent,
     CfsyardrateDetailsComponent,
-    BatchUpdateComponent
+    BatchUpdateComponent,
+    YardUpdateComponent
 
   ],
   imports: [
