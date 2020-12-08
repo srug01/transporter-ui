@@ -48,7 +48,7 @@ export class CfsFormComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     this.getAllPortMasters();
-    //this.getLocations();
+    this.getLocations();
     this.getAllStateMasters();
     if (this.cfsData) {
       this.cfsForm = this.fb.group({
@@ -81,6 +81,9 @@ export class CfsFormComponent implements OnInit {
         locationMasterId: [this.cfsData.locationMasterId ? this.cfsData.locationMasterId : '', Validators.required],
         isActive: [this.cfsData.isActive === false ? false  : true, Validators.required]
       });
+
+      // State is set, now fetch ports in the selected state and set  ===  this.portMasters = portMasters; =======
+      
     } else {
       this.cfsForm = this.fb.group({
         cfsMasterId: [''],
