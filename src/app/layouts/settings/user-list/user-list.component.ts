@@ -38,8 +38,18 @@ export class UserListComponent implements OnInit {
   }
 
   applyFilter() {
-    console.log(JSON.stringify(this.searchFilter));
-    this._userManagementService.getUserLists(this.searchFilter).subscribe(
+    // console.log(JSON.stringify(this.searchFilter.varOne));
+    const obj = {
+      varOne : this.searchFilter.varOne != undefined? this.searchFilter.varOne : 0 ,
+      varTwo : this.searchFilter.varTwo != undefined? this.searchFilter.varTwo: 0 ,
+      varThree : this.searchFilter.varThree != undefined? this.searchFilter.varThree : ""  ,
+      varFour : this.searchFilter.varFour != undefined? this.searchFilter.varFour : ""
+    } as FourParamObj;
+
+
+
+
+    this._userManagementService.getUserLists(obj).subscribe(
       (users) => {
         this.users = new MatTableDataSource<User>(users);
       },

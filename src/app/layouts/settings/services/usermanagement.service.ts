@@ -29,7 +29,7 @@ export class UserManagementService {
 
 
   getUserLists(searchFilter: FourParamObj): Observable<any> {
-    //  console.log("Filter For API : " + JSON.stringify(saveFilter));
+      // console.log("Filter For API : " + JSON.stringify(searchFilter));
     return this.http.post<any>(this.baseUrl + 'getUsersListDetails',
       JSON.stringify(searchFilter),
       this.HttpUploadOptions

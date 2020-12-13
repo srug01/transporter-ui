@@ -76,14 +76,14 @@
                         Rs. {{ currentUser.paymentData.Outstanding }}
                     </div>
                 </div>
-                <div fxFlex="25%" fxLayout="column">
+                <!-- <div fxFlex="25%" fxLayout="column">
                     <div fxFlex="100%">
                         <p><strong>Balance</strong></p>
                     </div>
                     <div fxFlex="100%">
                         Rs. {{ currentUser.paymentData.balanceAmount? currentUser.paymentData.balanceAmount : 0 }}
                     </div>
-                </div>
+                </div> -->
             </div>
             <div>
                 <h4>Credits</h4>
@@ -91,7 +91,7 @@
                     <a mat-raised-button color="primary" (click)="openDialog($event)">Add Credit Limit</a>
                 </div>
                 <div class="add-btn" *ngIf="currentUser.paymentcreditlimit.length > 0">
-                    <a mat-raised-button color="primary" (click)="openDialog($event)">Add Available Credit</a>
+                    <a mat-raised-button color="primary" (click)="openDialog($event)">Increase Available Limit</a>
                 </div>
                 <table mat-table [dataSource]="currentUser.paymentcreditlimit" class="mat-elevation-z8">
                     <!--- Note that these columns can be defined in any order.

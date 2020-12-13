@@ -1,7 +1,9 @@
-<h1 mat-dialog-title>Add Credit</h1>
+<h1 mat-dialog-title>Add Limit</h1>
 <form fxLayout="column" [formGroup]="creditForm" (ngSubmit)="submitCreditForm($event)">
     <div mat-dialog-content>
         <h4>{{data.currentUser.cfsUserName}}</h4>
+        <h3>Credit Limit : {{ data.currentUser.paymentData.creditLimit}}</h3>
+        <h3>Available Limit : {{ data.currentUser.paymentData.AvailableLimit}}</h3>
         <mat-form-field>
             <mat-label>Amount</mat-label>
             <input matInput type="number" formControlName="creditAmount">
