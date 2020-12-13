@@ -15,6 +15,7 @@ export interface OrderInvoice {
   invoiceamount: number;
   remarks?: string;
   createdBy?: number;
+  createdFor?: number;
   createdOn?: string;
   modifiedBy?: number;
   modifiedOn?: string;

@@ -87,6 +87,12 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
               .then(m => m.InvoiceModule),
             canActivate: [AuthGuardService, RoleGuardService],
             data: { breadcrumb: 'invoice', roles: ['Admin'] }
+          },
+          {
+            path: 'emailtemplate', loadChildren: () => import('./../email-layout/email.module')
+              .then(m => m.EmailModule),
+            canActivate: [AuthGuardService, RoleGuardService],
+            data: { breadcrumb: 'emailtemplate', roles: ['Admin'] }
           }
         ]
       }
