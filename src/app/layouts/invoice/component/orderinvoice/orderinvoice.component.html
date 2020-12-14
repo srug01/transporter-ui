@@ -1,16 +1,22 @@
 <div>
   <div class="main-logo">
-    <img src="assets/images/logo.png" alt="logo image" class="logo-img">
+    <img src="assets/images/Invoice.jpg" alt="logo image" class="logo-img">
 </div>
 <div class="total-section clear">
-    <p>New horizon</p>
-    <p>lorem impsum</p>
-    <p>lorem impsum</p>
+    <p>To,</p>
+    <p>{{this.invoiceTotal.cfsName}}</p>
+    <p>{{this.invoiceTotal.cfsCodeNumber}}</p>
+    <p>{{this.invoiceTotal.email}}</p>
+    <p>{{this.invoiceTotal.contactNumber}}</p>
+    <p>{{this.invoiceTotal.address}}</p>
+    <p>{{this.invoiceTotal.landmark}}</p>
+    <p>{{this.invoiceTotal.pincode}}</p>
+
 </div>
 <div class="address-left">
-    <p>New horizon</p>
-    <p>lorem impsum</p>
-    <p>lorem impsum</p>
+  <p>{{this.invoiceTotal.CreatedBy}}</p>
+  <p>{{this.invoiceTotal.CreatedByNumber}}</p>
+
 </div>
     <table mat-table [dataSource]="orderinvoiceData" class="mat-elevation-z8 width-100">
         <!--- Note that these columns can be defined in any order.

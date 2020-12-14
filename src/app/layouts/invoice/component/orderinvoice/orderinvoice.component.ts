@@ -14,6 +14,8 @@ export class OrderinvoiceComponent implements OnInit {
   originalAmount: number;
   invoiceAmount: number;
   otherAmount: number;
+
+
 displayedColumns: string[] = [
   'tripId',
   'invoiceNumber',
@@ -60,11 +62,11 @@ displayedColumns: string[] = [
 
   getInvoiceTotal()
   {
-    this.invoiceService.getorderInvoicebyInvoiceId(this.orderinvoiceId).subscribe(
+    this.invoiceService.getorderInvoicemasterbyInvoiceId(this.orderinvoiceId).subscribe(
       (invoice: any) => {
 
-         this.invoiceTotal = invoice;
-
+         this.invoiceTotal = invoice[0];
+         console.log(this.invoiceTotal);
 
         this.originalAmount = this.invoiceTotal.invoiceamount;
         this.otherAmount = this.invoiceTotal.otheramount;

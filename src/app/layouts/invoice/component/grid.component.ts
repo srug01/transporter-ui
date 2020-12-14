@@ -17,6 +17,12 @@ export class GridComponent {
     originalAmount: number;
     invoiceAmount: number;
     otherAmount: number;
+    transporterName: string;
+    transporterNumber: string;
+    transporterAddress: string;
+    transporterEmail: string;
+    createdBy: string;
+    createdByNumber: string;
   displayedColumns: string[] = [
     'tripId',
     'invoiceNumber',
@@ -43,9 +49,17 @@ export class GridComponent {
         this.invoiceService.gettripInvoicebyInvoiceId(this.invoiceId).subscribe(
           (invoice: any) => {
             this.invoiceData = invoice;
-            this.originalAmount = this.invoiceData[0].originalamount;
-            this.otherAmount = this.invoiceData[0].otheramount;
-            this.invoiceAmount = this.invoiceData[0].invoiceamount;
+
+            this.originalAmount = this.invoiceData[0].originalamount? this.invoiceData[0].originalamount : 0 ;
+            this.otherAmount = this.invoiceData[0].otheramount? this.invoiceData[0].otheramount : 0;
+            this.invoiceAmount = this.invoiceData[0].invoiceamount? this.invoiceData[0].invoiceamount : 0;
+            this.transporterName = this.invoiceData[0].TransporterName? this.invoiceData[0].TransporterName : "";
+            this.transporterEmail = this.invoiceData[0].transporterEmail? this.invoiceData[0].transporterEmail : "";
+            this.transporterNumber = this.invoiceData[0].transporterMobileNumber?this.invoiceData[0].transporterMobileNumber : "" ;
+            this.transporterAddress = this.invoiceData[0].transporterAddress?this.invoiceData[0].transporterAddress : "";
+            this.createdBy = this.invoiceData[0].CreatedBy? this.invoiceData[0].CreatedBy : "";
+            this.createdByNumber = this.invoiceData[0].CreatedByNumber? this.invoiceData[0].CreatedByNumber : "";
+
 
             // console.log(this.order);
           },

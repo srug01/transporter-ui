@@ -47,8 +47,8 @@ export class InvoiceService {
     return this.http.get(this.baseUrl + 'getorderInvoicedetailsbyInvoiceId/' + id);
   }
 
-  getorderInvoicebyInvoiceId(id: number): Observable<any>{
-    return this.http.get(this.baseUrl + 'orderinvoices/' + id);
+  getorderInvoicemasterbyInvoiceId(id: number): Observable<any>{
+    return this.http.get(this.baseUrl + 'getOrderInvoicemasterbyInvoiceId/' + id);
   }
 
 

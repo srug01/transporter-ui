@@ -49,6 +49,7 @@ export class TripsListComponent implements OnInit {
     });
     this._tripInvoiceService.savetripInvoices(selectedTrips).subscribe(
       (invoice) => {
+        this.openSnackBar('Status',invoice);
         this.getAllTrips();
         //this.tripMasters = new MatTableDataSource(trips);
         //this.tripMasters.sort = this.tripSort;

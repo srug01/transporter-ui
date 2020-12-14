@@ -120,7 +120,7 @@
         <div>
             Total Orders Found : {{orders?.data?.length}}
         </div>
-        <div *ngIf="orders.data.length > 0" fxFill="100%" class="action-wrapper">
+        <div *ngIf="orders.data.length > 0 && this.roleId === 1" fxFill="100%" class="action-wrapper">
           <button type="button" mat-raised-button color="warn" (click)="generateInvoice()">Generate
               Invoice</button>
       </div>
