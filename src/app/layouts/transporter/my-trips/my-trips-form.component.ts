@@ -27,7 +27,7 @@ export class MyTripsFormComponent implements OnInit {
   public tripForm: FormGroup;
   public currentUser: User;
   public drivers: Driver[] = [];
-  public vehicles: VehicleMaster[] = [];
+  public vehicles: any[] = [];
   public userId = localStorage.getItem('userID');
 
   constructor(
@@ -55,7 +55,7 @@ export class MyTripsFormComponent implements OnInit {
         assignedDriver: [this.tripData[0].assignedDriver ? this.tripData[0].assignedDriver : 0],
         tripstatus: [this.tripData[0].tripstatus ? this.tripData[0].tripstatus : ''],
         tripStatusId: [this.tripData[0].tripStatusId ? this.tripData[0].tripStatusId : ''],
-        billedAmount: [this.tripData[0].billedAmount ? this.tripData[0].billedAmount : ''],
+        billedAmount: [this.tripData[0].billedAmount ? this.tripData[0].billedAmount : 0],
         isActive: [this.tripData[0].isActive ? this.tripData[0].isActive : true],
         createdBy: [this.tripData[0].createdBy ? this.tripData[0].createdBy : ''],
         createdOn: [this.tripData[0].createdOn ? this.tripData[0].createdOn : ''],
@@ -65,7 +65,9 @@ export class MyTripsFormComponent implements OnInit {
         endDate: [this.tripData[0].endDate ? this.tripData[0].endDate : ''],
         sourceName: [this.tripData[0].sourceName ? this.tripData[0].sourceName : '', Validators.required],
         destinationName: [this.tripData[0].destinationName ? this.tripData[0].destinationName : '', Validators.required],
-        vehicleNumber: [this.tripData[0].vehicleNumber ? this.tripData[0].vehicleNumber : '']
+        vehicleNumber: [this.tripData[0].vehicleNumber ? this.tripData[0].vehicleNumber : ''],
+        OrderContainer: [this.tripData[0].OrderContainer ? this.tripData[0].OrderContainer : ''],
+        Orderweight: [this.tripData[0].Orderweight ? this.tripData[0].Orderweight : '']
       });
     } else {
       this.tripForm = this.fb.group({
@@ -77,7 +79,7 @@ export class MyTripsFormComponent implements OnInit {
         assignedDriver: [''],
         tripstatus: [''],
         tripStatusId: [''],
-        billedAmount: [''],
+        billedAmount: 0,
         isActive: [true],
         createdBy: [''],
         createdOn: [''],
@@ -87,14 +89,16 @@ export class MyTripsFormComponent implements OnInit {
         endDate: [''],
         sourceName: ['', Validators.required],
         destinationName: ['', Validators.required],
-        vehicleNumber: ['']
+        vehicleNumber: [''],
+        OrderContainer:[''],
+        Orderweight: ['']
       });
     }
   }
 
   getAllVehicles() {
     this._vehicleService.getAllVehiclesbyUserId(this.userId).subscribe(
-      (vehicles: VehicleMaster[]) => {
+      (vehicles) => {
         this.vehicles = vehicles;
       },
       (err) => {
@@ -133,7 +137,7 @@ export class MyTripsFormComponent implements OnInit {
       assignedDriver: trip.assignedDriver,
       tripstatus: "",
       tripStatusId: 0,
-      billedAmount: 0,
+      billedAmount: trip.billedAmount,
       isActive: trip.isActive,
       createdBy: trip.createdBy ? trip.createdBy : this.currentUser.userId,
       createdOn: new Date(),

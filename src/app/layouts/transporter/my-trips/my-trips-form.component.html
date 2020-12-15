@@ -12,9 +12,7 @@
                                 <input matInput placeholder="Sub Order ID" formControlName="subOrderId" name="name" required />
                             </mat-form-field>
                         </div>
-                        <div fxFlex="50%" fxFlex.lt-sm="100">
-                            Order Id
-                        </div>
+
                     </div>
                     <div fxLayout="row" fxLayoutGap="20px">
                         <div fxFlex="50%" fxFlex.lt-sm="100">
@@ -30,6 +28,28 @@
                             </mat-form-field>
                         </div>
                     </div>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                      <div fxFlex="50%" fxFlex.lt-sm="100">
+                          <mat-form-field>
+                              <mat-label>Container</mat-label>
+                              <input matInput type="text" formControlName="OrderContainer" placeholder="Container" readonly>
+                          </mat-form-field>
+                      </div>
+                      <div fxFlex="50%" fxFlex.lt-sm="100">
+                          <mat-form-field>
+                              <mat-label>Weight</mat-label>
+                              <input matInput type="text" formControlName="Orderweight" placeholder="Weight" readonly>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutGap="20px">
+                    <div fxFlex="50%" fxFlex.lt-sm="100">
+                        <mat-form-field>
+                            <input matInput type="number" placeholder="Other Amount" formControlName="billedAmount" name="billedAmount" />
+                        </mat-form-field>
+                    </div>
+
+                </div>
 
                     <div fxLayout="row" fxLayoutGap="20px">
                         <div fxFlex="50%" fxFlex.lt-sm="100">
@@ -37,10 +57,15 @@
                                 <mat-label>Assigned Vehicle</mat-label>
                                 <mat-select formControlName="assignedVehicle">
                                     <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleMasterId">
-                                        {{ vehicle.vehicleNumber }}
+                                        {{ vehicle.vehicleNumber }} Container : {{vehicle.container}} Weight : {{vehicle.weight}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
+                            <div>
+                              <mat-error>
+                              Note: Required Vehicle for this Trip is : {{this.tripData[0].OrderContainer}} &  {{this.tripData[0].Orderweight}} *
+                            </mat-error>
+                            </div>
                         </div>
                         <div fxFlex="50%" fxFlex.lt-sm="100">
                             <mat-form-field>
