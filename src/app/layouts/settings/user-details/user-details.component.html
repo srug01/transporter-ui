@@ -153,9 +153,26 @@
                         <th mat-header-cell *matHeaderCellDef class="table-title">PaymentDate</th>
                         <td mat-cell *matCellDef="let element" class="table-row">{{element.createdOn}} </td>
                     </ng-container>
+                    <ng-container matColumnDef="Amount">
+                      <th mat-header-cell *matHeaderCellDef class="table-title">Amount</th>
+                      <td mat-cell *matCellDef="let element" class="table-row">
+                        <div *ngIf="element.paymentType === 3">
+                        {{element.paymentReceivedAmount}}
+                      </div>
+                      <div *ngIf="element.paymentType === 2">
+                        {{element.orderAmount}}
+                      </div>
+                      <div *ngIf="element.paymentType === 1">
+                        {{element.creditAmount}}
+                      </div>
+                      <div *ngIf="element.paymentType === 4">
+                        {{element.availableLimitAmount}}
+                      </div>
+                      </td>
+                  </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="paymentHistoriesColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: paymentHistoriesColumns;"></tr>
+                    <tr mat-row [ngClass]="{'greenClass': row.paymentType === 3, 'redClass': row.paymentType === 4}" *matRowDef="let row; columns: paymentHistoriesColumns;"></tr>
                 </table>
             </div>
             <div>

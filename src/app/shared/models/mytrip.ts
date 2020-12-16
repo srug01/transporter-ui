@@ -26,5 +26,7 @@ export interface Trip {
     isSelected? : boolean;
     isInvoiceGenerated?: boolean;
     invoiceId?: number;
+    transporterInvoiceGenerated?: boolean;
+    transporterInvoiceId?: number;
 
 }

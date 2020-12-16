@@ -34,6 +34,11 @@ export class InvoiceService {
       this.HttpUploadOptions);
   }
 
+  savetransporterInvoices(trip: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'generatetripinvoices', JSON.stringify(trip),
+      this.HttpUploadOptions);
+  }
+
   saveorderInvoices(order: ThreeparamObj): Observable<any> {
     return this.http.post<ThreeparamObj>(this.baseUrl + 'generateorderinvoices', JSON.stringify(order),
       this.HttpUploadOptions);

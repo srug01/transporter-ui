@@ -13,6 +13,7 @@ import { User } from 'src/app/shared/models/user';
 import { StartDialogComponent } from 'src/app/shared/startDialog/start-dialog.component';
 import { StausEnum } from '../../../shared/Enum/statusEnum';
 import * as moment from 'moment';
+import { InvoiceService } from '../../invoice/service/tripinvoice.service';
 @Component({
   selector: 'app-my-trips-list',
   templateUrl: './my-trips-list.component.html',
@@ -27,12 +28,15 @@ export class MyTripsListComponent implements OnInit {
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public tripMasters: Array<Trip> = [];
+  public roleId = parseInt(localStorage.getItem('roleID'), 10);
+  public userId = parseInt(localStorage.getItem('userID'), 10);
   constructor(
     private _tripService: TripService,
     private _snackBar: MatSnackBar,
     private _router: Router,
     public dialog: MatDialog,
-    public _userService: UserService
+    public _userService: UserService,
+    private _tripInvoiceService : InvoiceService,
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +61,23 @@ export class MyTripsListComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  generateInvoice() {
+    const selectedTrips = this.tripMasters.filter((trip) => {
+      return trip.transporterInvoiceGenerated === true;
+    });
+    /* this._tripInvoiceService.savetransporterInvoices(selectedTrips).subscribe(
+      (invoice) => {
+        this.openSnackBar('Status',invoice);
+        this.getAllTripsByUserId(this.userId);
+        //this.tripMasters = new MatTableDataSource(trips);
+        //this.tripMasters.sort = this.tripSort;
+      },
+      (err) => {
+        console.log(err);
+      }
+    ); */
+    console.log(selectedTrips);
   }
 
   openDialogForTripStart(ev, trip: Trip) {
