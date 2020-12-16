@@ -17,10 +17,12 @@ export class GridComponent {
     originalAmount: number;
     invoiceAmount: number;
     otherAmount: number;
-    transporterName: string;
-    transporterNumber: string;
-    transporterAddress: string;
-    transporterEmail: string;
+    cfsName: string;
+    cfsCode: string;
+    cfscontactNumber: string;
+    cfsEmail: string;
+    cfsAddress: string;
+    cfslandmark: string;
     createdBy: string;
     createdByNumber: string;
   displayedColumns: string[] = [
@@ -53,10 +55,12 @@ export class GridComponent {
             this.originalAmount = this.invoiceData[0].originalamount? this.invoiceData[0].originalamount : 0 ;
             this.otherAmount = this.invoiceData[0].otheramount? this.invoiceData[0].otheramount : 0;
             this.invoiceAmount = this.invoiceData[0].invoiceamount? this.invoiceData[0].invoiceamount : 0;
-            this.transporterName = this.invoiceData[0].TransporterName? this.invoiceData[0].TransporterName : "";
-            this.transporterEmail = this.invoiceData[0].transporterEmail? this.invoiceData[0].transporterEmail : "";
-            this.transporterNumber = this.invoiceData[0].transporterMobileNumber?this.invoiceData[0].transporterMobileNumber : "" ;
-            this.transporterAddress = this.invoiceData[0].transporterAddress?this.invoiceData[0].transporterAddress : "";
+            this.cfsName = this.invoiceData[0].cfsName? this.invoiceData[0].cfsName : "";
+            this.cfsCode = this.invoiceData[0].cfsCode? this.invoiceData[0].cfsCode : "";
+            this.cfscontactNumber = this.invoiceData[0].contactNumber?this.invoiceData[0].contactNumber : "" ;
+            this.cfsEmail = this.invoiceData[0].email?this.invoiceData[0].email : "" ;
+            this.cfsAddress = this.invoiceData[0].cfsAddress?this.invoiceData[0].cfsAddress : "";
+            this.cfslandmark = this.invoiceData[0].landmark?this.invoiceData[0].landmark : "";
             this.createdBy = this.invoiceData[0].CreatedBy? this.invoiceData[0].CreatedBy : "";
             this.createdByNumber = this.invoiceData[0].CreatedByNumber? this.invoiceData[0].CreatedByNumber : "";
 
