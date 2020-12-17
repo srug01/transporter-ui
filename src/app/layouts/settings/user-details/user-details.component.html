@@ -170,6 +170,23 @@
                       </div>
                       </td>
                   </ng-container>
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef class="table-title">Status</th>
+                    <td mat-cell *matCellDef="let element" class="table-row">
+                      <div *ngIf="element.paymentType === 3">
+                      Payment Received
+                    </div>
+                    <div *ngIf="element.paymentType === 2">
+                      Order : {{element.orderId}}
+                    </div>
+                    <div *ngIf="element.paymentType === 1">
+                      Credit Assigned
+                    </div>
+                    <div *ngIf="element.paymentType === 4">
+                      Available Limit Increased
+                    </div>
+                    </td>
+                </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="paymentHistoriesColumns"></tr>
                     <tr mat-row [ngClass]="{'greenClass': row.paymentType === 3, 'redClass': row.paymentType === 4}" *matRowDef="let row; columns: paymentHistoriesColumns;"></tr>

@@ -29,7 +29,7 @@ export class UserDetailsComponent implements OnInit {
   public currentUser: CfsUserRegistration;
   public userForm: FormGroup;
   public paymentHistoriesColumns: string[] = [
-    '#', 'Outstanding', 'AvailableLimit', 'creditLimit', 'createdOn','Amount'
+    '#', 'Outstanding', 'AvailableLimit', 'creditLimit', 'createdOn','Amount','Status'
   ];
   public paymentColumns: string[] = [
     '#', 'creditLimit', 'creditDate'
