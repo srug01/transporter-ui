@@ -249,4 +249,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
+  ngOnDestroy() {
+    console.log("destroy Called");
+     this.dashboard = null;
+    /*this.dashboard.Orders = [];
+    this.dashboard.SubOrders = [];
+    this.dashboard.Bids = [];
+    this.dashboard.Trips = []; */
+  }
+
 }
