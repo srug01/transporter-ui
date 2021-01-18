@@ -88,12 +88,12 @@ import { AuthResolver } from 'src/app/services/auth.resolver';
             canActivate: [AuthGuardService, RoleGuardService],
             data: { breadcrumb: 'invoice', roles: ['Admin'] }
           },
-          {
+          /* {
             path: 'emailtemplate', loadChildren: () => import('./../email-layout/email.module')
               .then(m => m.EmailModule),
             canActivate: [AuthGuardService, RoleGuardService],
             data: { breadcrumb: 'emailtemplate', roles: ['Admin'] }
-          }
+          } */
         ]
       }
       // { path: '**', component: AuthComponent, resolve: { authResolver: AuthResolver } }
