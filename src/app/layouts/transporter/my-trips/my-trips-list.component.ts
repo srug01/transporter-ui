@@ -66,7 +66,7 @@ export class MyTripsListComponent implements OnInit {
     const selectedTrips = this.tripMasters.filter((trip) => {
       return trip.transporterInvoiceGenerated === true;
     });
-    /* this._tripInvoiceService.savetransporterInvoices(selectedTrips).subscribe(
+    this._tripInvoiceService.savetransporterInvoices(selectedTrips).subscribe(
       (invoice) => {
         this.openSnackBar('Status',invoice);
         this.getAllTripsByUserId(this.userId);
@@ -76,7 +76,7 @@ export class MyTripsListComponent implements OnInit {
       (err) => {
         console.log(err);
       }
-    ); */
+    );
     console.log(selectedTrips);
   }
 

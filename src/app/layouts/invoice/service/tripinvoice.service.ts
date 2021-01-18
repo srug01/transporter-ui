@@ -35,7 +35,8 @@ export class InvoiceService {
   }
 
   savetransporterInvoices(trip: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'generatetripinvoices', JSON.stringify(trip),
+    console.log("API :" + JSON.stringify(trip));
+    return this.http.post<any>(this.baseUrl + 'generatetransportertripinvoices', JSON.stringify(trip),
       this.HttpUploadOptions);
   }
 

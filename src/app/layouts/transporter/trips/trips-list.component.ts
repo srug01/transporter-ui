@@ -25,7 +25,7 @@ export class TripsListComponent implements OnInit {
     'tripstatus', 'action'
   ];
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  public tripMasters: MatTableDataSource<Trip>;
+  public tripMasters: MatTableDataSource<any>;
   @ViewChild(MatSort) tripSort: MatSort;
   public userId = parseInt(localStorage.getItem('userID'), 10);
 

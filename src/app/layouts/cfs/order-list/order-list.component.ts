@@ -26,6 +26,7 @@ import { MasterTypeService } from '../services/master-type.service';
 import { UserRegistrationService } from '../services/user-registration.service';
 import * as _moment from 'moment';
 import { ThreeparamObj } from 'src/app/shared/models/threeparamObj';
+import { Subscription } from 'rxjs';
 // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
 
@@ -64,6 +65,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   public orders: MatTableDataSource<OrderDetails>;
   public currentUser: User;
   public users: User[] = [];
+  public subscription: Subscription;
   // public orderUserIds: Array<{ id: number }> = null;
   public cfsMasters: Cfs[] = [];
   public portMasters: Port[] = [];
@@ -139,7 +141,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       currentUserId: this.userId
     };
     //  console.log(JSON.stringify(filter));
-    this._orderService.getOrderListForFilters(filter).subscribe(
+    this.subscription = this._orderService.getOrderListForFilters(filter).subscribe(
       (orders) => {
         this.orders = new MatTableDataSource<OrderDetails>(orders);
         this.orders.sort = this.sort;
@@ -369,6 +371,11 @@ export class OrderListComponent implements OnInit, AfterViewInit {
         return `${this.users[i].email}`;
       }
     }
+  }
+
+  ngOnDestroy() {
+    console.log("destroy Called");
+    this.subscription.unsubscribe();
   }
 
 }
